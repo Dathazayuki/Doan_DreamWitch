@@ -7,7 +7,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Giao diện Unity Editor thiết lập thực tế cấu trúc component của nhân vật}}{12}{figure.caption.16}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Giao diện thiết kế các nút hội thoại (Node) trong Yarn Editor}}{13}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Mô hình khung xương và lưới đa giác (Skeletal Mesh) của nhân vật thiết kế trong phần mềm Spine}}{14}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Mô hình khung xương của nhân vật thiết kế trong phần mềm Spine}}{14}{figure.caption.18}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Lưới đồ thị di chuyển (Grid Graph) hiển thị trực quan dạng Gizmos trong Unity Scene View}}{15}{figure.caption.19}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Sơ đồ luồng màn hình và vòng lặp cốt lõi của trò chơi}}{17}{figure.caption.20}%

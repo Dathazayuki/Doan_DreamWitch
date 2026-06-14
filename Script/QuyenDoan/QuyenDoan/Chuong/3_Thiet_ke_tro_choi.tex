@@ -16,7 +16,7 @@
         \item \textit{Thử thách chiến thuật (Tactical Combat):} Đối đầu với kẻ địch sở hữu trí tuệ nhân tạo (AI) thông minh, đòi hỏi người chơi phân tích quy luật và áp dụng tư duy chiến thuật thay vì hành vi tấn công tuyến tính.
     \end{itemize}
     \item \textbf{Khẩu hiệu (Tagline):} ``Nơi giấc mơ thức tỉnh, nỗi sợ tan biến''. 
-    \item \textbf{Phong cách đồ họa (Graphic Style):} Trò chơi áp dụng phong cách nghệ thuật phẳng độc đáo kết hợp yếu tố kỳ ảo tăm tối (Stylish 2D Dark Fantasy). Không gian đồ họa thể hiện sự tương phản rõ nét giữa mảng màu u tối của phân khu Di tích (Ruin) với sắc đỏ rực mang tính đe dọa của phân khu Núi lửa (Volcano). Quy trình diễn họa chuyển động (Animation) của các thực thể được tối ưu hóa dựa trên Spine 2D để đảm bảo sự mượt mà và chân thực cao.
+    \item \textbf{Phong cách đồ họa (Graphic Style):} Trò chơi áp dụng phong cách nghệ thuật phẳng độc đáo kết hợp yếu tố kỳ ảo tăm tối (Stylish 2D Dark Fantasy). Không gian đồ họa thể hiện sự tương phản rõ nét giữa mảng màu u tối của phân khu Di tích (Ruin) với sắc đỏ rực mang tính đe dọa của phân khu Núi lửa (Volcano). Quy trình diễn họa chuyển động (Animation) của các thực thể trùm (Boss) được tối ưu hóa dựa trên Spine 2D để đảm bảo sự mượt mà và chân thực cao. Đối với nhân vật chính (Player) và các quái vật thông thường, trò chơi sử dụng hệ thống Animator mặc định của Unity kết hợp cơ chế nạp chuỗi ký tự trực tiếp (string-based loading) để phát hoạt ảnh mà không qua các tham số điều kiện chuyển cảnh phức tạp.
 \end{itemize}
 
 \subsection{Luồng trò chơi và Vòng lặp cốt lõi}
@@ -125,7 +125,7 @@ Nhân vật chính được tích hợp một tập hợp các hành động tư
     \item \textbf{Hành động chiến đấu cận chiến:} Thực hiện chuỗi liên hoàn 3 đòn tấn công cận chiến (3-hit combo) gây sát thương vật lý và đẩy lùi (knockback) kẻ địch tầm gần.
     \item \textbf{Hành động thi triển phép thuật (Spells):} Tiêu tốn Năng lượng (MP) để bắn các luồng đạn phép tầm xa hoặc kích hoạt giáp bảo vệ thông qua lớp điều phối \texttt{SpellUseSystem}.
     \item \textbf{Sử dụng vật phẩm hồi phục và công cụ (Potions \& Tools):} Sử dụng bình hồi máu (Heal Potions) để hồi HP tức thời và kích hoạt các công cụ hỗ trợ đặc thù (Tools) mua từ Shopkeeper để giải quyết các tình huống chiến thuật.
-    \item \textbf{Chuyển đổi hình dạng (Form Switch):} Lớp \texttt{PlayerFormManager} hỗ trợ người chơi chuyển đổi linh hoạt dạng linh hồn của nhân vật trong đội hình, thay đổi tức thời bộ chỉ số thuộc tính và hoạt ảnh Spine tương ứng.
+    \item \textbf{Chuyển đổi hình dạng (Form Switch):} Lớp \texttt{PlayerFormManager} hỗ trợ người chơi chuyển đổi linh hoạt dạng linh hồn của nhân vật trong đội hình, thay đổi tức thời bộ chỉ số thuộc tính và nạp Runtime Animator Controller tương ứng để thay đổi tập hợp hoạt ảnh của dạng mới.
 \end{itemize}
 
 \subsection{Luồng màn hình và Phân loại Scene}
@@ -260,7 +260,7 @@ Nhân vật chính được điều khiển trực tiếp bởi người chơi l
     \label{fig:cac_hinh_dang_nhan_vat}
 \end{figure}
 
-Mỗi hình dạng (Form) sở hữu một bộ hoạt ảnh di chuyển/chiến đấu Spine riêng, chỉ số sinh lực (HP), sát thương cơ bản và các kỹ năng đặc thù:
+Mỗi hình dạng (Form) sở hữu một bộ hoạt ảnh di chuyển/chiến đấu riêng (nạp qua Animator Controller riêng của từng dạng), chỉ số sinh lực (HP), sát thương cơ bản và các kỹ năng đặc thù:
 \begin{enumerate}
     \item \textbf{Dạng Người (Human Form):} Dạng cơ bản. Tấn công cận chiến bằng kiếm với chuỗi combo 3 đòn chém linh hoạt và có khả năng thi triển các phép thuật tầm xa (Spells) đã trang bị từ sách phép cổ.
     \item \textbf{Dạng Chó Xương (BoneDog Form - Em0010):} Mở khóa sau khi đánh bại BoneDog. Tốc độ chạy cao nhất, có khả năng lướt nhanh (Dash) và thực hiện các đòn tấn công vồ cắn mục tiêu liên tiếp (\texttt{Bite}, \texttt{Lick}, \texttt{Tackle}), phù hợp để thăm dò và né tránh chướng ngại nhanh.

@@ -36,7 +36,7 @@ Engine phát triển game & Unity Editor (6000.0.40f1 LTS) & \url{https://unity.
 Trình soạn thảo mã nguồn & Visual Studio Code (v1.90+) & \url{https://code.visualstudio.com/} \\ \hline
 Trợ lý lập trình AI & Antigravity (DeepMind Agent) & N/A (Tích hợp trong môi trường phát triển) \\ \hline
 Hệ thống hội thoại & Yarn Spinner for Unity (v2.3.0) & \url{https://yarnspinner.dev/} \\ \hline
-Diễn họa nhân vật 2D & Spine 2D Runtime (v4.2) & \url{https://esotericsoftware.com/} \\ \hline
+Diễn họa Boss 2D & Spine 2D Runtime (v4.2) & \url{https://esotericsoftware.com/} \\ \hline
 Giải thuật tìm đường & A* Pathfinding Project (v4.2.17) & \url{https://arongranberg.com/astar/} \\ \hline
 Quản lý phiên bản & Git \& GitHub Desktop & \url{https://github.com/} \\ \hline
 Thiết kế đồ họa và Sprite & Adobe Photoshop \& Aseprite & \url{https://www.aseprite.org/} \\ \hline
@@ -93,7 +93,7 @@ Trong quá trình thám hiểm Ruin, nhân vật đối đầu với quái vật
 \end{itemize}
 
 \textbf{Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa (Form Switch \& Spellcasting)}
-Tại các điểm đánh dấu đặc biệt trong di tích, người chơi tương tác với các xác cổ của sinh vật hắc ám để hấp thụ sức mạnh và mở khóa cơ chế biến dạng (Form Switch). Khi nhấn phím chuyển dạng, nhân vật phù thủy chuyển đổi ngoại hình (Spine Animation chạy mượt mà để thay đổi Sprite và tỉ lệ cơ thể) sang hình thái quái vật lửa hoặc chiến binh, cho phép thi triển các phép thuật tầm xa mạnh mẽ vượt qua các dòng sông axit hiểm trở dẫn sang phân khu Núi lửa (Volcano).
+Tại các điểm đánh dấu đặc biệt trong di tích, người chơi tương tác với các xác cổ của sinh vật hắc ám để hấp thụ sức mạnh và mở khóa cơ chế biến dạng (Form Switch). Khi nhấn phím chuyển dạng, nhân vật phù thủy chuyển đổi ngoại hình (Animator Controller thay đổi lập tức thông qua string-based loading để đổi bộ hoạt ảnh và thay đổi Sprite vật lý tương ứng của form mới) sang hình thái quái vật lửa hoặc chiến binh, cho phép thi triển các phép thuật tầm xa mạnh mẽ vượt qua các dòng sông axit hiểm trở dẫn sang phân khu Núi lửa (Volcano).
 \begin{itemize}
     \item \textit{\% NOTE: Chèn ảnh chụp thực tế hiệu ứng biến đổi hình thái nhân vật (Form Switch) thay đổi từ phù thủy sang dạng quái vật lửa cường hóa.}
     \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật thi triển phép thuật tầm xa (Spellcasting) tiêu diệt quái vật hoặc kích hoạt cơ cấu môi trường tại phân khu Núi lửa (Volcano Map).}
@@ -120,7 +120,7 @@ TC-01 & Di chuyển cơ bản & Nhấn giữ phím \texttt{A/D} trên bàn phím
 TC-02 & Nhảy đôi (Double Jump) & Nhấn phím \texttt{Space} lần một, tiếp tục nhấn \texttt{Space} khi nhân vật ở trên không. & Thực hiện cú nhảy thứ hai tạo lực đẩy dọc đi lên, tiêu hao 10 Stamina, chạy animation nhảy đôi. \\ \hline
 TC-03 & Leo tường (Wall Climb) & Nhấn phím \texttt{W} kết hợp giữ phím hướng \texttt{A/D} bám sát vào tường thẳng đứng. & Nhân vật bám chặt vách tường, di chuyển đi lên đều đặn, tiêu hao Stamina liên tục. Khi nhả \texttt{A/D} hoặc hết Stamina nhân vật tự động rơi xuống. \\ \hline
 TC-04 & Kích hoạt biến hình & Di chuyển tới xác cổ thực thể và nhấn tương tác để hấp thụ, mở khóa Form Switch. & Hệ thống kích hoạt khóa kỹ năng, hiển thị thông báo mở khóa dạng chuyển đổi mới thành công. \\ \hline
-TC-05 & Thực thi Form Switch & Nhấn phím chuyển dạng (\texttt{LShift}) khi đang đứng yên hoặc di chuyển. & Nhân vật đổi ngoại hình Spine Sprite lập tức, các thuộc tính (Max HP, tốc độ chạy) được cập nhật lại theo cấu hình của dạng mới. \\ \hline
+TC-05 & Thực thi Form Switch & Nhấn phím chuyển dạng (\texttt{Tab}) khi đang đứng yên hoặc di chuyển. & Nhân vật đổi cấu hình Animator và Sprite lập tức, các thuộc tính (Max HP, tốc độ chạy) được cập nhật lại theo cấu hình của dạng mới. \\ \hline
 TC-06 & Lưu game tại đền thờ & Di chuyển nhân vật đến gần Đền thờ hồi sinh và nhấn phím tương tác để lưu dữ liệu. & Hệ thống ghi nhận trạng thái game, xuất ra tệp \texttt{save\_slot\_0.json} lưu trữ chính xác vị trí, chỉ số vàng và tiến trình nâng cấp kỹ năng. \\ \hline
 TC-07 & Tải lại tiến trình & Khởi chạy lại game, chọn "Continue" và chọn slot lưu trữ tương ứng. & Đọc thành công tệp tin JSON, khôi phục nhân vật xuất hiện đúng vị trí Đền thờ đã lưu với đầy đủ lượng vàng và thuộc tính. \\ \hline
 \end{tabular}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.7)  14 JUN 2026 20:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.7)  14 JUN 2026 23:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2111,23 +2111,21 @@ Ch\uhorn \ohorn ng 3.
 File: Hinhve/UnityEditor.png Graphic file (type png)
 <use Hinhve/UnityEditor.png>
 Package pdftex.def Info: Hinhve/UnityEditor.png  used on input line 16.
-(pdftex.def)             Requested size: 208.06137pt x 116.98708pt.
+(pdftex.def)             Requested size: 325.12712pt x 182.80988pt.
 LaTeX Font Info:    Trying to load font information for T5+pcr on input line 24
 .
 
 (C:\Users\trinh\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5pcr.fd
 File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
 )
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [12
+[12
 
  <./Hinhve/UnityEditor.png>]
 <Hinhve/YarnEditor.png, id=989, 1252.68pt x 959.585pt>
 File: Hinhve/YarnEditor.png Graphic file (type png)
 <use Hinhve/YarnEditor.png>
 Package pdftex.def Info: Hinhve/YarnEditor.png  used on input line 31.
-(pdftex.def)             Requested size: 152.72351pt x 116.99013pt.
+(pdftex.def)             Requested size: 267.27571pt x 204.74005pt.
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -2141,15 +2139,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 File: Hinhve/SpineEditor.png Graphic file (type png)
 <use Hinhve/SpineEditor.png>
 Package pdftex.def Info: Hinhve/SpineEditor.png  used on input line 46.
-(pdftex.def)             Requested size: 207.98355pt x 116.99074pt.
-<Hinhve/AstarGridGraph.png, id=1003, 1468.48625pt x 970.62625pt>
-File: Hinhve/AstarGridGraph.png Graphic file (type png)
-<use Hinhve/AstarGridGraph.png>
-Package pdftex.def Info: Hinhve/AstarGridGraph.png  used on input line 61.
-(pdftex.def)             Requested size: 176.995pt x 116.9885pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+(pdftex.def)             Requested size: 363.99571pt x 204.74757pt.
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -2158,7 +2148,13 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
 
-[14 <./Hinhve/SpineEditor.png>])
+[14 <./Hinhve/SpineEditor.png>]
+<Hinhve/AstarGridGraph.png, id=1009, 1468.48625pt x 970.62625pt>
+File: Hinhve/AstarGridGraph.png Graphic file (type png)
+<use Hinhve/AstarGridGraph.png>
+Package pdftex.def Info: Hinhve/AstarGridGraph.png  used on input line 61.
+(pdftex.def)             Requested size: 309.75806pt x 204.74097pt.
+)
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
 (fancyhdr)                Make it at least 15.977pt, for example:
@@ -3319,16 +3315,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--123
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--123
-[]|\T5/ptm/m/n/13 Nh§n ph½m chuyºn
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 123--123
-\T5/ptm/m/n/13 d¤ng (\T5/pcr/m/n/13 LShift\T5/ptm/m/n/13 ) khi
- []
-
-
 Underfull \hbox (badness 5741) in paragraph at lines 124--124
 []|\T5/ptm/m/n/13 H» thèng ghi nhªn tr¤ng
  []
@@ -3638,7 +3624,7 @@ Package logreq Info: Writing requests to 'DoAn.run.xml'.
 Here is how much of TeX's memory you used:
  47269 strings out of 467871
  932875 string characters out of 5418377
- 1944344 words of memory out of 5000000
+ 1944306 words of memory out of 5000000
  74974 multiletter control sequences out of 15000+600000
  677022 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -3657,7 +3643,7 @@ ppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/ucrr8v.pfb><C:/Users/trinh
 nh/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/tri
 nh/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Users/t
 rinh/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmri8v.pfb>
-Output written on DoAn.pdf (95 pages, 6023689 bytes).
+Output written on DoAn.pdf (95 pages, 6024627 bytes).
 PDF statistics:
  1646 PDF objects out of 1728 (max. 8388607)
  381 named destinations out of 1000 (max. 500000)
