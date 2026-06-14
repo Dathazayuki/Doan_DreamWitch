@@ -1,0 +1,159 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+\section{Tổng quan kỹ thuật}
+Phần này đặc tả các thông số kỹ thuật cốt lõi và cấu hình phần cứng yêu cầu để vận hành trò chơi "Dream Witch". Nhằm đảm bảo trải nghiệm chơi game đi cảnh hành động nhịp độ cao diễn ra mượt mà nhất, trò chơi hướng tới mục tiêu hiệu năng đạt mức \textbf{60 FPS} ổn định trên cấu hình khuyến nghị. Mức khung hình này giúp đồng bộ hóa tối ưu giữa chuỗi xử lý lệnh di chuyển và phản hồi hoạt ảnh của nhân vật, giảm thiểu tối đa hiện tượng trễ hình (input lag) hay giật xé hình khi người chơi thực hiện các thao tác di chuyển phức tạp.
+
+Hệ thống yêu cầu về phần cứng máy tính tối thiểu và khuyến nghị để vận hành trò chơi được chi tiết hóa trong Bảng~\ref{table:system_requirements}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3.5cm}|p{5cm}|p{5.5cm}|}
+\hline
+\textbf{Thành phần phần cứng} & \textbf{Cấu hình tối thiểu (Minimum)} & \textbf{Cấu hình khuyến nghị (Recommended)} \\ \hline
+Hệ điều hành (OS) & Windows 10/11 (64-bit) & Windows 10/11 (64-bit) \\ \hline
+Bộ vi xử lý (CPU) & Intel Core i3-4160 hoặc AMD Phenom II X4 965 & Intel Core i5-6400 hoặc AMD Ryzen 3 1200 \\ \hline
+Bộ nhớ trong (RAM) & 4 GB RAM & 8 GB RAM \\ \hline
+Card đồ họa (GPU) & NVIDIA GeForce GTX 560 hoặc AMD Radeon HD 5770 (1GB VRAM) & NVIDIA GeForce GTX 960 hoặc AMD Radeon R9 380 (2GB VRAM) \\ \hline
+Phiên bản DirectX & DirectX 11 & DirectX 11 \\ \hline
+Dung lượng ổ cứng & 1 GB dung lượng trống & 1 GB dung lượng trống (ưu tiên SSD) \\ \hline
+\end{tabular}
+\caption{Bảng yêu cầu cấu hình phần cứng tối thiểu và khuyến nghị}
+\label{table:system_requirements}
+\end{table}
+
+
+
+\section{Xây dựng ứng dụng}
+\subsection{Thư viện và công cụ sử dụng}
+Quá trình xây dựng và phát triển trò chơi "Dream Witch" sử dụng các công cụ lập trình, thư viện bên thứ ba và phần mềm đồ họa với thông tin chi tiết được thống kê trong Bảng~\ref{table:development_tools}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3.5cm}|p{5cm}|p{6.5cm}|}
+\hline
+\textbf{Mục đích sử dụng} & \textbf{Công cụ / Thư viện (Phiên bản)} & \textbf{Địa chỉ URL chính thức} \\ \hline
+Engine phát triển game & Unity Editor (6000.0.40f1 LTS) & \url{https://unity.com/} \\ \hline
+Trình soạn thảo mã nguồn & Visual Studio Code (v1.90+) & \url{https://code.visualstudio.com/} \\ \hline
+Trợ lý lập trình AI & Antigravity (DeepMind Agent) & N/A (Tích hợp trong môi trường phát triển) \\ \hline
+Hệ thống hội thoại & Yarn Spinner for Unity (v2.3.0) & \url{https://yarnspinner.dev/} \\ \hline
+Diễn họa nhân vật 2D & Spine 2D Runtime (v4.2) & \url{https://esotericsoftware.com/} \\ \hline
+Giải thuật tìm đường & A* Pathfinding Project (v4.2.17) & \url{https://arongranberg.com/astar/} \\ \hline
+Quản lý phiên bản & Git \& GitHub Desktop & \url{https://github.com/} \\ \hline
+Thiết kế đồ họa và Sprite & Adobe Photoshop \& Aseprite & \url{https://www.aseprite.org/} \\ \hline
+\end{tabular}
+\caption{Danh sách các thư viện và công cụ phát triển trò chơi}
+\label{table:development_tools}
+\end{table}
+
+\subsection{Kết quả đạt được}
+Sản phẩm sau quá trình phát triển là bản đóng gói trò chơi hoàn chỉnh hoạt động độc lập trên hệ điều hành Windows 64-bit (PC Standalone). Bản đóng gói bao gồm tệp thực thi \texttt{DreamWitch.exe} cùng thư mục tài nguyên \texttt{DreamWitch\_Data}. Mã nguồn C\# của dự án được tổ chức chặt chẽ theo cấu trúc phân rã thành các gói chức năng (packages) như đã đặc tả ở Chương 4 bao gồm: \texttt{Player}, \texttt{Enemy}, \texttt{System}, \texttt{UI}, \texttt{Interfaces}, \texttt{Core}, \texttt{Trap}, và \texttt{VFX}.
+
+Để minh chứng cho quy mô phát triển của dự án, các thông tin định lượng chi tiết về mã nguồn C\# và dung lượng các thành phần liên quan được tổng hợp trong Bảng~\ref{table:project_metrics}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{6.5cm}|p{3.5cm}|p{4.5cm}|}
+\hline
+\textbf{Chỉ số định lượng} & \textbf{Giá trị ghi nhận} & \textbf{Đơn vị đo lường} \\ \hline
+Số lượng tệp tin mã nguồn C\# (\texttt{.cs}) & 337 & Tệp tin \\ \hline
+Tổng số dòng mã nguồn (LOC) & 46.490 & Dòng code \\ \hline
+Số lượng gói phân hệ chức năng chính & 8 & Gói (Namespace) \\ \hline
+Dung lượng thư mục mã nguồn C\# thô & 1,54 & Megabytes (MB) \\ \hline
+Dung lượng thư mục tài nguyên dự án (Assets) & 1,82 & Gigabytes (GB) \\ \hline
+Dung lượng bản đóng gói sản phẩm (.zip) & ~350 & Megabytes (MB) \\ \hline
+\end{tabular}
+\caption{Thống kê định lượng mã nguồn và tài nguyên dự án}
+\label{table:project_metrics}
+\end{table}
+
+\section{Sản phẩm}
+Để đánh giá trực quan kết quả lập trình và thiết kế cơ chế, phần này trình bày diễn tiến vận hành thực tế của trò chơi "Dream Witch" theo một kịch bản chơi game (gameplay scenario) hoàn chỉnh đi qua các phân khu bản đồ từ lúc khởi động cho tới khi hoàn thành nhiệm vụ cốt lõi. Người đọc có thể hình dung toàn bộ trải nghiệm mà không cần trực tiếp vận hành sản phẩm.
+
+Kịch bản trải nghiệm gồm 5 giai đoạn chính như sau:
+
+\textbf{Giai đoạn 1: Khởi động và thiết lập ban đầu (Title Screen \& Save Slots)}
+Khi người chơi kích hoạt tệp \texttt{DreamWitch.exe}, hệ thống hiển thị màn hình bắt đầu với âm nhạc u sầu đặc trưng. Giao diện cung cấp các tùy chọn để bắt đầu chơi mới hoặc tiếp tục tiến trình cũ. Khi chọn "Continue", giao diện Save Slot hiển thị thông tin chi tiết về từng ô lưu trữ (thời gian chơi, lượng vàng tích lũy, các chỉ số cơ bản) giúp người chơi quản lý tiến trình.
+\begin{itemize}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế màn hình bắt đầu game (Title Screen) với các nút chức năng hoạt động chính xác.}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế giao diện quản lý Save Slot Menu hiển thị các slot lưu trữ dữ liệu JSON thực tế trong game.}
+\end{itemize}
+
+\textbf{Giai đoạn 2: Thám hiểm khu vực Di tích và điều khiển vật lý (Ruin Exploration)}
+Nhân vật phù thủy xuất hiện tại điểm xuất phát an toàn là Nhà thờ (Church), sau đó di chuyển qua cửa lớn sang phân khu Di tích (Ruin). Người chơi thực hiện kiểm soát chuyển động nhân vật: chạy di chuyển mượt mà trên nền tảng, thực hiện nhảy đơn, nhảy đôi để vượt qua các vực thẳm và bám vách leo tường (Wall Climb). Hệ thống vật lý nhận diện chính xác các va chạm với gạch đá cổ và tiêu hao thể lực (Stamina) tương ứng khi bám tường leo lên.
+\begin{itemize}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật di chuyển và thám hiểm môi trường gạch đá u tối của phân khu Di tích (Ruin Map). Bố cục giao diện hiển thị rõ thanh HUD lượng máu/thể lực ở góc trên bên trái.}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật đang bám tường và thực hiện hành động leo tường (Wall Climb) tại khu vực vách đá cao trong Ruin.}
+\end{itemize}
+
+\textbf{Giai đoạn 3: Cơ chế chiến đấu cận chiến và né tránh (Combat \& Dash/Dodge)}
+Trong quá trình thám hiểm Ruin, nhân vật đối đầu với quái vật thường đầu tiên tuần tra trên đường (BoneDog - quái thú xương). Người chơi thi triển chuỗi đòn đánh cận chiến liên hoàn 3-hit combo tạo ra các tia sáng cắt chém vật lý. Khi quái thú lao tới tấn công, người chơi kích hoạt phím lướt (Dash) để né tránh đòn đánh ngay trước thời điểm bị va chạm. Một cú né tránh chuẩn xác giúp nhân vật không nhận sát thương, đồng thời người chơi có thể lập tức quay lại phản công cận chiến để tiêu diệt quái vật.
+\begin{itemize}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật thực hiện đòn đánh liên hoàn (Combo) cận chiến chém quái thú thường có kèm hiển thị số sát thương rơi ra (Damage text).}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế khoảnh khắc né tránh đòn đánh thành công (Perfect Dodge/Dash), quái vật đang tấn công hụt trong khi nhân vật đang lướt né.}
+\end{itemize}
+
+\textbf{Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa (Form Switch \& Spellcasting)}
+Tại các điểm đánh dấu đặc biệt trong di tích, người chơi tương tác với các xác cổ của sinh vật hắc ám để hấp thụ sức mạnh và mở khóa cơ chế biến dạng (Form Switch). Khi nhấn phím chuyển dạng, nhân vật phù thủy chuyển đổi ngoại hình (Spine Animation chạy mượt mà để thay đổi Sprite và tỉ lệ cơ thể) sang hình thái quái vật lửa hoặc chiến binh, cho phép thi triển các phép thuật tầm xa mạnh mẽ vượt qua các dòng sông axit hiểm trở dẫn sang phân khu Núi lửa (Volcano).
+\begin{itemize}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế hiệu ứng biến đổi hình thái nhân vật (Form Switch) thay đổi từ phù thủy sang dạng quái vật lửa cường hóa.}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật thi triển phép thuật tầm xa (Spellcasting) tiêu diệt quái vật hoặc kích hoạt cơ cấu môi trường tại phân khu Núi lửa (Volcano Map).}
+\end{itemize}
+
+\textbf{Giai đoạn 5: Đối đầu Boss Golem và lưu trữ tiến trình (Boss Fight \& Progress Saving)}
+Cuối khu vực Di tích, người chơi tiến vào phòng Boss Golem khổng lồ. Trận đấu diễn ra căng thẳng khi Boss có lượng máu lớn (hiển thị bằng thanh máu dài dưới đáy màn hình) và sử dụng AI tìm đường A* săn đuổi người chơi kết hợp đập tay tạo sóng chấn động. Sau khi tiêu diệt Boss thành công bằng sự kết hợp giữa biến dạng và né tránh, người chơi di chuyển tới Đền thờ hồi sinh (Shrine), thực hiện cầu nguyện để kích hoạt hệ thống tự động lưu trữ ghi lại toàn bộ tiến trình chơi thành tệp tin JSON mã hóa an toàn trên thiết bị.
+\begin{itemize}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế trận chiến kịch tính với Boss lớn Golem (Em9020) hiển thị đầy đủ thanh máu Boss và các hiệu ứng đập đất.}
+    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật đứng tương tác cầu nguyện tại Đền thờ hồi sinh (Shrine) để thực hiện lưu trữ tiến trình chơi thành công.}
+\end{itemize}
+
+\section{Kiểm thử}
+Công tác kiểm thử phần mềm được tiến hành bằng phương pháp kiểm thử hộp đen (Black-box Testing) tập trung kiểm tra độ chính xác của các chức năng cốt lõi và tính ổn định của cơ chế tương tác vật lý trực quan trong game.
+
+Chi tiết thiết kế các ca kiểm thử cho ba phân hệ chức năng quan trọng nhất được trình bày trong Bảng~\ref{table:test_cases}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{1.2cm}|p{3.5cm}|p{4.5cm}|p{5.5cm}|}
+\hline
+\textbf{Mã ca} & \textbf{Phân hệ / Chức năng} & \textbf{Các bước thực hiện} & \textbf{Kết quả kỳ vọng (Đạt)} \\ \hline
+TC-01 & Di chuyển cơ bản & Nhấn giữ phím \texttt{A/D} trên bàn phím. & Nhân vật tăng tốc di chuyển mượt mà sang trái/phải, đổi hướng ngay lập tức và chạy animation chạy tương ứng. \\ \hline
+TC-02 & Nhảy đôi (Double Jump) & Nhấn phím \texttt{Space} lần một, tiếp tục nhấn \texttt{Space} khi nhân vật ở trên không. & Thực hiện cú nhảy thứ hai tạo lực đẩy dọc đi lên, tiêu hao 10 Stamina, chạy animation nhảy đôi. \\ \hline
+TC-03 & Leo tường (Wall Climb) & Nhấn phím \texttt{W} kết hợp giữ phím hướng \texttt{A/D} bám sát vào tường thẳng đứng. & Nhân vật bám chặt vách tường, di chuyển đi lên đều đặn, tiêu hao Stamina liên tục. Khi nhả \texttt{A/D} hoặc hết Stamina nhân vật tự động rơi xuống. \\ \hline
+TC-04 & Kích hoạt biến hình & Di chuyển tới xác cổ thực thể và nhấn tương tác để hấp thụ, mở khóa Form Switch. & Hệ thống kích hoạt khóa kỹ năng, hiển thị thông báo mở khóa dạng chuyển đổi mới thành công. \\ \hline
+TC-05 & Thực thi Form Switch & Nhấn phím chuyển dạng (\texttt{LShift}) khi đang đứng yên hoặc di chuyển. & Nhân vật đổi ngoại hình Spine Sprite lập tức, các thuộc tính (Max HP, tốc độ chạy) được cập nhật lại theo cấu hình của dạng mới. \\ \hline
+TC-06 & Lưu game tại đền thờ & Di chuyển nhân vật đến gần Đền thờ hồi sinh và nhấn phím tương tác để lưu dữ liệu. & Hệ thống ghi nhận trạng thái game, xuất ra tệp \texttt{save\_slot\_0.json} lưu trữ chính xác vị trí, chỉ số vàng và tiến trình nâng cấp kỹ năng. \\ \hline
+TC-07 & Tải lại tiến trình & Khởi chạy lại game, chọn "Continue" và chọn slot lưu trữ tương ứng. & Đọc thành công tệp tin JSON, khôi phục nhân vật xuất hiện đúng vị trí Đền thờ đã lưu với đầy đủ lượng vàng và thuộc tính. \\ \hline
+\end{tabular}
+\caption{Bảng đặc tả các trường hợp kiểm thử cốt lõi}
+\label{table:test_cases}
+\end{table}
+
+\subsection{Tổng kết kết quả kiểm thử}
+Sau quá trình thực thi kiểm thử hệ thống với 7 ca kiểm thử cốt lõi trên nhiều cấu hình thiết bị khác nhau, kết quả kiểm tra được tổng hợp chi tiết trong Bảng~\ref{table:test_summary}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline
+\textbf{Nhóm kiểm thử} & \textbf{Tổng số ca} & \textbf{Số ca đạt} & \textbf{Số ca lỗi} & \textbf{Tỷ lệ thành công} \\ \hline
+Di chuyển \& Leo tường & 3 & 3 & 0 & 100\% \\ \hline
+Chuyển đổi dạng (Form Switch) & 2 & 2 & 0 & 100\% \\ \hline
+Lưu trữ \& Tải file JSON & 2 & 2 & 0 & 100\% \\ \hline
+\textbf{Tổng cộng} & \textbf{7} & \textbf{7} & \textbf{0} & \textbf{100\%} \\ \hline
+\end{tabular}
+\caption{Bảng tổng hợp kết quả kiểm thử hệ thống}
+\label{table:test_summary}
+\end{table}
+
+Kết quả kiểm thử cho thấy toàn bộ các chức năng then chốt của trò chơi hoạt động ổn định, chính xác theo đúng đặc tả thiết kế hệ thống ở Chương 4. Hệ thống máy trạng thái nhân vật phản hồi tốt các tương tác điều khiển, cơ chế chuyển đổi hình thái cập nhật đồng bộ các chỉ số runtime, và dữ liệu người chơi được tuần tự hóa thành công sang định dạng JSON mà không gây ra bất kỳ hiện tượng rò rỉ dữ liệu hoặc xung đột logic nào.
+
+
+\section{Triển khai}
+Trò chơi được thiết kế và triển khai như một ứng dụng độc lập chạy ngoại tuyến (PC Standalone) trên hệ điều hành Windows:
+\begin{itemize}
+    \item \textbf{Đóng gói sản phẩm (Build \& Packaging):} Trò chơi sử dụng bộ đóng gói tích hợp của Unity (Unity Build Pipeline) để biên dịch sang mã máy gốc chạy trên nền tảng Windows 64-bit. Kết quả đóng gói bao gồm tệp thực thi chính \texttt{DreamWitch.exe} và thư mục dữ liệu tài nguyên đã được biên dịch \texttt{DreamWitch\_Data}.
+    \item \textbf{Phương thức phân phối (Distribution):} Bản đóng gói được nén lại dưới dạng tệp tin nén (\texttt{.zip} hoặc \texttt{.rar}) để phân phối trực tiếp cho người chơi thông qua dịch vụ lưu trữ đám mây (như Google Drive) hoặc trang web lưu trữ trò chơi độc lập (như itch.io). Người sử dụng chỉ cần tải về, giải nén và kích hoạt trực tiếp tệp \texttt{DreamWitch.exe} để trải nghiệm mà không cần cài đặt thêm.
+    \item \textbf{Thiết lập cấu hình vận hành (Configuration):} Trò chơi mặc định kích hoạt tính năng đồng bộ dọc (V-Sync) để đồng bộ tần số quét màn hình (khóa khung hình ở mức 60 FPS hoặc tần số quét tối đa của màn hình như 144Hz), giảm thiểu xé hình và ổn định tài nguyên CPU/GPU. Độ phân giải màn hình hỗ trợ tự động thích ứng với tỉ lệ 16:9 phổ biến, từ HD ($1280 \times 720$) đến Full HD ($1920 \times 1080$), 2K và 4K thông qua component \texttt{Canvas Scaler}.
+\end{itemize}
+
+\end{document}

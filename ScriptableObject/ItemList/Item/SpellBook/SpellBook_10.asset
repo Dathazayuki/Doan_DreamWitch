@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295349eb9061ac64a93011342fb14450, type: 3}
+  m_Name: SpellBook_10
+  m_EditorClassIdentifier: 
+  bookId: SpellBook_10
+  displayName: SpellBook_10
+  icon: {fileID: 21300000, guid: ef77be26ad3dd1e45b9f28bff555212f, type: 2}
+  description: "Gi\u1EA3i ph\xF3ng nh\u1EEFng \u0111\xF2n \u0111\xE1nh n\u1EB7ng
+    n\u1EC1 l\xE0m gia t\u0103ng m\u1EA1nh m\u1EBD 45% s\xE1t th\u01B0\u01A1ng \u0111\xF2n
+    \u0111\xE1nh th\u01B0\u1EDDng. \u0110\u1ED5i l\u1EA1i, tr\u1ECDng l\u01B0\u1EE3ng
+    c\u1EE7a tri th\u1EE9c c\u1EA5m k\u1EF5 khi\u1EBFn b\u1EA1n b\u1ECB gi\u1EA3m
+    15% t\u1ED1c \u0111\u1ED9 di chuy\u1EC3n."
+  healthBonus: 0
+  healthPercentBonus: 0
+  manaBonus: 0
+  basicAttackDamageMultiplier: 1.45
+  manaRegenPerHitBonus: 5
+  critChance: 0
+  critDamageMultiplierBonus: 0
+  skillDamageMultiplier: 1
+  skillCooldownReduction: 0
+  healthRegenBonus: 0
+  manaRegenBonus: 0
+  moveSpeedPercentBonus: -0.15
+  defenseBonus: 0

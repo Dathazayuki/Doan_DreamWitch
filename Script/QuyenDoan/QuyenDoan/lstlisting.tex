@@ -1,0 +1,43 @@
+\usepackage{xcolor}
+
+% Light Academic Syntax Highlighting Colors
+\definecolor{lightComment}{RGB}{0, 128, 0}      % Green
+\definecolor{lightKeyword}{RGB}{0, 0, 255}      % Blue
+\definecolor{lightControl}{RGB}{128, 0, 128}    % Purple
+\definecolor{lightString}{RGB}{163, 21, 21}     % Dark Red
+\definecolor{lightType}{RGB}{34, 139, 34}       % Forest Green
+\definecolor{lightLineNum}{RGB}{128, 128, 128}  % Gray
+
+\lstdefinestyle{light_academic}{
+    backgroundcolor=\color{white},   
+    commentstyle=\color{lightComment}\itshape,
+    stringstyle=\color{lightString},
+    numberstyle=\tiny\color{lightLineNum},
+    basicstyle=\ttfamily\footnotesize\color{black}, % Smaller than normal text (13pt)
+    breakatwhitespace=false,         
+    breaklines=true,                 % Auto-wrap long lines to prevent overflow
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=8pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=none,                      % Remove surrounding frame
+    % Standard Keywords (Blue)
+    classoffset=0,
+    morekeywords={public,private,protected,internal,void,int,float,double,bool,string,char,var,class,struct,enum,new,null,namespace,using,static,override,virtual,abstract,readonly,get,set},
+    keywordstyle=\color{lightKeyword}\bfseries,
+    % Control/Statement Keywords (Purple)
+    classoffset=1,
+    morekeywords={if,else,return,switch,case,default,break,continue,for,foreach,in,while,do,try,catch,finally,throw},
+    keywordstyle=\color{lightControl}\bfseries,
+    % Types & Classes (Teal/Cyan)
+    classoffset=2,
+    morekeywords={PlayerFormDataSO,GameSaveData,GameSaveManager,PlayerFormBodyRef,Collider2D,Vector3,Quaternion,DateTime,Time,JsonUtility,Path,Directory,File,Debug,Instantiate,GameObject,Transform,MonoBehaviour,System,UnityEngine},
+    keywordstyle=\color{lightType}\bfseries,
+    classoffset=0 % reset classoffset to avoid bugs
+}
+
+\lstset{style=light_academic}

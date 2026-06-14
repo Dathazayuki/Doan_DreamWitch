@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c58384b2aa46e78f21c8637974e06e, type: 3}
+  m_Name: Node5
+  m_EditorClassIdentifier: 
+  nodeId: Node5
+  displayName: "t\u0103ng s\xE1t th\u01B0\u01A1ng b\u1EA1o k\xEDch"
+  description: "t\u0103ng 30% sat th\u01B0\u01A1ng b\u1EA1o k\xEDch"
+  icon: {fileID: 21300000, guid: efa8114032201284d802cbd3a92b2c3b, type: 2}
+  requiredItem: {fileID: 11400000, guid: fa043d12a69b44c468dc10f26ff64a17, type: 2}
+  requiredItemQuantity: 1
+  prerequisiteNodeIds:
+  - Node4
+  effectType: 5
+  effectValue: 30

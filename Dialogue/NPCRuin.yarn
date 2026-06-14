@@ -1,0 +1,42 @@
+﻿title: CHIRPY
+tags:
+---
+Chirpy: Chà chà! Nhìn xem gió phương nào thổi tới một vị khách đặc biệt thế này? Một phù thủy... nhưng trên người lại chẳng có chút sát khí nào?"
+
+Chirpy: Đừng căng thẳng thế, cô gái trẻ! Ta là Chirpy. Ta không giống lũ quái vật thô lỗ, đần độn ngoài kia đâu. Đôi cánh này sinh ra là để ta bay lượn khắp các ngóc ngách của Hầm Ngục này để tìm kiếm những viên Diamond tuyệt đẹp, chứ không phải để đánh nhau!"
+
+Chirpy: Gặp được một người có thể trò chuyện ở cái nơi sặc mùi bụi đá này đúng là vận may của ta. Cô có muốn biết chút gì về nơi này không? Ta biết nhiều thứ lắm đấy nhé!"
+Chirpy: Ôi, bản năng đấy! Loài của ta không thể cưỡng lại những thứ lấp lánh, đặc biệt là những viên Diamond ẩn sâu trong các vách đá Hầm Ngục này. Chúng đẹp đẽ và thuần khiết hơn bất cứ thứ gì trên mặt đất!"
+
+Chirpy: Ta bay qua bay lại giữa khu Ruin lạnh lẽo này và vùng Volcano rực lửa suốt để tìm chúng. Này, phù thủy nhỏ, nếu trong lúc thám hiểm cô có nhặt được viên Diamond nào, nhớ giữ lại cho ta nhé! Ta sẽ đổi cho cô những món cổ vật ma pháp cực kỳ hữu dụng mà ta 'mượn' được từ các lăng mộ đấy. Đôi bên cùng có lợi, chịu không?"
+-> Một người chim? Tại sao cô lại đi tìm Kim cương ở nơi nguy hiểm này?
+    <<jump Node_1781120226471>>
+-> Khu vực Tàn Tích này có gì? Hãy nói cho tôi biết về Big Golem.
+    <<jump Node_1781120413367>>
+-> Tôi phải đi tiếp đây.
+    <<jump Node_1781120486911>>
+===
+
+title: Node_1781120226471
+position: -274,107
+---
+Chirpy: Ôi, bản năng đấy! Loài của ta không thể cưỡng lại những thứ lấp lánh, đặc biệt là những viên Diamond ẩn sâu trong các vách đá Hầm Ngục này. Chúng đẹp đẽ và thuần khiết hơn bất cứ thứ gì trên mặt đất!"
+
+Chirpy: Ta bay qua bay lại giữa khu Ruin lạnh lẽo này và vùng Volcano rực lửa suốt để tìm chúng. Này, phù thủy nhỏ, nếu trong lúc thám hiểm cô có nhặt được viên Diamond nào, nhớ giữ lại cho ta nhé! Ta đã đặt 1 két sắt tại làng Maronette , nếu ngươi bỏ Diamond vào đấy là có thể đổi được 1 sách phép lỹ thuật cực mạnh mà ta đã thu thập được đấy, chịu không ?
+===
+
+title: Node_1781120413367
+position: 279,103
+---
+Chirpy: Khu Ruin này vốn là một đại thánh đường cổ xưa. Cạm bẫy ma pháp thì nhiều vô kể, nhưng với một người biết bay như ta thì dễ như trở bàn tay. Có điều... gã khổng lồ ở sâu bên trong thì thực sự là một rắc rối lớn. Ý ta là Big Golem ấy."
+
+Chirpy: Gã đó to xác và hung tợn lắm. Dạo gần đây, Chúa Tể đã phong ấn vào ngực hắn một thứ năng lượng ánh sáng bạc rất kỳ lạ. Thứ đó khiến hắn gần như bất tử và cực kỳ điên cuồng, sẵn sàng nghiền nát bất cứ ai."
+
+Chirpy: Nhưng từ trên cao nhìn xuống, ta đã phát hiện ra một bí mật. Mỗi khi hắn dùng toàn lực nện hai nắm đấm xuống đất, lõi sáng bạc ở trước ngực hắn sẽ bị lộ ra trong vài giây do mất đà. Đó là cơ hội duy nhất của cô đấy, hãy nhắm thẳng vào đó mà tung phép nhé!"
+===
+
+title: Node_1781120486911
+position: -8,283
+---
+Chirpy: Được rồi, không làm phiền thời gian của cô nữa. Đi đứng cho cẩn thận đấy nhé, đừng để bị đè bẹp, ta sẽ tiếc một người bạn trò chuyện lắm đấy! Và... nhớ tìm Diamond cho ta nha!"
+===

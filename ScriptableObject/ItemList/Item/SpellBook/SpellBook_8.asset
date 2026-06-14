@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295349eb9061ac64a93011342fb14450, type: 3}
+  m_Name: SpellBook_8
+  m_EditorClassIdentifier: 
+  bookId: SpellBook_8
+  displayName: SpellBook_8
+  icon: {fileID: 21300000, guid: 743e79aaf9a4d2a4ab926c7aa1c964a5, type: 2}
+  description: "gia t\u0103ng th\xEAm 30% s\xE1t th\u01B0\u01A1ng \u0111\xF2n \u0111\xE1nh
+    th\u01B0\u1EDDng nh\u01B0ng l\xE0m gi\u1EA3m \u0111i 10% l\u01B0\u1EE3ng m\xE1u
+    t\u1ED1i \u0111a c\u1EE7a c\u01A1 th\u1EC3."
+  healthBonus: -0.1
+  healthPercentBonus: 0
+  manaBonus: 0
+  basicAttackDamageMultiplier: 1.3
+  manaRegenPerHitBonus: 0
+  critChance: 0
+  critDamageMultiplierBonus: 0
+  skillDamageMultiplier: 1
+  skillCooldownReduction: 0
+  healthRegenBonus: 0
+  manaRegenBonus: 0
+  moveSpeedPercentBonus: 0
+  defenseBonus: 0

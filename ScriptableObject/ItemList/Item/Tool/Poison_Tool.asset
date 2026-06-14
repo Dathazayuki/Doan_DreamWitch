@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c180fa30607c8a94892ae5c83225dadd, type: 3}
+  m_Name: Poison_Tool
+  m_EditorClassIdentifier: 
+  itemId: Poison_Tool
+  displayName: Poison_Tool
+  icon: {fileID: 21300000, guid: f7f6a33682defd8489602f03f3db8f53, type: 2}
+  price: 1
+  stackable: 1
+  description: "Bom \u0111\u1ED9c , khi n\xE9m tr\xFAng Qu\xE1i th\xEC s\u1EBD g\xE1n
+    tr\u1EA1ng th\xE1i m\u1EA5t hp li\xEAn t\u1EE5c l\xEAn qu\xE1i"
+  category: 2
+  behaviour: {fileID: 11400000, guid: ac152818dc9c68b44b06ec0164f6ef05, type: 2}
+  usesPerPurchase: 1

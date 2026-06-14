@@ -1,0 +1,60 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+\section{Kết luận}
+
+Trải qua quá trình nghiên cứu, thiết kế và phát triển thực nghiệm đề tài \textbf{"Phát triển game hành động phiêu lưu 2D ứng dụng kỹ thuật Distance Culling (Dream Witch)"}, sinh viên đã đạt được các mục tiêu đề ra ban đầu, đồng thời đúc kết được nhiều bài học thực tiễn giá trị. Dưới đây là phần tự đánh giá chi tiết về kết quả đạt được, những điểm còn hạn chế và bài học kinh nghiệm thu nhận được:
+
+\subsection{Kết quả đạt được và đóng góp của đề tài}
+\begin{itemize}
+    \item \textbf{Về mặt lý thuyết và thiết kế:} Đề tài đã khảo sát và đối chiếu kỹ lưỡng các sản phẩm đi trước để xây dựng tài liệu thiết kế trò chơi (Game Design Document) chi tiết. Áp dụng mô hình Bartle để xác định chính xác các nhóm hành vi người chơi mục tiêu (đặc biệt là nhóm Explorers và Achievers), từ đó thiết kế cơ chế chơi và hệ thống phần thưởng tương thích.
+    \item \textbf{Về mặt kỹ thuật và phát triển:} Hiện thực hóa thành công trò chơi trên game engine Unity bằng ngôn ngữ C\#. Xây dựng hoàn chỉnh máy trạng thái hữu hạn (FSM) cho chuyển động của nhân vật chính và hành vi trí tuệ nhân tạo (AI) của kẻ địch. Tích hợp thành công hoạt ảnh Spine 2D mượt mà cho nhân vật và quái vật.
+    \item \textbf{Đóng góp nổi bật về tối ưu hóa:} Triển khai hiệu quả kỹ thuật tối ưu hóa \textit{Distance Culling} độc lập, giúp tắt/bật động các thành phần logic và diễn họa của thực thể dựa trên khoảng cách tới camera. Việc này cải thiện rõ rệt hiệu năng FPS của game trên các thiết bị có cấu hình hạn chế.
+    \item \textbf{Về mặt nội dung:} Thiết kế và hoàn thiện 2 phân khu khám phá lớn là Di tích (Ruin) và Núi lửa (Volcano) cùng hệ thống 5 hình thái biến hình linh hồn độc đáo (Form Switch) và các trận chiến Boss quy mô lớn (Big Golem, Marionette).
+\end{itemize}
+
+\subsection{Những hạn chế còn tồn tại}
+\begin{itemize}
+    \item \textbf{Giới hạn về quy mô nội dung:} Do thời gian và nguồn lực thực hiện đề tài có hạn, phạm vi kịch bản hiện tại mới dừng ở mức đánh bại con rối Marionette tại khu vực Núi lửa (Volcano). Người chơi chưa thể tiến tới chinh phục thế lực hắc ám tối thượng cai trị Hầm ngục vô tận (Endless Dungeon).
+    \item \textbf{Độ phong phú của cơ chế tương tác:} Các cơ chế giải đố và tương tác với môi trường địa hình trong các phân khu màn chơi hiện tại còn đơn giản, chủ yếu xoay quanh việc né tránh bẫy gai và hồ axit.
+    \item \textbf{Độ cân bằng hệ thống:} Chỉ số thuộc tính của các dạng biến hình linh hồn (như BoneDog, Shield, GhostCat) cần được thử nghiệm trên tệp người dùng rộng hơn để tinh chỉnh và đạt độ cân bằng gameplay lý tưởng.
+\end{itemize}
+
+\subsection{Bài học kinh nghiệm rút ra}
+\begin{itemize}
+    \item \textbf{Tư duy kiến trúc hệ thống:} Hiểu sâu sắc cách tổ chức mã nguồn dạng mô-đun trong Unity, tận dụng ScriptableObjects để quản lý dữ liệu cấu hình quái vật và phép thuật, kết hợp Object Pooling để quản lý bộ nhớ đạn hiệu quả.
+    \item \textbf{Kỹ năng giải quyết vấn đề:} Học hỏi phương pháp debug vật lý Kinematic 2D, tinh chỉnh các thông số nhảy (Coyote Time, Jump Buffer) để nâng cao cảm giác điều khiển (Game Feel).
+\end{itemize}
+
+\section{Hướng phát triển}
+
+Để khắc phục các hạn chế hiện có và nâng cao chất lượng trải nghiệm của trò chơi "Dream Witch", định hướng phát triển trong tương lai được hoạch định tập trung vào các nội dung sau:
+
+\subsection{Cải tiến và hoàn thiện các chức năng hiện có}
+\begin{itemize}
+    \item \textbf{Tối ưu hóa Game Feel:} Cân chỉnh độ nhạy điều khiển và tinh chỉnh hoạt ảnh chuyển tiếp giữa các trạng thái nhảy, lướt để tạo cảm giác di chuyển mượt mà hơn.
+    \item \textbf{Nâng cấp thuật toán AI:} Cải tiến thuật toán di chuyển thông minh của AI bằng việc tối ưu hóa hiệu năng quét đồ thị A* Pathfinding động khi có chướng ngại vật thay đổi.
+\end{itemize}
+
+\subsection{Nghiên cứu và phát triển các tính năng mới}
+\begin{itemize}
+    \item \textbf{Mở rộng các khu vực bản đồ mới:} Thiết kế và triển khai hai phân khu màn chơi mới:
+    \begin{itemize}
+        \item \textit{Học viện phép thuật (Academy):} Phân khu mang phong cách kiến trúc cổ kính, huyền bí, chứa các câu đố học thuật và là nơi lưu trữ các bí mật phép thuật cổ xưa.
+        \item \textit{Vườn cấm (Garden):} Khu vực thiên nhiên hoang dã chứa đầy các sinh vật biến dị và địa hình chuyển động phức tạp.
+    \end{itemize}
+    \item \textbf{Bổ sung kẻ địch và Boss tối thượng:}
+    \begin{itemize}
+        \item Thiết kế thêm nhiều loại quái vật tuần tra mới có hành vi đặc thù tương ứng với bối cảnh Học viện và Vườn cấm.
+        \item Phát triển kịch bản và AI phức tạp cho 2 Boss tối thượng: \textbf{Phù thủy thực sự (True Witch)} - kẻ trực tiếp canh giữ tàn tích ma thuật cổ xưa, và \textbf{Ác quỷ tối thượng sinh ra từ giấc mơ (Dream Demon)} - thế lực tối cao đứng sau thao túng toàn bộ sự vận hành của Hầm ngục vô tận.
+    \end{itemize}
+    \item \textbf{Xây dựng cơ chế tương tác môi trường chuyên sâu:}
+    \begin{itemize}
+        \item Triển khai các câu đố vật lý phức tạp (đẩy khối đá kích hoạt cơ quan, hệ thống bánh răng xoay).
+        \item Tích hợp cơ chế phá hủy địa hình bằng các đòn đánh cận chiến hạng nặng hoặc đạn phép thuật.
+        \item Bổ sung cơ chế phản ứng nguyên tố (ví dụ: dùng phép lửa để thiêu rụi các rào cản dây gai, dùng phép băng để đóng băng nước axit tạo lối đi tạm thời).
+    \end{itemize}
+    \item \textbf{Phát triển tiến trình cốt truyện:} Viết tiếp kịch bản để dẫn dắt nhân vật chính Nameless Witch vượt qua các tầng sâu hơn của Hầm ngục vô tận, thu thập đầy đủ các mảnh ký ức còn lại để vén bức màn bí ẩn về nguồn gốc thực sự của hầm ngục và hoàn thành cuộc hành trình phục hồi bản ngã của mình.
+\end{itemize}
+
+\end{document}

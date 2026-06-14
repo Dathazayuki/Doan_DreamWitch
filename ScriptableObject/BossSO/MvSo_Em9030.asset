@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 760be96837776df4cb3f230d2b94b537, type: 3}
+  m_Name: MvSo_Em9030
+  m_EditorClassIdentifier: 
+  Desire_Add_Run: 10
+  Desire_Add_Jump: 10
+  Desire_Add_Atk: 40
+  Desire_Add_SlashVH: 20
+  Desire_Add_Provoke: 5
+  Desire_Add_ShotA: 25
+  Desire_Add_Scythe_Hp50: 10
+  Desire_Add_EmSpawn_Hp30: 10
+  Entrance_LookTime: 2
+  IdleWaitTime: 0.6
+  IdleWaitTimeEx: 1.1
+  Provoke_LoopTime: 1.2
+  MagicShotAir_SpritShot_LoopTime: 1.4
+  MagicShotAir_Thunder_LoopTime: 1.4
+  MagicShotSide0_Laser_LoopTime: 1.4
+  MagicShotSide0_Eruption_LoopTime: 1.4
+  MagicShotSide0_WallLightning_LoopTime: 1.4
+  Scythe_LoopTime: 2
+  CounterAtkTimer: 5
+  KnockOut_LoopNum: 030000000200000001000000
+  JumpPow: {x: 0, y: 12}
+  JumpPowMini: {x: 0, y: 8}
+  JumpPowMiniLong: {x: 0, y: 10}
+  JumpPowSide: {x: 8, y: 9}
+  MeleeApproachStopDistance: 1.8
+  MeleeApproachVerticalTolerance: 2
+  MeleeApproachTimeout: 4
+  CounterMoveSpeed: 12
+  CounterMoveSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  CounterMovementBlockMask:
+    serializedVersion: 2
+    m_Bits: 64
+  CounterMovementProbeDistance: 0.12
+  CounterRepeatedHitInterval: 0.25
+  AirborneGravityScale: 4
+  LandingHeightTolerance: 0.12
+  SnapToLandingHeightOnLand: 1
+  AtkDmg_Atk1: 15
+  AtkDmg_Atk2: 18
+  AtkDmg_Atk3: 22
+  AtkDmg_SlashV: 25
+  AtkDmg_SlashH: 25
+  AtkDmg_Counter: 30
+  AtkDmg_SpritShot: 10
+  AtkDmg_Ignition: 20
+  AtkDmg_FlySwordBig: 30
+  AtkDmg_Laser: 25
+  AtkDmg_Eruption: 25
+  AtkDmg_WallLightning: 25
+  AtkDmg_Thunder: 25
+  AtkDmg_Scythe: 25

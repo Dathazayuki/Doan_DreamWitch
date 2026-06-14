@@ -1,0 +1,81 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+Chương này trình bày chi tiết về các công nghệ, nền tảng phát triển và công cụ quản lý phiên bản được sử dụng trong dự án trò chơi "Dream Witch". Việc lựa chọn công nghệ được thực hiện dựa trên cơ sở phân tích kỹ lưỡng các yêu cầu kỹ thuật và lối chơi được đặc tả ở Chương 2, nhằm đưa ra giải pháp tối ưu cho hiệu năng và tiến độ phát triển của dự án.
+
+\section{Động cơ phát triển trò chơi (Unity Game Engine)}
+\label{section:tech:3.1}
+
+Động cơ trò chơi đóng vai trò quản lý vòng đời thực thể, hệ thống vật lý, kết xuất hình ảnh và tương tác người dùng. Để xây dựng một trò chơi đi cảnh hành động 2D kết hợp yếu tố Metroidvania như "Dream Witch", đề tài lựa chọn sử dụng động cơ Unity \cite{unitymanual}. Động cơ này cung cấp Physics2D Engine tối ưu hóa sẵn hỗ trợ các chuyển động Kinematic (lướt, bám tường) và va chạm Collider2D chính xác, kết hợp kiến trúc hướng thành phần (Component-Based Architecture) giúp phân tách độc lập các hành vi nhân vật (như PlayerMovement, PlayerStats) qua MonoBehaviour. Khả năng biên dịch tối ưu hóa cho nền tảng PC Standalone dạng ngoại tuyến cũng đáp ứng hoàn toàn kịch bản vận hành của trò chơi (Mục \ref{section:2.5}).
+
+Trong quá trình khảo sát, các giải pháp thay thế như Godot Engine và Unreal Engine đã được cân nhắc. Godot rất nhẹ nhưng hệ sinh thái C\# và khả năng tích hợp thư viện bên thứ ba (như Spine, A* Pathfinding) chưa thực sự ổn định bằng Unity. Trong khi đó, Unreal Engine quá nặng nề và cơ chế Paper2D không được hỗ trợ tốt cho dự án game 2D độc lập. Do đó, Unity là lựa chọn tối ưu nhờ hệ sinh thái 2D phong phú, tương thích tốt với các công cụ hoạt ảnh và tìm đường bên ngoài, cùng ngôn ngữ C\# hướng đối tượng chặt chẽ giúp quản lý cấu trúc mã nguồn phức tạp của hệ thống máy trạng thái nhân vật.
+
+% NOTE: Sinh viên có thể chèn hình chụp thực tế giao diện Unity Editor quản lý các component của nhân vật tại đây
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth,height=0.16\textheight,keepaspectratio]{Hinhve/UnityEditor.png}
+    \caption{Giao diện Unity Editor thiết lập thực tế cấu trúc component của nhân vật}
+    \label{fig:unity_editor_screenshot}
+\end{figure}
+
+\section{Hệ thống kịch bản và hội thoại đa nhánh (Yarn Spinner)}
+\label{section:tech:3.2}
+
+Để hiện thực hóa yêu cầu kể chuyện và hướng khám phá của người chơi (Mục \ref{section:2.2}), trò chơi cần tích hợp một hệ thống quản lý hội thoại đa nhánh với các NPC (Shopkeeper, Facility Owner). Đề tài lựa chọn Yarn Spinner \cite{yarnspinner} để quản lý hội thoại động và liên kết các sự kiện trong game. Yarn Spinner cho phép người chơi lựa chọn các phương án trả lời khác nhau, hỗ trợ liên kết trực tiếp giữa các câu lệnh trong văn bản hội thoại (Yarn Script) với các hàm C\# của hệ thống game (ví dụ kích hoạt giao diện mua sắm khi nói chuyện với Shopkeeper thông qua \texttt{YarnCommand}), đồng thời đồng bộ hóa các biến số hội thoại với hệ thống lưu trữ dữ liệu tổng của trò chơi.
+
+So với việc tự lập trình bộ phân giải JSON/XML (tốn công sức phát triển, khó bảo trì khi kịch bản dài) hay sử dụng ngôn ngữ Ink (khó gọi ngược các hàm sự kiện UI của Unity do tiếp cận theo hướng dòng chảy văn bản liên tục), Yarn Spinner là lựa chọn tối ưu nhờ cấu trúc viết kịch bản dạng nút (node-based) trực quan. Cú pháp viết script đơn giản cùng tính năng kiểm tra lỗi cú pháp trực tiếp trong Unity Editor giúp giảm thiểu tối đa thời gian thiết kế và phát triển kịch bản hội thoại.
+
+% NOTE: Sinh viên có thể chèn hình chụp thực tế giao diện thiết kế nút hội thoại (Yarn Editor) tại đây
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth,height=0.16\textheight,keepaspectratio]{Hinhve/YarnEditor.png}
+    \caption{Giao diện thiết kế các nút hội thoại (Node) trong Yarn Editor}
+    \label{fig:yarn_editor_screenshot}
+\end{figure}
+
+\section{Công nghệ hoạt ảnh 2D dạng xương (Spine Animation)}
+\label{section:tech:3.3}
+
+Để hiện thực hóa trải nghiệm game hành động mượt mà với cơ chế biến đổi hình dạng linh hồn (Form Switch) và thiết kế Boss phức tạp (Mục \ref{section:2.2}), đề tài lựa chọn công nghệ Spine Animation \cite{esotericspine}. Spine giải quyết bài toán tài nguyên và hiệu năng nhờ kỹ thuật biến dạng lưới khung xương (Skeletal Mesh Deformation) giúp tạo ra các chuyển động trượt, nén mượt mà mà không phụ thuộc vào số lượng hình ảnh vẽ tay lớn. Công nghệ này cũng tự động hòa trộn hoạt ảnh (Animation Blending) và cho phép gắn các sự kiện vào mốc thời gian hoạt ảnh (Keyframe Event) để đồng bộ hóa các hitbox tấn công cận chiến chính xác.
+
+So với phương pháp Sprite Sheets truyền thống vẽ tay từng khung hình (tiêu tốn lượng VRAM khổng lồ khi nhân vật có nhiều biến thể hành động) hay bộ công cụ Unity Sprite Skinning mặc định (thiếu các tính năng điều khiển xương động nâng cao như IK, Path Constraints), Spine cung cấp runtime tối ưu hóa vượt trội cho Unity. Nó giúp giảm tối đa dung lượng bộ nhớ kết cấu bằng việc tái sử dụng một bộ xương cho nhiều giao diện (Skins) và nâng cao trải nghiệm thị giác nhờ hiệu ứng giả lập 3D sống động cho các thực thể lớn.
+
+% NOTE: Sinh viên có thể chèn hình chụp thực tế giao diện thiết kế xương nhân vật trong phần mềm Spine tại đây
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth,height=0.16\textheight,keepaspectratio]{Hinhve/SpineEditor.png}
+    \caption{Mô hình khung xương và lưới đa giác (Skeletal Mesh) của nhân vật thiết kế trong phần mềm Spine}
+    \label{fig:spine_editor_screenshot}
+\end{figure}
+
+\section{Giải thuật tìm đường thông minh (A* Pathfinding)}
+\label{section:tech:3.4}
+
+Các kẻ địch thông thường và Boss trong game sở hữu các kịch bản hành động phức tạp (Mục \ref{subsection:3.7.2}), đòi hỏi khả năng định tuyến di chuyển và săn đuổi người chơi một cách tự nhiên. Hệ thống sử dụng thư viện A* Pathfinding Project \cite{arongranbergastar} phát triển trên giải thuật A* \cite{russell2020artificial} để giải quyết vấn đề tìm đường thông minh của thực thể AI. Hệ thống hỗ trợ tự động quét Tilemap để tạo lưới đồ thị di chuyển (Grid Graph), cập nhật đường đi động theo thời gian thực (khi cửa đóng, bẫy kích hoạt) và làm mịn đường dẫn (Path Smoothing) giúp chuyển động của các quái vật bay và quái vật đi bộ không bị gấp khúc cơ học.
+
+Các giải pháp thay thế như Unity NavMesh 2D (chủ yếu thiết kế cho 3D, hoạt động trên 2D thiếu ổn định, không tối ưu cho địa hình platformer phức tạp) hay tự cài đặt BFS/Dijkstra (khó tối ưu CPU overhead khi tính toán cho hàng chục kẻ địch đồng thời) đều bộc lộ hạn chế. Thư viện A* Pathfinding Project được chọn nhờ tích hợp sâu với Unity Job System và Burst Compiler, cho phép tính toán đa luồng độ trễ cực thấp. Ngoài ra, thư viện còn hỗ trợ gán trọng số (penalties) cho các vùng nguy hại (gai, axit) để AI chủ động tránh né.
+
+% NOTE: Sinh viên có thể chèn hình chụp thực tế lưới quét tìm đường A* (A* Grid Graph) hiển thị trong Unity Scene View tại đây
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth,height=0.16\textheight,keepaspectratio]{Hinhve/AstarGridGraph.png}
+    \caption{Lưới đồ thị di chuyển (Grid Graph) hiển thị trực quan dạng Gizmos trong Unity Scene View}
+    \label{fig:astar_grid_graph}
+\end{figure}
+
+\section{Hệ thống quản lý phiên bản (Git Version Control)}
+\label{section:tech:3.5}
+
+Để đảm bảo an toàn dữ liệu và theo dõi lịch sử phát triển dự án "Dream Witch", đề tài lựa chọn hệ thống quản lý phiên bản phân tán Git \cite{gitbook} kết hợp dịch vụ lưu trữ đám mây GitHub. Git giúp quản lý toàn vẹn lịch sử chỉnh sửa các tệp mã nguồn C\# và tài liệu LaTeX theo từng dòng, hỗ trợ phân nhánh (Branching) để phát triển độc lập các tính năng mới mà không làm ảnh hưởng nhánh chính, cũng như khả năng khôi phục (Rollback) mã nguồn nhanh chóng khi phát sinh lỗi hệ thống.
+
+So với SVN (hệ thống tập trung yêu cầu kết nối mạng liên tục, thao tác nhánh chậm) hay Perforce Helix Core (chi phí cao, cấu hình máy chủ phức tạp, không cần thiết cho dự án quy mô vừa và nhỏ), Git là giải pháp gọn nhẹ, phổ biến và hoạt động ngoại tuyến linh hoạt. Nhằm tối ưu hóa việc quản lý các tệp tài nguyên nhị phân lớn (hình ảnh, âm thanh, tệp hoạt ảnh Spine), dự án đã tích hợp công cụ Git LFS (Large File Storage) để giảm dung lượng kho lưu trữ và đẩy nhanh tốc độ đồng bộ mã nguồn.
+
+% NOTE: Sinh viên có thể chèn hình chụp biểu đồ nhánh Git (Git branch/commit graph) từ các công cụ quản lý như GitHub Desktop hoặc SourceTree tại đây
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.9\linewidth]{Hinhve/GitGraph.png}
+%     \caption{Lịch sử phân nhánh và sơ đồ cam kết (Commit Graph) của dự án trên Git}
+%     \label{fig:git_commit_graph}
+% \end{figure}
+
+\end{document}

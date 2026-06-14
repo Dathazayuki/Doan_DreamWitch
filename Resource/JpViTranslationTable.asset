@@ -1,0 +1,352 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa0db88ca8ecd641b18e4002f73cd90, type: 3}
+  m_Name: JpViTranslationTable
+  m_EditorClassIdentifier: 
+  useContainsReplacement: 0
+  entries:
+  - japanese: "\u6301\u3061\u7269"
+    vietnamese: "\u0111\u1ED3 \u0111\u1EA1c"
+    enabled: 1
+  - japanese: "\u30B9\u30C6\u30FC\u30BF\u30B9"
+    vietnamese: "Tr\u1EA1ng th\xE1i"
+    enabled: 1
+  - japanese: "\u30DE\u30C3\u30D7"
+    vietnamese: "b\u1EA3n \u0111\u1ED3"
+    enabled: 1
+  - japanese: "\u30D8\u30EB\u30D7"
+    vietnamese: "Gi\xFAp \u0111\u1EE1"
+    enabled: 1
+  - japanese: "\u30B7\u30B9\u30C6\u30E0"
+    vietnamese: "h\u1EC7 th\u1ED1ng"
+    enabled: 1
+  - japanese: "\u4E00\u89A7"
+    vietnamese: "Danh s\xE1ch"
+    enabled: 1
+  - japanese: "\u88C5\u5099"
+    vietnamese: "Thi\u1EBFt b\u1ECB"
+    enabled: 1
+  - japanese: "\u30D9\u30FC\u30B9\\n\u7D20\u6750\\n"
+    vietnamese: "V\u1EADt li\u1EC7u\\n c\u01A1 b\u1EA3n\\n"
+    enabled: 1
+  - japanese: "\u6D88\u8CBB\\n\u7D20\u6750\\n"
+    vietnamese: "Chi ti\xEAu\\nV\u1EADt ch\u1EA5t\\n"
+    enabled: 1
+  - japanese: "\u30A2\u30A4\u30C6\u30E0\u304C\u3042\u308A\u307E\u305B\u3093"
+    vietnamese: "B\u1EA1n kh\xF4ng c\xF3 m\u1EE5c n\xE0o"
+    enabled: 1
+  - japanese: "\u5FA9\u8208\u5EA6"
+    vietnamese: "M\u1EE9c \u0111\u1ED9 ph\u1EE5c h\u1ED3i"
+    enabled: 1
+  - japanese: "\u58F2\u5024"
+    vietnamese: "Gi\xE1 d\u1EF1 th\u1EA7u"
+    enabled: 1
+  - japanese: "\u30A2\u30A4\u30C6\u30E0\u306E\u8AAC\u660E\u6587\u3067\u3059\u3002"
+    vietnamese: "M\xF4 t\u1EA3 c\u1EE7a m\u1EE5c."
+    enabled: 1
+  - japanese: "\u98DF\u4E8B\u52B9\u679C"
+    vietnamese: "T\xE1c d\u1EE5ng c\u1EE7a ch\u1EBF \u0111\u1ED9 \u0103n u\u1ED1ng"
+    enabled: 1
+  - japanese: "\u6700\u5927HP\u304C100\u5897\u52A0\\n\u6700\u5927HP\u304C100\u5897\u52A0\\n"
+    vietnamese: "+100 M\xE1u t\u1ED1i \u0111a\\n +100 M\xE1u t\u1ED1i \u0111a\\n"
+    enabled: 1
+  - japanese: "\u7279\u6027"
+    vietnamese: "t\xEDnh ch\u1EA5t"
+    enabled: 1
+  - japanese: "\u6575\u306B\u4E0E\u3048\u308B\u30C0\u30E1\u30FC\u30B8+10%"
+    vietnamese: "+10% s\xE1t th\u01B0\u01A1ng l\xEAn k\u1EBB th\xF9"
+    enabled: 1
+  - japanese: "\u5FC5\u8981\u7D20\u6750"
+    vietnamese: "V\u1EADt li\u1EC7u c\u1EA7n thi\u1EBFt"
+    enabled: 1
+  - japanese: "\u3053\u308C\u4EE5\u4E0A\u306F\u5F37\u5316\u3067\u304D\u306A\u3044"
+    vietnamese: "N\xF3 kh\xF4ng th\u1EC3 \u0111\u01B0\u1EE3c c\u1EE7ng c\u1ED1 th\xEAm
+      n\u1EEFa"
+    enabled: 1
+  - japanese: "\u30AC\u30FC\u30CD\u30C3\u30C8\u306E\u30A2\u30DF\u30E5\u30EC\u30C3\u30C8"
+    vietnamese: "B\xF9a h\u1ED9 m\u1EC7nh Garnet"
+    enabled: 1
+  - japanese: "\u30A8\u30D4\u30C3\u30AF+1"
+    vietnamese: Epic +1
+    enabled: 1
+  - japanese: "\u3053\u3053\u306F\u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8\u3067\u3059\u3053\u3053\u306F\u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8\u3067\u3059\u3053\u3053\u306F\u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8\u3067\u3059\u3053\u3053\u306F\u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8\u3067\u3059"
+    vietnamese: "\u0110\xE2y l\xE0 v\u0103n b\u1EA3n h\u01B0\u01A1ng v\u1ECB \u0110\xE2y
+      l\xE0 v\u0103n b\u1EA3n h\u01B0\u01A1ng v\u1ECB \u0110\xE2y l\xE0 v\u0103n
+      b\u1EA3n h\u01B0\u01A1ng v\u1ECB \u0110\xE2y l\xE0 v\u0103n b\u1EA3n h\u01B0\u01A1ng
+      v\u1ECB \u0110\xE2y l\xE0 v\u0103n b\u1EA3n h\u01B0\u01A1ng v\u1ECB"
+    enabled: 1
+  - japanese: "\u653B\u6483\u529B\uFF0B\uFF11"
+    vietnamese: ATK +1
+    enabled: 1
+  - japanese: "\u9632\u5FA1\u529B\uFF0B\uFF11"
+    vietnamese: "Qu\u1ED1c ph\xF2ng +1"
+    enabled: 1
+  - japanese: "\u9B54\u5C0E\u66F8\u53D6\u5F97\u6642\u306B\u81EA\u52D5\u3067\u653B\u6483\u3092\u884C\u3046\u81EA\u5F8B\u9B54\u5C0E\u66F8\u3092\uFF11\u3064\u53EC\u559A\u3059\u308B\u3002\u540C\u3058\u8272\u306E\u81EA\u5F8B\u9B54\u5C0E\u66F8\u306F\uFF11\u3064\u307E\u3067\u6240\u6301\u53EF\u80FD"
+    vietnamese: "Tri\u1EC7u h\u1ED3i m\u1ED9t cu\u1ED1n s\xE1ch ma thu\u1EADt t\u1EF1
+      \u0111\u1ED9ng t\u1EF1 \u0111\u1ED9ng t\u1EA5n c\xF4ng khi nh\u1EADn \u0111\u01B0\u1EE3c
+      m\u1ED9t cu\u1ED1n s\xE1ch ma thu\u1EADt. B\u1EA1n ch\u1EC9 c\xF3 th\u1EC3
+      c\xF3 m\u1ED9t cu\u1ED1n s\xE1ch ma thu\u1EADt t\u1EF1 tr\u1ECB c\xF3 c\xF9ng
+      m\xE0u"
+    enabled: 1
+  - japanese: "\u81EA\u5F8B\u9B54\u5C0E\u66F8\u306E\u653B\u6483\u983B\u5EA6\u304C\u5897\u52A0\u3057\u3001\u5C5E\u6027\u5024\u309220\u4ED8\u4E0E"
+    vietnamese: "C\xE1c cu\u1ED9c t\u1EA5n c\xF4ng S\xE1ch ma thu\u1EADt t\u1EF1
+      tr\u1ECB th\u01B0\u1EDDng xuy\xEAn h\u01A1n, cung c\u1EA5p 20 gi\xE1 tr\u1ECB
+      thu\u1ED9c t\xEDnh"
+    enabled: 1
+  - japanese: "\u540C\u3058\u8272\u306E\u81EA\u5F8B\u9B54\u5C0E\u66F8\u3092\uFF12\u3064\u307E\u3067\u6240\u6301\u53EF\u80FD"
+    vietnamese: "B\u1EA1n c\xF3 th\u1EC3 c\xF3 t\u1ED1i \u0111a hai cu\u1ED1n s\xE1ch
+      ma thu\u1EADt t\u1EF1 tr\u1ECB c\xF3 c\xF9ng m\xE0u"
+    enabled: 1
+  - japanese: "\u81EA\u7ACB\u9B54\u5C0E\u66F8\u3092\u6700\u5927\u6570\u307E\u3067\u6240\u6301\u3057\u305F\u3068\u304D\u3001\u5168\u3066\u306E\u81EA\u5F8B\u9B54\u5C0E\u66F8\u3092\u751F\u8D04\u306B\u5C01\u5370\u3055\u308C\u3057\u8005\u3092\u53EC\u559A\u3059\u308B"
+    vietnamese: "Khi b\u1EA1n c\xF3 s\u1ED1 l\u01B0\u1EE3ng Grimoire t\u1EF1 tr\u1ECB
+      t\u1ED1i \u0111a, h\xE3y hy sinh t\u1EA5t c\u1EA3 c\xE1c Grimoire t\u1EF1 tr\u1ECB
+      \u0111\u1EC3 tri\u1EC7u t\u1EADp Sealed"
+    enabled: 1
+  - japanese: "\u63A2\u7D22\u3092\u8AE6\u3081\u3066\u6559\u4F1A\u3078\u623B\u308A\u307E\u3059\u304B\uFF1F\\n\u63A2\u7D22\u3092\u8AE6\u3081\u3066\u6559\u4F1A\u3078\u623B\u308A\u307E\u3059\u304B\uFF1F"
+    vietnamese: "Ban cos mu\u1ED1n ng\u1EEBng kh\xE1m ph\xE1 v\xE0 tr\u1EDF l\u1EA1i
+      nh\xE0 th\u1EDD\u0300 kh\xF4ng?"
+    enabled: 1
+  - japanese: "\u306F\u3044"
+    vietnamese: "C\xF3."
+    enabled: 1
+  - japanese: "\u3044\u3044\u3048"
+    vietnamese: "Ch\u01B0a."
+    enabled: 1
+  - japanese: "\u9B54\u6CD5"
+    vietnamese: "Ph\xE9p thu\u1EADt"
+    enabled: 1
+  - japanese: "\u30C4\u30FC\u30EB"
+    vietnamese: "C\xF4ng c\u1EE5"
+    enabled: 1
+  - japanese: "\u305D\u306E\u4ED6"
+    vietnamese: "kh\xE1c"
+    enabled: 1
+  - japanese: "\u9B54\u5C0E\u66F8"
+    vietnamese: Grimoire
+    enabled: 1
+  - japanese: "\u795D\u798F"
+    vietnamese: "Ph\xFAc L\u1ED9c"
+    enabled: 1
+  - japanese: "\u30A2\u30FC\u30C6\u30A3\u30D5\u30A1\u30AF\u30C8"
+    vietnamese: "Hi\u1EC7n v\u1EADt"
+    enabled: 1
+  - japanese: "'<sprite name=\"ps_skill1\">\u843D\u3068\u3059'"
+    vietnamese: "'<sprite name=\"ps_skill1\">Th\u1EA3'"
+    enabled: 1
+  - japanese: "\u907A\u8DE11\u5C64"
+    vietnamese: Ruins 1F
+    enabled: 1
+  - japanese: "'<sprite name=\"ps_heal\"><sprite name=\"ps_dodge\">\u30BA\u30FC\u30E0'"
+    vietnamese: "'<sprite name=\"ps_heal\"><sprite name=\"ps_dodge\">Thu ph\xF3ng'"
+    enabled: 1
+  - japanese: "'<sprite name=\"ps_r_stick\">\u79FB\u52D5'"
+    vietnamese: "'<sprite name=\"ps_r_stick\">Di chuy\u1EC3n'"
+    enabled: 1
+  - japanese: "\u6226\u3044\u65B9\u306B\u3064\u3044\u3066"
+    vietnamese: "L\xE0m th\u1EBF n\xE0o \u0111\u1EC3 chi\u1EBFn \u0111\u1EA5u"
+    enabled: 1
+  - japanese: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042aaaaaaaaaaaaaaaaaaaaaaaaaaa\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
+    vietnamese: Ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+    enabled: 1
+  - japanese: "\u8A2D\u5B9A"
+    vietnamese: setting
+    enabled: 1
+  - japanese: "\u63A2\u7D22\u3092\u8AE6\u3081\u308B"
+    vietnamese: "T\u1EEB b\u1ECF kh\xE1m ph\xE1"
+    enabled: 1
+  - japanese: "\u30BF\u30A4\u30C8\u30EB\u306B\u623B\u308B"
+    vietnamese: "Quay l\u1EA1i ti\xEAu \u0111\u1EC1"
+    enabled: 1
+  - japanese: "\u30B2\u30FC\u30E0\u3092\u7D42\u4E86\u3059\u308B"
+    vietnamese: "Tho\xE1t tr\xF2 ch\u01A1i"
+    enabled: 1
+  - japanese: "\u30B2\u30FC\u30E0\u8A2D\u5B9A"
+    vietnamese: "C\xE0i \u0111\u1EB7t tr\xF2 ch\u01A1i"
+    enabled: 1
+  - japanese: "\u30AA\u30FC\u30C7\u30A3\u30AA\u8A2D\u5B9A"
+    vietnamese: "C\xE0i \u0111\u1EB7t \xE2m thanh"
+    enabled: 1
+  - japanese: "\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF\u8A2D\u5B9A"
+    vietnamese: "C\xE0i \u0111\u1EB7t \u0111\u1ED3 h\u1ECDa"
+    enabled: 1
+  - japanese: "\u30B3\u30F3\u30C8\u30ED\u30FC\u30E9\u30FC\u8A2D\u5B9A"
+    vietnamese: "C\xE0i \u0111\u1EB7t b\u1ED9 \u0111i\u1EC1u khi\u1EC3n"
+    enabled: 1
+  - japanese: "\u30AD\u30FC\u30DC\u30FC\u30C9\u8A2D\u5B9A(\u30A2\u30AF\u30B7\u30E7\u30F3)"
+    vietnamese: "C\xE0i \u0111\u1EB7t b\xE0n ph\xEDm (h\xE0nh \u0111\u1ED9ng)"
+    enabled: 1
+  - japanese: "\u30AD\u30FC\u30DC\u30FC\u30C9\u8A2D(UI)"
+    vietnamese: "C\xE0i \u0111\u1EB7t b\xE0n ph\xEDm (UI)"
+    enabled: 1
+  - japanese: "\u623B\u308B"
+    vietnamese: "Quay l\u1EA1i!"
+    enabled: 1
+  - japanese: "\u8A2D\u5B9A\u3092\u521D\u671F\u5316\u3059\u308B"
+    vietnamese: "Kh\u1EDFi t\u1EA1o c\xE0i \u0111\u1EB7t"
+    enabled: 1
+  - japanese: "\u96E3\u6613\u5EA6"
+    vietnamese: "Tr\xECnh \u0111\u1ED9."
+    enabled: 1
+  - japanese: "\u96E3\u6613\u5EA6\u306F\u30D7\u30EC\u30A4\u4E2D\u306B\u3044\u3064\u3067\u3082\u5909\u66F4\u3067\u304D\u307E\u3059\u304C\u3001\u30BF\u30A4\u30C8\u30EB\u753B\u9762\u3067\u306F\u5909\u66F4\u3067\u304D\u307E\u305B\u3093\u3002"
+    vietnamese: "B\u1EA1n c\xF3 th\u1EC3 thay \u0111\u1ED5i m\u1EE9c \u0111\u1ED9
+      kh\xF3 b\u1EA5t c\u1EE9 l\xFAc n\xE0o trong qu\xE1 tr\xECnh ch\u01A1i, nh\u01B0ng
+      kh\xF4ng ph\u1EA3i tr\xEAn m\xE0n h\xECnh ti\xEAu \u0111\u1EC1."
+    enabled: 1
+  - japanese: "\u8A00\u8A9E"
+    vietnamese: "Ng\xF4n ng\u1EEF"
+    enabled: 1
+  - japanese: "\u65E5\u672C\u8A9E"
+    vietnamese: "Nh\u1EADt"
+    enabled: 1
+  - japanese: "\u30B2\u30FC\u30E0\u30D1\u30C3\u30C9\u632F\u52D5"
+    vietnamese: "Rung B\xE0n \u0110i\u1EC1u Khi\u1EC3n Tr\xF2 Ch\u01A1i"
+    enabled: 1
+  - japanese: "\u6709\u52B9"
+    vietnamese: " B\u1EADt"
+    enabled: 1
+  - japanese: "\u30AB\u30E1\u30E9\u632F\u52D5"
+    vietnamese: "Rung \u0111\u1ED9ng c\u1EE7a m\xE1y \u1EA3nh"
+    enabled: 1
+  - japanese: "\u30DE\u30B9\u30BF\u30FC\u97F3\u91CF"
+    vietnamese: "Kh\u1ED1i l\u01B0\u1EE3ng ch\xEDnh"
+    enabled: 1
+  - japanese: "BGM\u97F3\u91CF"
+    vietnamese: "Th\u1EC3 t\xEDch BGM"
+    enabled: 1
+  - japanese: "SE\u97F3\u91CF"
+    vietnamese: "Th\u1EC3 t\xEDch SE"
+    enabled: 1
+  - japanese: "\u89E3\u50CF\u5EA6"
+    vietnamese: "C\xE1c \u0111\u1ED9 ph\xE2n gi\u1EA3i"
+    enabled: 1
+  - japanese: "\u753B\u9762\u30E2\u30FC\u30C9"
+    vietnamese: "Ch\u1EBF \u0111\u1ED9 m\xE0n h\xECnh"
+    enabled: 1
+  - japanese: "\u30DC\u30FC\u30C0\u30EC\u30B9\u30A6\u30A3\u30F3\u30C9\u30A6"
+    vietnamese: "C\u1EEDa s\u1ED5 kh\xF4ng vi\u1EC1n"
+    enabled: 1
+  - japanese: "\u79FB\u52D5"
+    vietnamese: "Di chuy\u1EC3n"
+    enabled: 1
+  - japanese: "\u898B\u6E21\u3059"
+    vietnamese: "Ng\u1EAFm nh\xECn xung quanh"
+    enabled: 1
+  - japanese: "\u56DE\u907F"
+    vietnamese: Dodge
+    enabled: 1
+  - japanese: "\u6191\u4F9D/\u96E2\u8131"
+    vietnamese: "S\u1EDF h\u1EEFu/R\xFAt ti\u1EC1n"
+    enabled: 1
+  - japanese: "\u56DE\u5FA9"
+    vietnamese: "B\xECnh Ph\u1EE5c"
+    enabled: 1
+  - japanese: "\u30B9\u30AD\u30EB1"
+    vietnamese: "K\u1EF9 n\u0103ng 1"
+    enabled: 1
+  - japanese: "\u901A\u5E38\u653B\u6483"
+    vietnamese: "T\u1EA5n c\xF4ng th\xF4ng th\u01B0\u1EDDng"
+    enabled: 1
+  - japanese: "\u30B9\u30AD\u30EB2"
+    vietnamese: "K\u1EF9 n\u0103ng 2"
+    enabled: 1
+  - japanese: "\u30B8\u30E3\u30F3\u30D7"
+    vietnamese: Nhay
+    enabled: 1
+  - japanese: "\u30B9\u30AD\u30EB\uFF11"
+    vietnamese: "K\u1EF9 n\u0103ng 1"
+    enabled: 1
+  - japanese: "\u30B9\u30AD\u30EB\uFF12"
+    vietnamese: "K\u1EF9 n\u0103ng 2"
+    enabled: 1
+  - japanese: "UI:\u6C7A\u5B9A"
+    vietnamese: "UI: Quy\u1EBFt \u0111\u1ECBnh"
+    enabled: 1
+  - japanese: "UI:\u30AD\u30E3\u30F3\u30BB\u30EB"
+    vietnamese: "Giao di\u1EC7n ng\u01B0\u1EDDi d\xF9ng: H\u1EE7y"
+    enabled: 1
+  - japanese: "\u79FB\u52D5\u2191"
+    vietnamese: "Di chuy\u1EC3n"
+    enabled: 1
+  - japanese: "\u79FB\u52D5\u2193"
+    vietnamese: "Di chuy\u1EC3n\u2193"
+    enabled: 1
+  - japanese: "\u79FB\u52D5\u2190"
+    vietnamese: "Di chuy\u1EC3n"
+    enabled: 1
+  - japanese: "\u79FB\u52D5\u2192"
+    vietnamese: "Di chuy\u1EC3n\u2192"
+    enabled: 1
+  - japanese: "\u898B\u6E21\u3059\u2191"
+    vietnamese: "Ng\u1EAFm nh\xECn xung quanh\u2191"
+    enabled: 1
+  - japanese: "\u898B\u6E21\u3059\u2193"
+    vietnamese: "Ng\u1EAFm nh\xECn xung quanh\u2193"
+    enabled: 1
+  - japanese: "\u898B\u6E21\u3059\u2190"
+    vietnamese: "Ng\u1EAFm nh\xECn xung quanh\u2190"
+    enabled: 1
+  - japanese: "\u898B\u6E21\u3059\u2192"
+    vietnamese: "Ng\u1EAFm nh\xECn xung quanh\u2192"
+    enabled: 1
+  - japanese: "\u30AF\u30A4\u30C3\u30AF\u30C1\u30E3\u30C3\u30C8"
+    vietnamese: "Tr\xF2 chuy\u1EC7n nhanh"
+    enabled: 1
+  - japanese: "\u30AB\u30FC\u30BD\u30EB\u79FB\u52D5\u2191"
+    vietnamese: "Di chuy\u1EC3n con tr\u1ECF\u2191"
+    enabled: 1
+  - japanese: "\u30AB\u30FC\u30BD\u30EB\u79FB\u52D5\u2193"
+    vietnamese: "Di chuy\u1EC3n con tr\u1ECF\u2193"
+    enabled: 1
+  - japanese: "\u30AB\u30FC\u30BD\u30EB\u79FB\u52D5\u2190"
+    vietnamese: "Di chuy\u1EC3n con tr\u1ECF\u2190"
+    enabled: 1
+  - japanese: "\u30AB\u30FC\u30BD\u30EB\u79FB\u52D5\u2192"
+    vietnamese: "Di chuy\u1EC3n con tr\u1ECF\u2192"
+    enabled: 1
+  - japanese: "\u6C7A\u5B9A"
+    vietnamese: "s\u1EF1 gi\u1EA3i quy\u1EBFt"
+    enabled: 1
+  - japanese: "\u30AD\u30E3\u30F3\u30BB\u30EB"
+    vietnamese: "H\u1EE7y b\u1ECF"
+    enabled: 1
+  - japanese: "\u60C5\u5831\u8868\u793A"
+    vietnamese: "Hi\u1EC3n th\u1ECB th\xF4ng tin"
+    enabled: 1
+  - japanese: "\u7DE8\u96C6/\u53CD\u8EE2"
+    vietnamese: "Ch\u1EC9nh s\u1EEDa/L\u1EADt"
+    enabled: 1
+  - japanese: "\u30BF\u30D6\u5207\u308A\u66FF\u3048L"
+    vietnamese: "Tab Chuy\u1EC3n \u0111\u1ED5i L"
+    enabled: 1
+  - japanese: "\u30BF\u30D6\u5207\u308A\u66FF\u3048R"
+    vietnamese: "Chuy\u1EC3n \u0111\u1ED5i tab R"
+    enabled: 1
+  - japanese: "\u30B5\u30D6\u30BF\u30D6\u5207\u308A\u66FF\u3048L"
+    vietnamese: "Chuy\u1EC3n \u0111\u1ED5i tab ph\u1EE5 L"
+    enabled: 1
+  - japanese: "\u30B5\u30D6\u30BF\u30D6\u5207\u308A\u66FF\u3048R"
+    vietnamese: "Chuy\u1EC3n \u0111\u1ED5i tab ph\u1EE5 R"
+    enabled: 1
+  - japanese: "\u30E1\u30CB\u30E5\u30FC\u3092\u958B\u304F"
+    vietnamese: "M\u1EDF menu"
+    enabled: 1
+  - japanese: "'<sprite name=\"ps_skill1\">\u30E1\u30F3\u30D0\u30FC\u30EA\u30B9\u30C8'"
+    vietnamese: "'<sprite name=\"ps_skill1\">Danh s\xE1ch th\xE0nh vi\xEAn'"
+    enabled: 1
+  - japanese: "\u30E1\u30F3\u30D0\u30FC\u30EA\u30B9\u30C8"
+    vietnamese: "Danh s\xE1ch th\xE0nh vi\xEAn"
+    enabled: 1
+  autoTranslateEnabled: 1
+  translateEndpoint: https://libretranslate.com/translate
+  apiKey: 
+  requestTimeoutSeconds: 20
+  useFallbackPublicEndpoints: 1

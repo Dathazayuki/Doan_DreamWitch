@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b39afcca62d2a4284728d250d11a77, type: 3}
+  m_Name: Em0100
+  m_EditorClassIdentifier: 
+  displayName: Em0100
+  formId: 5
+  animatorController: {fileID: 9100000, guid: d6bc7a5fe1fa4e54cba390cc7b1ec02d, type: 2}
+  formIcon: {fileID: 21300000, guid: 6cd549f76f3624144a799bf540699c7d, type: 2}
+  maxHealth: 60
+  respawnGushTimeout: 0.6
+  formPrefab: {fileID: 1565834643262163458, guid: 8ed6a1798281af24f97642f17a6b3126, type: 3}
+  enemySourcePrefab: {fileID: 67977672114381451, guid: 8ef690b99db73d34e85359ee8d92a638, type: 3}
+  combatProfile:
+    comboDamagePerStep:
+    - 30
+    - 32
+    - 36
+    upAttackDamage: 40
+    heavyStrikeDamage: 50

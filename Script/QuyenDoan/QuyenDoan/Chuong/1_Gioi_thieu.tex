@@ -1,0 +1,83 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+\section{Đặt vấn đề}
+\label{section:1.1}
+
+Trong những năm gần đây, ngành công nghiệp trò chơi điện tử độc lập (game indie) đã chứng kiến sự phát triển và khẳng định vị thế thương mại quan trọng trên thị trường toàn cầu. Trong số các thể loại trò chơi, Metroidvania — thể loại hành động đi cảnh (Action Platformer) kết hợp các đặc trưng thiết kế truyền thống từ hai dòng game kinh điển \textit{Metroid} và \textit{Castlevania} — luôn giữ một vị trí cốt lõi. Sự thành công vượt trội của các tác phẩm như \textit{Hollow Knight} hay \textit{Ori and the Blind Forest} là minh chứng rõ nét cho thấy thể loại này sở hữu sức hút lâu dài nhờ cấu trúc màn chơi thử thách và giá trị tái chơi (replay value) cao đối với cộng đồng người sử dụng.
+
+Tuy nhiên, qua khảo sát thực tế các sản phẩm Metroidvania hiện có trên thị trường, phần lớn các trò chơi vẫn vận hành dựa trên việc kiểm soát một nhân vật duy nhất xuyên suốt cốt truyện. Cơ chế này dù đảm bảo tính tập trung trong mạch điều khiển, nhưng vô hình trung tạo ra giới hạn về sự đa dạng trong phương thức tiếp cận chiến đấu và hạn chế khả năng tối ưu hóa tính năng khám phá bản đồ mở. Người chơi sau một thời gian trải nghiệm dài dễ gặp phải cảm giác lặp lại khi các chuỗi kỹ năng của nhân vật chính không có sự đột phá. Đây là một bài toán thiết kế lớn đặt ra cho các nhà phát triển game hiện nay: làm thế nào để vừa kế thừa được cấu trúc thế giới mở liên thông phức tạp đặc trưng, vừa mở rộng biên độ trải nghiệm hành vi của người chơi để duy trì tính hấp dẫn lâu dài của sản phẩm.
+
+Nếu bài toán đa dạng hóa cơ chế tương tác và điều khiển nhân vật trong thế giới Metroidvania được giải quyết, nó không chỉ mang lại trải nghiệm mới mẻ, kích thích tư duy chiến thuật cho người chơi, mà còn cung cấp một mô hình giải pháp kỹ thuật có khả năng tái sử dụng cho các nhà phát triển game độc lập trên engine Unity. Việc giải quyết vấn đề này đòi hỏi sự bứt phá trong kiến trúc lập trình hệ thống nhân vật và quản lý tài nguyên nhằm tạo ra một cơ chế chuyển đổi thực thể phức tạp, cho phép người chơi thu thập, kế thừa và trực tiếp vận hành hệ thống cây kỹ năng (skill tree) riêng biệt từ chính các thực thể kẻ địch bị đánh bại trong màn chơi. Từ những đòi hỏi thực tiễn đó, đề tài nghiên cứu kỹ thuật thiết kế và triển khai một hệ thống vận hành trò chơi hành động đi cảnh cải tiến đã được hình thành.
+
+
+\newpage
+
+\section{Mục tiêu đề tài}
+\label{section:1.2}
+Khảo sát các sản phẩm trò chơi hành động đi cảnh (Metroidvania) hiện nay cho thấy người dùng ngày càng đòi hỏi cao về chiều sâu cơ chế và tính liên tục trong trải nghiệm. Dù đa số sản phẩm hiện tại đã tối ưu tốt hệ thống thế giới liền mạch và phản hồi vật lý, chúng vẫn tồn tại hạn chế lớn khi trói buộc người chơi vào một nhân vật cố định duy nhất xuyên suốt quá trình vận hành, khiến luồng chiến đấu và khám phá bản đồ dễ rơi vào lối mòn tuyến tính.
+
+Để khắc phục hạn chế này, mục tiêu cốt lõi của đề tài là xây dựng trò chơi hành động 2D "Dream Witch" trên nền tảng Unity, tập trung giải quyết bài toán đa dạng hóa gameplay thông qua hệ thống Nhập xác (Possession System). Trò chơi hướng tới việc cho phép người dùng trực tiếp thu thập, chuyển đổi thực thể và vận hành các cây kỹ năng riêng biệt của kẻ địch bị đánh bại, kết hợp với cơ chế chiến đấu phản hồi nhanh và hệ thống bản đồ liên thông không màn hình chờ để duy trì tính hấp dẫn lâu dài.
+
+Để hiện thực hóa mục tiêu trên một cách tối ưu, đề tài định hướng áp dụng mô hình Máy trạng thái hữu hạn (Finite State Machine) để quản lý mượt mà các trạng thái di chuyển và chiến đấu của nhân vật. Các mẫu thiết kế chuẩn như Singleton và Observer được lựa chọn để chuẩn hóa kiến trúc mã nguồn; các thuật toán trí tuệ nhân tạo (AI) được tích hợp để mô phỏng hành vi của kẻ địch một cách sinh động; và giải pháp Object Pooling sẽ được triển khai nhằm tái sử dụng tài nguyên hệ thống, đảm bảo trò chơi luôn đạt hiệu năng ổn định tối đa. 
+
+\newpage
+
+\section{Phạm vi và đối tượng người chơi}
+\label{section:1.3}
+
+Dự án "Dream Witch" tập trung tối ưu hóa các cơ chế cốt lõi của dòng game hành động đi cảnh 2D độc lập trên Unity thay vì mở rộng quy mô thế giới. Về đối tượng mục tiêu (Target Audience), trò chơi được định vị cụ thể như sau:
+
+\begin{itemize}
+    \item \textbf{Phân loại theo độ tuổi và xếp hạng nội dung (ESRB):} Định hướng đạt chuẩn ESRB E10+ (từ 10 tuổi trở lên). Trò chơi chứa yếu tố bạo lực giả tưởng khi chiến đấu với quái vật nhưng loại bỏ hoàn toàn hình ảnh máu me, nội dung nhạy cảm hay ngôn ngữ cực đoan để đảm bảo tính lành mạnh.
+    \item \textbf{Nhóm game thủ cốt lõi (Core Audience):} Hướng đến nam và nữ từ 15 đến 30 tuổi yêu thích thể loại hành động đi cảnh góc nhìn ngang. Nhóm này bị thu hút bởi cơ chế chiến đấu đòi hỏi phản xạ nhanh và kỹ năng di chuyển chính xác trên địa hình phức tạp.
+    \item \textbf{Nhóm người hâm mộ thể loại bổ trợ và văn hóa:} Tiếp cận người chơi yêu thích dòng game nhập vai thông qua hệ thống nâng cấp nhân vật, kết hợp với các yếu tố giải đố và phiêu lưu kỳ ảo. Phong cách nghệ thuật đồ họa giúp sản phẩm thu hút cả khán giả châu Á (chuộng thẩm mỹ chi tiết) lẫn khán giả phương Tây (chuộng tính logic vật lý).
+\end{itemize}
+Các thông tin định vị nhóm đối tượng người chơi và định hướng thiết kế tương ứng được tóm tắt trong Bảng~\ref{table:target_audience}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3cm}|p{2.5cm}|p{4cm}|p{4.5cm}|}
+\hline
+\textbf{Phân loại đối tượng} & \textbf{Độ tuổi/Xếp hạng} & \textbf{Động lực trải nghiệm chính} & \textbf{Giải pháp thiết kế tương ứng} \\ \hline
+Người chơi phổ thông & E10+ (ESRB) & Giải trí lành mạnh, bạo lực giả tưởng nhẹ nhàng & Loại bỏ hình ảnh máu me, ngôn từ nhạy cảm; tập trung cốt truyện kỳ ảo. \\ \hline
+Game thủ cốt lõi (Core) & 15 - 30 tuổi & Thử thách phản xạ di chuyển và chiến đấu nhanh & Tích hợp cơ chế nhảy đôi, lướt 8 hướng, bám tường và combo cận chiến. \\ \hline
+Người thích nhập vai (RPG) & Mọi lứa tuổi & Tích lũy tài nguyên, thăng tiến sức mạnh & Hệ thống nâng cấp vĩnh viễn thuộc tính tại Village và thu thập tàn tích linh hồn. \\ \hline
+Người thích giải đố, phiêu lưu & Mọi lứa tuổi & Khám phá bản đồ đa tuyến, phòng ẩn, truyền thuyết & Thiết kế màn chơi phi tuyến tính, rương báu, lore sách phép cổ. \\ \hline
+\end{tabular}
+\caption{Bảng phân tích đối tượng người chơi và định hướng thiết kế}
+\label{table:target_audience}
+\end{table}
+
+
+\section{Định hướng giải pháp}
+\label{section:1.4}
+Từ nhiệm vụ đặt ra, đồ án đề xuất giải pháp xây dựng trò chơi thuộc thể loại hành động đi cảnh hai chiều (2D Action Platformer) trên nền tảng Unity Engine. Phương pháp cốt lõi được áp dụng là kiến trúc Máy trạng thái hữu hạn (Finite State Machine) nhằm quản lý phân tách các trạng thái di chuyển và chiến đấu phức tạp của hệ thống nhân vật. Nhằm triệt tiêu hiện tượng xuyên thấu vật thể, kỹ thuật tính toán động học tùy chỉnh (Kinematic Physics) được ưu tiên triển khai thay cho hệ thống động lực học mặc định. Toàn bộ logic được lập trình bằng ngôn ngữ C\# nhờ khả năng tối ưu hóa hệ thống và hỗ trợ thư viện vật lý mạnh mẽ.
+
+Để hiện thực hóa bản đồ liên thông, cấu trúc thế giới được thiết kế theo mô hình Hub-and-Spoke, lấy phân khu Nhà thờ (Church) làm trung tâm kết nối đến các khu vực Ngục tối (Dungeon) và Núi lửa (Volcano). Trí tuệ nhân tạo (AI) của kẻ địch được phân tách dựa trên các tập lệnh hành vi chiến thuật cận chiến hoặc tầm xa trong vùng nhận diện không gian. Đồng thời, giải pháp tải tài nguyên bất đồng bộ (Asynchronous Scene Loading) được áp dụng tại các điểm chuyển giao bản đồ để giải phóng và nạp mới dữ liệu ngầm, đảm bảo trải nghiệm liền mạch không màn hình chờ. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth,height=0.36\textheight,keepaspectratio]{Hinhve/SoDoGiaiPhapTongThe.png}
+    \caption{Sơ đồ cấu trúc giải pháp kỹ thuật đề xuất cho hệ thống game}
+    \label{fig:sodo_giaiphap_tongthe}
+\end{figure}
+
+Đóng góp chính của đồ án là xây dựng thành công bộ khung mã nguồn (Framework) hoàn chỉnh chuyên biệt cho thể loại hành động đi cảnh, tối ưu từ phản hồi điều khiển đến kiến trúc quản lý thực thể. Kết quả đạt được là một sản phẩm trò chơi vận hành chuẩn xác, kiểm soát tốt xung đột vật lý và có cấu trúc mô-đun khả năng mở rộng cao. Qua đó, đồ án minh chứng cho việc làm chủ và chuẩn hóa quy trình kỹ nghệ phát triển phần mềm trò chơi độc lập từ giai đoạn thiết kế kiến trúc đến vận hành thực tế.
+\section{Bố cục đồ án}
+\label{section:1.5}
+
+Phần còn lại của báo cáo đồ án tốt nghiệp này được tổ chức và cấu trúc theo các chương nội dung như sau:
+
+Chương 2 trình bày về khảo sát hiện trạng, phân tích các sản phẩm tương tự và đặc tả các yêu cầu thiết kế đối với hệ thống trò chơi.
+
+Chương 3 đi sâu vào thiết kế chi tiết trò chơi "Dream Witch" bao gồm lối chơi, cơ chế, cốt truyện, thiết kế thế giới game, nhân vật và giao diện người dùng (UI/HUD).
+
+Chương 4 tập trung vào phân tích thiết kế triển khai chi tiết ở mức mã nguồn và kiến trúc phần mềm trò chơi như hệ thống biến hình (Form Switch), máy trạng thái nhân vật (Form State Factory), bộ não AI cho Boss và các hệ thống dịch vụ nền phục vụ vận hành.
+
+Chương 5 trình bày quá trình thực nghiệm và đánh giá, bao gồm các sơ đồ kiến trúc gói UML, thiết kế lớp, thiết kế cơ sở dữ liệu, danh sách thư viện sử dụng và kết quả kiểm thử.
+
+Chương 6 tổng kết các giải pháp kỹ thuật nổi bật và đóng góp khoa học chính mà đồ án đã giải quyết được trong quá trình phát triển dự án game Metroidvania.
+
+Chương 7 đưa ra kết luận tổng quan về kết quả đạt được, tự đánh giá ưu nhược điểm và đề xuất hướng nghiên cứu, phát triển trò chơi trong tương lai.
+\end{document}

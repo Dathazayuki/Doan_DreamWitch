@@ -1,0 +1,58 @@
+﻿// ════════════════════════════════════════════════════════════════
+// FILE: NPC_Village.yarn
+// Chứa hội thoại của tất cả NPC trong khu Village
+// Mỗi NPC có 1 node riêng, tên node = giá trị điền vào NpcInteractable.yarnNodeTitle
+// ════════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────────
+// Lão thương nhân tại Village
+// NpcInteractable.yarnNodeTitle = "Merchant_Intro"
+// ─────────────────────────────────────────────────────────────────
+title: Merchant_Intro
+position: -23,-111
+---
+// Cú pháp: TênNhânVật: Lời thoại
+Thương Nhân: Chào mừng đến cửa hàng của ta! #line:03747e4 
+Thương Nhân : Hôm nay ta có nhập lô hàng mới #line:065088f 
+// Thương Nhân: Hôm nay ta có hàng mới về đấy.
+
+<<jump Merchant_Shop>>
+===
+
+// // ─────────────────────────────────────────────────────────────────
+// // Node con: Hiển thị khi chọn "xem hàng"
+// // ─────────────────────────────────────────────────────────────────
+title: Merchant_Shop
+position: -296,59
+---
+Thương Nhân: Đây là những thứ ta đang có... #line:093a1b2 
+// TODO: Khi tích hợp Shop UI, gọi Yarn Command:
+<<open_shop>>
+Thương Nhân: Hẹn gặp lại! #line:0e19a60 
+===
+
+
+
+title: BlackSmith_Intro
+position: 263,-61
+---
+BlackSmith: hô hô hô, ngươi có muốn nâng cấp 1 số thứ trước khi vào hầm ngục không
+BlackSmith: xưởng chế tạo của ta đảm bảo có thể trang bị cho ngươi, miễn ngươi có nhiều tiền là ta sẵn lòng phục vụ
+BlackSmith: Đây là dịch vụ của xưởng của ta 
+<<open_facility>>
+BlackSmith: Lúc nào muốn cống tiền cho ta hãy đến tiếp nhé , hô hô hô
+===
+
+title: Soldier
+position: -14,116
+---
+Soldier: Đứng lại! Cô kia, cô không nhìn thấy rào chắn hoàng gia và đống cọc gai này à? Phía trước là làng Maronete — khu vực cấm theo lệnh thiết quân luật!"
+Soldier: Lại một kẻ không sợ chết... Cô nhìn đi, giờ làm gì còn ai dám bén mảng đến đây nữa. Nơi này sắp thành đất của quỷ rồi."
+Soldier: Đức Vua từ cung điện Victoria đã ban bố sắc lệnh tối cao từ nửa năm trước: Bất cứ ai tiêu diệt được quái vật trong Hầm Ngục để kìm hãm sự bành trướng của nó sẽ được phong tước hiệu và ban thưởng vạn lượng vàng. Vua nói rằng, tiêu diệt càng nhiều quái vật, Hầm Ngục sẽ càng suy yếu và hiện thực sẽ được cứu."
+
+Soldier: Nhưng sắc lệnh đó giờ chẳng khác nào một bản án tử hình gửi đến khắp đại lục. Đức Vua muốn chúng tôi giữ vững ranh giới này, nhưng lực lượng hoàng gia không thể tràn vào trong. Chúng tôi chỉ có thể đứng đây trinh sát vòng ngoài, dựng rào chắn và cầu nguyện cho lũ quái vật không phá vỡ mê cung mà tràn lên mặt đất."
+Soldier: Đã từng có... rất nhiều là đằng khác. Khi sắc lệnh mới ban ra, các mạo hiểm giả, lính đánh thuê, cho đến những hiệp sĩ danh giá nhất đổ về Maronete đông như trẩy hội. Họ kiêu ngạo lắm, ai cũng nghĩ mình sẽ là người hùng cứu thế."
+
+Soldier: Nhưng rồi lũ quái vật dưới cái hầm ngục chết tiệt đó ngày càng trở nên điên cuồng và nguy hiểm hơn. Chúng tiến hóa, chúng phục kích... Từng đoàn người tiến vào nhà thờ cổ và thứ duy nhất trở lại chỉ là những chiếc huy hiệu rớm máu. Xác của họ chắc đã chất cao thành núi dưới lòng đất rồi. Giờ thì sao? Những kẻ còn sống đã tháo chạy từ tám đời, lũ nhát chết thì không dám bén mảng tới. Nơi này giờ chỉ còn là một nghĩa địa không bia mộ."
+Soldier: Tôi sẽ không ngăn một kẻ muốn tự sát. Nếu cô đã quyết tâm nộp mạng cho cái đầm lầy bóng tối đó, cứ việc bước qua. Đi thẳng vào trong làng, tìm gặp Melichan ở đống lửa gần nhà thờ, cô ta là người duy nhất còn bám trụ lại cái nơi quỷ quái này. Chúc cô may mắn, phù thủy... mặc dù tôi biết cô sẽ cần nhiều hơn thế."
+===

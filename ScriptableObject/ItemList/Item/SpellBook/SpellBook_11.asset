@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295349eb9061ac64a93011342fb14450, type: 3}
+  m_Name: SpellBook_11
+  m_EditorClassIdentifier: 
+  bookId: SpellBook_11
+  displayName: SpellBook_11
+  icon: {fileID: 21300000, guid: ef77be26ad3dd1e45b9f28bff555212f, type: 2}
+  description: "Ng\u01B0ng t\u1EE5 phong ma ph\xE1p gi\xFAp gia t\u0103ng 10% t\u1ED1c
+    \u0111\u1ED9 di chuy\u1EC3n \u0111\u1EC3 linh ho\u1EA1t n\xE9 \u0111\xF2n, \u0111\u1ED3ng
+    th\u1EDDi h\u1ED7 tr\u1EE3 gia t\u0103ng nh\u1EB9 15% s\xE1t th\u01B0\u01A1ng
+    cho c\xE1c \u0111\xF2n t\u1EA5n c\xF4ng c\u01A1 b\u1EA3n."
+  healthBonus: 0
+  healthPercentBonus: 0
+  manaBonus: 0
+  basicAttackDamageMultiplier: 1.15
+  manaRegenPerHitBonus: 0
+  critChance: 0
+  critDamageMultiplierBonus: 0
+  skillDamageMultiplier: 1
+  skillCooldownReduction: 0
+  healthRegenBonus: 0
+  manaRegenBonus: 0
+  moveSpeedPercentBonus: 0.1
+  defenseBonus: 0

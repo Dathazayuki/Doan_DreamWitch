@@ -1,0 +1,41 @@
+﻿title: NPC1
+tags:
+---
+Melichan: Một... phù thủy? Thật hiếm hoi. Đã bao lâu rồi tôi không thấy một ai dám chủ động bén mảng đến cái nơi bị nguyền rủa này nhỉ...
+
+Melichan: Cô nhìn ngôi làng Maronete này xem. Giờ nó chỉ còn là một cái xác không hồn. Phía sau cánh cửa Nhà thờ đổ nát kia chính là Hầm Ngục — một cái miệng không đáy của Ác Quỷ đang nuốt chửng hiện thực từng ngày.
+Melichan : Hả ?? Cô không nhớ bất kì ký ức gì ư , thế tại sao cô lại đến đây
+-> Tôi không biết , Từ khi tỉnh dậy có 1 điều gì đó thôi thúc tôi tới nơi đây
+Melichan : Haha vậy chúc mừng cô đến ranh giới của địa ngục
+Melichan: Ánh mắt của cô trông thật trống rỗng và vô hồn như kẻ đánh mất linh hồn. Nhưng tôi có thể cảm nhận được... có một lực hút nào đó từ đáy sâu đang thay đổi kể từ khi cô đến đây . Cô đến cái chốn tận cùng này để làm gì?
+-> Tôi cần vào Hầm Ngục. Có một thứ gì đó đang thôi thúc tôi #line:051b615 
+    <<jump Node_1781118251967>>
+-> Tại sao Hầm Ngục lại bành trướng? Ai đứng sau chuyện này?. #line:090e35e 
+    <<jump Node_1781118414118>> 
+-> Tôi phải đi đây #line:05d743b 
+    NPC: Tạm biệt. #line:03f342b 
+===
+
+title: NPC2
+position: -181,-108
+---
+Tu nữ : Mong chúa phù hộ chúng ta  #line:0dced83 
+===
+
+title: Node_1781118251967
+position: -378,145
+---
+Melichan: Cô điên rồi... Hoặc cô có một lý do sinh tử nào đó để đánh cược mạng sống. Được rồi, nếu cô đã quyết, lối vào duy nhất là qua mật đạo phía sau của Nhà thờ cổ
+Melichan: Hầm Ngục dưới đó là một thế giới đảo điên và bành trướng vô tận. Ngay từ tầng đầu tiên, cô sẽ đối mặt với hai phân khu nguy hiểm nhất đang gặm nhấm thế giới này.....
+Melichan: Tàn Tích Hoang Phế (Ruin) nơi ngự trị của Cổ Thạch Big Golem, và Núi Lửa Rực Cháy (Volcano) thuộc về Tử Thần Rối Marionette. 
+Melichan: Hãy cẩn thận, chọn hướng đi cho kỹ, vì một khi đã bước xuống, hiện thực sẽ không còn giống như những gì cô từng biết.
+===
+
+title: Node_1781118414118
+position: 314,41
+---
+Melichan: Đó là một tai ương bách niên bủa vây bởi những lời nguyền. Người ta đồn rằng, một kẻ phàm trần đã hiến tế một thứ gì đó vô cùng thuần khiết cho Ác Quỷ Vô Hình để đổi lấy quyền năng tối thượng, trở thành Chúa Tể Hầm Ngục."
+Melichan: Kẻ đó chính là Chúa tể Hầm ngục. Mụ ta trốn sâu dưới tầng đáy, mượn sức mạnh của Ác Quỷ để kéo mặt đất này xuống địa ngục. 
+Melichan: Mụ ta đã ban cho hai Đại Quái Vật ở vùng Ruin và Volcano những 'nguồn năng lượng kỳ lạ cực hạn'. Chính thứ năng lượng đó đang làm mỏ neo cố định, khiến hai khu vực này bành trướng điên cuồng. Nếu không tiêu diệt nguồn năng lượng ẩn giấu trong hai đại quái vật đó, Hầm Ngục sẽ sớm nuốt chửng hoàn toàn thế giới thực.
+melichan : Khu vực này từ lâu đã không còn mạo hiểm giả dám vào nữa, hãy cẩn thận.
+===

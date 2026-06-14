@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c36174a8ccb432bb1f9dc6cb4e2e2d4, type: 3}
+  m_Name: BombBarrelBehaviour
+  m_EditorClassIdentifier: 
+  bombPrefab: {fileID: 7873301652639965504, guid: 93a736705554e9044a15ed5725106c23, type: 3}
+  placeOffset: {x: 0.65, y: 0}
+  fuseDuration: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  explosionDamage: 30
+  explosionDuration: 1
+  explosionOverlapBufferSize: 32
+  maxPoolSize: 8

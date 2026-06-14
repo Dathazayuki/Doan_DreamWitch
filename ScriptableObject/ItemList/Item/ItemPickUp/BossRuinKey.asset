@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71618b1f8b849f543a91aa2f9a16f457, type: 3}
+  m_Name: BossRuinKey
+  m_EditorClassIdentifier: 
+  itemId: BossRuinKey
+  displayName: BossRuinKey
+  icon: {fileID: 1318182880986508710, guid: ed15e577a3dfb4541bbf3d562ac3a234, type: 3}
+  price: 0
+  stackable: 1
+  description: "Ch\xECa kh\xF3a m\u1EDF ph\xF2ng Boss Ruin, c\u1EA7n thu th\u1EADp
+    7 c\xE1i \u0111\u1EC3 m\u1EDF"
+  category: 0
