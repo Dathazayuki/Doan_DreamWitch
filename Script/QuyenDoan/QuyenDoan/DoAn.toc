@@ -75,7 +75,7 @@
 \contentsline {section}{\numberline {5.2}Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{40}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Thiết kế dữ liệu và Prefab cho các hình thái linh hồn (Player Forms)}{40}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}Quy trình đồng bộ hóa chuyển đổi hình thái vật lý và hoạt ảnh}{40}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Quản lý trạng thái thông qua máy trạng thái động (Form State Factory)}{43}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.3}Quản lý trạng thái thông qua máy trạng thái động (Form State Factory)}{42}{subsection.5.2.3}%
 \contentsline {section}{\numberline {5.3}Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{43}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Phân cấp kế thừa các thực thể (Enemy Hierarchy)}{43}{subsection.5.3.1}%
 \contentsline {subsection}{\numberline {5.3.2}Cơ chế AI cho Boss (Brain, Desire và Combo)}{44}{subsection.5.3.2}%
