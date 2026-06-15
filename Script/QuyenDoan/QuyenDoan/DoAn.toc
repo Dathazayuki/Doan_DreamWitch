@@ -5,8 +5,8 @@
 \ttl@change@i {\@ne }{subsection}{1.0cm}{\vspace {0.3cm}}{\thecontentslabel \ }{}{\titlerule *[0.3pc]{.}\contentspage }\relax 
 \ttl@change@v {subsection}{}{}{}\relax 
 \thispagestyle {empty}
-\contentsline {chapter}{Danh sách thuật ngữ}{x}{section*.5}%
-\contentsline {chapter}{DANH MỤC THUẬT NGỮ VÀ TỪ VIẾT TẮT}{xi}{section*.7}%
+\contentsline {chapter}{Danh sách thuật ngữ}{xi}{section*.5}%
+\contentsline {chapter}{DANH MỤC THUẬT NGỮ VÀ TỪ VIẾT TẮT}{xii}{section*.7}%
 \contentsline {chapter}{\numberline {1}GIỚI THIỆU ĐỀ TÀI}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Đặt vấn đề}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Mục tiêu đề tài}{2}{section.1.2}%
@@ -71,59 +71,65 @@
 \contentsline {section}{\numberline {5.1}Tổng quan kỹ thuật}{37}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Thiết kế kiến trúc}{37}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Lựa chọn kiến trúc phần mềm}{37}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Thiết kế tổng quan}{38}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Thiết kế chi tiết gói}{40}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Cấu trúc chi tiết các phân hệ cốt lõi}{41}{subsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {a}Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{41}{subsubsection.5.2.4.1}%
-\contentsline {subsubsection}{\numberline {b}Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{42}{subsubsection.5.2.4.2}%
-\contentsline {subsubsection}{\numberline {c}Các hệ thống lõi phục vụ vận hành}{45}{subsubsection.5.2.4.3}%
-\contentsline {subsubsection}{\numberline {d}Kiến trúc giao diện người dùng và Canvas (UI Canvas Architecture)}{45}{subsubsection.5.2.4.4}%
-\contentsline {section}{\numberline {5.3}Thiết kế chi tiết}{46}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Thiết kế lớp}{46}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Thiết kế cơ sở dữ liệu}{50}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Xây dựng ứng dụng}{53}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Thư viện và công cụ sử dụng}{53}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Kết quả đạt được}{54}{subsection.5.4.2}%
-\contentsline {section}{\numberline {5.5}Sản phẩm}{54}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Kiểm thử}{59}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Tổng kết kết quả kiểm thử}{60}{subsection.5.6.1}%
-\contentsline {section}{\numberline {5.7}Triển khai}{60}{section.5.7}%
-\contentsline {chapter}{\numberline {6}CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT}{62}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Tối ưu hóa hiệu năng bằng kỹ thuật Distance Culling tùy biến}{62}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Đặt vấn đề và bài toán tối ưu}{62}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Giải pháp hiện thực hóa}{62}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Kết quả đạt được}{64}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2}Kiến trúc máy trạng thái phân tầng cho hệ thống nhân vật phức tạp}{64}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Đặt vấn đề và bài toán thiết kế}{64}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Giải pháp hiện thực hóa}{64}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Kết quả đạt được}{65}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Giải pháp tích hợp Yarn Spinner và quản lý máy trạng thái thế giới phi tuyến}{66}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Đặt vấn đề}{66}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Cơ chế tích hợp và đồng bộ hóa trạng thái}{66}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Kết quả đạt được}{67}{subsection.6.3.3}%
-\contentsline {chapter}{\numberline {7}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{68}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Kết luận}{68}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Kết quả đạt được và đóng góp của đề tài}{68}{subsection.7.1.1}%
-\contentsline {subsection}{\numberline {7.1.2}Những hạn chế còn tồn tại}{68}{subsection.7.1.2}%
-\contentsline {subsection}{\numberline {7.1.3}Bài học kinh nghiệm rút ra}{69}{subsection.7.1.3}%
-\contentsline {section}{\numberline {7.2}Hướng phát triển}{69}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Cải tiến và hoàn thiện các chức năng hiện có}{69}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Nghiên cứu và phát triển các tính năng mới}{69}{subsection.7.2.2}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{73}{section*.67}%
-\contentsline {chapter}{PHỤ LỤC}{75}{section*.68}%
+\contentsline {subsection}{\numberline {5.2.2}Thiết kế tổng quan}{39}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Thiết kế chi tiết gói}{42}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Cấu trúc chi tiết các phân hệ cốt lõi}{46}{subsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {a}a. Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{46}{subsubsection.5.2.4.1}%
+\contentsline {subsubsection}{\numberline {b}b. Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{48}{subsubsection.5.2.4.2}%
+\contentsline {subsubsection}{\numberline {c}c. Các hệ thống lõi phục vụ vận hành}{49}{subsubsection.5.2.4.3}%
+\contentsline {subsubsection}{\numberline {d}d. Giao diện người dùng và Canvas (UI Canvas Architecture)}{52}{subsubsection.5.2.4.4}%
+\contentsline {section}{\numberline {5.3}Thiết kế chi tiết}{52}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Thiết kế lớp}{52}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Thiết kế cơ sở dữ liệu}{58}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Xây dựng ứng dụng}{60}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Thư viện và công cụ sử dụng}{60}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Kết quả đạt được}{61}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}Sản phẩm}{62}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Giai đoạn 1: Khởi động và thiết lập ban đầu (Title Screen \& Save Slots)}{62}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Giai đoạn 2: Thám hiểm khu vực Di tích và điều khiển vật lý (Ruin Exploration)}{63}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Giai đoạn 3: Cơ chế chiến đấu cận chiến và né tránh (Combat \& Dash/Dodge)}{64}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa (Form Switch \& Spellcasting)}{65}{subsection.5.5.4}%
+\contentsline {subsection}{\numberline {5.5.5}Giai đoạn 5: Đối đầu Boss Golem và lưu trữ tiến trình (Boss Fight \& Progress Saving)}{66}{subsection.5.5.5}%
+\contentsline {subsection}{\numberline {5.5.6}Các bảng giao diện chức năng quan trọng khác:}{67}{subsection.5.5.6}%
+\contentsline {section}{\numberline {5.6}Kiểm thử}{69}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Tổng kết kết quả kiểm thử}{70}{subsection.5.6.1}%
+\contentsline {section}{\numberline {5.7}Triển khai}{70}{section.5.7}%
+\contentsline {chapter}{\numberline {6}CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT}{71}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Tối ưu hóa hiệu năng bằng kỹ thuật Distance Culling tùy biến}{71}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Đặt vấn đề và bài toán tối ưu}{71}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Giải pháp hiện thực hóa}{71}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Kết quả đạt được}{73}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Kiến trúc máy trạng thái phân tầng cho hệ thống nhân vật phức tạp}{73}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Đặt vấn đề và bài toán thiết kế}{73}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Giải pháp hiện thực hóa}{73}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Kết quả đạt được}{74}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Giải pháp tích hợp Yarn Spinner và quản lý máy trạng thái thế giới phi tuyến}{75}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Đặt vấn đề}{75}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Cơ chế tích hợp và đồng bộ hóa trạng thái}{75}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Kết quả đạt được}{76}{subsection.6.3.3}%
+\contentsline {chapter}{\numberline {7}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{77}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Kết luận}{77}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Kết quả đạt được và đóng góp của đề tài}{77}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Những hạn chế còn tồn tại}{77}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}Bài học kinh nghiệm rút ra}{78}{subsection.7.1.3}%
+\contentsline {section}{\numberline {7.2}Hướng phát triển}{78}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Cải tiến và hoàn thiện các chức năng hiện có}{78}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Nghiên cứu và phát triển các tính năng mới}{78}{subsection.7.2.2}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{82}{section*.77}%
+\contentsline {chapter}{PHỤ LỤC}{84}{section*.78}%
 \ttl@change@i {\@ne }{chapter}{0.0cm}{\bfseries \vspace {0.3cm}}{{\bfseries {\scshape } \thecontentslabel .\ }}{}{\titlerule *[0.3pc]{.}\contentspage }\relax 
 \ttl@change@v {chapter}{}{}{}\relax 
-\contentsline {chapter}{\numberline {A}HƯỚNG DẪN VIẾT ĐỒ ÁN TỐT NGHIỆP}{75}{appendix.1.A}%
-\contentsline {section}{\numberline {A.1}Ngành học}{76}{section.1.A.1}%
-\contentsline {section}{\numberline {A.2}Đánh dấu (bullet) và đánh số (numering)}{76}{section.1.A.2}%
-\contentsline {section}{\numberline {A.3}Cách thêm bảng}{77}{section.1.A.3}%
-\contentsline {section}{\numberline {A.4}Chèn hình ảnh}{77}{section.1.A.4}%
-\contentsline {section}{\numberline {A.5}Tài liệu tham khảo}{78}{section.1.A.5}%
-\contentsline {paragraph}{Cách liệt kê}{78}{paragraph*.71}%
-\contentsline {paragraph}{Các loại tài liệu tham khảo}{78}{paragraph*.72}%
-\contentsline {section}{\numberline {A.6}Cách viết phương trình và công thức toán học}{78}{section.1.A.6}%
-\contentsline {section}{\numberline {A.7}Qui cách đóng quyển}{78}{section.1.A.7}%
-\contentsline {chapter}{\numberline {B}ĐẶC TẢ USE CASE}{80}{appendix.1.B}%
-\contentsline {section}{\numberline {B.1}Đặc tả use case ``Thống kê tình hình mượn sách''}{80}{section.1.B.1}%
-\contentsline {section}{\numberline {B.2}Máy trạng thái của nhân vật "Thỏ"}{80}{section.1.B.2}%
+\contentsline {chapter}{\numberline {A}HƯỚNG DẪN VIẾT ĐỒ ÁN TỐT NGHIỆP}{84}{appendix.1.A}%
+\contentsline {section}{\numberline {A.1}Ngành học}{85}{section.1.A.1}%
+\contentsline {section}{\numberline {A.2}Đánh dấu (bullet) và đánh số (numering)}{85}{section.1.A.2}%
+\contentsline {section}{\numberline {A.3}Cách thêm bảng}{86}{section.1.A.3}%
+\contentsline {section}{\numberline {A.4}Chèn hình ảnh}{86}{section.1.A.4}%
+\contentsline {section}{\numberline {A.5}Tài liệu tham khảo}{87}{section.1.A.5}%
+\contentsline {paragraph}{Cách liệt kê}{87}{paragraph*.81}%
+\contentsline {paragraph}{Các loại tài liệu tham khảo}{87}{paragraph*.82}%
+\contentsline {section}{\numberline {A.6}Cách viết phương trình và công thức toán học}{87}{section.1.A.6}%
+\contentsline {section}{\numberline {A.7}Qui cách đóng quyển}{87}{section.1.A.7}%
+\contentsline {chapter}{\numberline {B}ĐẶC TẢ USE CASE}{89}{appendix.1.B}%
+\contentsline {section}{\numberline {B.1}Đặc tả use case ``Thống kê tình hình mượn sách''}{89}{section.1.B.1}%
+\contentsline {section}{\numberline {B.2}Máy trạng thái của nhân vật "Thỏ"}{89}{section.1.B.2}%
 \contentsfinish 

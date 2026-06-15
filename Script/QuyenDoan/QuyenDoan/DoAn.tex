@@ -1,7 +1,14 @@
 \documentclass[a4paper,13pt,3p,twoside]{report}
 \usepackage{scrextend}
 \changefontsizes{13pt}
-\usepackage[utf8]{vietnam}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{vietnam}
+  \usepackage{times}
+\else
+  \usepackage{fontspec}
+  \setmainfont{Times New Roman}
+\fi
 \usepackage[top=2cm, bottom=2cm, left=3.5cm, right=2.5cm]{geometry}
 
 \usepackage{graphicx} % Cho phép chèn hỉnh ảnh
@@ -12,7 +19,7 @@
 \usepackage{amsmath} % Hỗ trợ một số biểu thức toán học
 \usepackage{amssymb} % Bổ sung thêm kí hiệu về toán học
 \usepackage{amsbsy} % Hỗ trợ các kí hiệu in đậm
-\usepackage{times} % Chọn font Time New Romans
+
 \usepackage{array} % Tạo bảng array
 \usepackage{enumitem} % Cho phép thay đổi kí hiệu của list
 \usepackage{subfiles} % Chèn các file nhỏ, giúp chia các chapter ra nhiều file hơn
