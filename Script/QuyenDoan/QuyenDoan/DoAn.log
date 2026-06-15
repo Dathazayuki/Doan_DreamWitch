@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.7)  15 JUN 2026 19:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.7)  15 JUN 2026 21:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1808,7 +1808,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) has
 <to be read again> 
                    \relax 
 l.63 ...hÆ¡i (Game Regions)}{29}{subsection.4.7.2}
-                                                  % [2] [3]
+                                                  % [2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4])
@@ -1946,7 +1949,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [3{C:/Users/trinh/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}]
-<Hinhve/SoDoGiaiPhapTongThe.png, id=929, 1881.0275pt x 2644.88126pt>
+<Hinhve/SoDoGiaiPhapTongThe.png, id=868, 1881.0275pt x 2644.88126pt>
 File: Hinhve/SoDoGiaiPhapTongThe.png Graphic file (type png)
 <use Hinhve/SoDoGiaiPhapTongThe.png>
 Package pdftex.def Info: Hinhve/SoDoGiaiPhapTongThe.png  used on input line 61.
@@ -1976,12 +1979,12 @@ Ch\uhorn \ohorn ng 2.
 (Chuong/2_Khao_sat.tex [6
 
 ]
-<Hinhve/BieuDoSoSanh.png, id=945, 501.875pt x 501.875pt>
+<Hinhve/BieuDoSoSanh.png, id=884, 501.875pt x 501.875pt>
 File: Hinhve/BieuDoSoSanh.png Graphic file (type png)
 <use Hinhve/BieuDoSoSanh.png>
 Package pdftex.def Info: Hinhve/BieuDoSoSanh.png  used on input line 33.
 (pdftex.def)             Requested size: 182.81143pt x 182.81143pt.
-<Hinhve/KhaoSatDoiTuong.png, id=946, 856.19875pt x 451.6875pt>
+<Hinhve/KhaoSatDoiTuong.png, id=885, 856.19875pt x 451.6875pt>
 File: Hinhve/KhaoSatDoiTuong.png Graphic file (type png)
 <use Hinhve/KhaoSatDoiTuong.png>
 Package pdftex.def Info: Hinhve/KhaoSatDoiTuong.png  used on input line 45.
@@ -2091,7 +2094,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [10]
-<Hinhve/UseCases.png, id=971, 928.46875pt x 1676.2625pt>
+<Hinhve/UseCases.png, id=910, 928.46875pt x 1676.2625pt>
 File: Hinhve/UseCases.png Graphic file (type png)
 <use Hinhve/UseCases.png>
 Package pdftex.def Info: Hinhve/UseCases.png  used on input line 134.
@@ -2107,7 +2110,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 [11 <./Hinhve/UseCases.png>]
 Ch\uhorn \ohorn ng 3.
 (Chuong/3_Cong_nghe.tex
-<Hinhve/UnityEditor.png, id=981, 1926.19624pt x 1083.04625pt>
+<Hinhve/UnityEditor.png, id=920, 1926.19624pt x 1083.04625pt>
 File: Hinhve/UnityEditor.png Graphic file (type png)
 <use Hinhve/UnityEditor.png>
 Package pdftex.def Info: Hinhve/UnityEditor.png  used on input line 16.
@@ -2121,7 +2124,7 @@ File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
 [12
 
  <./Hinhve/UnityEditor.png>]
-<Hinhve/YarnEditor.png, id=989, 1252.68pt x 959.585pt>
+<Hinhve/YarnEditor.png, id=928, 1252.68pt x 959.585pt>
 File: Hinhve/YarnEditor.png Graphic file (type png)
 <use Hinhve/YarnEditor.png>
 Package pdftex.def Info: Hinhve/YarnEditor.png  used on input line 31.
@@ -2135,7 +2138,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
 
 [13 <./Hinhve/YarnEditor.png>]
-<Hinhve/SpineEditor.png, id=999, 1284.8pt x 722.7pt>
+<Hinhve/SpineEditor.png, id=938, 1284.8pt x 722.7pt>
 File: Hinhve/SpineEditor.png Graphic file (type png)
 <use Hinhve/SpineEditor.png>
 Package pdftex.def Info: Hinhve/SpineEditor.png  used on input line 46.
@@ -2149,7 +2152,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
 
 [14 <./Hinhve/SpineEditor.png>]
-<Hinhve/AstarGridGraph.png, id=1009, 1468.48625pt x 970.62625pt>
+<Hinhve/AstarGridGraph.png, id=948, 1468.48625pt x 970.62625pt>
 File: Hinhve/AstarGridGraph.png Graphic file (type png)
 <use Hinhve/AstarGridGraph.png>
 Package pdftex.def Info: Hinhve/AstarGridGraph.png  used on input line 61.
@@ -2165,7 +2168,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 [15 <./Hinhve/AstarGridGraph.png>]
 Ch\uhorn \ohorn ng 4.
 (Chuong/3_Thiet_ke_tro_choi.tex
-<Hinhve/game_flow.png, id=1017, 3100.58376pt x 2289.55376pt>
+<Hinhve/game_flow.png, id=956, 3100.58376pt x 2289.55376pt>
 File: Hinhve/game_flow.png Graphic file (type png)
 <use Hinhve/game_flow.png>
 Package pdftex.def Info: Hinhve/game_flow.png  used on input line 29.
@@ -2232,7 +2235,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [20]
-<Hinhve/scene_transition.png, id=1044, 1549.79pt x 1060.96375pt>
+<Hinhve/scene_transition.png, id=983, 1549.79pt x 1060.96375pt>
 File: Hinhve/scene_transition.png Graphic file (type png)
 <use Hinhve/scene_transition.png>
 Package pdftex.def Info: Hinhve/scene_transition.png  used on input line 138.
@@ -2257,7 +2260,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [22]
-<Hinhve/control_keyboard.png, id=1056, 1698.345pt x 932.48375pt>
+<Hinhve/control_keyboard.png, id=995, 1698.345pt x 932.48375pt>
 File: Hinhve/control_keyboard.png Graphic file (type png)
 <use Hinhve/control_keyboard.png>
 Package pdftex.def Info: Hinhve/control_keyboard.png  used on input line 202.
@@ -2287,18 +2290,18 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [24]
-<Hinhve/PlayerHuman.jpg, id=1066, 139.52126pt x 219.82124pt>
+<Hinhve/PlayerHuman.jpg, id=1005, 139.52126pt x 219.82124pt>
 File: Hinhve/PlayerHuman.jpg Graphic file (type jpg)
 <use Hinhve/PlayerHuman.jpg>
 Package pdftex.def Info: Hinhve/PlayerHuman.jpg  used on input line 250.
 (pdftex.def)             Requested size: 92.82516pt x 146.24971pt.
-<Hinhve/CacHinhDangNhanVat.png, id=1067, 3404.72pt x 1177.39874pt>
+<Hinhve/CacHinhDangNhanVat.png, id=1006, 3404.72pt x 1177.39874pt>
 File: Hinhve/CacHinhDangNhanVat.png Graphic file (type png)
 <use Hinhve/CacHinhDangNhanVat.png>
 Package pdftex.def Info: Hinhve/CacHinhDangNhanVat.png  used on input line 257.
 
 (pdftex.def)             Requested size: 469.43626pt x 162.33748pt.
-<Hinhve/QuaiVatthuong1.png, id=1068, 499.8675pt x 219.82124pt>
+<Hinhve/QuaiVatthuong1.png, id=1007, 499.8675pt x 219.82124pt>
 File: Hinhve/QuaiVatthuong1.png Graphic file (type png)
 <use Hinhve/QuaiVatthuong1.png>
 Package pdftex.def Info: Hinhve/QuaiVatthuong1.png  used on input line 258.
@@ -2413,12 +2416,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [26]
-<Hinhve/QuaiVatThuong1.png, id=1086, 499.8675pt x 219.82124pt>
+<Hinhve/QuaiVatThuong1.png, id=1025, 499.8675pt x 219.82124pt>
 File: Hinhve/QuaiVatThuong1.png Graphic file (type png)
 <use Hinhve/QuaiVatThuong1.png>
 Package pdftex.def Info: Hinhve/QuaiVatThuong1.png  used on input line 303.
 (pdftex.def)             Requested size: 192.05676pt x 84.4587pt.
-<Hinhve/QuaiVatThuong.png, id=1087, 746.79pt x 248.93pt>
+<Hinhve/QuaiVatThuong.png, id=1026, 746.79pt x 248.93pt>
 File: Hinhve/QuaiVatThuong.png Graphic file (type png)
 <use Hinhve/QuaiVatThuong.png>
 Package pdftex.def Info: Hinhve/QuaiVatThuong.png  used on input line 304.
@@ -2454,17 +2457,17 @@ Overfull \hbox (21.54716pt too wide) in paragraph at lines 316--322
  [][] 
  []
 
-<Hinhve/BossAiState.png, id=1095, 623.32875pt x 1198.4775pt>
+<Hinhve/BossAiState.png, id=1034, 623.32875pt x 1198.4775pt>
 File: Hinhve/BossAiState.png Graphic file (type png)
 <use Hinhve/BossAiState.png>
 Package pdftex.def Info: Hinhve/BossAiState.png  used on input line 328.
 (pdftex.def)             Requested size: 125.50052pt x 241.30054pt.
-<Hinhve/BossTranChien.png, id=1096, 1547.7825pt x 906.38625pt>
+<Hinhve/BossTranChien.png, id=1035, 1547.7825pt x 906.38625pt>
 File: Hinhve/BossTranChien.png Graphic file (type png)
 <use Hinhve/BossTranChien.png>
 Package pdftex.def Info: Hinhve/BossTranChien.png  used on input line 337.
 (pdftex.def)             Requested size: 204.85802pt x 119.96422pt.
-<Hinhve/BossTranChien2.png, id=1097, 1880.02374pt x 1032.85875pt>
+<Hinhve/BossTranChien2.png, id=1036, 1880.02374pt x 1032.85875pt>
 File: Hinhve/BossTranChien2.png Graphic file (type png)
 <use Hinhve/BossTranChien2.png>
 Package pdftex.def Info: Hinhve/BossTranChien2.png  used on input line 344.
@@ -2478,7 +2481,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 
 [28 <./Hinhve/QuaiVatThuong1.png> <./Hinhve/QuaiVatThuong.png> <./Hinhve/BossAi
 State.png>]
-<Hinhve/RuinMap.png, id=1103, 499.8675pt x 219.82124pt>
+<Hinhve/RuinMap.png, id=1042, 499.8675pt x 219.82124pt>
 File: Hinhve/RuinMap.png Graphic file (type png)
 <use Hinhve/RuinMap.png>
 Package pdftex.def Info: Hinhve/RuinMap.png  used on input line 373.
@@ -2495,12 +2498,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [29 <./Hinhve/BossTranChien.png> <./Hinhve/BossTranChien2.png>]
-<Hinhve/VolcanoMap.png, id=1113, 499.8675pt x 219.82124pt>
+<Hinhve/VolcanoMap.png, id=1052, 499.8675pt x 219.82124pt>
 File: Hinhve/VolcanoMap.png Graphic file (type png)
 <use Hinhve/VolcanoMap.png>
 Package pdftex.def Info: Hinhve/VolcanoMap.png  used on input line 382.
 (pdftex.def)             Requested size: 299.29736pt x 131.61871pt.
-<Hinhve/Level.png, id=1115, 1052.93375pt x 1660.2025pt>
+<Hinhve/Level.png, id=1054, 1052.93375pt x 1660.2025pt>
 File: Hinhve/Level.png Graphic file (type png)
 <use Hinhve/Level.png>
 Package pdftex.def Info: Hinhve/Level.png  used on input line 399.
@@ -2528,12 +2531,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [31 <./Hinhve/Level.png>]
-<Hinhve/HUD.png, id=1126, 1263.72125pt x 698.61pt>
+<Hinhve/HUD.png, id=1065, 1263.72125pt x 698.61pt>
 File: Hinhve/HUD.png Graphic file (type png)
 <use Hinhve/HUD.png>
 Package pdftex.def Info: Hinhve/HUD.png  used on input line 423.
 (pdftex.def)             Requested size: 384.11356pt x 212.34554pt.
-<Hinhve/TitleScreen.jpg, id=1127, 1238.6275pt x 693.59125pt>
+<Hinhve/TitleScreen.jpg, id=1066, 1238.6275pt x 693.59125pt>
 File: Hinhve/TitleScreen.jpg Graphic file (type jpg)
 <use Hinhve/TitleScreen.jpg>
 Package pdftex.def Info: Hinhve/TitleScreen.jpg  used on input line 438.
@@ -2550,12 +2553,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [32 <./Hinhve/HUD.png>]
-<Hinhve/MainMenu.jpg, id=1132, 1244.65pt x 684.5575pt>
+<Hinhve/MainMenu.jpg, id=1071, 1244.65pt x 684.5575pt>
 File: Hinhve/MainMenu.jpg Graphic file (type jpg)
 <use Hinhve/MainMenu.jpg>
 Package pdftex.def Info: Hinhve/MainMenu.jpg  used on input line 448.
 (pdftex.def)             Requested size: 384.10925pt x 211.26009pt.
-<Hinhve/StatusUI.jpg, id=1133, 1276.77pt x 716.6775pt>
+<Hinhve/StatusUI.jpg, id=1072, 1276.77pt x 716.6775pt>
 File: Hinhve/StatusUI.jpg Graphic file (type jpg)
 <use Hinhve/StatusUI.jpg>
 Package pdftex.def Info: Hinhve/StatusUI.jpg  used on input line 458.
@@ -2569,12 +2572,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [33 <./Hinhve/TitleScreen.jpg> <./Hinhve/MainMenu.jpg>]
-<Hinhve/ShopUI.jpg, id=1138, 1280.785pt x 725.71124pt>
+<Hinhve/ShopUI.jpg, id=1077, 1280.785pt x 725.71124pt>
 File: Hinhve/ShopUI.jpg Graphic file (type jpg)
 <use Hinhve/ShopUI.jpg>
 Package pdftex.def Info: Hinhve/ShopUI.jpg  used on input line 468.
 (pdftex.def)             Requested size: 384.10165pt x 217.63753pt.
-<Hinhve/SkillTreeUI.jpg, id=1139, 1244.65pt x 731.73375pt>
+<Hinhve/SkillTreeUI.jpg, id=1078, 1244.65pt x 731.73375pt>
 File: Hinhve/SkillTreeUI.jpg Graphic file (type jpg)
 <use Hinhve/SkillTreeUI.jpg>
 Package pdftex.def Info: Hinhve/SkillTreeUI.jpg  used on input line 478.
@@ -2591,7 +2594,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [34 <./Hinhve/StatusUI.jpg> <./Hinhve/ShopUI.jpg>]
-<Hinhve/FullMapUI.jpg, id=1144, 1273.75874pt x 727.71875pt>
+<Hinhve/FullMapUI.jpg, id=1083, 1273.75874pt x 727.71875pt>
 File: Hinhve/FullMapUI.jpg Graphic file (type jpg)
 <use Hinhve/FullMapUI.jpg>
 Package pdftex.def Info: Hinhve/FullMapUI.jpg  used on input line 488.
@@ -2614,21 +2617,34 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 
 [36]
 Ch\uhorn \ohorn ng 5.
-(Chuong/4_Thiet_ke_trien_khai_he_thong.tex
-<Hinhve/game_architecture.png, id=1155, 1911.14pt x 989.6975pt>
-File: Hinhve/game_architecture.png Graphic file (type png)
-<use Hinhve/game_architecture.png>
-Package pdftex.def Info: Hinhve/game_architecture.png  used on input line 13.
-(pdftex.def)             Requested size: 277.38524pt x 143.64592pt.
- [37
-
- <./Hinhve/game_architecture.png>]
-Overfull \hbox (75.69872pt too wide) in paragraph at lines 43--44
-\T5/ptm/m/n/13 ^^^ành ngh¾a c¡c h¬ng sè c§u h¼nh h» thèng, m¨u Sin-gle-ton dòng
- chung (\T5/pcr/m/n/13 SingleInstance\T5/ptm/m/n/13 ),
+(Chuong/5_Ket_qua_thuc_nghiem.tex
+Underfull \hbox (badness 3118) in paragraph at lines 16--16
+[]|\T5/ptm/m/n/13 Intel Core i3-4160 ho°c
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 17--17
+[]|\T5/ptm/m/n/13 Bë nhî trong
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--18
+[]|\T5/ptm/m/n/13 NVIDIA GeForce GTX
+ []
+
+
+Underfull \hbox (badness 3118) in paragraph at lines 18--18
+\T5/ptm/m/n/13 560 ho°c AMD Radeon
+ []
+
+
+Overfull \hbox (9.14719pt too wide) in paragraph at lines 12--22
+ [][] 
+ []
+
+[37
+
+]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2640,12 +2656,17 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [38]
-<Hinhve/system_decomposition.png, id=1165, 1911.14pt x 941.5175pt>
+<Hinhve/system_decomposition.png, id=1104, 947.54pt x 429.605pt>
 File: Hinhve/system_decomposition.png Graphic file (type png)
 <use Hinhve/system_decomposition.png>
-Package pdftex.def Info: Hinhve/system_decomposition.png  used on input line 52
+Package pdftex.def Info: Hinhve/system_decomposition.png  used on input line 63
 .
-(pdftex.def)             Requested size: 277.38524pt x 136.65302pt.
+(pdftex.def)             Requested size: 277.41176pt x 125.7753pt.
+<Hinhve/game_architecture.png, id=1105, 1042.89626pt x 701.62125pt>
+File: Hinhve/game_architecture.png Graphic file (type png)
+<use Hinhve/game_architecture.png>
+Package pdftex.def Info: Hinhve/game_architecture.png  used on input line 70.
+(pdftex.def)             Requested size: 277.41176pt x 186.63533pt.
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -2654,7 +2675,14 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[39 <./Hinhve/system_decomposition.png>]
+[39 <./Hinhve/system_decomposition.png> <./Hinhve/game_architecture.png>]
+<Hinhve/enemy_class_hierarchy.png, id=1111, 1206.5075pt x 628.3475pt>
+File: Hinhve/enemy_class_hierarchy.png Graphic file (type png)
+<use Hinhve/enemy_class_hierarchy.png>
+Package pdftex.def Info: Hinhve/enemy_class_hierarchy.png  used on input line 9
+1.
+(pdftex.def)             Requested size: 362.77525pt x 188.92757pt.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2666,21 +2694,34 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [40]
-Overfull \hbox (19.81168pt too wide) in paragraph at lines 86--87
+Overfull \hbox (19.81168pt too wide) in paragraph at lines 110--111
 \T5/ptm/m/n/13 thüc t¸ v  c¡c ^^_iºm kiºm tra m°t ^^_§t (\T5/pcr/m/n/13 GroundC
 heck\T5/ptm/m/n/13 ), v¡ch t÷íng (\T5/pcr/m/n/13 WallCheck\T5/ptm/m/n/13 )
  []
 
-<Hinhve/FormSwitchSequence.png, id=1178, 1381.16pt x 854.19125pt>
-File: Hinhve/FormSwitchSequence.png Graphic file (type png)
-<use Hinhve/FormSwitchSequence.png>
-Package pdftex.def Info: Hinhve/FormSwitchSequence.png  used on input line 95.
-(pdftex.def)             Requested size: 295.57375pt x 182.80034pt.
-<Hinhve/BienHinh.png, id=1179, 1927.2pt x 1040.88875pt>
-File: Hinhve/BienHinh.png Graphic file (type png)
-<use Hinhve/BienHinh.png>
-Package pdftex.def Info: Hinhve/BienHinh.png  used on input line 102.
-(pdftex.def)             Requested size: 320.0935pt x 172.88278pt.
+
+Underfull \vbox (badness 1210) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
+
+[41 <./Hinhve/enemy_class_hierarchy.png>]
+Overfull \hbox (8.31967pt too wide) in paragraph at lines 120--121
+[]\T5/ptm/b/n/13 Lîp cì sð trøu t÷ñng \T5/pcr/b/n/13 MvEn-e-my-Base\T5/ptm/b/n/
+13 : \T5/ptm/m/n/13 K¸ thøa trüc ti¸p tø \T5/pcr/m/n/13 MonoBe-haviour
+ []
+
+
+Overfull \hbox (27.65063pt too wide) in paragraph at lines 120--121
+\T5/ptm/m/n/13 trong ph¤m vi qu¤t gâc qu²t (\T5/pcr/m/n/13 searchFanAngle\T5/pt
+m/m/n/13 ) v  t¦m qu²t (\T5/pcr/m/n/13 searchRadius\T5/ptm/m/n/13 ).
+ []
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -2692,55 +2733,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[41 <./Hinhve/FormSwitchSequence.png>]
-Overfull \hbox (83.43362pt too wide) in paragraph at lines 110--111
-[]\T5/ptm/b/n/13 B÷îc 1: Kiºm tra dú li»u ^^_¦u v o: \T5/ptm/m/n/13 Kiºm tra c§
-u h¼nh h¼nh th¡i mîi (\T5/pcr/m/n/13 PlayerFormDataSO\T5/ptm/m/n/13 ).
- []
-
-
-Overfull \hbox (8.46255pt too wide) in paragraph at lines 113--114
-[]\T5/ptm/b/n/13 B÷îc 4: Tr½ch xu§t tham chi¸u c§u tróc vªt lþ: \T5/ptm/m/n/13 
-Truy v§n th nh ph¦n \T5/pcr/m/n/13 Player-
- []
-
-
-Overfull \hbox (68.10661pt too wide) in paragraph at lines 114--115
-[]\T5/ptm/b/n/13 B÷îc 5: Thi¸t lªp tr¤ng th¡i pháng thõ: \T5/ptm/m/n/13 Væ hi»u
- hâa Col-lider b£o v» (\T5/pcr/m/n/13 GuardCollider\T5/ptm/m/n/13 )
- []
-
-
-Overfull \hbox (42.70364pt too wide) in paragraph at lines 120--121
-\T5/ptm/m/n/13 tr¤ng th¡i chuy¶n bi»t cho form ^^_â (v½ dö: \T5/pcr/m/n/13 Em00
-10IdleState\T5/ptm/m/n/13 , \T5/pcr/m/n/13 Em0010AttackState\T5/ptm/m/n/13 )
- []
-
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 17.97902pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97902pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
-
-[42 <./Hinhve/BienHinh.png>]
-Overfull \hbox (8.31967pt too wide) in paragraph at lines 128--130
-[]\T5/ptm/b/n/13 Lîp cì sð trøu t÷ñng \T5/pcr/b/n/13 MvEn-e-my-Base\T5/ptm/b/n/
-13 : \T5/ptm/m/n/13 K¸ thøa trüc ti¸p tø \T5/pcr/m/n/13 MonoBe-haviour
- []
-
-
-Overfull \hbox (27.65063pt too wide) in paragraph at lines 128--130
-\T5/ptm/m/n/13 trong ph¤m vi qu¤t gâc qu²t (\T5/pcr/m/n/13 searchFanAngle\T5/pt
-m/m/n/13 ) v  t¦m qu²t (\T5/pcr/m/n/13 searchRadius\T5/ptm/m/n/13 ).
- []
-
-<Hinhve/enemy_class_hierarchy.png, id=1192, 1206.5075pt x 628.3475pt>
-File: Hinhve/enemy_class_hierarchy.png Graphic file (type png)
-<use Hinhve/enemy_class_hierarchy.png>
-Package pdftex.def Info: Hinhve/enemy_class_hierarchy.png  used on input line 1
-40.
-(pdftex.def)             Requested size: 351.0012pt x 182.80096pt.
+[42]
+<Hinhve/BossAiFlow.png, id=1134, 848.16875pt x 1968.35374pt>
+File: Hinhve/BossAiFlow.png Graphic file (type png)
+<use Hinhve/BossAiFlow.png>
+Package pdftex.def Info: Hinhve/BossAiFlow.png  used on input line 132.
+(pdftex.def)             Requested size: 320.0935pt x 742.8463pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -2753,13 +2751,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [43]
-<Hinhve/BossAiFlow.png, id=1198, 848.16875pt x 1968.35374pt>
-File: Hinhve/BossAiFlow.png Graphic file (type png)
-<use Hinhve/BossAiFlow.png>
-Package pdftex.def Info: Hinhve/BossAiFlow.png  used on input line 157.
-(pdftex.def)             Requested size: 78.76498pt x 182.7907pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \vbox (35.84549pt too high) has occurred while \output is active []
 
 
 
@@ -2769,34 +2761,13 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[44 <./Hinhve/enemy_class_hierarchy.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 182--182
-[]|\T5/ptm/b/n/13 Kiºu dú
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 182--182
-[]|\T5/ptm/b/n/13 Gi¡ trà
- []
-
-
-Overfull \hbox (3.02864pt too wide) in paragraph at lines 183--183
-[]|\T5/pcr/m/n/13 Pref_MasterVolume| 
- []
-
-
-Underfull \hbox (badness 1024) in paragraph at lines 184--184
-[]|\T5/ptm/m/n/13 …m l÷ñng nh¤c n·n (BGM
- []
-
-
-Overfull \hbox (21.54716pt too wide) in paragraph at lines 180--187
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+[44 <./Hinhve/BossAiFlow.png>]
+<Hinhve/CullingVisualization.png, id=1144, 886.81313pt x 503.63156pt>
+File: Hinhve/CullingVisualization.png Graphic file (type png)
+<use Hinhve/CullingVisualization.png>
+Package pdftex.def Info: Hinhve/CullingVisualization.png  used on input line 14
+6.
+(pdftex.def)             Requested size: 320.0935pt x 181.78368pt.
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -2805,73 +2776,28 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[45 <./Hinhve/BossAiFlow.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
-[]|\T5/ptm/b/n/13 Tr÷íng dú li»u
+[45 <./Hinhve/CullingVisualization.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 173--173
+[]|\T5/ptm/b/n/13 Th nh
  []
 
 
-Overfull \hbox (6.27434pt too wide) in paragraph at lines 200--200
-[]|\T5/ptm/m/n/13 EquipmentSaveData| 
+Overfull \hbox (9.06pt too wide) in paragraph at lines 181--181
+[]|[]| 
  []
 
 
-Overfull \hbox (26.225pt too wide) in paragraph at lines 201--201
-[]|\T5/pcr/m/n/13 healingPotionEquip| 
+Overfull \hbox (10.37872pt too wide) in paragraph at lines 185--185
+[]|\T5/pcr/m/n/13 SyncPlayerMovement-
  []
 
 
-Overfull \hbox (6.27434pt too wide) in paragraph at lines 201--201
-[]|\T5/ptm/m/n/13 EquipmentSaveData| 
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+
  []
 
 
-Overfull \hbox (18.8583pt too wide) in paragraph at lines 203--203
-[]|\T5/ptm/m/n/13 SkillProgressSaveData| 
- []
-
-
-Overfull \hbox (10.09201pt too wide) in paragraph at lines 204--204
-[]|\T5/pcr/m/n/13 facilityProgress| 
- []
-
-
-Overfull \hbox (33.5743pt too wide) in paragraph at lines 204--204
-[]|\T5/ptm/m/n/13 FacilityProgressSaveData| 
- []
-
-
-Overfull \hbox (17.528pt too wide) in paragraph at lines 205--205
-[]|\T5/pcr/m/n/13 skillTreeProgress| 
- []
-
-
-Overfull \hbox (42.02429pt too wide) in paragraph at lines 205--205
-[]|\T5/ptm/m/n/13 SkillTreeProgressSaveData| 
- []
-
-
-Overfull \hbox (17.41531pt too wide) in paragraph at lines 208--208
-[]|\T5/ptm/m/n/13 WorldPickupSaveData| 
- []
-
-
-Overfull \hbox (8.86131pt too wide) in paragraph at lines 209--209
-[]|\T5/ptm/m/n/13 BossDefeatSaveData| 
- []
-
-
-Overfull \hbox (3.73502pt too wide) in paragraph at lines 210--210
-[]|\T5/pcr/m/n/13 equippedSpellId| 
- []
-
-
-Overfull \hbox (1.94102pt too wide) in paragraph at lines 212--212
-[]|\T5/pcr/m/n/13 playTimeSeconds| 
- []
-
-
-Overfull \hbox (9.14719pt too wide) in paragraph at lines 195--214
+Overfull \hbox (37.59993pt too wide) in paragraph at lines 171--187
  [][] 
  []
 
@@ -2887,22 +2813,17 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [46]
-Underfull \hbox (badness 1859) in paragraph at lines 228--228
-[]|\T5/ptm/m/n/13 Runtime State: Qu£n lþ danh
+Underfull \hbox (badness 10000) in paragraph at lines 195--195
+[]|\T5/ptm/b/n/13 Th nh
  []
 
 
-Underfull \hbox (badness 1960) in paragraph at lines 230--230
-[]|\T5/ptm/m/n/13 Runtime State: Theo dãi ti¸n
+Overfull \hbox (9.06pt too wide) in paragraph at lines 203--203
+[]|[]| 
  []
 
 
-Underfull \hbox (badness 1454) in paragraph at lines 230--230
-\T5/ptm/m/n/13 tr¼nh mua s­m vªt ph©m cõa
- []
-
-
-Overfull \hbox (9.14719pt too wide) in paragraph at lines 222--232
+Overfull \hbox (37.59993pt too wide) in paragraph at lines 193--210
  [][] 
  []
 
@@ -2918,7 +2839,22 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [47]
-Underfull \vbox (badness 8132) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 218--218
+[]|\T5/ptm/b/n/13 Th nh
+ []
+
+
+Overfull \hbox (9.06pt too wide) in paragraph at lines 225--225
+[]|[]| 
+ []
+
+
+Overfull \hbox (37.59993pt too wide) in paragraph at lines 216--232
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -2929,132 +2865,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [48]
-<Hinhve/SpellGameplay.png, id=1223, 1889.0575pt x 1025.8325pt>
-File: Hinhve/SpellGameplay.png Graphic file (type png)
-<use Hinhve/SpellGameplay.png>
-Package pdftex.def Info: Hinhve/SpellGameplay.png  used on input line 252.
-(pdftex.def)             Requested size: 362.77525pt x 196.99203pt.
-<Hinhve/CullingVisualization.png, id=1224, 886.81313pt x 503.63156pt>
-File: Hinhve/CullingVisualization.png Graphic file (type png)
-<use Hinhve/CullingVisualization.png>
-Package pdftex.def Info: Hinhve/CullingVisualization.png  used on input line 26
-8.
-(pdftex.def)             Requested size: 321.89116pt x 182.80576pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 17.97902pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97902pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
-
-[49 <./Hinhve/SpellGameplay.png>]
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 17.97902pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97902pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
-
-[50 <./Hinhve/CullingVisualization.png>]
-Overfull \hbox (31.82274pt too wide) in paragraph at lines 291--292
-\T5/ptm/m/n/13 y¶u c¦u tîi bë qu£n lþ trung t¥m \T5/pcr/m/n/13 GamePause-M-an-a
-ger \T5/ptm/m/n/13 ^^_º thi¸t lªp \T5/pcr/m/n/13 Time.timeScale
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 305--305
-[]|\T5/ptm/b/n/13 Th nh
- []
-
-
-Overfull \hbox (9.06pt too wide) in paragraph at lines 313--313
-[]|[]| 
- []
-
-
-Overfull \hbox (10.37872pt too wide) in paragraph at lines 317--317
-[]|\T5/pcr/m/n/13 SyncPlayerMovement-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 317--317
-
- []
-
-
-Overfull \hbox (37.59993pt too wide) in paragraph at lines 303--319
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 17.97902pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97902pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
-
-[51]
-Underfull \hbox (badness 10000) in paragraph at lines 327--327
-[]|\T5/ptm/b/n/13 Th nh
- []
-
-
-Overfull \hbox (9.06pt too wide) in paragraph at lines 335--335
-[]|[]| 
- []
-
-
-Overfull \hbox (37.59993pt too wide) in paragraph at lines 325--342
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 17.97902pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97902pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
-
-[52]
-Underfull \hbox (badness 10000) in paragraph at lines 350--350
-[]|\T5/ptm/b/n/13 Th nh
- []
-
-
-Overfull \hbox (9.06pt too wide) in paragraph at lines 357--357
-[]|[]| 
- []
-
-
-Overfull \hbox (37.59993pt too wide) in paragraph at lines 348--364
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 17.97902pt, for example:
-(fancyhdr)                \setlength{\headheight}{17.97902pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
-
-[53]
-Overfull \hbox (53.32568pt too wide) in paragraph at lines 371--372
+Overfull \hbox (53.32568pt too wide) in paragraph at lines 239--240
 \T5/pcr/m/n/13 Data() \T5/ptm/m/n/13 ^^_º thu thªp dú li»u tø c¡c Script-ableOb
 -jects tr¤ng th¡i (\T5/pcr/m/n/13 CurrencyWalletSO\T5/ptm/m/n/13 ,
  []
@@ -3070,7 +2881,250 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[54])
+[49]
+<Hinhve/FormSwitchSequence.png, id=1172, 1381.16pt x 854.19125pt>
+File: Hinhve/FormSwitchSequence.png Graphic file (type png)
+<use Hinhve/FormSwitchSequence.png>
+Package pdftex.def Info: Hinhve/FormSwitchSequence.png  used on input line 244.
+
+(pdftex.def)             Requested size: 362.77525pt x 224.35239pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 263--263
+[]|\T5/ptm/b/n/13 Kiºu dú
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 263--263
+[]|\T5/ptm/b/n/13 Gi¡ trà
+ []
+
+
+Overfull \hbox (3.02864pt too wide) in paragraph at lines 264--264
+[]|\T5/pcr/m/n/13 Pref_MasterVolume| 
+ []
+
+
+Underfull \hbox (badness 1024) in paragraph at lines 265--265
+[]|\T5/ptm/m/n/13 …m l÷ñng nh¤c n·n (BGM
+ []
+
+
+Overfull \hbox (21.54716pt too wide) in paragraph at lines 261--268
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
+
+[50 <./Hinhve/FormSwitchSequence.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 278--278
+[]|\T5/ptm/b/n/13 Tr÷íng dú li»u
+ []
+
+
+Overfull \hbox (6.27434pt too wide) in paragraph at lines 281--281
+[]|\T5/ptm/m/n/13 EquipmentSaveData| 
+ []
+
+
+Overfull \hbox (26.225pt too wide) in paragraph at lines 282--282
+[]|\T5/pcr/m/n/13 healingPotionEquip| 
+ []
+
+
+Overfull \hbox (6.27434pt too wide) in paragraph at lines 282--282
+[]|\T5/ptm/m/n/13 EquipmentSaveData| 
+ []
+
+
+Overfull \hbox (18.8583pt too wide) in paragraph at lines 284--284
+[]|\T5/ptm/m/n/13 SkillProgressSaveData| 
+ []
+
+
+Overfull \hbox (10.09201pt too wide) in paragraph at lines 285--285
+[]|\T5/pcr/m/n/13 facilityProgress| 
+ []
+
+
+Overfull \hbox (33.5743pt too wide) in paragraph at lines 285--285
+[]|\T5/ptm/m/n/13 FacilityProgressSaveData| 
+ []
+
+
+Overfull \hbox (17.528pt too wide) in paragraph at lines 286--286
+[]|\T5/pcr/m/n/13 skillTreeProgress| 
+ []
+
+
+Overfull \hbox (42.02429pt too wide) in paragraph at lines 286--286
+[]|\T5/ptm/m/n/13 SkillTreeProgressSaveData| 
+ []
+
+
+Overfull \hbox (17.41531pt too wide) in paragraph at lines 289--289
+[]|\T5/ptm/m/n/13 WorldPickupSaveData| 
+ []
+
+
+Overfull \hbox (8.86131pt too wide) in paragraph at lines 290--290
+[]|\T5/ptm/m/n/13 BossDefeatSaveData| 
+ []
+
+
+Overfull \hbox (3.73502pt too wide) in paragraph at lines 291--291
+[]|\T5/pcr/m/n/13 equippedSpellId| 
+ []
+
+
+Overfull \hbox (1.94102pt too wide) in paragraph at lines 293--293
+[]|\T5/pcr/m/n/13 playTimeSeconds| 
+ []
+
+
+Overfull \hbox (9.14719pt too wide) in paragraph at lines 276--295
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
+
+[51]
+Underfull \hbox (badness 1859) in paragraph at lines 309--309
+[]|\T5/ptm/m/n/13 Runtime State: Qu£n lþ danh
+ []
+
+
+Underfull \hbox (badness 1960) in paragraph at lines 311--311
+[]|\T5/ptm/m/n/13 Runtime State: Theo dãi ti¸n
+ []
+
+
+Underfull \hbox (badness 1454) in paragraph at lines 311--311
+\T5/ptm/m/n/13 tr¼nh mua s­m vªt ph©m cõa
+ []
+
+
+Overfull \hbox (9.14719pt too wide) in paragraph at lines 303--313
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
+
+[52]
+Underfull \hbox (badness 1571) in paragraph at lines 329--329
+[]|\T5/ptm/m/n/13 Engine ph¡t triºn
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--330
+[]|\T5/ptm/m/n/13 Visual Stu-dio Code
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--331
+[]|\T5/ptm/m/n/13 Antigravity (Deep-Mind
+ []
+
+
+Underfull \hbox (badness 6236) in paragraph at lines 332--332
+[]|\T5/ptm/m/n/13 Yarn Spin-ner for Unity
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+[]|\T5/ptm/m/n/13 Gi£i thuªt t¼m
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+[]|\T5/ptm/m/n/13 A* Pathfind-ing Project
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--336
+[]|\T5/ptm/m/n/13 Adobe Pho-to-shop &
+ []
+
+
+Overfull \hbox (37.59995pt too wide) in paragraph at lines 326--338
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
+
+[53]
+Underfull \hbox (badness 1484) in paragraph at lines 352--352
+[]|\T5/ptm/m/n/13 Sè l÷ñng t»p tin m¢ nguçn C#
+ []
+
+
+Overfull \hbox (23.37357pt too wide) in paragraph at lines 349--359
+ [][] 
+ []
+
+File: Hinhve/TitleScreen.jpg Graphic file (type jpg)
+<use Hinhve/TitleScreen.jpg>
+Package pdftex.def Info: Hinhve/TitleScreen.jpg  used on input line 378.
+(pdftex.def)             Requested size: 204.85802pt x 114.71278pt.
+File: Hinhve/MainMenu.jpg Graphic file (type jpg)
+<use Hinhve/MainMenu.jpg>
+Package pdftex.def Info: Hinhve/MainMenu.jpg  used on input line 385.
+(pdftex.def)             Requested size: 204.85802pt x 112.66508pt.
+
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
+
+[54]
+File: Hinhve/HUD.png Graphic file (type png)
+<use Hinhve/HUD.png>
+Package pdftex.def Info: Hinhve/HUD.png  used on input line 401.
+(pdftex.def)             Requested size: 204.85802pt x 113.24028pt.
+File: Hinhve/Level.png Graphic file (type png)
+<use Hinhve/Level.png>
+Package pdftex.def Info: Hinhve/Level.png  used on input line 408.
+(pdftex.def)             Requested size: 204.85802pt x 322.99088pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
 (fancyhdr)                Make it at least 17.97902pt, for example:
@@ -3079,262 +3133,213 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [55]
-Ch\uhorn \ohorn ng 6.
-(Chuong/5_Ket_qua_thuc_nghiem.tex
-Underfull \hbox (badness 3118) in paragraph at lines 14--14
-[]|\T5/ptm/m/n/13 Intel Core i3-4160 ho°c
+Overfull \hbox (6.52255pt too wide) in paragraph at lines 416--417
+[]\T5/ptm/b/n/13 Giai ^^_o¤n 3: Cì ch¸ chi¸n ^^_§u cªn chi¸n v  n² tr¡nh (Com-b
+at & Dash/Dodge) 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--15
-[]|\T5/ptm/m/n/13 Bë nhî trong
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 16--16
-[]|\T5/ptm/m/n/13 NVIDIA GeForce GTX
- []
-
-
-Underfull \hbox (badness 3118) in paragraph at lines 16--16
-\T5/ptm/m/n/13 560 ho°c AMD Radeon
- []
-
-
-Overfull \hbox (9.14719pt too wide) in paragraph at lines 10--20
- [][] 
- []
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 35--35
-[]|\T5/ptm/m/n/13 Engine ph¡t triºn
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--36
-[]|\T5/ptm/m/n/13 Visual Stu-dio Code
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
-[]|\T5/ptm/m/n/13 Antigravity (Deep-Mind
- []
-
-
-Underfull \hbox (badness 6236) in paragraph at lines 38--38
-[]|\T5/ptm/m/n/13 Yarn Spin-ner for Unity
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 40--40
-[]|\T5/ptm/m/n/13 Gi£i thuªt t¼m
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 40--40
-[]|\T5/ptm/m/n/13 A* Pathfind-ing Project
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--42
-[]|\T5/ptm/m/n/13 Adobe Pho-to-shop &
- []
-
-
-Overfull \hbox (37.59995pt too wide) in paragraph at lines 32--44
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [56
-
-]
-Underfull \hbox (badness 1484) in paragraph at lines 58--58
-[]|\T5/ptm/m/n/13 Sè l÷ñng t»p tin m¢ nguçn C#
- []
-
-
-Overfull \hbox (23.37357pt too wide) in paragraph at lines 55--65
- [][] 
- []
-
+File: Hinhve/QuaiVatThuong.png Graphic file (type png)
+<use Hinhve/QuaiVatThuong.png>
+Package pdftex.def Info: Hinhve/QuaiVatThuong.png  used on input line 422.
+(pdftex.def)             Requested size: 298.75264pt x 99.58162pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 15.977pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.977pt}.
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[57]
+[56]
+<Hinhve/BienHinh.png, id=1226, 1927.2pt x 1040.88875pt>
+File: Hinhve/BienHinh.png Graphic file (type png)
+<use Hinhve/BienHinh.png>
+Package pdftex.def Info: Hinhve/BienHinh.png  used on input line 435.
+(pdftex.def)             Requested size: 204.85802pt x 110.63863pt.
+<Hinhve/SpellGameplay.png, id=1227, 1889.0575pt x 1025.8325pt>
+File: Hinhve/SpellGameplay.png Graphic file (type png)
+<use Hinhve/SpellGameplay.png>
+Package pdftex.def Info: Hinhve/SpellGameplay.png  used on input line 442.
+(pdftex.def)             Requested size: 204.85802pt x 111.24532pt.
+File: Hinhve/BossTranChien.png Graphic file (type png)
+<use Hinhve/BossTranChien.png>
+Package pdftex.def Info: Hinhve/BossTranChien.png  used on input line 458.
+(pdftex.def)             Requested size: 204.85802pt x 119.96422pt.
+File: Hinhve/BossTranChien2.png Graphic file (type png)
+<use Hinhve/BossTranChien2.png>
+Package pdftex.def Info: Hinhve/BossTranChien2.png  used on input line 465.
+(pdftex.def)             Requested size: 204.85802pt x 112.54312pt.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 15.977pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.977pt}.
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
+
+[57 <./Hinhve/BienHinh.png> <./Hinhve/SpellGameplay.png>]
+File: Hinhve/StatusUI.jpg Graphic file (type jpg)
+<use Hinhve/StatusUI.jpg>
+Package pdftex.def Info: Hinhve/StatusUI.jpg  used on input line 481.
+(pdftex.def)             Requested size: 204.85802pt x 114.98787pt.
+File: Hinhve/ShopUI.jpg Graphic file (type jpg)
+<use Hinhve/ShopUI.jpg>
+Package pdftex.def Info: Hinhve/ShopUI.jpg  used on input line 488.
+(pdftex.def)             Requested size: 204.85802pt x 116.07187pt.
+File: Hinhve/SkillTreeUI.jpg Graphic file (type jpg)
+<use Hinhve/SkillTreeUI.jpg>
+Package pdftex.def Info: Hinhve/SkillTreeUI.jpg  used on input line 500.
+(pdftex.def)             Requested size: 204.85802pt x 120.42938pt.
+File: Hinhve/FullMapUI.jpg Graphic file (type jpg)
+<use Hinhve/FullMapUI.jpg>
+Package pdftex.def Info: Hinhve/FullMapUI.jpg  used on input line 507.
+(pdftex.def)             Requested size: 204.85802pt x 117.03699pt.
+
+Underfull \vbox (badness 6741) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
 [58]
-Overfull \hbox (6.52255pt too wide) in paragraph at lines 88--91
-[]\T5/ptm/b/n/13 Giai ^^_o¤n 3: Cì ch¸ chi¸n ^^_§u cªn chi¸n v  n² tr¡nh (Com-b
-at & Dash/Dodge)
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 15.977pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.977pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
-
-[59]
-Underfull \hbox (badness 1394) in paragraph at lines 118--118
+Underfull \hbox (badness 1394) in paragraph at lines 526--526
 []|\T5/ptm/b/n/13 Ph¥n h» / Chùc
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--120
+Underfull \hbox (badness 10000) in paragraph at lines 528--528
 []|\T5/ptm/m/n/13 Nh§n ph½m \T5/pcr/m/n/13 Space
  []
 
 
-Underfull \hbox (badness 5161) in paragraph at lines 121--121
+Underfull \hbox (badness 5161) in paragraph at lines 529--529
 []|\T5/ptm/m/n/13 Leo t÷íng (Wall
  []
 
 
-Underfull \hbox (badness 1072) in paragraph at lines 121--121
+Underfull \hbox (badness 1072) in paragraph at lines 529--529
 []|\T5/ptm/m/n/13 Nh§n ph½m \T5/pcr/m/n/13 W \T5/ptm/m/n/13 k¸t hñp
  []
 
 
-Underfull \hbox (badness 3260) in paragraph at lines 121--121
+Underfull \hbox (badness 3260) in paragraph at lines 529--529
 \T5/ptm/m/n/13 giú ph½m h÷îng \T5/pcr/m/n/13 A/D
  []
 
 
-Underfull \hbox (badness 6808) in paragraph at lines 121--121
+Underfull \hbox (badness 6808) in paragraph at lines 529--529
 []|\T5/ptm/m/n/13 Nh¥n vªt b¡m ch°t v¡ch
  []
 
 
-Underfull \hbox (badness 2042) in paragraph at lines 121--121
+Underfull \hbox (badness 2042) in paragraph at lines 529--529
 \T5/ptm/m/n/13 ^^_°n, ti¶u hao Stamina li¶n
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 122--122
+Underfull \hbox (badness 10000) in paragraph at lines 530--530
 []|\T5/ptm/m/n/13 K½ch ho¤t bi¸n
  []
 
 
-Underfull \hbox (badness 2012) in paragraph at lines 122--122
+Underfull \hbox (badness 2012) in paragraph at lines 530--530
 []|\T5/ptm/m/n/13 Di chuyºn tîi x¡c cê
  []
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 122--122
+Underfull \hbox (badness 1490) in paragraph at lines 530--530
 \T5/ptm/m/n/13 khâa d¤ng chuyºn ^^_êi mîi
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--123
+Underfull \hbox (badness 10000) in paragraph at lines 531--531
 []|\T5/ptm/m/n/13 Thüc thi Form
  []
 
 
-Underfull \hbox (badness 5741) in paragraph at lines 124--124
+Underfull \hbox (badness 5741) in paragraph at lines 532--532
 []|\T5/ptm/m/n/13 H» thèng ghi nhªn tr¤ng
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--124
+Underfull \hbox (badness 10000) in paragraph at lines 532--532
 \T5/ptm/m/n/13 th¡i game, xu§t ra t»p
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--124
+Underfull \hbox (badness 10000) in paragraph at lines 532--532
 \T5/pcr/m/n/13 save_slot_0.json \T5/ptm/m/n/13 l÷u
  []
 
 
-Underfull \hbox (badness 7030) in paragraph at lines 125--125
+Underfull \hbox (badness 7030) in paragraph at lines 533--533
 []|\T5/ptm/m/n/13 Khði ch¤y l¤i game,
  []
 
 
-Overfull \hbox (41.46402pt too wide) in paragraph at lines 116--127
+Overfull \hbox (41.46402pt too wide) in paragraph at lines 524--535
  [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 15.977pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.977pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
-
-[60]
-Underfull \hbox (badness 6758) in paragraph at lines 139--139
+Underfull \hbox (badness 6758) in paragraph at lines 547--547
 []|\T5/ptm/m/n/13 Di chuyºn & Leo
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--140
+Underfull \hbox (badness 10000) in paragraph at lines 548--548
 []|\T5/ptm/m/n/13 Chuyºn ^^_êi d¤ng
  []
 
 
-Underfull \hbox (badness 1910) in paragraph at lines 141--141
+Underfull \hbox (badness 1910) in paragraph at lines 549--549
 []|\T5/ptm/m/n/13 L÷u trú & T£i file
  []
 
 
-Overfull \hbox (33.94716pt too wide) in paragraph at lines 136--144
+Overfull \hbox (33.94716pt too wide) in paragraph at lines 544--552
  [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package fancyhdr Warning: \headheight is too small (10.0pt): 
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-
+[59]
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 15.977pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.977pt}.
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[61])
+[60])
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
-(fancyhdr)                Make it at least 15.977pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.977pt}.
+(fancyhdr)                Make it at least 17.97902pt, for example:
+(fancyhdr)                \setlength{\headheight}{17.97902pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
+(fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[62]
-Ch\uhorn \ohorn ng 7.
+[61]
+Ch\uhorn \ohorn ng 6.
 (Chuong/6_Giai_phap_dong_gop.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [63
+ [62
 
 ]
 Overfull \hbox (6.69797pt too wide) in paragraph at lines 32--33
@@ -3353,7 +3358,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.47202pt}.
 
-[64]
+[63]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -3364,7 +3369,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.47202pt}.
 
-[65]
+[64]
 Overfull \hbox (6.07071pt too wide) in paragraph at lines 58--59
 \T5/ptm/m/n/13 chuyºn dàch tr¤ng th¡i thæng qua ph÷ìng thùc \T5/pcr/m/n/13 Ini-
 tial-ize() \T5/ptm/m/n/13 v  \T5/pcr/m/n/13 ChangeS-
@@ -3381,7 +3386,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.47202pt}.
 
-[66]
+[65]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -3392,7 +3397,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.47202pt}.
 
-[67])
+[66])
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
 (fancyhdr)                Make it at least 17.47202pt, for example:
@@ -3400,12 +3405,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.47202pt}.
 
-[68]
-Ch\uhorn \ohorn ng 8.
+[67]
+Ch\uhorn \ohorn ng 7.
 (Chuong/7_Ket_luan.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [69
+ [68
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -3418,7 +3423,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[70])
+[69])
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
 (fancyhdr)                Make it at least 17.97902pt, for example:
@@ -3426,7 +3431,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[71] (Chuong/8_Luu_y_tai_lieu_tham_khao.tex
+[70] (Chuong/8_Luu_y_tai_lieu_tham_khao.tex
 Overfull \hbox (4.59857pt too wide) in paragraph at lines 24--27
 []\T5/ptm/m/n/13 [[]10[]] M. Poe-sio and B. Di Eu-ge-nio, ``Dis-course struc-tu
 re and anaphoric accessibil-
@@ -3435,7 +3440,7 @@ re and anaphoric accessibil-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [72
+ [71
 
 ])
 
@@ -3445,28 +3450,28 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[73]
-Overfull \hbox (4.36pt too wide) in paragraph at lines 323--323
+[72]
+Overfull \hbox (4.36pt too wide) in paragraph at lines 324--324
 []\T5/ptm/m/n/13 S. Cha-con and B. Straub, \T5/ptm/m/it/13 Pro Git\T5/ptm/m/n/1
 3 . Apress, 2014. [On-line]. Avail-able: []$\T5/pcr/m/n/13 https :
  []
 
 
-Overfull \hbox (4.26419pt too wide) in paragraph at lines 323--323
+Overfull \hbox (4.26419pt too wide) in paragraph at lines 324--324
 []\T5/ptm/m/n/13 T. Berners-Lee, \T5/ptm/m/it/13 Hy-per-text trans-fer pro-to-c
 ol (HTTP)\T5/ptm/m/n/13 . Ac-cessed: Sep. 30, 2010.
  []
 
-[74
+[73
 
-] [75
+] [74
 
 ]
 Ph\d {u} l\d {u}c A.
 (Chuong/Phu_luc_A.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [76
+ [75
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -3479,8 +3484,8 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[77]
-<Hinhve/IoT.png, id=1417, 931.48pt x 523.9575pt>
+[76]
+<Hinhve/IoT.png, id=1364, 931.48pt x 523.9575pt>
 File: Hinhve/IoT.png Graphic file (type png)
 <use Hinhve/IoT.png>
 Package pdftex.def Info: Hinhve/IoT.png  used on input line 86.
@@ -3493,12 +3498,12 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[78 <./Hinhve/IoT.png>]
+[77 <./Hinhve/IoT.png>]
 
-LaTeX Warning: Citation 'scott2013sdn' on page 79 undefined on input line 98.
+LaTeX Warning: Citation 'scott2013sdn' on page 78 undefined on input line 98.
 
 
-LaTeX Warning: Citation 'ashton2009internet' on page 79 undefined on input line
+LaTeX Warning: Citation 'ashton2009internet' on page 78 undefined on input line
  98.
 
 
@@ -3507,12 +3512,12 @@ Overfull \hbox (14.86223pt too wide) in paragraph at lines 98--99
 \T5/ptm/m/n/13 nh÷ sau [].
  []
 
-<Hinhve/Bia.PNG, id=1429, 313.77225pt x 331.83975pt>
+<Hinhve/Bia.PNG, id=1377, 313.77225pt x 331.83975pt>
 File: Hinhve/Bia.PNG Graphic file (type png)
 <use Hinhve/Bia.PNG>
 Package pdftex.def Info: Hinhve/Bia.PNG  used on input line 117.
 (pdftex.def)             Requested size: 213.39568pt x 225.68349pt.
-<Hinhve/GayBia.PNG, id=1430, 420.97275pt x 479.99326pt>
+<Hinhve/GayBia.PNG, id=1378, 420.97275pt x 479.99326pt>
 File: Hinhve/GayBia.PNG Graphic file (type png)
 <use Hinhve/GayBia.PNG>
 Package pdftex.def Info: Hinhve/GayBia.PNG  used on input line 129.
@@ -3525,7 +3530,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[79]
+[78]
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
 (fancyhdr)                Make it at least 17.97902pt, for example:
@@ -3533,9 +3538,9 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.97902pt}.
 
-[80 <./Hinhve/Bia.PNG> <./Hinhve/GayBia.PNG>]
+[79 <./Hinhve/Bia.PNG> <./Hinhve/GayBia.PNG>]
 Ph\d {u} l\d {u}c B.
-(Chuong/Phu_luc_B.tex) [81
+(Chuong/Phu_luc_B.tex) [80
 
 ] (DoAn.aux)
  ***********
@@ -3551,7 +3556,7 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `DoAn.out' has not changed.
-(rerunfilecheck)             Checksum: 12836DD6E07945C47B272AFD3C81A313;30894.
+(rerunfilecheck)             Checksum: 1C156A1EE28A2B591E2A94DB3A3A2753;25672.
 
 Package biblatex Warning: Please (re)run BibTeX on the file(s):
 (biblatex)                DoAn
@@ -3562,10 +3567,10 @@ Package logreq Info: Writing requests to 'DoAn.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46798 strings out of 467871
- 927852 string characters out of 5418377
- 1800306 words of memory out of 5000000
- 74566 multiletter control sequences out of 15000+600000
+ 46805 strings out of 467871
+ 927806 string characters out of 5418377
+ 1803129 words of memory out of 5000000
+ 74580 multiletter control sequences out of 15000+600000
  672365 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,12n,107p,2507b,1278s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -3583,9 +3588,9 @@ ppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/ucrr8v.pfb><C:/Users/trinh
 nh/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/tri
 nh/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Users/t
 rinh/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmri8v.pfb>
-Output written on DoAn.pdf (95 pages, 6015064 bytes).
+Output written on DoAn.pdf (94 pages, 5932876 bytes).
 PDF statistics:
- 1575 PDF objects out of 1728 (max. 8388607)
- 322 named destinations out of 1000 (max. 500000)
- 1165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1522 PDF objects out of 1728 (max. 8388607)
+ 318 named destinations out of 1000 (max. 500000)
+ 1069 words of extra memory for PDF output out of 10000 (max. 10000000)
 

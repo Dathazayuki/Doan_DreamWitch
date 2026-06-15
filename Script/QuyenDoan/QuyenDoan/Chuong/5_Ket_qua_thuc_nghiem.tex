@@ -1,13 +1,15 @@
 \documentclass[../DoAn.tex]{subfiles}
 \begin{document}
+
 \section{Tổng quan kỹ thuật}
+\label{section:5.1}
 Phần này đặc tả các thông số kỹ thuật cốt lõi và cấu hình phần cứng yêu cầu để vận hành trò chơi "Dream Witch". Nhằm đảm bảo trải nghiệm chơi game đi cảnh hành động nhịp độ cao diễn ra mượt mà nhất, trò chơi hướng tới mục tiêu hiệu năng đạt mức \textbf{60 FPS} ổn định trên cấu hình khuyến nghị. Mức khung hình này giúp đồng bộ hóa tối ưu giữa chuỗi xử lý lệnh di chuyển và phản hồi hoạt ảnh của nhân vật, giảm thiểu tối đa hiện tượng trễ hình (input lag) hay giật xé hình khi người chơi thực hiện các thao tác di chuyển phức tạp.
 
 Hệ thống yêu cầu về phần cứng máy tính tối thiểu và khuyến nghị để vận hành trò chơi được chi tiết hóa trong Bảng~\ref{table:system_requirements}.
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|p{3.5cm}|p{5cm}|p{5.5cm}|}
+\begin{tabular}{|p{3.5cm}|p{5.0cm}|p{5.5cm}|}
 \hline
 \textbf{Thành phần phần cứng} & \textbf{Cấu hình tối thiểu (Minimum)} & \textbf{Cấu hình khuyến nghị (Recommended)} \\ \hline
 Hệ điều hành (OS) & Windows 10/11 (64-bit) & Windows 10/11 (64-bit) \\ \hline
@@ -21,15 +23,307 @@ Dung lượng ổ cứng & 1 GB dung lượng trống & 1 GB dung lượng trố
 \label{table:system_requirements}
 \end{table}
 
+\section{Thiết kế kiến trúc}
+\label{section:5.2}
+
+\subsection{Lựa chọn kiến trúc phần mềm}
+\label{subsection:5.2.1}
+Để giải quyết bài toán quản lý trạng thái trò chơi phức tạp của thể loại Metroidvania, đề tài lựa chọn áp dụng mô hình kiến trúc MVC (Model-View-Controller) kết hợp với mô hình hướng thành phần (Component-Based Architecture) đặc thù của Unity Engine:
+\begin{itemize}
+    \item \textbf{Model (Mô hình dữ liệu):} Chịu trách nhiệm quản lý, lưu trữ trạng thái chạy và dữ liệu tĩnh của trò chơi. Trong dự án, thành phần này được hiện thực hóa thông qua các đối tượng \texttt{ScriptableObject} bền vững như:
+    \begin{itemize}
+        \item \texttt{PlayerFormDataSO:} Lưu cấu hình tĩnh cho các hình thái linh hồn (HP tối đa, Animator Controller, Prefab vật lý).
+        \item \texttt{ItemDatabaseSO} và \texttt{SpellDatabaseSO:} Định nghĩa danh sách các vật phẩm và phép thuật.
+        \item \texttt{InventoryStateSO}, \texttt{ShopStateSO}, \texttt{CurrencyWalletSO:} Lưu trạng thái runtime động của túi đồ, cửa hàng và số dư tiền của nhân vật.
+    \end{itemize}
+    \item \textbf{View (Giao diện hiển thị):} Chịu trách nhiệm hiển thị thông tin trực quan lên màn hình và ghi nhận thao tác của người chơi để chuyển giao cho Controller xử lý. Thành phần View bao gồm các đối tượng Canvas UI tĩnh và động như \texttt{PlayerHudUI} (HUD hiển thị HP/Stamina/Mana), các panel quản lý cửa hàng (\texttt{ShopUI}), túi đồ (\texttt{InventoryUI}), nâng cấp (\texttt{FacilityUI}), và chữ hiển thị sát thương bay (\texttt{DamageTextView}).
+    \item \textbf{Controller (Bộ điều phối):} Đóng vai trò trung gian xử lý các logic nghiệp vụ, lắng nghe tương tác từ View để thay đổi Model, và ngược lại. Các controller tiêu biểu là:
+    \begin{itemize}
+        \item \texttt{PlayerController:} Điều phối toàn bộ trạng thái di chuyển và chiến đấu của người chơi.
+        \item \texttt{UIManager} và \texttt{UIStateManager:} Quản lý vòng đời và thứ tự ưu tiên đóng mở các Canvas UI.
+        \item \texttt{GameSaveManager:} Đọc/ghi trạng thái từ các lớp Model xuống tệp tin lưu trữ JSON.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Thiết kế tổng quan}
+\label{subsection:5.2.2}
+Kiến trúc phần mềm của trò chơi được phân chia thành các gói (packages) và được tổ chức theo mô hình phân tầng chặt chẽ từ trên xuống dưới, đảm bảo tính độc lập và khả năng bảo trì cao:
+\begin{itemize}
+    \item \textbf{Tầng Giao diện (View Layer - Gói UI):} Chứa các lớp hiển thị giao diện người dùng. Tầng này chỉ phụ thuộc vào tầng điều phối bên dưới để lấy dữ liệu hiển thị, không chứa logic xử lý vật lý hay dữ liệu lưu trữ trực tiếp.
+    \item \textbf{Tầng Điều phối và Logic (Controller/Logic Layer - Gói Player, Enemy, System, Trap, VFX):} Chứa logic nghiệp vụ cốt lõi của trò chơi bao gồm bộ điều khiển nhân vật chính, AI quái vật tuần tra/Boss, và các hệ thống dịch vụ nền như Save/Load, Culling, Pause, Shop.
+    \item \textbf{Tầng Hạ tầng và Dữ liệu (Model/Utility Layer - Gói Core, Interfaces):} Định nghĩa các hằng số cấu hình hệ thống, mẫu Singleton dùng chung, và các giao diện trừu tượng (\texttt{IDamageable}, \texttt{IInteractable}, \texttt{ICullable}). Tầng này hoàn toàn độc lập và không phụ thuộc ngược lên các tầng trên.
+\end{itemize}
+
+Để đảm bảo quy tắc thiết kế không tạo phụ thuộc vòng (circular dependency) giữa gói \texttt{Player} và \texttt{Enemy} trong tầng Logic (khi nhân vật cần phát hiện va chạm gây sát thương lên quái vật và quái vật cần dò tìm vị trí nhân vật), cả hai gói đều giao tiếp thông qua các giao diện trừu tượng được định nghĩa sẵn ở gói \texttt{Interfaces} như \texttt{IDamageable}. Lớp \texttt{PlayerController} và \texttt{MvEnemyBase} đều thực thi giao diện này, giúp giảm thiểu độ kết hợp cứng (tight coupling) giữa hai phân hệ.
+
+Sơ đồ phân rã các phân hệ chính trong mã nguồn trò chơi theo cấu trúc thư mục được đặc tả trong Hình~\ref{fig:system_decomposition} và dòng dữ liệu tương tác giữa các phân hệ được mô tả trong Hình~\ref{fig:game_architecture}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth,keepaspectratio]{Hinhve/system_decomposition.png}
+    \caption{Sơ đồ phân rã các phân hệ chính trong mã nguồn trò chơi}
+    \label{fig:system_decomposition}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth,keepaspectratio]{Hinhve/game_architecture.png}
+    \caption{Kiến trúc tổng thể các phân hệ và lớp logic trong hệ thống}
+    \label{fig:game_architecture}
+\end{figure}
+
+\subsection{Thiết kế chi tiết gói}
+\label{subsection:5.2.3}
+Trong thiết kế chi tiết gói, mối quan hệ tương tác giữa các lớp bên trong gói \texttt{Player} và gói \texttt{Enemy} tuân thủ chặt chẽ các quan hệ UML tiêu chuẩn:
+\begin{itemize}
+    \item \textbf{Quan hệ Hợp thành (Composition):} Lớp điều phối \texttt{PlayerController} sở hữu máy trạng thái \texttt{PlayerStateMachine} nhằm quản lý vòng đời và các hành vi chuyển động độc lập của nhân vật. Khi thực thể Player bị hủy bỏ khỏi bộ nhớ, máy trạng thái cũng sẽ bị giải phóng hoàn toàn theo.
+    \item \textbf{Quan hệ Kết hợp (Association):} Lớp \texttt{PlayerController} duy trì các liên kết đến các thành phần con độc lập khác như \texttt{PlayerMovement} (xử lý vật lý di chuyển), \texttt{PlayerCombat} (xử lý tấn công), \texttt{PlayerStats} (chỉ số sinh tồn), và \texttt{PlayerFormManager} (quản lý biến hình) để ủy quyền (delegate) thực hiện các hành vi tương ứng.
+    \item \textbf{Quan hệ Kết tập (Aggregation):} Lớp \texttt{PlayerFormManager} chứa một danh sách tập hợp các cấu hình linh hồn \texttt{PlayerFormDataSO}. Các ScriptableObjects cấu hình này tồn tại độc lập dưới dạng tài nguyên lưu trữ trong Asset Database của Unity và không bị hủy khi lớp quản lý bị hủy.
+    \item \textbf{Quan hệ Phụ thuộc (Dependency):} Lớp \texttt{PlayerMovement} phụ thuộc vào lớp tham chiếu trung gian \texttt{PlayerFormBodyRef} để lấy các thông số collider va chạm và vị trí các điểm kiểm tra mặt đất, vách tường một cách động mỗi khi người chơi thay đổi hình thái linh hồn.
+    \item \textbf{Quan hệ Kế thừa (Inheritance):} Các lớp Enemy cụ thể (như \texttt{MvEm0010} - BoneDog) kế thừa từ lớp cơ sở chung là \texttt{MvEnemyBase} để tái sử dụng toàn bộ cấu trúc máy trạng thái quái vật, hệ thống tuần tra vật lý và logic nhận sát thương.
+    \item \textbf{Quan hệ Thực thi (Implementation):} Lớp \texttt{PlayerController} và lớp cơ sở \texttt{MvEnemyBase} đều thực thi giao diện \texttt{IDamageable} của gói \texttt{Interfaces} nhằm đáp ứng cơ chế nhận sát thương từ các nguồn đòn đánh khác nhau.
+\end{itemize}
+
+Sơ đồ phân cấp kế thừa các thực thể Kẻ địch được biểu diễn trong Hình~\ref{fig:enemy_class_hierarchy}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth,keepaspectratio]{Hinhve/enemy_class_hierarchy.png}
+    \caption{Biểu đồ phân cấp kế thừa các thực thể Kẻ địch (Enemy Class Hierarchy)}
+    \label{fig:enemy_class_hierarchy}
+\end{figure}
+
+\subsection{Cấu trúc chi tiết các phân hệ cốt lõi}
+\label{subsection:5.2.4}
+
+\subsubsection{Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}
+Cơ chế biến hình cho phép người chơi thay đổi linh hoạt hình dạng của nhân vật chính sang các dạng quái vật khác khi thu thập linh hồn. Hệ thống này sử dụng cấu trúc dữ liệu tĩnh hướng cấu hình (Data-Driven Design) thông qua các lớp:
+\begin{itemize}
+    \item \textbf{\texttt{PlayerFormId} (Enum):} Định danh các hình thái: \texttt{Human} (Dạng người mặc định), \texttt{Em0010} (Chó xương - BoneDog), \texttt{Em0020} (Mèo ma - GhostCat), \texttt{Em0060} (Hiệp sĩ khiên), \texttt{Em0070} (Phù thủy bay), và \texttt{Em0100} (Đấu sĩ).
+    \item \textbf{\texttt{PlayerFormDataSO} (ScriptableObject):} Lưu trữ các dữ liệu thiết kế cố định như tên hiển thị, icon HUD, lượng HP tối đa, Animator Controller và Prefab vật lý tương ứng của từng hình thái.
+\end{itemize}
+
+Khi người chơi kích hoạt chuyển đổi linh hồn gần một xác chết kẻ địch, lớp điều phối trung tâm \texttt{PlayerController} kết hợp với \texttt{PlayerFormManager} thực hiện chuỗi hành vi đồng bộ hóa thời gian thực:
+\begin{enumerate}
+    \item \textbf{Đồng bộ hóa Chỉ số Sinh lực:} Lưu chỉ số HP hiện tại của form cũ và thiết lập chỉ số HP tương ứng của form mới vào lớp \texttt{PlayerStats}.
+    \item \textbf{Tải cấu trúc vật lý động:} Lớp \texttt{PlayerFormManager} hủy phiên bản Prefab cũ và khởi tạo (\texttt{Instantiate}) Prefab của form mới làm con của Player Root. Prefab này được đính kèm component \texttt{PlayerFormBodyRef} định nghĩa rõ ràng các collider va chạm môi trường và các trigger hitbox tấn công cận chiến đặc thù.
+    \item \textbf{Đồng bộ hóa Collider trong Physics Engine:} Lớp \texttt{PlayerMovement} tiếp nhận thông tin từ \texttt{PlayerFormBodyRef} mới để gán lại Collider va chạm thực tế và các điểm kiểm tra mặt đất (\texttt{GroundCheck}), vách tường (\texttt{WallCheck}) vào Physics2D của Unity, tránh lỗi kẹt địa hình do chênh lệch kích thước giữa các hình thái.
+    \item \textbf{Rebind hoạt ảnh:} Thay đổi runtime controller của thành phần \texttt{Animator} trên Player Root bằng Animator Controller của form mới để kích hoạt tức thì các clip hoạt ảnh tương ứng. Hệ thống quản lý hoạt ảnh của nhân vật chính và các quái vật thông thường thực hiện gọi trực tiếp các hoạt ảnh này thông qua chuỗi ký tự (string-based loading) thay vì sử dụng các tham số và quan hệ chuyển cảnh phức tạp trong Animator Controller.
+    \item \textbf{Cập nhật chỉ số chiến đấu:} Thay đổi cấu hình sát thương và chuỗi combo cận chiến trong \texttt{PlayerCombat} theo thông số của form mới.
+\end{enumerate}
+
+Để tránh việc lớp \texttt{PlayerController} bị phình to do phải quản lý hàng chục trạng thái của nhiều form khác nhau, hệ thống sử dụng mẫu thiết kế Factory thông qua lớp \texttt{FormStateFactory}. Khi người chơi ở dạng người mặc định, \texttt{PlayerStateMachine} sử dụng các trạng thái tĩnh được khởi tạo từ đầu (như \texttt{IdleState}, \texttt{MoveState}, \texttt{JumpState}, \texttt{DashState}, \texttt{WallClimbState}). Khi chuyển sang một dạng Enemy biến hình, \texttt{FormStateFactory} sẽ tạo ra theo nhu cầu (on-demand) một bộ trạng thái chuyên biệt cho form đó (ví dụ: \texttt{Em0010IdleState}, \texttt{Em0010AttackState}) kế thừa từ lớp cơ sở \texttt{PlayerState}.
+
+\subsubsection{Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}
+Hệ thống quái vật trong game được thiết kế hướng đối tượng chặt chẽ nhằm tối ưu hóa việc quản lý mã nguồn di chuyển, phát hiện mục tiêu và va chạm vật lý:
+\begin{itemize}
+    \item \textbf{Lớp cơ sở trừu tượng \texttt{MvEnemyBase}:} Kế thừa trực tiếp từ \texttt{MonoBehaviour} và thực thi giao diện \texttt{IDamageable}. Lớp này chịu trách nhiệm quản lý máy trạng thái \texttt{EnemyStateMachine}, quản lý các chỉ số cơ bản (Máu, Tốc độ, Tầm đánh), xử lý các hiệu ứng vật lý (lực đẩy lùi - Knockback, đệm va chạm), và tích hợp hệ thống tự động tìm kiếm mục tiêu (\texttt{UpdateSearchTarget}) trong phạm vi quạt góc quét (\texttt{searchFanAngle}) và tầm quét (\texttt{searchRadius}). Đồng thời, lớp này khai báo cấu trúc enum \texttt{AsCommon} đại diện cho các trạng thái dùng chung của quái vật (như Idle, Run, Turn, Hit, Death).
+    \item \textbf{Các lớp quái vật và Boss cụ thể (\texttt{MvEmXXXX}):} Kế thừa từ \texttt{MvEnemyBase} (ví dụ: \texttt{MvEm0010} - BoneDog, \texttt{MvEm9020} - Golem Boss, \texttt{MvEm9030} - Marionette Boss). Các lớp này override các phương thức đặc thù như thiết lập kiểu quái vật (\texttt{EmType}), ánh xạ tên trạng thái, đăng ký bảng trạng thái và tùy biến thuật toán quét tìm người chơi.
+\end{itemize}
+
+Các trận chiến với Boss lớn được điều phối bởi lớp bộ não AI chuyên biệt \texttt{MvEmBrain} chạy song song với máy trạng thái:
+\begin{itemize}
+    \item \textbf{Trọng số mong muốn (Desire Weights):} AI liên tục đánh giá khoảng cách đến người chơi và phần trăm máu còn lại của Boss để cập nhật bảng trọng số mong muốn của các chiêu thức (ví dụ: khi người chơi ở xa, trọng số chiêu phóng đạn tăng; khi Boss dưới 50\% máu, trọng số các đòn tấn công nhanh, diện rộng tăng).
+    \item \textbf{Chuỗi chiêu thức (Combo Patterns):} Thay vì ra đòn ngẫu nhiên, Boss chọn một chuỗi hành động kết hợp được lập trình sẵn (\texttt{ComboBuff} lưu mảng các trạng thái hành vi). Khi combo bắt đầu, Boss sẽ thực thi tuần tự tất cả các đòn đánh trong combo đó trước khi quay lại trạng thái đánh giá mong muốn tiếp theo. Sơ đồ luồng quyết định hành động của Boss AI được mô phỏng trong Hình~\ref{fig:boss_ai_flow}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth,keepaspectratio]{Hinhve/BossAiFlow.png}
+    \caption{Sơ đồ luồng ra quyết định hành động của Boss AI dựa trên Desire và Combo}
+    \label{fig:boss_ai_flow}
+\end{figure}
+
+\subsubsection{Các hệ thống lõi phục vụ vận hành}
+\begin{itemize}
+    \item \textbf{Hệ thống Lưu trữ (Save/Load):} Sử dụng lớp \texttt{GameSaveManager} để serialize trạng thái trò chơi thành chuỗi dữ liệu JSON và lưu trữ lâu dài. \texttt{GameSaveManager} được thiết kế theo mẫu Singleton và nằm trên Object có thuộc tính \texttt{DontDestroyOnLoad}, đảm bảo tiến trình lưu/tải không bị gián đoạn khi chuyển cảnh.
+    \item \textbf{Hệ thống Culling tối ưu hóa hiệu năng (Culling System):} Bản đồ được chia thành các khu vực phòng độc lập (\texttt{RoomController}). Khi người chơi di chuyển ra khỏi phạm vi hoạt động của một phòng chơi, \texttt{CullingManager} sẽ tự động vô hiệu hóa (\texttt{SetActive(false)}) toàn bộ Sprite Renderers, Collision Colliders và tắt các script tính toán AI của quái vật thuộc phòng đó. Các đối tượng sẽ được kích hoạt lại ngay lập tức khi người chơi bước vào vùng biên giới tiếp giáp phòng, giúp giảm thiểu đáng kể số lượng lệnh vẽ (Draw Calls) và các phép tính toán vật lý không cần thiết (Hình~\ref{fig:culling_vis}).
+    \item \textbf{Hệ thống Nâng cấp và Cửa hàng:} \texttt{FacilityManager} chịu trách nhiệm đọc ghi tiến trình nâng cấp chỉ số vĩnh viễn (HP, Mana, Sát thương cận chiến) dựa trên số lượng các vật phẩm đặc biệt. \texttt{ShopStateSO} sử dụng ScriptableObject để lưu trữ danh sách các kỹ năng phép thuật và công cụ bổ trợ có bán tại NPC Shopkeeper, tự động đồng bộ hóa trạng thái đã mua/chưa mua giữa các màn chơi.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth,keepaspectratio]{Hinhve/CullingVisualization.png}
+    \caption{Hình vẽ trực quan các phòng chơi bị tắt hiển thị ngoài tầm nhìn để tối ưu hóa}
+    \label{fig:culling_vis}
+\end{figure}
+
+\subsubsection{Kiến trúc giao diện người dùng và Canvas (UI Canvas Architecture)}
+Hệ thống giao diện người dùng (UI) được thiết kế dựa trên cấu trúc phân lớp Canvas của Unity Engine:
+\begin{itemize}
+    \item \textbf{HUD Canvas (Screen Space - Overlay):} Quản lý các thông tin động thời gian thực hiển thị liên tục (HP, Mana, Stamina, ô phép thuật, tiền vàng). Canvas này sử dụng thành phần \texttt{Canvas Scaler} chế độ \texttt{Scale With Screen Size} với độ phân giải tham chiếu là \texttt{1920x1080}.
+    \item \textbf{Menu \& Panels Canvas (Screen Space - Overlay):} Quản lý các giao diện tĩnh (Inventory, Status, Shop, Facility, Full Map). Giao diện này được điều khiển bởi \texttt{UIManager} và \texttt{UIStateManager} để kiểm soát vòng đời và độ ưu tiên hiển thị.
+    \item \textbf{World Space Canvas:} Sử dụng riêng biệt cho các thành phần UI động cần kết nối trực tiếp với tọa độ thế giới 2D, tiêu biểu là lớp hiển thị chữ sát thương bay \texttt{DamageTextView} xuất hiện ngay trên đầu các thực thể khi nhận sát thương chiến đấu.
+\end{itemize}
+
+Để thực hiện cơ chế tạm dừng trò chơi khi mở các bảng chức năng tĩnh, hệ thống sử dụng lớp \texttt{UIPauseRequester} gửi yêu cầu tới bộ quản lý trung tâm \texttt{GamePauseManager} để thiết lập \texttt{Time.timeScale = 0f}. Việc này dừng hoàn toàn mọi chuyển động vật lý của Rigidbody2D, các script tính toán AI quái vật và hệ thống đạn phép, đảm bảo an toàn cho nhân vật chính trong khi người chơi tương tác với giao diện.
+
+
+\section{Thiết kế chi tiết}
+\label{section:5.3}
+
+\subsection{Thiết kế lớp}
+\label{subsection:5.3.1}
+Dưới đây là bảng đặc tả thuộc tính và phương thức của 3 lớp core cốt lõi đóng vai trò xương sống cho trò chơi: \texttt{PlayerController}, \texttt{MvEnemyBase}, và \texttt{GameSaveManager}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{2.2cm}|p{4.8cm}|p{8.0cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Tên Thuộc tính/Phương thức} & \textbf{Vai trò và Ý nghĩa chức năng} \\ \hline
+\multirow{8}{*}{\textbf{Thuộc tính}} & \texttt{stateMachine} & Đối tượng máy trạng thái quản lý các state di chuyển của người chơi. \\ \cline{2-3}
+ & \texttt{playerInput} & Nhận và lưu trữ đệm các tín hiệu nhập liệu bàn phím/chuột. \\ \cline{2-3}
+ & \texttt{playerMovement} & Xử lý các tương tác vật lý (di chuyển, lướt, nhảy, bám tường). \\ \cline{2-3}
+ & \texttt{playerStats} & Quản lý các chỉ số runtime sinh mệnh hiện tại của nhân vật. \\ \cline{2-3}
+ & \texttt{playerFormManager} & Quản lý việc nạp và hủy các prefab hình thái linh hồn động. \\ \cline{2-3}
+ & \texttt{currentForm} & Enum xác định hình thái hiện tại (Dạng người hay biến hình). \\ \cline{2-3}
+ & \texttt{currentFormId} & Enum định danh cụ thể hình thái linh hồn đang mở khóa. \\ \hline
+\multirow{5}{*}{\textbf{Phương thức}} & \texttt{TakeDamage()} & Triển khai giao diện nhận sát thương từ các nguồn đòn đánh kẻ địch. \\ \cline{2-3}
+ & \texttt{Respawn()} & Đưa nhân vật hồi sinh về vị trí Checkpoint đã ghi nhận. \\ \cline{2-3}
+ & \texttt{ToggleTransform-}\newline\texttt{Form()} & Kích hoạt/hủy bỏ cơ chế biến đổi linh hồn tại xác quái vật. \\ \cline{2-3}
+ & \texttt{AbandonTo-}\newline\texttt{Shrine()} & Đưa nhân vật quay về đền thờ gần nhất khi lựa chọn đầu hàng. \\ \cline{2-3}
+ & \texttt{SyncPlayerMovement-}\newline\texttt{Collider()} & Đồng bộ hóa kích thước collider vật lý khớp với hình thái linh hồn mới. \\ \hline
+\end{tabular}
+\caption{Đặc tả chi tiết thuộc tính và phương thức của lớp PlayerController}
+\label{table:player_controller_details}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{2.2cm}|p{4.8cm}|p{8.0cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Tên Thuộc tính/Phương thức} & \textbf{Vai trò và Ý nghĩa chức năng} \\ \hline
+\multirow{7}{*}{\textbf{Thuộc tính}} & \texttt{maxHealth} & Lượng máu tối đa của quái vật hoặc Boss. \\ \cline{2-3}
+ & \texttt{moveSpeed} & Tốc độ di chuyển tuần tra cơ bản. \\ \cline{2-3}
+ & \texttt{enemyState-}\newline\texttt{Machine} & Máy trạng thái quản lý các hành vi AI của quái vật. \\ \cline{2-3}
+ & \texttt{target} & Tham chiếu Transform của người chơi đang bị truy đuổi. \\ \cline{2-3}
+ & \texttt{searchRadius} & Bán kính quét phát hiện người chơi của thực thể. \\ \cline{2-3}
+ & \texttt{searchFanAngle} & Góc quét hình quạt phía trước mặt quái vật. \\ \cline{2-3}
+ & \texttt{isDead} & Trạng thái xác định quái vật đã bị tiêu diệt hay chưa. \\ \hline
+\multirow{6}{*}{\textbf{Phương thức}} & \texttt{TakeDamage()} & Trừ máu hiện tại, thực hiện đẩy lùi và chuyển sang Hit State. \\ \cline{2-3}
+ & \texttt{Die()} & Tắt các va chạm collider, kích hoạt VFX tan biến và phát sự kiện chết. \\ \cline{2-3}
+ & \texttt{UpdateSearch-}\newline\texttt{Target()} & Thực hiện quét OverlapCircle để xác định mục tiêu tối ưu. \\ \cline{2-3}
+ & \texttt{MovePatrol()} & Di chuyển tuần tra qua lại quanh điểm xuất phát ban đầu. \\ \cline{2-3}
+ & \texttt{MoveReturnTo-}\newline\texttt{Origin()} & Di chuyển quay lại điểm xuất phát khi mất dấu mục tiêu. \\ \cline{2-3}
+ & \texttt{ApplyKnockback()} & Tính toán góc và tác dụng lực vật lý đẩy lùi lên Rigidbody2D. \\ \hline
+\end{tabular}
+\caption{Đặc tả chi tiết thuộc tính và phương thức của lớp MvEnemyBase}
+\label{table:enemy_base_details}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{2.2cm}|p{4.8cm}|p{8.0cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Tên Thuộc tính/Phương thức} & \textbf{Vai trò và Ý nghĩa chức năng} \\ \hline
+\multirow{6}{*}{\textbf{Thuộc tính}} & \texttt{instance} & Tham chiếu tĩnh duy nhất (Singleton) của trình quản lý. \\ \cline{2-3}
+ & \texttt{saveFileName} & Tên mặc định của tệp tin lưu trữ dữ liệu JSON. \\ \cline{2-3}
+ & \texttt{activeSlotIndex} & Chỉ mục ô nhớ lưu trữ (Slot Index) đang được tải. \\ \cline{2-3}
+ & \texttt{currencyWallet} & Dữ liệu ScriptableObject quản lý ví tiền vàng người chơi. \\ \cline{2-3}
+ & \texttt{inventoryState} & Dữ liệu ScriptableObject quản lý túi đồ runtime. \\ \cline{2-3}
+ & \texttt{facilityManager} & Tham chiếu quản lý tiến trình nâng cấp vĩnh viễn của làng. \\ \hline
+\multirow{6}{*}{\textbf{Phương thức}} & \texttt{SaveActiveSlot()} & Tự động ghi dữ liệu của ô nhớ hiện tại xuống tệp tương ứng. \\ \cline{2-3}
+ & \texttt{SaveGameTo-}\newline\texttt{Path()} & Tuần tự hóa đối tượng lưu trữ sang JSON và ghi xuống đĩa cứng. \\ \cline{2-3}
+ & \texttt{LoadGameFrom-}\newline\texttt{Slot()} & Đọc tệp JSON tương ứng, giải tuần tự hóa và nạp vào game. \\ \cline{2-3}
+ & \texttt{CreateNew-}\newline\texttt{GameSlot()} & Khởi tạo ô nhớ mới với các dữ liệu mặc định ban đầu. \\ \cline{2-3}
+ & \texttt{CaptureSave-}\newline\texttt{Data()} & Tổng hợp toàn bộ dữ liệu từ các phân hệ vào đối tượng GameSaveData. \\ \cline{2-3}
+ & \texttt{ApplySave-}\newline\texttt{Data()} & Phân bổ dữ liệu từ đối tượng GameSaveData nạp ngược vào hệ thống. \\ \hline
+\end{tabular}
+\caption{Đặc tả chi tiết thuộc tính và phương thức của lớp GameSaveManager}
+\label{table:save_manager_details}
+\end{table}
+
+Để minh họa luồng truyền thông điệp giữa các đối tượng trong các tình huống tương tác thực tế, hệ thống đặc tả 2 use case cốt lõi thông qua biểu đồ trình tự:
+\begin{enumerate}
+    \item \textbf{Use Case Chuyển đổi linh hồn (Form Switch):} Sơ đồ trình tự tương tác giữa \texttt{PlayerInput}, \texttt{PlayerController}, \texttt{PlayerFormManager}, và \texttt{PlayerStats} khi thực hiện thay đổi hình dạng nhân vật được biểu diễn chi tiết tại Hình~\ref{fig:form_switch_sequence}.
+    \item \textbf{Use Case Lưu trữ tiến trình game (Save Game):} Khi người chơi tương tác cầu nguyện tại đền thờ hồi sinh (\texttt{RespawnShrine}), một yêu cầu lưu game được gửi tới \texttt{GameSaveManager}. Bộ quản lý sẽ gọi hàm \texttt{CaptureSaveData()} để thu thập dữ liệu từ các ScriptableObjects trạng thái (\texttt{CurrencyWalletSO}, \texttt{InventoryStateSO}, v.v.) và các nâng cấp từ \texttt{FacilityManager}, biên dịch thành cấu trúc trung gian \texttt{GameSaveData}. Đối tượng này được chuyển đổi thành chuỗi JSON qua bộ tiện ích của Unity và ghi xuống đĩa cứng dưới dạng tệp tin văn bản cục bộ.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth,keepaspectratio]{Hinhve/FormSwitchSequence.png}
+    \caption{Sơ đồ trình tự quá trình đồng bộ hóa chuyển đổi hình thái (Form Switch)}
+    \label{fig:form_switch_sequence}
+\end{figure}
+
+\subsection{Thiết kế cơ sở dữ liệu}
+\label{subsection:5.3.2}
+Vì trò chơi được thiết kế như một phần mềm độc lập chạy ngoại tuyến hoàn toàn trên PC, hệ thống không sử dụng các hệ quản trị cơ sở dữ liệu quan hệ máy chủ (như SQL Server hay MySQL) để tránh đòi hỏi kết nối mạng và các chi phí cài đặt phức tạp cho người chơi.
+
+Thay vào đó, trò chơi áp dụng thiết kế cơ sở dữ liệu hướng tài liệu cục bộ (document-based local file database) bằng định dạng JSON bền vững. Cơ sở dữ liệu được tổ chức dưới dạng một lớp tổng hợp gốc là \texttt{GameSaveData} chứa các tập hợp dữ liệu con đại diện cho trạng thái của từng phân hệ. Việc tổ chức cơ sở dữ liệu dưới dạng JSON giúp đảm bảo tốc độ đọc ghi cực nhanh, dung lượng lưu trữ nhẹ (dưới 100KB mỗi slot lưu trữ) và dễ dàng sao lưu, phục hồi thông qua các thư viện hệ thống tệp chuẩn của hệ điều hành.
+
+Hệ thống quản lý lưu trữ được phân tách thành hai dạng độc lập: lưu trữ cục bộ các thiết lập người dùng bằng cơ chế \texttt{PlayerPrefs} của Unity, và lưu trữ tiến trình chơi game bằng tệp tin định dạng JSON bền vững.
+
+Bảng~\ref{table:player_prefs_storage} đặc tả các khóa thiết lập cấu hình hệ thống được lưu trữ thông qua \texttt{PlayerPrefs}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4.5cm}|p{2.0cm}|p{2.0cm}|p{5.5cm}|}
+\hline
+\textbf{Khóa lưu trữ (Key)} & \textbf{Kiểu dữ liệu} & \textbf{Giá trị mặc định} & \textbf{Ý nghĩa chức năng} \\ \hline
+\texttt{Pref\_MasterVolume} & float & 1.0f & Âm lượng tổng của trò chơi (Master Volume). \\ \hline
+\texttt{Pref\_BgmVolume} & float & 0.8f & Âm lượng nhạc nền (BGM Volume). \\ \hline
+\texttt{Pref\_SfxVolume} & float & 0.8f & Âm lượng hiệu ứng âm thanh (SFX Volume). \\ \hline
+\end{tabular}
+\caption{Bảng đặc tả các khóa lưu trữ cấu hình trong PlayerPrefs}
+\label{table:player_prefs_storage}
+\end{table}
+
+Đối với tiến trình chơi game chi tiết, tệp tin cấu trúc JSON được ghi dưới dạng các slot lưu trữ độc lập tại đường dẫn \texttt{Application.persistentDataPath}. Các trường dữ liệu chính được lưu trong lớp \texttt{GameSaveData} được đặc tả chi tiết trong Bảng~\ref{table:json_save_data}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4.0cm}|p{3.5cm}|p{6.5cm}|}
+\hline
+\textbf{Trường dữ liệu (JSON Field)} & \textbf{Kiểu dữ liệu C\#} & \textbf{Ý nghĩa lưu trữ thực tế} \\ \hline
+\texttt{gold} & int & Số lượng tiền vàng tích lũy hiện có. \\ \hline
+\texttt{inventory} & InventorySaveData & Danh sách các vật phẩm thu thập được trong túi đồ. \\ \hline
+\texttt{toolEquip} & EquipmentSaveData & Dữ liệu về công cụ (Tool) đang trang bị. \\ \hline
+\texttt{healingPotionEquip} & EquipmentSaveData & Dữ liệu về bình thuốc hồi phục đang trang bị. \\ \hline
+\texttt{shop} & ShopSaveData & Trạng thái đã mua/chưa mua các vật phẩm tại cửa hàng. \\ \hline
+\texttt{skillProgress} & SkillProgressSaveData & Trạng thái mở khóa các phép thuật đã học. \\ \hline
+\texttt{facilityProgress} & FacilityProgressSaveData & Tiến trình nâng cấp vĩnh viễn các thuộc tính tại Village. \\ \hline
+\texttt{skillTreeProgress} & SkillTreeProgressSaveData & Tiến trình mở khóa nhánh kỹ năng chiến đấu (Skill Tree). \\ \hline
+\texttt{portals} & PortalSaveData & Danh sách các cổng dịch chuyển (Portals) đã kích hoạt. \\ \hline
+\texttt{doors} & DoorSaveData & Trạng thái mở khóa các cánh cửa lớn trên thế giới. \\ \hline
+\texttt{worldPickups} & WorldPickupSaveData & Trạng thái nhặt các vật phẩm thu thập trong màn chơi. \\ \hline
+\texttt{bossDefeats} & BossDefeatSaveData & Trạng thái đã đánh bại các Boss chính. \\ \hline
+\texttt{equippedSpellId} & string & ID của phép thuật đang được chọn. \\ \hline
+\texttt{slotIndex} & int & Chỉ mục ô nhớ lưu trữ game (Slot Index). \\ \hline
+\texttt{playTimeSeconds} & float & Tổng thời gian chơi game đã ghi nhận (tính bằng giây). \\ \hline
+\end{tabular}
+\caption{Bảng đặc tả cấu trúc lưu trữ tiến trình game trong GameSaveData}
+\label{table:json_save_data}
+\end{table}
+
+Ngoài ra, để tối ưu hóa thiết kế hướng dữ liệu (Data-Driven Design), game sử dụng các ScriptableObjects được chia làm hai nhóm chính: dữ liệu cấu hình tĩnh và dữ liệu lưu trạng thái động. Vai trò và phân lớp cụ thể được liệt kê trong Bảng~\ref{table:scriptable_objects}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{6.0cm}|}
+\hline
+\textbf{Tên ScriptableObject} & \textbf{Lớp C\# kế thừa} & \textbf{Vai trò và Chức năng lưu trữ} \\ \hline
+\texttt{ItemDatabaseSO} & ScriptableObject & Danh sách định nghĩa tĩnh toàn bộ vật phẩm trong game. \\ \hline
+\texttt{SpellDatabaseSO} & ScriptableObject & Danh sách định nghĩa các phép thuật có thể học. \\ \hline
+\texttt{PlayerFormDataSO} & ScriptableObject & Chứa cấu hình prefab, icon, máu mặc định của các form linh hồn. \\ \hline
+\texttt{InventoryStateSO} & ScriptableObject & Runtime State: Quản lý danh sách vật phẩm chạy trong túi đồ. \\ \hline
+\texttt{CurrencyWalletSO} & ScriptableObject & Runtime State: Quản lý số dư tiền vàng hiện thời của Player. \\ \hline
+\texttt{ShopStateSO} & ScriptableObject & Runtime State: Theo dõi tiến trình mua sắm vật phẩm của shop. \\ \hline
+\end{tabular}
+\caption{Bảng phân loại các ScriptableObjects trong kiến trúc game}
+\label{table:scriptable_objects}
+\end{table}
 
 
 \section{Xây dựng ứng dụng}
+\label{section:5.4}
+
 \subsection{Thư viện và công cụ sử dụng}
 Quá trình xây dựng và phát triển trò chơi "Dream Witch" sử dụng các công cụ lập trình, thư viện bên thứ ba và phần mềm đồ họa với thông tin chi tiết được thống kê trong Bảng~\ref{table:development_tools}.
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|p{3.5cm}|p{5cm}|p{6.5cm}|}
+\begin{tabular}{|p{3.5cm}|p{5.0cm}|p{6.5cm}|}
 \hline
 \textbf{Mục đích sử dụng} & \textbf{Công cụ / Thư viện (Phiên bản)} & \textbf{Địa chỉ URL chính thức} \\ \hline
 Engine phát triển game & Unity Editor (6000.0.40f1 LTS) & \url{https://unity.com/} \\ \hline
@@ -46,7 +340,7 @@ Thiết kế đồ họa và Sprite & Adobe Photoshop \& Aseprite & \url{https:/
 \end{table}
 
 \subsection{Kết quả đạt được}
-Sản phẩm sau quá trình phát triển là bản đóng gói trò chơi hoàn chỉnh hoạt động độc lập trên hệ điều hành Windows 64-bit (PC Standalone). Bản đóng gói bao gồm tệp thực thi \texttt{DreamWitch.exe} cùng thư mục tài nguyên \texttt{DreamWitch\_Data}. Mã nguồn C\# của dự án được tổ chức chặt chẽ theo cấu trúc phân rã thành các gói chức năng (packages) như đã đặc tả ở Chương 4 bao gồm: \texttt{Player}, \texttt{Enemy}, \texttt{System}, \texttt{UI}, \texttt{Interfaces}, \texttt{Core}, \texttt{Trap}, và \texttt{VFX}.
+Sản phẩm sau quá trình phát triển là bản đóng gói trò chơi hoàn chỉnh hoạt động độc lập trên hệ điều hành Windows 64-bit (PC Standalone). Bản đóng gói bao gồm tệp thực thi \texttt{DreamWitch.exe} cùng thư mục tài nguyên \texttt{DreamWitch\_Data}. Mã nguồn C\# của dự án được tổ chức chặt chẽ theo cấu trúc phân rã thành các gói chức năng (packages) bao gồm: \texttt{Player}, \texttt{Enemy}, \texttt{System}, \texttt{UI}, \texttt{Interfaces}, \texttt{Core}, \texttt{Trap}, và \texttt{VFX}.
 
 Để minh chứng cho quy mô phát triển của dự án, các thông tin định lượng chi tiết về mã nguồn C\# và dung lượng các thành phần liên quan được tổng hợp trong Bảng~\ref{table:project_metrics}.
 
@@ -66,47 +360,161 @@ Dung lượng bản đóng gói sản phẩm (.zip) & ~350 & Megabytes (MB) \\ \
 \label{table:project_metrics}
 \end{table}
 
+
 \section{Sản phẩm}
+\label{section:5.5}
 Để đánh giá trực quan kết quả lập trình và thiết kế cơ chế, phần này trình bày diễn tiến vận hành thực tế của trò chơi "Dream Witch" theo một kịch bản chơi game (gameplay scenario) hoàn chỉnh đi qua các phân khu bản đồ từ lúc khởi động cho tới khi hoàn thành nhiệm vụ cốt lõi. Người đọc có thể hình dung toàn bộ trải nghiệm mà không cần trực tiếp vận hành sản phẩm.
 
 Kịch bản trải nghiệm gồm 5 giai đoạn chính như sau:
 
 \textbf{Giai đoạn 1: Khởi động và thiết lập ban đầu (Title Screen \& Save Slots)}
-Khi người chơi kích hoạt tệp \texttt{DreamWitch.exe}, hệ thống hiển thị màn hình bắt đầu với âm nhạc u sầu đặc trưng. Giao diện cung cấp các tùy chọn để bắt đầu chơi mới hoặc tiếp tục tiến trình cũ. Khi chọn "Continue", giao diện Save Slot hiển thị thông tin chi tiết về từng ô lưu trữ (thời gian chơi, lượng vàng tích lũy, các chỉ số cơ bản) giúp người chơi quản lý tiến trình.
-\begin{itemize}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế màn hình bắt đầu game (Title Screen) với các nút chức năng hoạt động chính xác.}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế giao diện quản lý Save Slot Menu hiển thị các slot lưu trữ dữ liệu JSON thực tế trong game.}
-\end{itemize}
+
+Khi người chơi kích hoạt tệp \texttt{DreamWitch.exe}, hệ thống hiển thị màn hình bắt đầu với âm nhạc u sầu đặc trưng (Hình~\ref{fig:TitleScreen}). Giao diện cung cấp các tùy chọn để bắt đầu chơi mới hoặc tiếp tục tiến trình cũ. Khi chọn "Continue", giao diện Save Slot hiển thị thông tin chi tiết về từng ô lưu trữ (thời gian chơi, lượng vàng tích lũy, các chỉ số cơ bản) giúp người chơi quản lý tiến trình (Hình~\ref{fig:MainMenu}).
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/TitleScreen.jpg}
+        \caption{Màn hình khởi động trò chơi (Title Screen)}
+        \label{fig:TitleScreen}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/MainMenu.jpg}
+        \caption{Giao diện chọn Slot tiếp tục chơi (Save Slot Menu)}
+        \label{fig:MainMenu}
+    \end{subfigure}
+    \caption{Giai đoạn khởi động game và quản lý tiến trình người chơi}
+    \label{fig:giai_doan_1}
+\end{figure}
 
 \textbf{Giai đoạn 2: Thám hiểm khu vực Di tích và điều khiển vật lý (Ruin Exploration)}
-Nhân vật phù thủy xuất hiện tại điểm xuất phát an toàn là Nhà thờ (Church), sau đó di chuyển qua cửa lớn sang phân khu Di tích (Ruin). Người chơi thực hiện kiểm soát chuyển động nhân vật: chạy di chuyển mượt mà trên nền tảng, thực hiện nhảy đơn, nhảy đôi để vượt qua các vực thẳm và bám vách leo tường (Wall Climb). Hệ thống vật lý nhận diện chính xác các va chạm với gạch đá cổ và tiêu hao thể lực (Stamina) tương ứng khi bám tường leo lên.
-\begin{itemize}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật di chuyển và thám hiểm môi trường gạch đá u tối của phân khu Di tích (Ruin Map). Bố cục giao diện hiển thị rõ thanh HUD lượng máu/thể lực ở góc trên bên trái.}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật đang bám tường và thực hiện hành động leo tường (Wall Climb) tại khu vực vách đá cao trong Ruin.}
-\end{itemize}
+
+Nhân vật phù thủy xuất hiện tại điểm xuất phát an toàn là Nhà thờ (Church), sau đó di chuyển qua cửa lớn sang phân khu Di tích (Ruin). Người chơi thực hiện kiểm soát chuyển động nhân vật: chạy di chuyển mượt mà trên nền tảng, thực hiện nhảy đơn, nhảy đôi để vượt qua các vực thẳm và bám vách leo tường (Wall Climb). Hệ thống vật lý nhận diện chính xác các va chạm với gạch đá cổ và tiêu hao thể lực (Stamina) tương ứng khi bám tường leo lên. Giao diện hiển thị rõ thanh HUD lượng máu/thể lực ở góc trên bên trái (Hình~\ref{fig:HUD_gameplay} và Hình~\ref{fig:Level_platforming}).
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/HUD.png}
+        \caption{Thanh trạng thái HUD (Máu/Thể lực/Mana)}
+        \label{fig:HUD_gameplay}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/Level.png}
+        \caption{Platforming và thám hiểm tại khu vực Di tích (Ruin)}
+        \label{fig:Level_platforming}
+    \end{subfigure}
+    \caption{Giai đoạn thám hiểm bản đồ Di tích với các cơ chế điều khiển vật lý}
+    \label{fig:giai_doan_2}
+\end{figure}
 
 \textbf{Giai đoạn 3: Cơ chế chiến đấu cận chiến và né tránh (Combat \& Dash/Dodge)}
-Trong quá trình thám hiểm Ruin, nhân vật đối đầu với quái vật thường đầu tiên tuần tra trên đường (BoneDog - quái thú xương). Người chơi thi triển chuỗi đòn đánh cận chiến liên hoàn 3-hit combo tạo ra các tia sáng cắt chém vật lý. Khi quái thú lao tới tấn công, người chơi kích hoạt phím lướt (Dash) để né tránh đòn đánh ngay trước thời điểm bị va chạm. Một cú né tránh chuẩn xác giúp nhân vật không nhận sát thương, đồng thời người chơi có thể lập tức quay lại phản công cận chiến để tiêu diệt quái vật.
-\begin{itemize}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật thực hiện đòn đánh liên hoàn (Combo) cận chiến chém quái thú thường có kèm hiển thị số sát thương rơi ra (Damage text).}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế khoảnh khắc né tránh đòn đánh thành công (Perfect Dodge/Dash), quái vật đang tấn công hụt trong khi nhân vật đang lướt né.}
-\end{itemize}
+
+Trong quá trình thám hiểm Ruin, nhân vật đối đầu với quái vật thường đầu tiên tuần tra trên đường (BoneDog - quái thú xương). Người chơi thi triển chuỗi đòn đánh cận chiến liên hoàn 3-hit combo tạo ra các tia sáng cắt chém vật lý. Khi quái thú lao tới tấn công, người chơi kích hoạt phím lướt (Dash) để né tránh đòn đánh ngay trước thời điểm bị va chạm. Một cú né tránh chuẩn xác giúp nhân vật không nhận sát thương, đồng thời người chơi có thể lập tức quay lại phản công cận chiến để tiêu diệt quái vật (Hình~\ref{fig:QuaiVatThuong_combat}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Hinhve/QuaiVatThuong.png}
+    \caption{Nhân vật cận chiến chém quái thú thường kèm chữ hiển thị sát thương bay}
+    \label{fig:QuaiVatThuong_combat}
+\end{figure}
 
 \textbf{Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa (Form Switch \& Spellcasting)}
-Tại các điểm đánh dấu đặc biệt trong di tích, người chơi tương tác với các xác cổ của sinh vật hắc ám để hấp thụ sức mạnh và mở khóa cơ chế biến dạng (Form Switch). Khi nhấn phím chuyển dạng, nhân vật phù thủy chuyển đổi ngoại hình (Animator Controller thay đổi lập tức thông qua string-based loading để đổi bộ hoạt ảnh và thay đổi Sprite vật lý tương ứng của form mới) sang hình thái quái vật lửa hoặc chiến binh, cho phép thi triển các phép thuật tầm xa mạnh mẽ vượt qua các dòng sông axit hiểm trở dẫn sang phân khu Núi lửa (Volcano).
-\begin{itemize}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế hiệu ứng biến đổi hình thái nhân vật (Form Switch) thay đổi từ phù thủy sang dạng quái vật lửa cường hóa.}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật thi triển phép thuật tầm xa (Spellcasting) tiêu diệt quái vật hoặc kích hoạt cơ cấu môi trường tại phân khu Núi lửa (Volcano Map).}
-\end{itemize}
+
+Tại các điểm đánh dấu đặc biệt trong di tích, người chơi tương tác với các xác cổ của sinh vật hắc ám để hấp thụ sức mạnh và mở khóa cơ chế biến dạng (Form Switch). Khi nhấn phím chuyển dạng, nhân vật phù thủy chuyển đổi ngoại hình (Animator Controller thay đổi lập tức để đổi bộ hoạt ảnh và thay đổi Sprite vật lý tương ứng của form mới) sang hình thái quái vật lửa, cho phép thi triển các phép thuật tầm xa mạnh mẽ vượt qua các dòng sông axit hiểm trở dẫn sang phân khu Núi lửa (Volcano) (Hình~\ref{fig:BienHinh_prompt} và Hình~\ref{fig:Spell_casting}).
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/BienHinh.png}
+        \caption{Interact Prompt hiện lên khi đứng gần xác quái vật để biến hình}
+        \label{fig:BienHinh_prompt}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/SpellGameplay.png}
+        \caption{Thi triển đạn phép thuật tầm xa được quản lý bởi Object Pooling}
+        \label{fig:Spell_casting}
+    \end{subfigure}
+    \caption{Cơ chế biến dạng thực thể (Form Switch) và thi triển kỹ năng phép thuật}
+    \label{fig:giai_doan_4}
+\end{figure}
 
 \textbf{Giai đoạn 5: Đối đầu Boss Golem và lưu trữ tiến trình (Boss Fight \& Progress Saving)}
-Cuối khu vực Di tích, người chơi tiến vào phòng Boss Golem khổng lồ. Trận đấu diễn ra căng thẳng khi Boss có lượng máu lớn (hiển thị bằng thanh máu dài dưới đáy màn hình) và sử dụng AI tìm đường A* săn đuổi người chơi kết hợp đập tay tạo sóng chấn động. Sau khi tiêu diệt Boss thành công bằng sự kết hợp giữa biến dạng và né tránh, người chơi di chuyển tới Đền thờ hồi sinh (Shrine), thực hiện cầu nguyện để kích hoạt hệ thống tự động lưu trữ ghi lại toàn bộ tiến trình chơi thành tệp tin JSON mã hóa an toàn trên thiết bị.
-\begin{itemize}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế trận chiến kịch tính với Boss lớn Golem (Em9020) hiển thị đầy đủ thanh máu Boss và các hiệu ứng đập đất.}
-    \item \textit{\% NOTE: Chèn ảnh chụp thực tế nhân vật đứng tương tác cầu nguyện tại Đền thờ hồi sinh (Shrine) để thực hiện lưu trữ tiến trình chơi thành công.}
-\end{itemize}
+
+Cuối khu vực Di tích, người chơi tiến vào phòng Boss Golem khổng lồ. Trận đấu diễn ra căng thẳng khi Boss có lượng máu lớn (hiển thị bằng thanh máu dài dưới đáy màn hình) và sử dụng AI tìm đường A* săn đuổi người chơi kết hợp đập tay tạo sóng chấn động. Sau khi tiêu diệt Boss thành công bằng sự kết hợp giữa biến dạng và né tránh, người chơi di chuyển tới Đền thờ hồi sinh (Shrine), thực hiện cầu nguyện để kích hoạt hệ thống tự động lưu trữ ghi lại toàn bộ tiến trình chơi thành tệp tin JSON lưu trữ trên thiết bị (Hình~\ref{fig:Boss_golem_1} và Hình~\ref{fig:Boss_golem_2}).
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/BossTranChien.png}
+        \caption{Đối đầu với Boss khổng lồ Golem}
+        \label{fig:Boss_golem_1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/BossTranChien2.png}
+        \caption{Boss thi triển chiêu đập đất tạo chấn động}
+        \label{fig:Boss_golem_2}
+    \end{subfigure}
+    \caption{Trận đấu Boss kịch tính và kích hoạt Checkpoint lưu game}
+    \label{fig:giai_doan_5}
+\end{figure}
+
+\textbf{Các bảng giao diện chức năng quan trọng khác:}
+
+Để người đọc có thể hình dung toàn diện về chiều sâu của hệ thống nhập vai và các tính năng tương tác phụ trợ trong "Dream Witch", các giao diện quản lý chỉ số nhân vật, cửa hàng mua sắm vật phẩm, cây kỹ năng và bản đồ định vị thế giới được trình bày chi tiết từ Hình~\ref{fig:StatusUI} đến Hình~\ref{fig:FullMapUI}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/StatusUI.jpg}
+        \caption{Bảng trạng thái (Status Panel) hiển thị chỉ số chi tiết các linh hồn}
+        \label{fig:StatusUI}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/ShopUI.jpg}
+        \caption{Giao diện Cửa hàng (Shopkeeper UI) mua sắm các phép thuật và công cụ}
+        \label{fig:ShopUI}
+    \end{subfigure}
+    \caption{Các giao diện quản lý chỉ số và mua bán vật phẩm trong game}
+    \label{fig:interface_panels_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/SkillTreeUI.jpg}
+        \caption{Nhánh kỹ năng (Skill Tree) mở khóa các đòn đánh nâng cao}
+        \label{fig:SkillTreeUI}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Hinhve/FullMapUI.jpg}
+        \caption{Bản đồ thế giới (Full Map UI) hỗ trợ người chơi định vị}
+        \label{fig:FullMapUI}
+    \end{subfigure}
+    \caption{Các tính năng hỗ trợ thăng tiến và định hướng di chuyển cho người chơi}
+    \label{fig:interface_panels_2}
+\end{figure}
+
 
 \section{Kiểm thử}
+\label{section:5.6}
 Công tác kiểm thử phần mềm được tiến hành bằng phương pháp kiểm thử hộp đen (Black-box Testing) tập trung kiểm tra độ chính xác của các chức năng cốt lõi và tính ổn định của cơ chế tương tác vật lý trực quan trong game.
 
 Chi tiết thiết kế các ca kiểm thử cho ba phân hệ chức năng quan trọng nhất được trình bày trong Bảng~\ref{table:test_cases}.
@@ -145,10 +553,11 @@ Lưu trữ \& Tải file JSON & 2 & 2 & 0 & 100\% \\ \hline
 \label{table:test_summary}
 \end{table}
 
-Kết quả kiểm thử cho thấy toàn bộ các chức năng then chốt của trò chơi hoạt động ổn định, chính xác theo đúng đặc tả thiết kế hệ thống ở Chương 4. Hệ thống máy trạng thái nhân vật phản hồi tốt các tương tác điều khiển, cơ chế chuyển đổi hình thái cập nhật đồng bộ các chỉ số runtime, và dữ liệu người chơi được tuần tự hóa thành công sang định dạng JSON mà không gây ra bất kỳ hiện tượng rò rỉ dữ liệu hoặc xung đột logic nào.
+Kết quả kiểm thử cho thấy toàn bộ các chức năng then chốt của trò chơi hoạt động ổn định, chính xác theo đúng đặc tả thiết kế hệ thống. Hệ thống máy trạng thái nhân vật phản hồi tốt các tương tác điều khiển, cơ chế chuyển đổi hình thái cập nhật đồng bộ các chỉ số runtime, và dữ liệu người chơi được tuần tự hóa thành công sang định dạng JSON mà không gây ra bất kỳ hiện tượng rò rỉ dữ liệu hoặc xung đột logic nào.
 
 
 \section{Triển khai}
+\label{section:5.7}
 Trò chơi được thiết kế và triển khai như một ứng dụng độc lập chạy ngoại tuyến (PC Standalone) trên hệ điều hành Windows:
 \begin{itemize}
     \item \textbf{Đóng gói sản phẩm (Build \& Packaging):} Trò chơi sử dụng bộ đóng gói tích hợp của Unity (Unity Build Pipeline) để biên dịch sang mã máy gốc chạy trên nền tảng Windows 64-bit. Kết quả đóng gói bao gồm tệp thực thi chính \texttt{DreamWitch.exe} và thư mục dữ liệu tài nguyên đã được biên dịch \texttt{DreamWitch\_Data}.

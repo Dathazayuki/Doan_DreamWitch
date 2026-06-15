@@ -9,22 +9,21 @@
 \contentsline {table}{\numberline {4.2}{\ignorespaces Bảng phân tích danh mục kẻ địch thông thường trong game}}{27}{table.caption.26}%
 \contentsline {table}{\numberline {4.3}{\ignorespaces Bảng đặc tả các thực thể Boss trong thế giới game}}{28}{table.caption.28}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Bảng đặc tả các khóa lưu trữ cấu hình trong PlayerPrefs}}{46}{table.caption.47}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Bảng đặc tả cấu trúc lưu trữ tiến trình game trong GameSaveData}}{47}{table.caption.48}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Bảng phân loại các ScriptableObjects trong kiến trúc game}}{48}{table.caption.49}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Đặc tả chi tiết thuộc tính và phương thức của lớp PlayerController}}{52}{table.caption.52}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Đặc tả chi tiết thuộc tính và phương thức của lớp MvEnemyBase}}{53}{table.caption.53}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Đặc tả chi tiết thuộc tính và phương thức của lớp GameSaveManager}}{54}{table.caption.54}%
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Bảng yêu cầu cấu hình phần cứng tối thiểu và khuyến nghị}}{56}{table.caption.55}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Danh sách các thư viện và công cụ phát triển trò chơi}}{57}{table.caption.56}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Thống kê định lượng mã nguồn và tài nguyên dự án}}{58}{table.caption.57}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Bảng đặc tả các trường hợp kiểm thử cốt lõi}}{61}{table.caption.58}%
-\contentsline {table}{\numberline {6.5}{\ignorespaces Bảng tổng hợp kết quả kiểm thử hệ thống}}{62}{table.caption.59}%
-\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Bảng yêu cầu cấu hình phần cứng tối thiểu và khuyến nghị}}{37}{table.caption.41}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Đặc tả chi tiết thuộc tính và phương thức của lớp PlayerController}}{47}{table.caption.47}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Đặc tả chi tiết thuộc tính và phương thức của lớp MvEnemyBase}}{48}{table.caption.48}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Đặc tả chi tiết thuộc tính và phương thức của lớp GameSaveManager}}{49}{table.caption.49}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Bảng đặc tả các khóa lưu trữ cấu hình trong PlayerPrefs}}{51}{table.caption.51}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Bảng đặc tả cấu trúc lưu trữ tiến trình game trong GameSaveData}}{52}{table.caption.52}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Bảng phân loại các ScriptableObjects trong kiến trúc game}}{53}{table.caption.53}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Danh sách các thư viện và công cụ phát triển trò chơi}}{53}{table.caption.54}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Thống kê định lượng mã nguồn và tài nguyên dự án}}{54}{table.caption.55}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Bảng đặc tả các trường hợp kiểm thử cốt lõi}}{59}{table.caption.63}%
+\contentsline {table}{\numberline {5.11}{\ignorespaces Bảng tổng hợp kết quả kiểm thử hệ thống}}{60}{table.caption.64}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Table to test captions and labels.}}{78}{table.caption.64}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces Table to test captions and labels.}}{77}{table.caption.69}%
 \addvspace {10\p@ }
 \contentsfinish 
 \contentsfinish 
