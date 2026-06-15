@@ -28,21 +28,19 @@ Dung lượng ổ cứng & 1 GB dung lượng trống & 1 GB dung lượng trố
 
 \subsection{Lựa chọn kiến trúc phần mềm}
 \label{subsection:5.2.1}
-Để giải quyết bài toán quản lý trạng thái trò chơi phức tạp của thể loại Metroidvania, đề tài lựa chọn áp dụng mô hình kiến trúc MVC (Model-View-Controller) kết hợp với mô hình hướng thành phần (Component-Based Architecture) đặc thù của Unity Engine:
+Để phát triển hệ thống điều khiển nhân vật và quái vật linh hoạt trong thể loại Metroidvania hành động nhịp độ cao, đề tài lựa chọn áp dụng mô hình \textbf{Kiến trúc hướng thành phần (Component-Based Architecture)} đặc thù của Unity Engine kết hợp với \textbf{Mẫu thiết kế Trung gian (Mediator Pattern)} để tổ chức cấu trúc lớp trong trò chơi:
 \begin{itemize}
-    \item \textbf{Model (Mô hình dữ liệu):} Chịu trách nhiệm quản lý, lưu trữ trạng thái chạy và dữ liệu tĩnh của trò chơi. Trong dự án, thành phần này được hiện thực hóa thông qua các đối tượng \texttt{ScriptableObject} bền vững như:
+    \item \textbf{Nguyên lý Kiến trúc hướng thành phần (Composition over Inheritance):} Thay vì sử dụng cây kế thừa sâu lớp (Deep Class Inheritance - vốn dễ dẫn đến sự cứng nhắc và khó bảo trì khi mở rộng cơ chế game), thực thể chính của người chơi (\texttt{GameObject} Player) được xây dựng bằng việc lắp ghép các thành phần (\texttt{MonoBehaviour} Components) hoạt động độc lập, đảm nhiệm từng vai trò chức năng riêng biệt:
     \begin{itemize}
-        \item \texttt{PlayerFormDataSO:} Lưu cấu hình tĩnh cho các hình thái linh hồn (HP tối đa, Animator Controller, Prefab vật lý).
-        \item \texttt{ItemDatabaseSO} và \texttt{SpellDatabaseSO:} Định nghĩa danh sách các vật phẩm và phép thuật.
-        \item \texttt{InventoryStateSO}, \texttt{ShopStateSO}, \texttt{CurrencyWalletSO:} Lưu trạng thái runtime động của túi đồ, cửa hàng và số dư tiền của nhân vật.
+        \item \texttt{PlayerInput:} Đọc, xử lý và đệm các tín hiệu nhập liệu bàn phím/chuột (Jump buffering, Dash buffering).
+        \item \texttt{PlayerMovement:} Xử lý động học, lực nhảy, lướt 8 hướng, bám tường và tương tác vật lý thông qua \texttt{Rigidbody2D}.
+        \item \texttt{PlayerStats:} Quản lý các chỉ số sinh tồn runtime (Máu, Thể lực, Năng lượng) và kích hoạt các sự kiện thay đổi giá trị.
+        \item \texttt{PlayerCollision:} Kiểm tra các va chạm vật lý với môi trường, bẫy gai và nhận diện vùng an toàn.
+        \item \texttt{PlayerCombat:} Quản lý trạng thái chiến đấu, chuỗi combo 3-hit cận chiến và kích hoạt hitbox tấn công.
+        \item \texttt{PlayerFormManager:} Quản lý việc nạp, khởi tạo động các Prefab vật lý của hình thái biến đổi linh hồn mới và hủy bỏ hình thái cũ.
     \end{itemize}
-    \item \textbf{View (Giao diện hiển thị):} Chịu trách nhiệm hiển thị thông tin trực quan lên màn hình và ghi nhận thao tác của người chơi để chuyển giao cho Controller xử lý. Thành phần View bao gồm các đối tượng Canvas UI tĩnh và động như \texttt{PlayerHudUI} (HUD hiển thị HP/Stamina/Mana), các panel quản lý cửa hàng (\texttt{ShopUI}), túi đồ (\texttt{InventoryUI}), nâng cấp (\texttt{FacilityUI}), và chữ hiển thị sát thương bay (\texttt{DamageTextView}).
-    \item \textbf{Controller (Bộ điều phối):} Đóng vai trò trung gian xử lý các logic nghiệp vụ, lắng nghe tương tác từ View để thay đổi Model, và ngược lại. Các controller tiêu biểu là:
-    \begin{itemize}
-        \item \texttt{PlayerController:} Điều phối toàn bộ trạng thái di chuyển và chiến đấu của người chơi.
-        \item \texttt{UIManager} và \texttt{UIStateManager:} Quản lý vòng đời và thứ tự ưu tiên đóng mở các Canvas UI.
-        \item \texttt{GameSaveManager:} Đọc/ghi trạng thái từ các lớp Model xuống tệp tin lưu trữ JSON.
-    \end{itemize}
+    \item \textbf{Mẫu thiết kế Trung gian (Mediator Pattern):} Để tránh việc các component trên gọi trực tiếp lẫn nhau gây ra hiện tượng kết hợp chặt (tight coupling), lớp \texttt{PlayerController} đóng vai trò là bộ điều phối trung tâm (Mediator). Lớp này lưu trữ các tham chiếu đến các component con tại pha khởi động (\texttt{Awake}) và điều hòa các tương tác logic giữa chúng (ví dụ: chuyển giao tín hiệu di chuyển từ \texttt{PlayerInput} sang \texttt{PlayerMovement}, đồng bộ hóa kích thước collider trong \texttt{PlayerMovement} sau khi \texttt{PlayerFormManager} thay đổi hình dạng nhân vật).
+    \item \textbf{Kiến trúc dữ liệu hướng cấu hình (Data-Driven Design):} Phân tách dữ liệu tĩnh (như HP mặc định, prefab vật lý, clip hoạt ảnh trong các đối tượng \texttt{PlayerFormDataSO}, \texttt{ItemDatabaseSO} kế thừa từ \texttt{ScriptableObject}) ra khỏi logic xử lý, giúp nhà phát triển có thể tinh chỉnh cân bằng game mà không cần thay đổi mã nguồn hệ thống.
 \end{itemize}
 
 \subsection{Thiết kế tổng quan}

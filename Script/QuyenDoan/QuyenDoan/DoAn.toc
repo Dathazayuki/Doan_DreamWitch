@@ -72,7 +72,7 @@
 \contentsline {section}{\numberline {5.2}Thiết kế kiến trúc}{37}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Lựa chọn kiến trúc phần mềm}{37}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}Thiết kế tổng quan}{38}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Thiết kế chi tiết gói}{39}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.3}Thiết kế chi tiết gói}{40}{subsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.2.4}Cấu trúc chi tiết các phân hệ cốt lõi}{41}{subsection.5.2.4}%
 \contentsline {subsubsection}{\numberline {a}Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{41}{subsubsection.5.2.4.1}%
 \contentsline {subsubsection}{\numberline {b}Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{42}{subsubsection.5.2.4.2}%
