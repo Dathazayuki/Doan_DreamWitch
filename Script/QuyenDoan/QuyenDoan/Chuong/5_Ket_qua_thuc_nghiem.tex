@@ -420,12 +420,7 @@ Lớp \texttt{GameSaveManager} chịu trách nhiệm lưu trữ và phục hồi
     \end{itemize}
 \end{itemize}
 
-Để minh họa luồng truyền thông điệp giữa các đối tượng trong các tình huống tương tác thực tế, hệ thống đặc tả 2 use case cốt lõi thông qua biểu đồ trình tự:
-\begin{enumerate}
-    \item \textbf{Use Case Chuyển đổi linh hồn (Form Switch):} Sơ đồ trình tự tương tác giữa \texttt{PlayerInput}, \texttt{PlayerController}, \texttt{PlayerFormManager}, và \texttt{PlayerStats} khi thực hiện thay đổi hình dạng nhân vật được biểu diễn chi tiết tại Hình~\ref{fig:form_switch_sequence}.
-    \item \textbf{Use Case Lưu trữ tiến trình game (Save Game):} Khi người chơi tương tác cầu nguyện tại đền thờ hồi sinh (\texttt{RespawnShrine}), một yêu cầu lưu game được gửi tới \texttt{GameSaveManager}. Tiến trình tương tác truyền tin cụ thể được mô tả chi tiết tại sơ đồ trình tự ở Hình~\ref{fig:save_system_sequence} (phần thiết kế kiến trúc hệ thống lưu trữ).
-\end{enumerate}
-
+Nhằm minh họa luồng truyền thông điệp giữa các đối tượng trong hệ thống, sơ đồ tuần tự (Hình~\ref{fig:form_switch_sequence}) đặc tả chi tiết quy trình tương tác của use case Chuyển đổi linh hồn (Form Switch) giữa các thành phần: \texttt{PlayerInput}, \texttt{PlayerController}, \texttt{PlayerFormManager}, và \texttt{PlayerStats}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{Hinhve/FormSwitchSequence.png}
