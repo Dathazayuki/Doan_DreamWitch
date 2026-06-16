@@ -530,23 +530,14 @@ Thiết kế đồ họa và Sprite & Adobe Photoshop \& Aseprite & \url{https:/
 \label{subsection:5.4.2}
 Sản phẩm sau quá trình phát triển là bản đóng gói trò chơi hoàn chỉnh hoạt động độc lập trên hệ điều hành Windows 64-bit (PC Standalone). Bản đóng gói bao gồm tệp thực thi \texttt{DreamWitch.exe} cùng thư mục tài nguyên \texttt{DreamWitch\_Data}. Mã nguồn C\# của dự án được tổ chức chặt chẽ theo cấu trúc phân rã thành các gói chức năng (packages) bao gồm: \texttt{Player}, \texttt{Enemy}, \texttt{System}, \texttt{UI}, \texttt{Interfaces}, \texttt{Core}, \texttt{Trap}, và \texttt{VFX}.
 
-Để minh chứng cho quy mô phát triển của dự án, các thông tin định lượng chi tiết về mã nguồn C\# và dung lượng các thành phần liên quan được tổng hợp trong Bảng~\ref{table:project_stats}.
+Để minh chứng cho quy mô phát triển của dự án, các thông tin định lượng chi tiết về mã nguồn C\# và dung lượng các thành phần liên quan được ghi nhận thực tế như sau:
+\begin{itemize}
+    \item Số lượng tệp tin mã nguồn C\# (\texttt{.cs}) là 337 tệp, tương ứng với tổng cộng 46.490 dòng code (LOC) được chia vào 8 gói phân hệ chức năng chính.
+    \item Dung lượng của thư mục chứa mã nguồn C\# thô đạt 1,54 MB.
+    \item Tổng dung lượng thư mục tài nguyên dự án (Assets) bao gồm đồ họa, âm thanh và diễn họa đạt 1,82 GB.
+    \item Bản đóng gói sản phẩm hoàn chỉnh để phân phối dưới dạng tệp nén (\texttt{.zip}) có dung lượng khoảng 350 MB.
+\end{itemize}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{|p{5.5cm}|p{3.0cm}|p{4.0cm}|}
-\hline
-\textbf{Chỉ số định lượng} & \textbf{Giá trị ghi nhận} & \textbf{Đơn vị đo lường} \\ \hline
-Số lượng tệp tin mã nguồn C\# (\texttt{.cs}) & 337 & Tệp tin \\ \hline
-Tổng số dòng mã nguồn (LOC) & 46.490 & Dòng code \\ \hline
-Số lượng gói phân hệ chức năng chính & 8 & Gói (Namespace) \\ \hline
-Dung lượng thư mục mã nguồn C\# thô & 1,54 & Megabytes (MB) \\ \hline
-Dung lượng thư mục tài nguyên dự án (Assets) & 1,82 & Gigabytes (GB) \\ \hline
-Dung lượng bản đóng gói sản phẩm (\texttt{.zip}) & $\sim$ 350 & Megabytes (MB) \\ \hline
-\end{tabular}
-\caption{Thống kê định lượng mã nguồn và tài nguyên dự án}
-\label{table:project_stats}
-\end{table}
 
 
 \section{Sản phẩm}
