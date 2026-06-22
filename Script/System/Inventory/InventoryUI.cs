@@ -33,10 +33,12 @@ namespace DreamKnight.Systems.Inventory
 
         private readonly List<InventoryItemView> spawnedViews = new List<InventoryItemView>();
         private ItemDefinitionSO selectedItem;
+        private bool lastStorageNear;
 
         private void OnEnable()
         {
             Subscribe();
+            lastStorageNear = Storage.IsPlayerNear;
             Refresh();
         }
 
@@ -78,6 +80,16 @@ namespace DreamKnight.Systems.Inventory
         private void HandleWalletChanged(int balance)
         {
             Refresh();
+        }
+
+        private void LateUpdate()
+        {
+            bool storageNear = Storage.IsPlayerNear;
+            if (storageNear == lastStorageNear)
+                return;
+
+            lastStorageNear = storageNear;
+            RefreshDetailPanel();
         }
 
         public void Refresh()
@@ -251,7 +263,7 @@ namespace DreamKnight.Systems.Inventory
                 }
                 else
                 {
-                    useButtonLabelText.text = selectedItem != null ? "Use" : string.Empty;
+                    useButtonLabelText.text = string.Empty;
                 }
             }
 
@@ -268,30 +280,31 @@ namespace DreamKnight.Systems.Inventory
             if (useSelectedItemButton != null)
             {
                 useSelectedItemButton.onClick.RemoveAllListeners();
-                bool canUse = selectedItem != null;
-                useSelectedItemButton.interactable = canUse;
+                useSelectedItemButton.interactable = false;
 
                 if (selectedItem is HealingPotionItemSO)
                 {
                     int quantity = inventoryState != null ? inventoryState.GetQuantity(selectedItem) : 0;
+                    bool canShowEquip = Storage.IsPlayerNear;
                     bool canEquip = quantity > 0 && healingPotionEquip != null && healingPotionEquip.HasFreeSlot() && Storage.IsPlayerNear;
                     useSelectedItemButton.interactable = canEquip;
-                    useSelectedItemButton.gameObject.SetActive(true);
-                    useSelectedItemButton.onClick.AddListener(() => TryEquipPotion(selectedItem));
+                    useSelectedItemButton.gameObject.SetActive(canShowEquip);
+                    if (canShowEquip)
+                        useSelectedItemButton.onClick.AddListener(() => TryEquipPotion(selectedItem));
                 }
                 else if (selectedItem is ToolItemSO)
                 {
                     int quantity = inventoryState != null ? inventoryState.GetQuantity(selectedItem) : 0;
+                    bool canShowEquip = Storage.IsPlayerNear;
                     bool canEquip = quantity > 0 && toolEquip != null && toolEquip.HasFreeSlot() && Storage.IsPlayerNear;
                     useSelectedItemButton.interactable = canEquip;
-                    useSelectedItemButton.gameObject.SetActive(true);
-                    useSelectedItemButton.onClick.AddListener(() => TryEquipTool(selectedItem));
+                    useSelectedItemButton.gameObject.SetActive(canShowEquip);
+                    if (canShowEquip)
+                        useSelectedItemButton.onClick.AddListener(() => TryEquipTool(selectedItem));
                 }
                 else
                 {
-                    useSelectedItemButton.gameObject.SetActive(canUse);
-                    if (canUse)
-                        useSelectedItemButton.onClick.AddListener(() => TryUseItem(selectedItem));
+                    useSelectedItemButton.gameObject.SetActive(false);
                 }
             }
 
@@ -303,9 +316,10 @@ namespace DreamKnight.Systems.Inventory
                     && healingPotionEquip.IsEquipped(selectedItem);
                 if (selectedItem is ToolItemSO)
                     hasEquipped = toolEquip != null && toolEquip.IsEquipped(selectedItem);
-                unequipSelectedItemButton.gameObject.SetActive(hasEquipped);
-                unequipSelectedItemButton.interactable = hasEquipped;
-                if (hasEquipped)
+                bool canShowUnequip = hasEquipped && Storage.IsPlayerNear;
+                unequipSelectedItemButton.gameObject.SetActive(canShowUnequip);
+                unequipSelectedItemButton.interactable = canShowUnequip;
+                if (canShowUnequip)
                 {
                     if (selectedItem is ToolItemSO)
                         unequipSelectedItemButton.onClick.AddListener(() => TryUnequipTool(selectedItem));

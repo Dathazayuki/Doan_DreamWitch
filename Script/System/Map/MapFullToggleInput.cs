@@ -72,9 +72,13 @@ namespace DreamKnight.Systems.Map
                 uiStateManager = UIStateManager.Instance;
 
             if (mapCursor != null)
+            {
                 mapCursorDefaultScale = mapCursor.localScale;
+                SetMapCursorVisible(false);
+            }
 
             SceneManager.sceneLoaded += HandleSceneLoaded;
+            PortalCheckpointService.OnActiveTeleportPortalChanged += HandleActiveTeleportPortalChanged;
             ApplyUiState(false);
         }
 
@@ -87,11 +91,13 @@ namespace DreamKnight.Systems.Map
         private void OnDisable()
         {
             SetPausedByFullMap(false);
+            SetMapCursorVisible(false);
         }
 
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= HandleSceneLoaded;
+            PortalCheckpointService.OnActiveTeleportPortalChanged -= HandleActiveTeleportPortalChanged;
             SetPausedByFullMap(false);
         }
 
@@ -104,10 +110,13 @@ namespace DreamKnight.Systems.Map
                 return;
 
             RectTransform targetRect = ResolveTargetMapRect();
+            bool canUsePortalCursor = HasActiveTeleportPortal();
 
             Vector2 move = Vector2.zero;
 
-            ProcessLeftMouseMapInteraction(targetRect, ref move);
+            ProcessLeftMouseMapInteraction(targetRect, ref move, canUsePortalCursor);
+            if (!canUsePortalCursor)
+                SetMapCursorVisible(false);
 
             mapController.SetFullMapMoveInput(move);
 
@@ -123,10 +132,10 @@ namespace DreamKnight.Systems.Map
             if (Mathf.Abs(zoomValue) > 0.0001f)
                 mapController.AddZoom(-zoomValue * zoomSensitivity);
 
-            if (keepCursorLockedToSelectedPortal)
+            if (canUsePortalCursor && keepCursorLockedToSelectedPortal)
                 UpdateCursorFromSelectedPortal(targetRect);
 
-            if (Input.GetKeyDown(teleportSelectedPortalKey))
+            if (canUsePortalCursor && Input.GetKeyDown(teleportSelectedPortalKey))
                 TryTeleportToSelectedPortal();
         }
 
@@ -168,6 +177,8 @@ namespace DreamKnight.Systems.Map
 
             mapController.SetMapOpen(open);
             ApplyUiState(open);
+            if (open)
+                SyncCursorToActivePortal();
         }
 
         private RectTransform ResolveTargetMapRect()
@@ -183,7 +194,7 @@ namespace DreamKnight.Systems.Map
             return targetRect;
         }
 
-        private void ProcessLeftMouseMapInteraction(RectTransform targetRect, ref Vector2 move)
+        private void ProcessLeftMouseMapInteraction(RectTransform targetRect, ref Vector2 move, bool allowCursorSelection)
         {
             if (targetRect == null)
                 return;
@@ -227,12 +238,12 @@ namespace DreamKnight.Systems.Map
 
             if (leftPointerDownOnMap && Input.GetMouseButtonUp(0))
             {
-                if (placeCursorOnLeftClick && !leftDragInProgress)
+                if (allowCursorSelection && placeCursorOnLeftClick && !leftDragInProgress)
                 {
                     if (!TrySelectPortalMarkerByScreenPosition(targetRect, mouseScreenPos))
                     {
+                        selectedPortal = null;
                         SetCursorSelectableVisual(false);
-                        PlaceCursorAtScreenPosition(targetRect, mouseScreenPos);
                     }
                 }
 
@@ -374,6 +385,7 @@ namespace DreamKnight.Systems.Map
         private IEnumerator TeleportToSelectedPortalRoutine(PortalPoint sourcePortal)
         {
             teleportInProgress = true;
+            PortalPoint destinationPortal = selectedPortal;
 
             mapController?.SetMapOpen(false);
             ApplyUiState(false);
@@ -389,9 +401,9 @@ namespace DreamKnight.Systems.Map
             if (delay > 0f)
                 yield return new WaitForSeconds(delay);
 
-            if (selectedPortal != null && playerController != null)
+            if (destinationPortal != null && playerController != null)
             {
-                playerController.transform.position = selectedPortal.GetArrivalWorldPosition();
+                playerController.transform.position = destinationPortal.GetArrivalWorldPosition();
                 playerController.Movement?.StopMovement();
             }
 
@@ -432,7 +444,11 @@ namespace DreamKnight.Systems.Map
             if (mapController != null)
             {
                 if (!fullMapOpen)
+                {
                     mapController.SetFullMapMoveInput(Vector2.zero);
+                    selectedPortal = null;
+                    SetCursorSelectableVisual(false);
+                }
             }
         }
 
@@ -462,6 +478,24 @@ namespace DreamKnight.Systems.Map
                 Time.timeScale = previousTimeScale;
                 pausedByFullMap = false;
             }
+        }
+
+        private void HandleActiveTeleportPortalChanged(PortalPoint portal)
+        {
+            if (mapController == null || !mapController.IsFullMapOpen)
+            {
+                SetMapCursorVisible(false);
+                return;
+            }
+
+            if (portal == null)
+            {
+                selectedPortal = null;
+                SetCursorSelectableVisual(false);
+                return;
+            }
+
+            SyncCursorToActivePortal();
         }
 
         private void HandleSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
@@ -504,17 +538,58 @@ namespace DreamKnight.Systems.Map
             if (mapCursor == null)
                 return;
 
+            bool shouldShow = selectable && HasActiveTeleportPortal();
+            if (!shouldShow)
+                mapCursor.localScale = mapCursorDefaultScale;
+
+            SetMapCursorVisible(shouldShow);
+            if (!shouldShow)
+                return;
+
             if (mapCursorDefaultScale.sqrMagnitude <= 0.0001f)
                 mapCursorDefaultScale = mapCursor.localScale;
 
-            if (!selectable)
+            float scaleMul = Mathf.Max(0.1f, selectedPortalCursorScaleMultiplier);
+            mapCursor.localScale = mapCursorDefaultScale * scaleMul;
+        }
+
+        private void SyncCursorToActivePortal()
+        {
+            if (mapController == null || !mapController.IsFullMapOpen)
             {
-                mapCursor.localScale = mapCursorDefaultScale;
+                SetMapCursorVisible(false);
                 return;
             }
 
-            float scaleMul = Mathf.Max(0.1f, selectedPortalCursorScaleMultiplier);
-            mapCursor.localScale = mapCursorDefaultScale * scaleMul;
+            if (!PortalCheckpointService.TryGetActiveTeleportPortal(out PortalPoint activePortal) || activePortal == null)
+            {
+                selectedPortal = null;
+                SetCursorSelectableVisual(false);
+                return;
+            }
+
+            selectedPortal = activePortal;
+            RectTransform rect = ResolveTargetMapRect();
+            if (rect != null && mapController.TryProjectWorldToFullMapLocalPoint(GetPortalMarkerWorldPosition(activePortal), rect, out Vector2 p))
+            {
+                PlaceCursorAtLocalPoint(rect, p);
+                SetCursorSelectableVisual(true);
+            }
+            else
+            {
+                SetCursorSelectableVisual(false);
+            }
+        }
+
+        private bool HasActiveTeleportPortal()
+        {
+            return PortalCheckpointService.TryGetActiveTeleportPortal(out PortalPoint portal) && portal != null;
+        }
+
+        private void SetMapCursorVisible(bool visible)
+        {
+            if (mapCursor != null && mapCursor.gameObject.activeSelf != visible)
+                mapCursor.gameObject.SetActive(visible);
         }
 
         private void RebindSceneUiReferences()

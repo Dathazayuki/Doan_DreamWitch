@@ -13,12 +13,19 @@ MonoBehaviour:
   m_Name: HealingPotion
   m_EditorClassIdentifier: 
   itemId: HealingPotion
-  displayName: HealingPotion
+  displayName: Health Potion
   icon: {fileID: 21300000, guid: 41c7d941927eaeb438efd9e7244efd88, type: 2}
   price: 2
   stackable: 1
-  description: "H\u1ED3i 1 l\u01B0\u1EE3ng nh\u1ECF HP +25 Hp \n\u0110\xE2y ch\u1EC9
-    l\xE0 1 d\u01B0\u1EE3c li\u1EC7u lo\u1EA1i nh\u1ECF"
+  description: 'Restores +30 HP. A minor medicinal herb.
+
+
+    You need to be in
+    the Storage Area to equip it.'
   category: 0
-  healthRestore: 25
+  effectType: 0
+  healthRestore: 30
+  healthRegenBonus: 10
+  healthRegenDuration: 5
+  manaRestore: 25
   staminaRestore: 0

@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_8
   m_EditorClassIdentifier: 
   bookId: SpellBook_8
-  displayName: SpellBook_8
+  displayName: Berserker Grimoire
   icon: {fileID: 21300000, guid: 743e79aaf9a4d2a4ab926c7aa1c964a5, type: 2}
-  description: "gia t\u0103ng th\xEAm 30% s\xE1t th\u01B0\u01A1ng \u0111\xF2n \u0111\xE1nh
-    th\u01B0\u1EDDng nh\u01B0ng l\xE0m gi\u1EA3m \u0111i 10% l\u01B0\u1EE3ng m\xE1u
-    t\u1ED1i \u0111a c\u1EE7a c\u01A1 th\u1EC3."
+  description: Increases Normal Attack damage by 30% but reduces Maximum HP by -10%.
   healthBonus: -0.1
   healthPercentBonus: 0
   manaBonus: 0
@@ -28,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

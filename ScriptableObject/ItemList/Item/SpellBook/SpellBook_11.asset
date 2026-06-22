@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_11
   m_EditorClassIdentifier: 
   bookId: SpellBook_11
-  displayName: SpellBook_11
+  displayName: Vanguard Grimoire
   icon: {fileID: 21300000, guid: ef77be26ad3dd1e45b9f28bff555212f, type: 2}
-  description: "Ng\u01B0ng t\u1EE5 phong ma ph\xE1p gi\xFAp gia t\u0103ng 10% t\u1ED1c
-    \u0111\u1ED9 di chuy\u1EC3n \u0111\u1EC3 linh ho\u1EA1t n\xE9 \u0111\xF2n, \u0111\u1ED3ng
-    th\u1EDDi h\u1ED7 tr\u1EE3 gia t\u0103ng nh\u1EB9 15% s\xE1t th\u01B0\u01A1ng
-    cho c\xE1c \u0111\xF2n t\u1EA5n c\xF4ng c\u01A1 b\u1EA3n."
+  description: Increases Movement Speed by 10% and Normal Attack damage by 15%.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -29,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0.1
   defenseBonus: 0

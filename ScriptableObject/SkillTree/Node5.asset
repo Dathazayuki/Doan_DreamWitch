@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Node5
   m_EditorClassIdentifier: 
   nodeId: Node5
-  displayName: "t\u0103ng s\xE1t th\u01B0\u01A1ng b\u1EA1o k\xEDch"
-  description: "t\u0103ng 30% sat th\u01B0\u01A1ng b\u1EA1o k\xEDch"
+  displayName: Increase critical damage
+  description: Increases critical damage by 30%
   icon: {fileID: 21300000, guid: efa8114032201284d802cbd3a92b2c3b, type: 2}
   requiredItem: {fileID: 11400000, guid: fa043d12a69b44c468dc10f26ff64a17, type: 2}
   requiredItemQuantity: 1

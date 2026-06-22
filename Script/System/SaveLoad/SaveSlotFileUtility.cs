@@ -67,6 +67,13 @@ namespace DreamKnight.Systems.SaveLoad
             File.WriteAllText(path, JsonUtility.ToJson(data, true));
         }
 
+        public static void DeleteSlotSave(int slotIndex)
+        {
+            string path = GetSlotSavePath(slotIndex);
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+
         private static string FormatPlayTime(float seconds)
         {
             int totalMinutes = Mathf.Max(0, Mathf.FloorToInt(seconds / 60f));

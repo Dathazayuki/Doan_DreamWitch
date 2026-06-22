@@ -1,14 +1,31 @@
 {
-  "projectFileVersion": 2,
-  "sourceFiles": [
-    "**/*.yarn",
-    "**/*.yarn",
-    "**/*.yarn"
-  ],
-  "excludeFiles": [
-    "**/*~/*"
-  ],
-  "localisation": {},
-  "baseLanguage": "en",
-  "compilerOptions": {}
+    "projectFileVersion": 2,
+    "sourceFiles": [
+        "**/*.yarn",
+        "**/*.yarn",
+        "**/*.yarn"
+    ],
+    "excludeFiles": [
+        "**/*~/*"
+    ],
+    "localisation": {},
+    "baseLanguage": "en",
+    "compilerOptions": {
+        "yarnScriptEditor": {
+            "projectGraphPositions": {
+                "NPC1.yarn": {
+                    "x": 12,
+                    "y": 500
+                },
+                "NPCRuin.yarn": {
+                    "x": 929,
+                    "y": 2
+                },
+                "NPC_Village.yarn": {
+                    "x": -105,
+                    "y": -70
+                }
+            }
+        }
+    }
 }

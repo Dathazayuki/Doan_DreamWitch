@@ -28,6 +28,8 @@ namespace DreamKnight.Player
         private float manaRegenTimer;
         private float facilityMaxHealthBonus;
         private float facilityMaxManaBonus;
+        private float temporaryHealthRegenRate;
+        private float temporaryHealthRegenTimer;
 
         [Header("Movement Stats")]
         [SerializeField] private float moveSpeed = 8f;
@@ -128,12 +130,16 @@ namespace DreamKnight.Player
         [SerializeField] private List<SpellBookSO> unlockedSpellBooks = new List<SpellBookSO>();
         public List<SpellBookSO> UnlockedSpellBooks => unlockedSpellBooks;
 
+        private static SpellBookSO cachedActiveSpellBook;
+        private static readonly List<SpellBookSO> cachedUnlockedSpellBooks = new List<SpellBookSO>();
+
         public void UnlockSpellBook(SpellBookSO book)
         {
             if (book == null) return;
             if (!unlockedSpellBooks.Contains(book))
             {
                 unlockedSpellBooks.Add(book);
+                CacheSpellBookState();
                 OnSpellBooksChanged?.Invoke();
             }
         }
@@ -142,13 +148,20 @@ namespace DreamKnight.Player
 
         private void Awake()
         {
-            currentHealth = maxHealth;
-            currentStamina = maxStamina;
-            currentMana = maxMana;
             playerController = GetComponent<PlayerController>();
+            RestoreSpellBookStateFromCache();
+
+            currentHealth = MaxHealth;
+            currentStamina = maxStamina;
+            currentMana = MaxMana;
+
             if (activeSpellBook != null)
             {
                 UnlockSpellBook(activeSpellBook);
+            }
+            else
+            {
+                CacheSpellBookState();
             }
         }
 
@@ -227,6 +240,15 @@ namespace DreamKnight.Player
             OnHealthChanged?.Invoke(currentHealth, MaxHealth);
         }
 
+        public void ApplyTemporaryHealthRegen(float regenPerSecond, float duration)
+        {
+            if (!IsAlive || regenPerSecond <= 0f || duration <= 0f)
+                return;
+
+            temporaryHealthRegenRate = regenPerSecond;
+            temporaryHealthRegenTimer = duration;
+        }
+
         public void ReviveToFullHealth()
         {
             currentHealth = MaxHealth;
@@ -254,6 +276,7 @@ namespace DreamKnight.Player
             }
 
             activeSpellBook = spellBook;
+            CacheSpellBookState();
 
             float newHealthBonus = 0f;
             if (activeSpellBook != null)
@@ -266,6 +289,9 @@ namespace DreamKnight.Player
             {
                 currentHealth = Mathf.Clamp(currentHealth + hpDiff, 1f, MaxHealth);
             }
+
+            if (activeSpellBook != null && activeSpellBook.healthRegenBonus > 0f && activeSpellBook.healthRegenDuration > 0f)
+                ApplyTemporaryHealthRegen(activeSpellBook.healthRegenBonus, activeSpellBook.healthRegenDuration);
 
             NotifyStatsChanged();
             OnSpellBooksChanged?.Invoke();
@@ -299,10 +325,43 @@ namespace DreamKnight.Player
             bool changed = activeSpellBook != null || unlockedSpellBooks.Count > 0;
             activeSpellBook = null;
             unlockedSpellBooks.Clear();
+            cachedActiveSpellBook = null;
+            cachedUnlockedSpellBooks.Clear();
+            temporaryHealthRegenRate = 0f;
+            temporaryHealthRegenTimer = 0f;
             NotifyStatsChanged();
 
             if (changed)
                 OnSpellBooksChanged?.Invoke();
+        }
+
+        private void RestoreSpellBookStateFromCache()
+        {
+            for (int i = 0; i < cachedUnlockedSpellBooks.Count; i++)
+            {
+                SpellBookSO book = cachedUnlockedSpellBooks[i];
+                if (book != null && !unlockedSpellBooks.Contains(book))
+                    unlockedSpellBooks.Add(book);
+            }
+
+            if (activeSpellBook == null && cachedActiveSpellBook != null)
+                activeSpellBook = cachedActiveSpellBook;
+
+            if (activeSpellBook != null && !unlockedSpellBooks.Contains(activeSpellBook))
+                unlockedSpellBooks.Add(activeSpellBook);
+        }
+
+        private void CacheSpellBookState()
+        {
+            cachedActiveSpellBook = activeSpellBook;
+            cachedUnlockedSpellBooks.Clear();
+
+            for (int i = 0; i < unlockedSpellBooks.Count; i++)
+            {
+                SpellBookSO book = unlockedSpellBooks[i];
+                if (book != null && !cachedUnlockedSpellBooks.Contains(book))
+                    cachedUnlockedSpellBooks.Add(book);
+            }
         }
 
         #endregion
@@ -383,17 +442,23 @@ namespace DreamKnight.Player
         {
             if (!IsAlive) return;
 
+            if (temporaryHealthRegenTimer > 0f)
+            {
+                temporaryHealthRegenTimer -= Time.deltaTime;
+                currentHealth = Mathf.Min(MaxHealth, currentHealth + temporaryHealthRegenRate * Time.deltaTime);
+                OnHealthChanged?.Invoke(currentHealth, MaxHealth);
+
+                if (temporaryHealthRegenTimer <= 0f)
+                {
+                    temporaryHealthRegenTimer = 0f;
+                    temporaryHealthRegenRate = 0f;
+                }
+            }
+
             if (playerController == null || playerController.CurrentFormId == PlayerFormId.Human)
             {
                 if (activeSpellBook != null)
                 {
-                    // HP Regen
-                    if (activeSpellBook.healthRegenBonus > 0f)
-                    {
-                        currentHealth = Mathf.Min(MaxHealth, currentHealth + activeSpellBook.healthRegenBonus * Time.deltaTime);
-                        OnHealthChanged?.Invoke(currentHealth, MaxHealth);
-                    }
-
                     // Mana Regen
                     if (activeSpellBook.manaRegenBonus > 0f)
                     {

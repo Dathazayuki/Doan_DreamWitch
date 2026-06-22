@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DreamKnight.Systems.Inventory;
 using UnityEngine;
 
 namespace DreamKnight.Systems.Facility
@@ -14,7 +15,11 @@ namespace DreamKnight.Systems.Facility
     [System.Serializable]
     public class FacilityUpgradeLevelData
     {
-        [Min(0)] public int price;
+        [Header("Cost")]
+        public ItemDefinitionSO requiredItem;
+        [Min(1)] public int requiredItemQuantity = 1;
+        [HideInInspector] public int price;
+        [Header("Bonus")]
         [Tooltip("Tong bonus cua stat tai level nay. Vi du Lv2 HP = 40 nghia la tong +40 HP.")]
         public float bonusValue;
     }
@@ -50,6 +55,18 @@ namespace DreamKnight.Systems.Facility
             return nextLevel != null ? Mathf.Max(0, nextLevel.price) : 0;
         }
 
+        public ItemDefinitionSO GetRequiredItem(int currentLevel)
+        {
+            FacilityUpgradeLevelData nextLevel = GetLevelDataForNextUpgrade(currentLevel);
+            return nextLevel != null ? nextLevel.requiredItem : null;
+        }
+
+        public int GetRequiredItemQuantity(int currentLevel)
+        {
+            FacilityUpgradeLevelData nextLevel = GetLevelDataForNextUpgrade(currentLevel);
+            return nextLevel != null && nextLevel.requiredItem != null ? Mathf.Max(1, nextLevel.requiredItemQuantity) : 0;
+        }
+
         public float GetBonusValue(int level)
         {
             if (levels == null || levels.Count == 0 || level <= 0)
@@ -58,6 +75,14 @@ namespace DreamKnight.Systems.Facility
             int index = Mathf.Clamp(level - 1, 0, levels.Count - 1);
             FacilityUpgradeLevelData levelData = levels[index];
             return levelData != null ? levelData.bonusValue : 0f;
+        }
+
+        private FacilityUpgradeLevelData GetLevelDataForNextUpgrade(int currentLevel)
+        {
+            if (levels == null || currentLevel < 0 || currentLevel >= levels.Count)
+                return null;
+
+            return levels[currentLevel];
         }
     }
 }

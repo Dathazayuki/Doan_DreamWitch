@@ -22,6 +22,7 @@ namespace DreamKnight.Player
     [RequireComponent(typeof(PlayerDeathSequence))]
     [RequireComponent(typeof(PlayerHitFeedback))]
     [RequireComponent(typeof(PlayerVisualFeedback))]
+    [RequireComponent(typeof(PlayerAudioEvents))]
     [RequireComponent(typeof(PersistentPlayerRoot))]
     public class PlayerController : MonoBehaviour, IDamageable
     {
@@ -52,6 +53,9 @@ namespace DreamKnight.Player
         [Header("Shrine Pray Sequence")]
         [SerializeField] private float prayLoopHoldDuration = 0.08f;
 
+        [Header("Death Respawn")]
+        [SerializeField] private string defaultDeathRespawnSceneName = "01_Church";
+
         private bool hasRespawnOverride;
         private Vector3 respawnOverridePosition;
         private Coroutine trapRespawnCoroutine;
@@ -68,6 +72,7 @@ namespace DreamKnight.Player
         private PlayerDeathSequence playerDeathSequence;
         private PlayerHitFeedback playerHitFeedback;
         private PlayerVisualFeedback playerVisualFeedback;
+        private PlayerAudioEvents playerAudioEvents;
         private PlayerAnimationController animationController;
         private PlayerFormManager playerFormManager;
         public PlayerFormManager FormManager => playerFormManager;
@@ -112,6 +117,7 @@ namespace DreamKnight.Player
         public PlayerMovement Movement => playerMovement;
         public PlayerStats Stats => playerStats;
         public PlayerCombat Combat => playerCombat;
+        public PlayerAudioEvents AudioEvents => playerAudioEvents;
         public Animator Animator => animator;
         public PlayerAnimationController AnimationController => animationController;
         public PlayerStateMachine StateMachine => stateMachine;
@@ -222,6 +228,7 @@ namespace DreamKnight.Player
             playerDeathSequence = GetComponent<PlayerDeathSequence>();
             playerHitFeedback = GetComponent<PlayerHitFeedback>();
             playerVisualFeedback = GetComponent<PlayerVisualFeedback>();
+            playerAudioEvents = GetComponent<PlayerAudioEvents>();
             playerFormManager = GetComponent<PlayerFormManager>();
 
             // Initialize form state factory
@@ -605,6 +612,7 @@ namespace DreamKnight.Player
         public IEnumerator PrepareRespawnFromDeathSequenceRoutine()
         {
             StopPlayerMovementForDeath();
+            DreamKnight.Systems.Interaction.SpellBookChest.ClearOpenedChests();
 
             string targetSceneName;
             Vector3 targetPosition;
@@ -624,14 +632,7 @@ namespace DreamKnight.Player
 
                 yield return null;
 
-                // After loading scene, auto-register any shrine found (layer: GodStatue)
-                RespawnShrine shrine = FindAnyObjectByType<RespawnShrine>(FindObjectsInactive.Include);
-                if (shrine != null)
-                {
-                    Vector3 shrinePos = shrine.GetRespawnPosition();
-                    string shrineScene = SceneManager.GetActiveScene().name;
-                    RespawnShrineService.RegisterShrine(shrinePos, shrineScene);
-                }
+                TryRegisterShrineInActiveScene(out _);
 
                 ResolveDeathRespawnTarget(out targetSceneName, out targetPosition);
 
@@ -651,25 +652,52 @@ namespace DreamKnight.Player
         {
             sceneName = SceneManager.GetActiveScene().name;
 
-            // Always prioritize registered shrine if available
             if (RespawnShrineService.HasRegisteredShrine)
             {
-                position = RespawnShrineService.GetShrinePosition();
-                sceneName = RespawnShrineService.GetShrineSceneName();
-                return;
+                string registeredSceneName = RespawnShrineService.GetShrineSceneName();
+                bool registeredShrineIsDefaultDeathScene = string.IsNullOrWhiteSpace(defaultDeathRespawnSceneName)
+                    || string.Equals(registeredSceneName, defaultDeathRespawnSceneName, System.StringComparison.Ordinal);
+
+                if (registeredShrineIsDefaultDeathScene)
+                {
+                    position = RespawnShrineService.GetShrinePosition();
+                    sceneName = registeredSceneName;
+                    return;
+                }
             }
 
-            // Try to find shrine (layer: GodStatue) in any scene
-            RespawnShrine shrine = FindAnyObjectByType<RespawnShrine>(FindObjectsInactive.Include);
-            if (shrine != null)
+            string activeSceneName = SceneManager.GetActiveScene().name;
+            bool activeSceneIsDefaultDeathScene = !string.IsNullOrWhiteSpace(defaultDeathRespawnSceneName)
+                && string.Equals(activeSceneName, defaultDeathRespawnSceneName, System.StringComparison.Ordinal);
+
+            if ((activeSceneIsDefaultDeathScene || string.IsNullOrWhiteSpace(defaultDeathRespawnSceneName))
+                && TryRegisterShrineInActiveScene(out position))
             {
-                position = shrine.GetRespawnPosition();
-                sceneName = shrine.gameObject.scene.name;
+                sceneName = activeSceneName;
                 return;
             }
 
-            // Fallback: use current respawn point in current scene
+            if (!string.IsNullOrWhiteSpace(defaultDeathRespawnSceneName))
+            {
+                sceneName = defaultDeathRespawnSceneName;
+                position = Vector3.zero;
+                return;
+            }
+
             position = GetRespawnPosition();
+        }
+
+        private bool TryRegisterShrineInActiveScene(out Vector3 shrinePosition)
+        {
+            shrinePosition = Vector3.zero;
+
+            RespawnShrine shrine = FindAnyObjectByType<RespawnShrine>(FindObjectsInactive.Include);
+            if (shrine == null)
+                return false;
+
+            shrinePosition = shrine.GetRespawnPosition();
+            RespawnShrineService.RegisterShrine(shrinePosition, SceneManager.GetActiveScene().name);
+            return true;
         }
 
         public void CompleteRespawnFromDeathSequence()
@@ -923,13 +951,12 @@ namespace DreamKnight.Player
                 activeTransformTrigger.SetRuntimeHealth(playerStats.CurrentHealth);
             }
 
+            currentForm = PlayerForm.Human;
             if (!UpdateAnimatorController(humanAnimatorController))
             {
-                Debug.LogWarning("[PlayerController] Human AnimatorController is not assigned.");
-                return;
+                Debug.LogWarning("[PlayerController] Human AnimatorController is not assigned. Runtime form state was still reset to Human.");
             }
 
-            currentForm = PlayerForm.Human;
             SetSwordVisible(true);
             playerCombat?.ResetToDefaultProfile();
             // Bật lại HumanForm, tắt/destroy form prefab

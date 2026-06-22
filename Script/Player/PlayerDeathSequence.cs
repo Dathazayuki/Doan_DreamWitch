@@ -145,16 +145,19 @@ namespace DreamKnight.Player
             yield return WaitForAnimationFinishedRealtime(PlayerAnimationController.DEATH_MELT, respawnGushTimeout);
 
             ResetTimeScaleToDefault();
+            RestoreLensToCachedValue();
+            ClearCachedLens();
+
             if (playerController != null)
                 yield return playerController.PrepareRespawnFromDeathSequenceRoutine();
 
+            playerController?.AudioEvents?.PlayShrineRespawn();
             animationController?.ForcePlayAnimation(PlayerAnimationController.RESPAWN_GUSH);
             yield return WaitForAnimationFinishedRealtime(PlayerAnimationController.RESPAWN_GUSH, respawnGushTimeout);
 
             animationController?.ForcePlayAnimation(PlayerAnimationController.RESPAWN_APPEAL);
             yield return WaitForAnimationFinishedRealtime(PlayerAnimationController.RESPAWN_APPEAL, respawnAppealTimeout);
 
-            RestoreLensToCachedValue();
             playerController?.CompleteRespawnFromDeathSequence();
             isPlaying = false;
             deathSequenceCoroutine = null;
@@ -196,6 +199,11 @@ namespace DreamKnight.Player
                 cam.orthographicSize = cachedOrthographicSize;
             else
                 cam.fieldOfView = cachedFov;
+        }
+
+        private void ClearCachedLens()
+        {
+            hasCachedLens = false;
         }
 
         private System.Collections.IEnumerator WaitForAnimationFinishedRealtime(string animationName, float timeout)

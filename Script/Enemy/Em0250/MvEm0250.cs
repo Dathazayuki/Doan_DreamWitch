@@ -20,6 +20,10 @@ namespace Mv
         protected override string HitStateName => "Hit";
         protected override string DeadStateName => "Death";
 
+        private bool gasAttackFlipLocked;
+
+        protected override bool CanFlip => base.CanFlip && !gasAttackFlipLocked;
+
         protected override EnemyState CreateAttackState(EnemyContext context) => new Em0250GasAttackState(context);
 
         protected override void Awake()
@@ -38,6 +42,7 @@ namespace Mv
 
         private void OnDisable()
         {
+            gasAttackFlipLocked = false;
             SetGasVfxActive(false);
         }
 
@@ -64,6 +69,11 @@ namespace Mv
             StopHorizontalMotion();
         }
 
+        public void SetGasAttackFlipLocked(bool locked)
+        {
+            gasAttackFlipLocked = locked;
+        }
+
         public void OnMvAnimEvent(string eventName, MvAnimEventLite source)
         {
             if (eventName == "AtkS" || eventName == "Attack/AtkS")
@@ -86,6 +96,7 @@ namespace Mv
 
         protected override void Die()
         {
+            gasAttackFlipLocked = false;
             SetGasVfxActive(false);
             base.Die();
         }

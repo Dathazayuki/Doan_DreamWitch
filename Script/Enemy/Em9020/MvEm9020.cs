@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DreamKnight.Interfaces;
@@ -83,6 +84,10 @@ namespace Mv
         public Vector3 CamLookTgt_Ofs = new Vector3(0f, 2f, 0f);
         private const float CeilingPosY = 16f;
 
+        [Header("Death Blink")]
+        [SerializeField] private float deathBlinkDuration = 1.2f;
+        [SerializeField] private float deathBlinkInterval = 0.08f;
+
         // ──────────────────────────────────────────────────────────────
         //  Prefabs & Transforms
         // ──────────────────────────────────────────────────────────────
@@ -137,6 +142,9 @@ namespace Mv
         // Spine Detection
         private Animator _myAnimator;
         private SkeletonAnimation _skeletonAnimation;
+        private Renderer[] deathBlinkRenderers;
+        private bool deathBlinkStarted;
+        private Coroutine deathBlinkCoroutine;
 
         // Physics
         public Rigidbody2D _myRb;
@@ -156,6 +164,7 @@ namespace Mv
             DisablePatrol();
             DisableKnockback();
             InitSpine();
+            CacheDeathBlinkRenderers();
             ConfigureAttackFallbacks();
             _Brain = new MvEmBrain_Em9020();
             _Brain.Setup(this);
@@ -171,6 +180,57 @@ namespace Mv
                     atk.SetAllowAutoHitFallback(true);
                     atk.SetAutoHitDelay(0.05f);
                 }
+            }
+        }
+
+        private void CacheDeathBlinkRenderers()
+        {
+            deathBlinkRenderers = GetComponentsInChildren<Renderer>(true);
+        }
+
+        public void StartDeathBlinkAndHide()
+        {
+            if (deathBlinkStarted)
+                return;
+
+            deathBlinkStarted = true;
+            if (deathBlinkCoroutine != null)
+                StopCoroutine(deathBlinkCoroutine);
+
+            deathBlinkCoroutine = StartCoroutine(DeathBlinkAndHideRoutine());
+        }
+
+        private IEnumerator DeathBlinkAndHideRoutine()
+        {
+            if (deathBlinkRenderers == null || deathBlinkRenderers.Length == 0)
+                CacheDeathBlinkRenderers();
+
+            float duration = Mathf.Max(0f, deathBlinkDuration);
+            float interval = Mathf.Max(0.01f, deathBlinkInterval);
+            float timer = 0f;
+            bool visible = true;
+
+            while (timer < duration)
+            {
+                visible = !visible;
+                SetDeathBlinkVisible(visible);
+                yield return new WaitForSeconds(interval);
+                timer += interval;
+            }
+
+            SetDeathBlinkVisible(false);
+            gameObject.SetActive(false);
+        }
+
+        private void SetDeathBlinkVisible(bool visible)
+        {
+            if (deathBlinkRenderers == null)
+                return;
+
+            for (int i = 0; i < deathBlinkRenderers.Length; i++)
+            {
+                if (deathBlinkRenderers[i] != null)
+                    deathBlinkRenderers[i].enabled = visible;
             }
         }
 

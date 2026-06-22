@@ -27,27 +27,29 @@ MonoBehaviour:
   bigSwordMaxPoolSize: 8
   shieldVisualPrefab: {fileID: 1709254077376921, guid: 4b0a1f264ef85a649b509fdad525b028, type: 3}
   unlockPrice: 0
-  description: "Tri\u1EC7u h\u1ED3i khi\xEAn ph\xE9p thu\u1EADt bao quanh ng\u01B0\u1EDDi
-    ch\u01A1i, ch\u1ED1ng \u0111\u1EE1 s\u1ED1 \u0111\xF2n nh\u1EA5t \u0111\u1ECBnh
-    c\u1EE7a k\u1EBB th\xF9"
+  description: 'Summon a magical shield to surround the player, blocking a certain
+    number of enemy attacks
+
+
+    You need to be in the Storage Area to equip it.'
   levels:
-  - upgradePrice: 10
+  - upgradePrice: 50
     damage: 0
     cooldown: 10
-    manaCost: 30
+    manaCost: 100
     shieldBlockCount: 2
-  - upgradePrice: 10
+  - upgradePrice: 60
     damage: 0
     cooldown: 10
-    manaCost: 30
+    manaCost: 100
     shieldBlockCount: 3
-  - upgradePrice: 10
+  - upgradePrice: 80
     damage: 0
     cooldown: 10
-    manaCost: 30
+    manaCost: 100
+    shieldBlockCount: 4
+  - upgradePrice: 100
+    damage: 0
+    cooldown: 10
+    manaCost: 100
     shieldBlockCount: 5
-  - upgradePrice: 10
-    damage: 0
-    cooldown: 10
-    manaCost: 30
-    shieldBlockCount: 6

@@ -9,10 +9,18 @@ namespace Mv
 
         public override void Tick()
         {
-            if (Context.Owner == null)
+            MvEm0120 owner = Context.Owner as MvEm0120;
+            if (owner == null)
                 return;
 
-            Context.Owner.ChangeEnemyState(Context.Owner.RunStateId);
+            if (owner.IsAStarPausedByHit)
+            {
+                owner.PlayIdleMotion();
+                owner.TickFlyMotion(false);
+                return;
+            }
+
+            owner.ChangeEnemyState(owner.RunStateId);
         }
     }
 }

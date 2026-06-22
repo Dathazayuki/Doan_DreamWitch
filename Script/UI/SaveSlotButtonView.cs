@@ -14,8 +14,10 @@ namespace DreamKnight.UI
         [SerializeField] private TextMeshProUGUI playTimeText;
         [SerializeField] private TextMeshProUGUI goldText;
         [SerializeField] private TextMeshProUGUI emptyText;
+        [SerializeField] private Button deleteButton;
 
         public Button Button => button != null ? button : GetComponent<Button>();
+        public Button DeleteButton => deleteButton;
 
         private void Reset()
         {
@@ -31,6 +33,9 @@ namespace DreamKnight.UI
 
             if (emptyText != null)
                 emptyText.gameObject.SetActive(!hasSave);
+
+            if (deleteButton != null)
+                deleteButton.gameObject.SetActive(hasSave);
 
             if (titleText != null)
                 titleText.text = hasSave ? summary.displayName : "New Game";

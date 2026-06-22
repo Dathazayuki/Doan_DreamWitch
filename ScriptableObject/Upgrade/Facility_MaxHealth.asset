@@ -13,20 +13,24 @@ MonoBehaviour:
   m_Name: Facility_MaxHealth
   m_EditorClassIdentifier: 
   upgradeId: Max_Health
-  displayName: Max HP
-  description: "t\u0103ng max Hp t\u1ED1i \u0111a "
+  displayName: 'Upgrade Max Hp '
+  description: Increase maximum HP
   icon: {fileID: 21300000, guid: 08aa3e9823823fd4fbc00ba0b68a8a6f, type: 2}
   statType: 0
   levels:
-  - price: 0
+  - requiredItem: {fileID: 11400000, guid: 35b71c47cd178b04297a38b88360765c, type: 2}
+    requiredItemQuantity: 3
+    price: 0
     bonusValue: 50
-  - price: 2
+  - requiredItem: {fileID: 11400000, guid: 35b71c47cd178b04297a38b88360765c, type: 2}
+    requiredItemQuantity: 5
+    price: 2
     bonusValue: 100
-  - price: 10
+  - requiredItem: {fileID: 11400000, guid: 35b71c47cd178b04297a38b88360765c, type: 2}
+    requiredItemQuantity: 8
+    price: 10
     bonusValue: 200
-  - price: 20
+  - requiredItem: {fileID: 11400000, guid: 35b71c47cd178b04297a38b88360765c, type: 2}
+    requiredItemQuantity: 10
+    price: 20
     bonusValue: 250
-  - price: 30
-    bonusValue: 300
-  - price: 40
-    bonusValue: 400

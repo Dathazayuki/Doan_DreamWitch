@@ -40,6 +40,9 @@ namespace DreamKnight.Systems.SaveLoad
         [SerializeField] private FacilityManager facilityManager;
         [SerializeField] private SkillTreeManager skillTreeManager;
 
+        private float playTimeBaselineRealtime;
+        private int playTimeBaselineSlotIndex = -1;
+
         public static GameSaveManager Instance => instance;
         public string SavePath => Path.Combine(Application.persistentDataPath, saveFileName);
         public int ActiveSlotIndex => activeSlotIndex;
@@ -57,6 +60,8 @@ namespace DreamKnight.Systems.SaveLoad
 
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
+
+            ResetPlayTimeBaseline(activeSlotIndex);
         }
 
         private void Start()
@@ -72,6 +77,7 @@ namespace DreamKnight.Systems.SaveLoad
                 }
 
                 SaveSlotRuntimeContext.Clear();
+                ResetPlayTimeBaseline(activeSlotIndex);
             }
 
             if (loadOnStart)
@@ -119,11 +125,12 @@ namespace DreamKnight.Systems.SaveLoad
             if (oldData != null)
             {
                 saveData.createdUtcTicks = oldData.createdUtcTicks > 0 ? oldData.createdUtcTicks : now;
-                saveData.playTimeSeconds = oldData.playTimeSeconds + Time.unscaledTime;
+                saveData.playTimeSeconds = oldData.playTimeSeconds + ConsumePlayTimeDelta(slotIndex);
             }
             else if (saveData.createdUtcTicks <= 0)
             {
                 saveData.createdUtcTicks = now;
+                saveData.playTimeSeconds = ConsumePlayTimeDelta(slotIndex);
             }
 
             saveData.updatedUtcTicks = now;
@@ -155,6 +162,7 @@ namespace DreamKnight.Systems.SaveLoad
             }
 
             ApplySaveData(saveData);
+            ResetPlayTimeBaseline(saveData.slotIndex);
             Debug.Log($"[GameSaveManager] Loaded game from {SavePath}");
         }
 
@@ -177,6 +185,7 @@ namespace DreamKnight.Systems.SaveLoad
 
             activeSlotIndex = slotIndex;
             ApplySaveData(saveData);
+            ResetPlayTimeBaseline(slotIndex);
             Debug.Log($"[GameSaveManager] Loaded slot {slotIndex} from {path}");
         }
 
@@ -198,6 +207,24 @@ namespace DreamKnight.Systems.SaveLoad
                 Directory.CreateDirectory(directory);
 
             File.WriteAllText(path, JsonUtility.ToJson(data, true));
+            ResetPlayTimeBaseline(slotIndex);
+        }
+
+        private float ConsumePlayTimeDelta(int slotIndex)
+        {
+            if (playTimeBaselineSlotIndex != slotIndex)
+                ResetPlayTimeBaseline(slotIndex);
+
+            float now = Time.unscaledTime;
+            float delta = Mathf.Max(0f, now - playTimeBaselineRealtime);
+            playTimeBaselineRealtime = now;
+            return delta;
+        }
+
+        private void ResetPlayTimeBaseline(int slotIndex)
+        {
+            playTimeBaselineSlotIndex = slotIndex;
+            playTimeBaselineRealtime = Time.unscaledTime;
         }
 
         private GameSaveData LoadDataFromPath(string path)

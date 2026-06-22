@@ -27,31 +27,34 @@ MonoBehaviour:
   bigSwordMaxPoolSize: 8
   shieldVisualPrefab: {fileID: 0}
   unlockPrice: 2
-  description: "Tri\u1EC7u h\u1ED3i \u0111\u1EA1i ki\u1EBFm g\xE2y damage tr\xEAn
-    \u0111\u01B0\u1EDDng \u0111i "
+  description: 'Summons a greatsword that deals area-of-effect damage along its path
+
+
+    You
+    need to be in the Storage Area to equip it.'
   levels:
-  - upgradePrice: 5
+  - upgradePrice: 30
     damage: 50
     cooldown: 10
     manaCost: 20
     shieldBlockCount: 0
-  - upgradePrice: 10
+  - upgradePrice: 40
     damage: 55
     cooldown: 10
-    manaCost: 20
+    manaCost: 50
     shieldBlockCount: 0
-  - upgradePrice: 12
-    damage: 60
+  - upgradePrice: 60
+    damage: 65
     cooldown: 10
-    manaCost: 20
+    manaCost: 45
     shieldBlockCount: 0
-  - upgradePrice: 15
+  - upgradePrice: 70
     damage: 70
     cooldown: 10
-    manaCost: 20
+    manaCost: 45
     shieldBlockCount: 0
-  - upgradePrice: 17
+  - upgradePrice: 80
     damage: 80
     cooldown: 10
-    manaCost: 20
+    manaCost: 40
     shieldBlockCount: 0

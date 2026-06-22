@@ -152,6 +152,7 @@ namespace DreamKnight.Player
             UpdateCoyoteTime();
             UpdateDashCooldown();
             UpdateWallRegrabLock();
+            TryAutoRestoreCrouchCollider();
         }
 
         private void FixedUpdate()
@@ -567,6 +568,86 @@ namespace DreamKnight.Player
             return true;
         }
 
+        private void TryAutoRestoreCrouchCollider()
+        {
+            if (!isCrouching)
+                return;
+
+            if (playerInput != null && playerInput.MoveInput.y < -0.1f)
+                return;
+
+            TryExitCrouch();
+        }
+
+        public bool ResolveBodyOverlap(float maxDistance = 0.7f, float step = 0.02f)
+        {
+            ResolveActiveBodyCollider();
+
+            Collider2D activeCollider = GetActiveBodyCollider();
+            if (activeCollider == null)
+                return false;
+
+            if (!IsBodyOverlapBlocked(activeCollider, Vector2.zero))
+                return true;
+
+            float safeStep = Mathf.Max(0.005f, step);
+            float safeMaxDistance = Mathf.Max(safeStep, maxDistance);
+            Vector2[] directions =
+            {
+                Vector2.up,
+                Vector2.left,
+                Vector2.right,
+                (Vector2.up + Vector2.left).normalized,
+                (Vector2.up + Vector2.right).normalized
+            };
+
+            for (float distance = safeStep; distance <= safeMaxDistance; distance += safeStep)
+            {
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    Vector2 offset = directions[i] * distance;
+                    if (IsBodyOverlapBlocked(activeCollider, offset))
+                        continue;
+
+                    transform.position += (Vector3)offset;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsBodyOverlapBlocked(Collider2D activeCollider, Vector2 offset)
+        {
+            Bounds bounds = activeCollider.bounds;
+            Vector2 checkCenter = (Vector2)bounds.center + offset;
+            Vector2 checkSize = bounds.size;
+            return IsAreaBlockedByStandBlockers(checkCenter, checkSize, activeCollider);
+        }
+
+        private bool IsAreaBlockedByStandBlockers(Vector2 checkCenter, Vector2 checkSize, Collider2D activeCollider)
+        {
+            int layerMask = standBlockLayer.value != 0
+                ? standBlockLayer.value
+                : groundLayer.value | wallLayer.value;
+
+            Collider2D[] hits = Physics2D.OverlapBoxAll(checkCenter, checkSize, 0f, layerMask);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Collider2D hit = hits[i];
+                if (hit == null || hit.isTrigger)
+                    continue;
+                if (hit == activeCollider)
+                    continue;
+                if (hit.transform.root == transform.root)
+                    continue;
+
+                return true;
+            }
+
+            return false;
+        }
+
         public bool CanStandUp()
         {
             if (!isCrouching) return true;
@@ -641,10 +722,29 @@ namespace DreamKnight.Player
                 if (hit.transform.root == transform.root)
                     continue;
 
-                return true;
+                return CanCrouchFitAtCurrentPosition(activeCollider, crouchSize);
             }
 
             return false;
+        }
+
+        private bool CanCrouchFitAtCurrentPosition(Collider2D activeCollider, Vector2 crouchSize)
+        {
+            if (activeCollider == null)
+                return false;
+
+            Bounds bounds = activeCollider.bounds;
+            Vector3 scale = activeCollider.transform.lossyScale;
+            float skin = 0.02f;
+            float crouchWorldWidth = Mathf.Max(0.05f, standingSize.x * Mathf.Abs(scale.x) - skin);
+            float crouchWorldHeight = Mathf.Max(0.05f, crouchSize.y * Mathf.Abs(scale.y) - skin);
+
+            Vector2 checkSize = new Vector2(crouchWorldWidth, crouchWorldHeight);
+            Vector2 checkCenter = new Vector2(
+                bounds.center.x,
+                bounds.min.y + skin + checkSize.y * 0.5f);
+
+            return !IsAreaBlockedByStandBlockers(checkCenter, checkSize, activeCollider);
         }
 
         private Vector2 GetCrouchSize()
@@ -716,8 +816,15 @@ namespace DreamKnight.Player
 
         private void LinkActiveBodyCollider(Collider2D activeCollider)
         {
+            bool sameColliderWhileCrouching = isCrouching
+                && activeCollider != null
+                && (activeCollider == boxCollider2D || activeCollider == capsuleCollider2D);
+
             boxCollider2D = activeCollider as BoxCollider2D;
             capsuleCollider2D = activeCollider as CapsuleCollider2D;
+
+            if (sameColliderWhileCrouching)
+                return;
 
             if (boxCollider2D != null)
             {

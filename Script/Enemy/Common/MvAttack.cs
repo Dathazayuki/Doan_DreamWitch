@@ -26,6 +26,10 @@ namespace Mv
 		[SerializeField] private bool closeAttackWindowImmediatelyOnEnd = false;
 		[SerializeField] private Collider2D attackTrigger;
 		[SerializeField] private bool forceIsTrigger = true;
+
+		[Header("AI Desync")]
+		[SerializeField] private Vector2 initialAttackDelayJitter = new Vector2(0f, 0.25f);
+		[SerializeField] private Vector2 attackCooldownJitter = new Vector2(0f, 0.2f);
 		#endregion
 
 		#region Private Fields
@@ -42,6 +46,7 @@ namespace Mv
 		private float attackWindowEndTime;
 		private float nextDamageTime;
 		private int pendingHitFrame = -1;
+		private float nextAttackReadyTime;
 		#endregion
 
 		/// <summary>
@@ -57,6 +62,8 @@ namespace Mv
 
 			if (attackTrigger != null && forceIsTrigger && !attackTrigger.isTrigger)
 				attackTrigger.isTrigger = true;
+
+			nextAttackReadyTime = Time.time + GetRandomDelay(initialAttackDelayJitter);
 		}
 
 		private void OnEnable()
@@ -109,8 +116,8 @@ namespace Mv
 
 		#region Public API
 		public void SetOwner(MvEnemyBase ownerEnemy) => owner = ownerEnemy;
-		public bool CanStartAttack() => (owner == null || owner.IsAlive) && Time.time >= lastAttackTime + attackCooldown;
-		public float CooldownRemaining => Mathf.Max(0f, (lastAttackTime + attackCooldown) - Time.time);
+		public bool CanStartAttack() => (owner == null || owner.IsAlive) && Time.time >= nextAttackReadyTime;
+		public float CooldownRemaining => Mathf.Max(0f, nextAttackReadyTime - Time.time);
 		public bool HasTriggeredAttack => lastAttackTime > -100f;
 		public float LastAttackTime => lastAttackTime;
 		public bool AllowAutoHitFallback { get => allowAutoHitFallback; set => allowAutoHitFallback = value; }
@@ -148,6 +155,7 @@ namespace Mv
 			if (!CanStartAttack()) return false;
 
 			lastAttackTime = Time.time;
+			nextAttackReadyTime = Time.time + Mathf.Max(0f, attackCooldown) + GetRandomDelay(attackCooldownJitter);
 			attackQueued = true;
 			attackQueuedTime = Time.time;
 			hitBuffer.Clear();
@@ -156,6 +164,16 @@ namespace Mv
 				DoHit();
 
 			return true;
+		}
+
+		private static float GetRandomDelay(Vector2 range)
+		{
+			float min = Mathf.Min(range.x, range.y);
+			float max = Mathf.Max(range.x, range.y);
+			if (max <= 0f)
+				return 0f;
+
+			return Random.Range(Mathf.Max(0f, min), Mathf.Max(0f, max));
 		}
 		#endregion
 
@@ -166,7 +184,8 @@ namespace Mv
 
 			if (eventName == "AtkS" || eventName == "Attack/AtkS")
 			{
-				if (!attackQueued) TryStartAttack();
+				if (!attackQueued && !TryStartAttack())
+					return;
 
 				Physics2D.SyncTransforms();
 				attackWindowActive = true;

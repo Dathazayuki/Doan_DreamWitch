@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: BombBarrel_Tool
   m_EditorClassIdentifier: 
   itemId: BombBarrel_Tool
-  displayName: BombBarrel_Tool
+  displayName: Bomb Barrel
   icon: {fileID: 21300000, guid: ea1c6ef29eba37f4ab6d488e6b9b3598, type: 2}
-  price: 1
+  price: 10
   stackable: 1
-  description: "th\xF9ng bom \u0111\u1EB7t t\u1EA1ij ch\u1ED7, g\xE2y damage uy l\u1EF1c
-    kinh ho\xE0ng"
+  description: 'The bomb crates are placed in place, causing massive, wide-area damage
+
+
+    You
+    need to be in the Storage Area to equip it.'
   category: 2
   behaviour: {fileID: 11400000, guid: 09ab083e8bfd2234f9c7666e756c4cc2, type: 2}
   usesPerPurchase: 1

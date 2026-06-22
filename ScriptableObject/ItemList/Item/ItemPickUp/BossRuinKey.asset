@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: BossRuinKey
   m_EditorClassIdentifier: 
   itemId: BossRuinKey
-  displayName: BossRuinKey
+  displayName: Boss Ruin Key
   icon: {fileID: 1318182880986508710, guid: ed15e577a3dfb4541bbf3d562ac3a234, type: 3}
   price: 0
   stackable: 1
-  description: "Ch\xECa kh\xF3a m\u1EDF ph\xF2ng Boss Ruin, c\u1EA7n thu th\u1EADp
-    7 c\xE1i \u0111\u1EC3 m\u1EDF"
+  description: A key to the Ruin Boss room. Collect 3 to unlock.
   category: 0

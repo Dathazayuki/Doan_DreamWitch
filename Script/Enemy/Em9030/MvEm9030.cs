@@ -55,11 +55,11 @@ namespace Mv
         [Header("AI Desire Weights")]
         public int Desire_Add_Run = 10;
         public int Desire_Add_Jump = 10;
-        public int Desire_Add_Atk = 40;
+        public int Desire_Add_Atk = 30;
         public int Desire_Add_SlashVH = 20;
         public int Desire_Add_Provoke = 5;
-        public int Desire_Add_ShotA = 25;
-        public int Desire_Add_Scythe_Hp50 = 10;
+        public int Desire_Add_ShotA = 30;
+        public int Desire_Add_Scythe_Hp50 = 20;
         public int Desire_Add_EmSpawn_Hp30 = 10;
 
         [Header("Timings")]
@@ -96,6 +96,10 @@ namespace Mv
         public float AirborneGravityScale = 4f;
         public float LandingHeightTolerance = 0.12f;
         public bool SnapToLandingHeightOnLand = true;
+
+        [Header("Death Blink")]
+        [SerializeField] private float deathBlinkDuration = 1.2f;
+        [SerializeField] private float deathBlinkInterval = 0.08f;
 
         [Header("Damage")]
         public float AtkDmg_Atk1 = 15f;
@@ -135,6 +139,7 @@ namespace Mv
         [SerializeField] private GameObject airSpritShotPrefab;
         [SerializeField] private GameObject flySwordBigPrefab;
         [SerializeField] private GameObject laserPrefab;
+        [SerializeField] private GameObject attachedLaserObject;
         [SerializeField] private GameObject eruptionPrefab;
         [SerializeField] private GameObject scythePrefab;
         [SerializeField] private GameObject emSpawnPrefab;
@@ -157,6 +162,9 @@ namespace Mv
         private float _defaultGravityScale;
         private float _landingHeightY;
         private bool _airborneActive;
+        private Renderer[] deathBlinkRenderers;
+        private bool deathBlinkStarted;
+        private Coroutine deathBlinkCoroutine;
         private readonly RaycastHit2D[] _counterMovementHits = new RaycastHit2D[8];
         private readonly Dictionary<GameObject, LocalShotPool> localShotPoolByPrefab = new Dictionary<GameObject, LocalShotPool>();
         private readonly Dictionary<GameObject, LocalShotPool> localShotPoolByInstance = new Dictionary<GameObject, LocalShotPool>();
@@ -165,6 +173,7 @@ namespace Mv
         public Vector3 SpawnPos => _spawnPos;
 
         protected override bool CanFlip => true;
+        protected override bool DisableCollidersOnDie => false;
 
         protected override void Awake()
         {
@@ -178,10 +187,12 @@ namespace Mv
             DisablePatrol();
             DisableKnockback();
             InitSpine();
+            CacheDeathBlinkRenderers();
             ConfigureAttackFallbacks();
             ConfigureAttackDamages();
             RegisterMeleeVfxWindowEvents();
             InitializeLocalShotPools();
+            DeactivateAttachedLaser();
             _Brain = new MvEmBrain_Em9030();
             _Brain.Setup(this);
         }
@@ -259,6 +270,57 @@ namespace Mv
         protected override EnemyState CreateDeadState(EnemyContext context)
         {
             return new AsEm9030_KnockOut(context);
+        }
+
+        private void CacheDeathBlinkRenderers()
+        {
+            deathBlinkRenderers = GetComponentsInChildren<Renderer>(true);
+        }
+
+        public void StartDeathBlinkAndHide()
+        {
+            if (deathBlinkStarted)
+                return;
+
+            deathBlinkStarted = true;
+            if (deathBlinkCoroutine != null)
+                StopCoroutine(deathBlinkCoroutine);
+
+            deathBlinkCoroutine = StartCoroutine(DeathBlinkAndHideRoutine());
+        }
+
+        private IEnumerator DeathBlinkAndHideRoutine()
+        {
+            if (deathBlinkRenderers == null || deathBlinkRenderers.Length == 0)
+                CacheDeathBlinkRenderers();
+
+            float duration = Mathf.Max(0f, deathBlinkDuration);
+            float interval = Mathf.Max(0.01f, deathBlinkInterval);
+            float timer = 0f;
+            bool visible = true;
+
+            while (timer < duration)
+            {
+                visible = !visible;
+                SetDeathBlinkVisible(visible);
+                yield return new WaitForSeconds(interval);
+                timer += interval;
+            }
+
+            SetDeathBlinkVisible(false);
+            gameObject.SetActive(false);
+        }
+
+        private void SetDeathBlinkVisible(bool visible)
+        {
+            if (deathBlinkRenderers == null)
+                return;
+
+            for (int i = 0; i < deathBlinkRenderers.Length; i++)
+            {
+                if (deathBlinkRenderers[i] != null)
+                    deathBlinkRenderers[i].enabled = visible;
+            }
         }
 
         protected override bool TryEvaluateCustomAttackRange(float absX, float absY, float edgeDistanceX, out bool inAttackRange)
@@ -399,6 +461,47 @@ namespace Mv
             return Instantiate(prefab, pos, rot);
         }
 
+        public void ActivateAttachedLaser(Vector2 dir, float damage)
+        {
+            if (attachedLaserObject == null)
+                return;
+
+            attachedLaserObject.SetActive(true);
+
+            IEm9030Projectile projectile = FindAttachedLaserProjectile();
+            if (projectile != null)
+            {
+                Vector2 laserDirection = dir.sqrMagnitude > 0.0001f ? dir.normalized : FacingDirection;
+                Vector3 targetPosition = CurrentTarget != null ? CurrentTarget.position : MagicHandlePosition + (Vector3)laserDirection;
+                projectile.Initialize(this, gameObject, damage, laserDirection, targetPosition);
+            }
+        }
+
+        public void DeactivateAttachedLaser()
+        {
+            if (attachedLaserObject != null && attachedLaserObject.activeSelf)
+                attachedLaserObject.SetActive(false);
+        }
+
+        private IEm9030Projectile FindAttachedLaserProjectile()
+        {
+            if (attachedLaserObject == null)
+                return null;
+
+            IEm9030Projectile projectile = attachedLaserObject.GetComponent<IEm9030Projectile>();
+            if (projectile != null)
+                return projectile;
+
+            MonoBehaviour[] behaviours = attachedLaserObject.GetComponentsInChildren<MonoBehaviour>(true);
+            for (int i = 0; i < behaviours.Length; i++)
+            {
+                if (behaviours[i] is IEm9030Projectile childProjectile)
+                    return childProjectile;
+            }
+
+            return null;
+        }
+
         private void InitializeLocalShotPools()
         {
             if (!useLocalShotPool)
@@ -410,7 +513,6 @@ namespace Mv
             RegisterLocalShotPool(spritShotPrefab);
             RegisterLocalShotPool(airSpritShotPrefab);
             RegisterLocalShotPool(flySwordBigPrefab);
-            RegisterLocalShotPool(laserPrefab);
             RegisterLocalShotPool(eruptionPrefab);
             RegisterLocalShotPool(scythePrefab);
 
@@ -504,6 +606,12 @@ namespace Mv
         {
             if (instance == null)
                 return;
+
+            if (attachedLaserObject != null && (instance == attachedLaserObject || instance.transform.IsChildOf(attachedLaserObject.transform)))
+            {
+                DeactivateAttachedLaser();
+                return;
+            }
 
             if (!localShotPoolByInstance.TryGetValue(instance, out LocalShotPool pool) || pool == null)
             {
@@ -599,6 +707,7 @@ namespace Mv
             UnregisterMeleeVfxWindowEvents();
             if (_skeletonAnimation != null)
                 _skeletonAnimation.AnimationState.Event -= OnSpineEvent;
+            DeactivateAttachedLaser();
             ClearLocalShotPools();
         }
 

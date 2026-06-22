@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: SpellBook_14
   m_EditorClassIdentifier: 
   bookId: SpellBook_14
-  displayName: SpellBook_14
+  displayName: Mystic Grimoire
   icon: {fileID: 21300000, guid: 709f50dce054903408d559032fbc4ae2, type: 2}
-  description: " gi\xFAp gia t\u0103ng 30 Mana t\u1ED1i \u0111a, gi\u1EA3m 15% th\u1EDDi
-    gian h\u1ED3i chi\xEAu c\u1EE7a k\u1EF9 n\u0103ng v\xE0 gia t\u0103ng th\xEAm
-    20% s\xE1t th\u01B0\u01A1ng ph\xE9p thu\u1EADt khi thi tri\u1EC3n."
+  description: ' Increases Maximum MP by 30, reduces Spell cooldowns by 15%, and
+    increases Spell damage by 20%.'
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 30
@@ -28,6 +27,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1.2
   skillCooldownReduction: 0.15
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

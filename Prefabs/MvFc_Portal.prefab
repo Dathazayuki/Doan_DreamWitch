@@ -160,8 +160,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -102685975
-  m_SortingLayer: 0
+  m_SortingLayerID: -2035029917
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b83f37ed35b1946418f6eb597d632247, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -372,8 +372,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -102685975
-  m_SortingLayer: 0
+  m_SortingLayerID: -2035029917
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 6410112792c37d345a0213bad3c53962, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -565,8 +565,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -102685975
-  m_SortingLayer: 0
+  m_SortingLayerID: -2035029917
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3133e87896b482140a7aff000e310a62, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -711,8 +711,10 @@ MonoBehaviour:
   unlockCost: 5
   interactCooldown: 0.2
   promptAnchor: {fileID: 0}
-  unlockPromptFormat: '{icon} Unlock Portal (-{cost})'
+  unlockPromptFormat: '{icon} Unlock Portal ?'
   unlockedPromptFormat: '{icon} Teleport'
+  confirmUnlockMessage: Spend {0} Gold to unlock this portal?
+  notEnoughGoldMessage: 'Not enough Gold. Requires {0} Gold (Current: {1}).'
   lockedVisual: {fileID: 0}
   unlockedVisual: {fileID: 2784726885289347019}
 --- !u!114 &4935472379076115641
@@ -805,8 +807,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -102685975
-  m_SortingLayer: 0
+  m_SortingLayerID: -2035029917
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9c97cae0b3c8cfe4fa82117f499d0050, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -896,8 +898,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -102685975
-  m_SortingLayer: 0
+  m_SortingLayerID: -2035029917
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d39943ba81320154f814de6b33739da5, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1089,8 +1091,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -102685975
-  m_SortingLayer: 0
+  m_SortingLayerID: -2035029917
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 041414eed18745a4bbd68a15503f6e6b, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

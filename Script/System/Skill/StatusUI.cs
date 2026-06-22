@@ -47,6 +47,7 @@ namespace DreamKnight.Systems.Skill
         private readonly List<SpellBookView> spawnedBookViews = new List<SpellBookView>();
         private SpellData selectedSpell;
         private SpellBookSO selectedBook;
+        private bool lastStorageNear;
 
         private void Awake()
         {
@@ -64,6 +65,7 @@ namespace DreamKnight.Systems.Skill
         private void OnEnable()
         {
             Subscribe();
+            lastStorageNear = Storage.IsPlayerNear;
             Refresh();
         }
 
@@ -115,6 +117,16 @@ namespace DreamKnight.Systems.Skill
         private void HandleSpellProgressChanged(string spellId, int level)
         {
             Refresh();
+        }
+
+        private void LateUpdate()
+        {
+            bool storageNear = Storage.IsPlayerNear;
+            if (storageNear == lastStorageNear)
+                return;
+
+            lastStorageNear = storageNear;
+            RefreshDetailPanel();
         }
 
         private PlayerStats GetPlayerStats()
@@ -307,24 +319,26 @@ namespace DreamKnight.Systems.Skill
                 if (cooldownDisplayText != null)
                     cooldownDisplayText.text = $"{cooldown:F2}s";
 
-                // Show equip buttons for Spells
+                bool canManageEquipment = Storage.IsPlayerNear;
+
+                // Show equip buttons for Spells only near Storage
                 if (equipButton != null)
-                    equipButton.gameObject.SetActive(true);
+                    equipButton.gameObject.SetActive(canManageEquipment);
                 if (unequipButton != null)
-                    unequipButton.gameObject.SetActive(true);
+                    unequipButton.gameObject.SetActive(canManageEquipment);
 
                 // Update button states
                 bool isEquipped = spellEquip != null && spellEquip.EquippedSpell == selectedSpell;
                 if (equipButton != null)
-                    equipButton.interactable = !isEquipped && Storage.IsPlayerNear;
+                    equipButton.interactable = canManageEquipment && !isEquipped;
                 if (unequipButton != null)
-                    unequipButton.interactable = isEquipped;
+                    unequipButton.interactable = canManageEquipment && isEquipped;
 
                 // Update button labels
                 if (equipButtonLabelText != null)
-                    equipButtonLabelText.text = isEquipped ? "Đã trang bị" : "Trang bị";
+                    equipButtonLabelText.text = isEquipped ? "Equipped" : "Equip";
                 if (unequipButtonLabelText != null)
-                    unequipButtonLabelText.text = "Tháo";
+                    unequipButtonLabelText.text = "Unequip";
             }
             else if (selectedBook != null)
             {
@@ -373,15 +387,15 @@ namespace DreamKnight.Systems.Skill
             var stats = GetPlayerStats();
             if (stats == null)
             {
-                playerStatsDisplayText.text = "Chỉ số nhân vật: Không tìm thấy thông tin PlayerStats.";
+                playerStatsDisplayText.text = "Player Stats: PlayerStats data not found.";
                 return;
             }
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.AppendLine("<b><color=#00FFFF>Chỉ số nhân vật hiện tại:</color></b>");
-            sb.AppendLine($"• Sinh lực (HP): <color=#32CD32>{stats.MaxHealth:F0}</color>");
-            sb.AppendLine($"• Năng lượng (MP): <color=#1E90FF>{stats.MaxMana:F0}</color>");
-            sb.AppendLine($"• Tốc độ chạy: <color=#FF8C00>{stats.MoveSpeed:F1}</color>");
+            sb.AppendLine("<b><color=#00FFFF>Current Player Stats:</color></b>");
+            sb.AppendLine($"• Health (HP): <color=#32CD32>{stats.MaxHealth:F0}</color>");
+            sb.AppendLine($"• Mana (MP): <color=#1E90FF>{stats.MaxMana:F0}</color>");
+            sb.AppendLine($"• Move Speed: <color=#FF8C00>{stats.MoveSpeed:F1}</color>");
 
             float defense = 0f;
             float critChance = 0f;
@@ -400,12 +414,12 @@ namespace DreamKnight.Systems.Skill
                 cdRed = stats.ActiveSpellBook.skillCooldownReduction * 100f;
             }
 
-            sb.AppendLine($"• Phòng thủ: <color=#9370DB>+{defense:F0}</color>");
-            sb.AppendLine($"• Sát thương đánh thường: <color=#FF4500>x{attackMult * 100:F0}%</color>");
-            sb.AppendLine($"• Sát thương kỹ năng: <color=#FF4500>x{skillMult * 100:F0}%</color>");
-            sb.AppendLine($"• Chí mạng (Chance): <color=#FFD700>{critChance:F0}%</color>");
-            sb.AppendLine($"• Sát thương chí mạng: <color=#FFD700>{critDmg * 100:F0}%</color>");
-            sb.AppendLine($"• Giảm hồi chiêu kỹ năng: <color=#00FFFF>{cdRed:F0}%</color>");
+            sb.AppendLine($"• Defense: <color=#9370DB>+{defense:F0}</color>");
+            sb.AppendLine($"• Basic Attack Damage: <color=#FF4500>x{attackMult * 100:F0}%</color>");
+            sb.AppendLine($"• Skill Damage: <color=#FF4500>x{skillMult * 100:F0}%</color>");
+            sb.AppendLine($"• Critical Chance: <color=#FFD700>{critChance:F0}%</color>");
+            sb.AppendLine($"• Critical Damage: <color=#FFD700>{critDmg * 100:F0}%</color>");
+            sb.AppendLine($"• Skill Cooldown Reduction: <color=#00FFFF>{cdRed:F0}%</color>");
 
             playerStatsDisplayText.text = sb.ToString();
         }

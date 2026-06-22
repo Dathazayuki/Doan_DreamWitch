@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: SpellBook_9
   m_EditorClassIdentifier: 
   bookId: SpellBook_9
-  displayName: SpellBook_9
+  displayName: Siphon Grimoire
   icon: {fileID: 21300000, guid: ab92304e0f581754ea57042f4bd9f7f8, type: 2}
-  description: "B\u1EA3n th\u1EA3o ma thu\u1EADt b\xF3ng t\u1ED1i gi\xFAp gia t\u0103ng
-    10% s\xE1t th\u01B0\u01A1ng \u0111\xE1nh th\u01B0\u1EDDng, \u0111\u1ED3ng th\u1EDDi
-    ban kh\u1EA3 n\u0103ng h\u1ED3i 5 Mana cho m\u1ED7i \u0111\xF2n \u0111\xE1nh
-    tr\xFAng v\xE0 li\xEAn t\u1EE5c t\xE1i t\u1EA1o 2 sinh l\u1EF1c (HP) m\u1ED7i
-    gi\xE2y."
+  description: Increases Normal Attack damage by 10%, restores 5 MP upon hitting
+    an enemy, and regenerates 2 HP per second.
   healthBonus: -0.1
   healthPercentBonus: 0
   manaBonus: 0
@@ -30,6 +27,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 2
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

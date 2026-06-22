@@ -107,8 +107,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -92688567
-  m_SortingLayer: 0
+  m_SortingLayerID: -1861242045
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a8edd048c4a38cb4fa859f83f3c22936, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,7 +172,7 @@ MonoBehaviour:
   se1Prefab: {fileID: 0}
   se2Prefab: {fileID: 0}
   fx0Prefab: {fileID: 0}
-  fx1Prefab: {fileID: 0}
+  fx1Prefab: {fileID: 1709254077376921, guid: b04a2ba11260b2e4f8a619d30f01af38, type: 3}
   fx2Prefab: {fileID: 0}
   fx3Prefab: {fileID: 0}
   fx4Prefab: {fileID: 0}
@@ -327,6 +327,8 @@ MonoBehaviour:
   closeAttackWindowImmediatelyOnEnd: 0
   attackTrigger: {fileID: 246093169359068358}
   forceIsTrigger: 1
+  initialAttackDelayJitter: {x: 0, y: 0.25}
+  attackCooldownJitter: {x: 0, y: 0.2}
 --- !u!1 &2600408093184720888
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +532,8 @@ GameObject:
   - component: {fileID: 7222496127130564415}
   - component: {fileID: 4435592666709714576}
   - component: {fileID: 3216737618768123638}
-  m_Layer: 9
+  - component: {fileID: 7991503061868300465}
+  m_Layer: 13
   m_Name: MvAtkAlways
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +585,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -625,6 +628,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &7991503061868300465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4881316933225138828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc370c1cb71a8742982dfdc14f64443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  damageInterval: 0.2
+  damageTrigger: {fileID: 4435592666709714576}
+  forceIsTrigger: 1
 --- !u!1 &7407315484621620997
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +657,7 @@ GameObject:
   - component: {fileID: 8149786856932520642}
   - component: {fileID: 2993675535507846962}
   - component: {fileID: 7908682620674796969}
+  - component: {fileID: 475455861998006616}
   m_Layer: 9
   m_Name: MvEm0470_FireShooter
   m_TagString: Untagged
@@ -757,7 +777,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &7908682620674796969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,6 +803,8 @@ MonoBehaviour:
   attackVerticalTolerance: 1.2
   hitStunDuration: 0.2
   knockbackForceX: 2.5
+  moveSpeedJitterPercent: 0.08
+  randomizeInitialSearchTime: 1
   defaultCombatMode: 0
   searchInterval: 0.2
   searchRadius: 10
@@ -826,12 +848,28 @@ MonoBehaviour:
   attackStateName: Atk1
   hitStateName: Hit
   deadStateName: Death
-  deathStreamEffect: {fileID: 0}
+  deathStreamEffect: {fileID: 228090302759689810}
   deathFinalizeFallbackDelay: 1.2
   fireBallPrefab: {fileID: 1709254077376921, guid: 42c6816499f85d946a8190c1bab87155, type: 3}
   spawnPoint: {fileID: 5373311849721020061}
   fireBallDamage: 12
   shootCooldown: 2
+--- !u!114 &475455861998006616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407315484621620997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ddf8ee621db3145ac82876c2a3a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 0
+  overrideEnableDistance: 0
+  overrideDisableDistance: 0
+  componentsToCull: []
 --- !u!1 &8232407016202242690
 GameObject:
   m_ObjectHideFlags: 0

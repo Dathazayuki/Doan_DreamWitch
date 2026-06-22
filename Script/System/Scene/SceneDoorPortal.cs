@@ -28,9 +28,9 @@ namespace DreamKnight.Systems.Scene
         [SerializeField] private GameObject unlockedVisualObject;
 
         [Header("Dialogue / Prompts")]
-        [SerializeField] private string lockedPromptFormat = "{icon} Mở khóa cửa";
-        [SerializeField] private string confirmUnlockMessage = "Bạn có muốn dùng {0} {1} để mở khóa?";
-        [SerializeField] private string notEnoughKeysMessage = "Cửa đang khóa. Cần {0} {1} (Hiện có: {2}).";
+        [SerializeField] private string lockedPromptFormat = "{icon} Unlock Door";
+        [SerializeField] private string confirmUnlockMessage = "Use {0} {1} to unlock this door?";
+        [SerializeField] private string notEnoughKeysMessage = "This door is locked. Requires {0} {1} (Current: {2}).";
 
         [Header("Input")]
         [SerializeField] private float requiredUpInput = 0.5f;
@@ -214,7 +214,7 @@ namespace DreamKnight.Systems.Scene
 
             isConfirming = true;
             int currentKeys = playerInventoryState != null ? playerInventoryState.GetQuantity(requiredKeyItem) : 0;
-            string keyName = requiredKeyItem != null ? requiredKeyItem.DisplayName : "Chìa khóa";
+            string keyName = requiredKeyItem != null ? requiredKeyItem.DisplayName : "Key";
 
             if (currentKeys >= requiredKeyCount)
             {

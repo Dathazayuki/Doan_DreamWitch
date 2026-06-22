@@ -376,6 +376,8 @@ GameObject:
   - component: {fileID: 4214386506412236159}
   - component: {fileID: 687483385591971245}
   - component: {fileID: 8431380529816740177}
+  - component: {fileID: 830349549814224670}
+  - component: {fileID: 749275508472220114}
   m_Layer: 9
   m_Name: MvEm0260_HeatGas
   m_TagString: Untagged
@@ -521,6 +523,8 @@ MonoBehaviour:
   attackVerticalTolerance: 1.2
   hitStunDuration: 0.2
   knockbackForceX: 2.5
+  moveSpeedJitterPercent: 0.08
+  randomizeInitialSearchTime: 1
   defaultCombatMode: 0
   searchInterval: 0.2
   searchRadius: 10
@@ -579,6 +583,39 @@ MonoBehaviour:
   disableGasVfxOnAwake: 1
   fallbackGasRadiusX: 2
   fallbackGasRadiusY: 2
+--- !u!114 &830349549814224670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222253335544050720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa6da54f2715f54e874338d805810ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 8431380529816740177}
+  moneyPrefab: {fileID: 1305593682254664748, guid: c3f56ece19f49504089beead37f56872, type: 3}
+  minMoney: 1
+  maxMoney: 5
+  spawnOffset: {x: 0, y: 0.5, z: 0}
+--- !u!114 &749275508472220114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222253335544050720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ddf8ee621db3145ac82876c2a3a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 0
+  overrideEnableDistance: 0
+  overrideDisableDistance: 0
+  componentsToCull: []
 --- !u!1 &4659045229662538641
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +768,8 @@ MonoBehaviour:
   closeAttackWindowImmediatelyOnEnd: 1
   attackTrigger: {fileID: 3207893344832737122}
   forceIsTrigger: 1
+  initialAttackDelayJitter: {x: 0, y: 0.25}
+  attackCooldownJitter: {x: 0, y: 0.2}
 --- !u!1 &9186316310420835348
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +848,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 913118913
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7c26b41dd6d70a4419d5cf641be4a795, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -873,7 +912,7 @@ MonoBehaviour:
   se1Prefab: {fileID: 0}
   se2Prefab: {fileID: 0}
   fx0Prefab: {fileID: 0}
-  fx1Prefab: {fileID: 0}
+  fx1Prefab: {fileID: 1709254077376921, guid: b04a2ba11260b2e4f8a619d30f01af38, type: 3}
   fx2Prefab: {fileID: 0}
   fx3Prefab: {fileID: 0}
   fx4Prefab: {fileID: 0}
@@ -1031,7 +1070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 199025901758691103, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 199025901758691103, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayerID
@@ -1039,7 +1078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 199161607090078389, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 199161607090078389, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayerID
@@ -1047,7 +1086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 199313026266067498, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 199313026266067498, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayerID
@@ -1059,7 +1098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 199709867586078768, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 199709867586078768, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayerID
@@ -1067,7 +1106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 199977153420339851, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 199977153420339851, guid: 7db423db7603e6647a70170f03362f43, type: 3}
       propertyPath: m_SortingLayerID

@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_6
   m_EditorClassIdentifier: 
   bookId: SpellBook_6
-  displayName: SpellBook_6
+  displayName: Fatal Grimoire
   icon: {fileID: 21300000, guid: 7e1a0d49909970b47b8835a9c7f06756, type: 2}
-  description: "C\xF3 50% t\u1EC9 l\u1EC7 g\xE2y s\xE1t th\u01B0\u01A1ng ch\xED m\u1EA1ng
-    ,  , s\xE1t th\u01B0\u01A1ng ch\xED m\u1EA1ng b\u1EB1ng 150% s\xE1t th\u01B0\u01A1ng
-    ban \u0111\u1EA7u"
+  description: Grants a 50% Critical Hit chance. Critical Hits deal 150% damage.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -28,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

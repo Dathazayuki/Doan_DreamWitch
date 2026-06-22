@@ -13,15 +13,20 @@ MonoBehaviour:
   m_Name: Facility_ToolCapacity
   m_EditorClassIdentifier: 
   upgradeId: Tool_Capacity
-  displayName: "Gi\u1EDBi h\u1EA1n tool mang theo"
-  description: "T\u0103ng gi\u1EDBi h\u1EA1n kho \u0111\u1ED3 \u0111\u1EC3 mang theo
-    tool"
+  displayName: Uograde Tool allowance
+  description: Increase limits to carry tools.
   icon: {fileID: 21300000, guid: dc004625a9371ae45afdfa62ea951ba3, type: 2}
   statType: 3
   levels:
-  - price: 2
+  - requiredItem: {fileID: 11400000, guid: f57b2df83adb71a4db5bdac42fb82fb0, type: 2}
+    requiredItemQuantity: 5
+    price: 2
     bonusValue: 3
-  - price: 2
+  - requiredItem: {fileID: 11400000, guid: f57b2df83adb71a4db5bdac42fb82fb0, type: 2}
+    requiredItemQuantity: 10
+    price: 2
     bonusValue: 5
-  - price: 2
+  - requiredItem: {fileID: 11400000, guid: f57b2df83adb71a4db5bdac42fb82fb0, type: 2}
+    requiredItemQuantity: 15
+    price: 2
     bonusValue: 8

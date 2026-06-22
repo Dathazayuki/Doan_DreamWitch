@@ -65,6 +65,24 @@ namespace DreamKnight.Systems.Interaction
 
         private string ResolvedPickupId => string.IsNullOrWhiteSpace(pickupId) ? gameObject.scene.name + "/" + gameObject.name : pickupId;
 
+        public void ConfigureRuntimePickupId(string runtimePickupId, bool persist)
+        {
+            pickupId = runtimePickupId;
+            persistCollectedState = persist;
+            isPickedUp = false;
+            isPickingUp = false;
+
+            if (!persistCollectedState || !WorldPickupSaveService.IsCollected(ResolvedPickupId))
+            {
+                if (!gameObject.activeSelf)
+                    gameObject.SetActive(true);
+                return;
+            }
+
+            isPickedUp = true;
+            gameObject.SetActive(false);
+        }
+
         private void GeneratePickupIdIfEmpty()
         {
             if (!string.IsNullOrWhiteSpace(pickupId))

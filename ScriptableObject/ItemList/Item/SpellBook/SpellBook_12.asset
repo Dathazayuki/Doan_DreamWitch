@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: SpellBook_12
   m_EditorClassIdentifier: 
   bookId: SpellBook_12
-  displayName: SpellBook_12
+  displayName: Archmage Grimoire
   icon: {fileID: 21300000, guid: 4cda5a6ee73ec9f4fa6a2993206e8a31, type: 3}
-  description: "gi\xFAp gia t\u0103ng th\xEAm 50 Mana t\u1ED1i \u0111a v\xE0 c\u01B0\u1EDDng
-    h\xF3a m\u1EA1nh m\u1EBD th\xEAm 35% s\xE1t th\u01B0\u01A1ng ph\xE9p cho to\xE0n
-    b\u1ED9 c\xE1c k\u1EF9 n\u0103ng ma ph\xE1p.."
+  description: Increases Maximum MP by 50 and increases Spell damage for all magical
+    skills by 35%.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 50
@@ -28,6 +27,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1.35
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

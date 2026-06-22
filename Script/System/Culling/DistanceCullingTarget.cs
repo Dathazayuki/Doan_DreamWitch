@@ -3,61 +3,52 @@ using UnityEngine;
 
 namespace DreamKnight.Systems.Culling
 {
-    /// <summary>
-    /// Gắn lên Enemy / Projectile / VFX để tham gia Distance Culling.
-    /// Dùng hysteresis: Cull khi dist > disableDistance, UnCull khi dist < enableDistance.
-    /// Vùng [enableDistance, disableDistance] không thay đổi trạng thái.
-    /// </summary>
     [DisallowMultipleComponent]
     public class DistanceCullingTarget : MonoBehaviour, ICullable
     {
-        // ─── Inspector ─────────────────────────────────────────────────────────
         [Header("Culling Type")]
         [SerializeField] private CullingTargetType targetType = CullingTargetType.Enemy;
 
-        [Header("Hysteresis Distance Override (0 = dùng giá trị mặc định từ CullingManager)")]
-        [Tooltip("UnCull khi distance < giá trị này. 0 = dùng default của CullingManager.")]
-        [SerializeField] private float overrideEnableDistance  = 0f;
-        [Tooltip("Cull khi distance > giá trị này. 0 = dùng default của CullingManager.")]
+        [Header("Hysteresis Distance Override (0 = use CullingManager defaults)")]
+        [SerializeField] private float overrideEnableDistance = 0f;
         [SerializeField] private float overrideDisableDistance = 0f;
 
-        [Header("Components bị disable khi Cull (để trống = tự detect)")]
-        [Tooltip("Danh sách MonoBehaviour bị disable khi bị cull. Để trống để tự detect theo targetType.")]
+        [Header("Components disabled while culled (empty = auto detect)")]
         [SerializeField] private MonoBehaviour[] componentsToCull;
 
-        // ─── Runtime ───────────────────────────────────────────────────────────
         private bool isCulled;
         private bool isRoomSleeping;
         private Rigidbody2D rb;
         private RigidbodyConstraints2D originalConstraints;
+        private Animator[] cachedAnimators;
         private ParticleSystem[] cachedParticleSystems;
+        private bool[] componentEnabledBeforeCull;
+        private bool[] animatorEnabledBeforeCull;
+        private bool[] particleWasPlayingBeforeCull;
 
-        // ─── ICullable Properties ──────────────────────────────────────────────
-        public bool IsCulled        => isCulled;
-        /// <summary>True khi RoomCullingMember đặt room sang sleep – Distance culling không override.</summary>
-        public bool IsRoomSleeping  => isRoomSleeping;
-
-        // ─── Override Properties ───────────────────────────────────────────────
-        public float OverrideEnableDistance  => overrideEnableDistance;
+        public bool IsCulled => isCulled;
+        public bool IsRoomSleeping => isRoomSleeping;
+        public float OverrideEnableDistance => overrideEnableDistance;
         public float OverrideDisableDistance => overrideDisableDistance;
 
-        // ─── Unity Lifecycle ───────────────────────────────────────────────────
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-            if (rb != null) originalConstraints = rb.constraints;
+            if (rb != null)
+                originalConstraints = rb.constraints;
+
+            cachedAnimators = GetComponentsInChildren<Animator>(true);
+            cachedParticleSystems = GetComponentsInChildren<ParticleSystem>(true);
 
             if (componentsToCull == null || componentsToCull.Length == 0)
                 AutoDetectComponents();
-
-            if (targetType == CullingTargetType.Vfx)
-                cachedParticleSystems = GetComponentsInChildren<ParticleSystem>(true);
+            else if (targetType == CullingTargetType.Enemy)
+                AddCoreEnemyComponentsToConfiguredList();
         }
 
-        private void OnEnable()  => CullingManager.Instance?.Register(this);
+        private void OnEnable() => CullingManager.Instance?.Register(this);
         private void OnDisable() => CullingManager.Instance?.Unregister(this);
 
-        // ─── ICullable ─────────────────────────────────────────────────────────
         public void Cull()
         {
             if (isCulled) return;
@@ -68,139 +59,245 @@ namespace DreamKnight.Systems.Culling
         public void UnCull()
         {
             if (!isCulled) return;
-            // Không UnCull nếu Room đang ngủ (Room Culling ưu tiên cao hơn)
             if (isRoomSleeping) return;
+
             isCulled = false;
             ApplyUnCull();
         }
 
-        // ─── Room Sleep Override ───────────────────────────────────────────────
-
-        /// <summary>
-        /// Được gọi bởi RoomCullingMember khi Room bắt đầu sleep.
-        /// Force Cull bất kể khoảng cách, và đặt cờ isRoomSleeping.
-        /// </summary>
         public void SetRoomSleep(bool sleeping)
         {
             isRoomSleeping = sleeping;
             if (sleeping)
             {
-                // Force cull, bỏ qua trạng thái isCulled hiện tại
                 isCulled = true;
                 ApplyCull();
+                return;
             }
-            else
-            {
-                // Wake – reset isCulled để CullingManager tính lại khoảng cách
-                isCulled = false;
-                ApplyUnCull();
-            }
+
+            isCulled = false;
+            ApplyUnCull();
         }
 
-        // ─── Apply Helpers ─────────────────────────────────────────────────────
         private void ApplyCull()
         {
-            // Tắt components AI/logic
-            if (componentsToCull != null)
-            {
-                for (int i = 0; i < componentsToCull.Length; i++)
-                {
-                    if (componentsToCull[i] != null)
-                        componentsToCull[i].enabled = false;
-                }
-            }
+            DisableConfiguredComponents();
 
-            // Enemy: freeze Rigidbody
             if (targetType == CullingTargetType.Enemy && rb != null)
             {
                 rb.linearVelocity = Vector2.zero;
-                rb.constraints   = RigidbodyConstraints2D.FreezeAll;
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
 
-            // VFX: pause particles
-            if (targetType == CullingTargetType.Vfx && cachedParticleSystems != null)
-            {
-                for (int i = 0; i < cachedParticleSystems.Length; i++)
-                {
-                    if (cachedParticleSystems[i] != null && cachedParticleSystems[i].isPlaying)
-                        cachedParticleSystems[i].Pause();
-                }
-            }
+            if (targetType == CullingTargetType.Enemy)
+                DisableAnimators();
+
+            if (targetType == CullingTargetType.Enemy || targetType == CullingTargetType.Vfx)
+                PauseParticles();
         }
 
         private void ApplyUnCull()
         {
-            // Bật lại components
-            if (componentsToCull != null)
-            {
-                for (int i = 0; i < componentsToCull.Length; i++)
-                {
-                    if (componentsToCull[i] != null)
-                        componentsToCull[i].enabled = true;
-                }
-            }
+            RestoreConfiguredComponents();
 
-            // Enemy: khôi phục Rigidbody constraints
             if (targetType == CullingTargetType.Enemy && rb != null)
-            {
                 rb.constraints = originalConstraints;
-            }
 
-            // VFX: resume particles
-            if (targetType == CullingTargetType.Vfx && cachedParticleSystems != null)
+            if (targetType == CullingTargetType.Enemy)
+                RestoreAnimators();
+
+            if (targetType == CullingTargetType.Enemy || targetType == CullingTargetType.Vfx)
+                RestoreParticles();
+        }
+
+        private void DisableConfiguredComponents()
+        {
+            if (componentsToCull == null)
+                return;
+
+            if (componentEnabledBeforeCull == null || componentEnabledBeforeCull.Length != componentsToCull.Length)
+                componentEnabledBeforeCull = new bool[componentsToCull.Length];
+
+            for (int i = 0; i < componentsToCull.Length; i++)
             {
-                for (int i = 0; i < cachedParticleSystems.Length; i++)
-                {
-                    if (cachedParticleSystems[i] != null && cachedParticleSystems[i].isPaused)
-                        cachedParticleSystems[i].Play();
-                }
+                MonoBehaviour component = componentsToCull[i];
+                if (component == null)
+                    continue;
+
+                componentEnabledBeforeCull[i] = component.enabled;
+                component.enabled = false;
             }
         }
 
-        // ─── Auto Detect ───────────────────────────────────────────────────────
+        private void RestoreConfiguredComponents()
+        {
+            if (componentsToCull == null)
+                return;
+
+            for (int i = 0; i < componentsToCull.Length; i++)
+            {
+                MonoBehaviour component = componentsToCull[i];
+                if (component == null)
+                    continue;
+
+                bool shouldEnable = componentEnabledBeforeCull == null
+                    || i >= componentEnabledBeforeCull.Length
+                    || componentEnabledBeforeCull[i];
+                component.enabled = shouldEnable;
+            }
+        }
+
+        private void DisableAnimators()
+        {
+            if (cachedAnimators == null)
+                return;
+
+            if (animatorEnabledBeforeCull == null || animatorEnabledBeforeCull.Length != cachedAnimators.Length)
+                animatorEnabledBeforeCull = new bool[cachedAnimators.Length];
+
+            for (int i = 0; i < cachedAnimators.Length; i++)
+            {
+                Animator animator = cachedAnimators[i];
+                if (animator == null)
+                    continue;
+
+                animatorEnabledBeforeCull[i] = animator.enabled;
+                animator.enabled = false;
+            }
+        }
+
+        private void RestoreAnimators()
+        {
+            if (cachedAnimators == null)
+                return;
+
+            for (int i = 0; i < cachedAnimators.Length; i++)
+            {
+                Animator animator = cachedAnimators[i];
+                if (animator == null)
+                    continue;
+
+                bool shouldEnable = animatorEnabledBeforeCull == null
+                    || i >= animatorEnabledBeforeCull.Length
+                    || animatorEnabledBeforeCull[i];
+                animator.enabled = shouldEnable;
+            }
+        }
+
+        private void PauseParticles()
+        {
+            if (cachedParticleSystems == null)
+                return;
+
+            if (particleWasPlayingBeforeCull == null || particleWasPlayingBeforeCull.Length != cachedParticleSystems.Length)
+                particleWasPlayingBeforeCull = new bool[cachedParticleSystems.Length];
+
+            for (int i = 0; i < cachedParticleSystems.Length; i++)
+            {
+                ParticleSystem particle = cachedParticleSystems[i];
+                if (particle == null)
+                    continue;
+
+                particleWasPlayingBeforeCull[i] = particle.isPlaying;
+                if (particle.isPlaying)
+                    particle.Pause();
+            }
+        }
+
+        private void RestoreParticles()
+        {
+            if (cachedParticleSystems == null)
+                return;
+
+            for (int i = 0; i < cachedParticleSystems.Length; i++)
+            {
+                ParticleSystem particle = cachedParticleSystems[i];
+                if (particle == null)
+                    continue;
+
+                bool shouldResume = particleWasPlayingBeforeCull != null
+                    && i < particleWasPlayingBeforeCull.Length
+                    && particleWasPlayingBeforeCull[i];
+                if (shouldResume && particle.isPaused)
+                    particle.Play();
+            }
+        }
+
         private void AutoDetectComponents()
         {
             switch (targetType)
             {
                 case CullingTargetType.Enemy:
-                    // Tìm MvEnemyBase (hoặc base class)
-                    MonoBehaviour enemy = GetComponent<Mv.MvEnemyBase>();
-                    if (enemy != null)
-                        componentsToCull = new MonoBehaviour[] { enemy };
+                    System.Collections.Generic.List<MonoBehaviour> enemyComponents =
+                        new System.Collections.Generic.List<MonoBehaviour>();
+
+                    AddComponentIfFound(enemyComponents, GetComponent<Mv.MvEnemyBase>());
+                    AddComponentIfFound(enemyComponents, GetComponent<Mv.MvAttack>());
+                    AddComponentIfFound(enemyComponents, GetComponentInChildren<Mv.MvAttack>(true));
+                    AddComponentIfFound(enemyComponents, GetComponentInChildren<MvAnimEventLite>(true));
+                    AddComponentIfFound(enemyComponents, GetComponentInChildren<Mv.EnemyVfxEvents>(true));
+
+                    componentsToCull = enemyComponents.ToArray();
                     break;
 
                 case CullingTargetType.Projectile:
-                    // Tìm tất cả MonoBehaviour trên cùng GameObject (ngoại trừ chính nó)
                     MonoBehaviour[] all = GetComponents<MonoBehaviour>();
                     System.Collections.Generic.List<MonoBehaviour> list =
                         new System.Collections.Generic.List<MonoBehaviour>();
-                    foreach (var mb in all)
+
+                    for (int i = 0; i < all.Length; i++)
                     {
-                        if (mb != null && mb != this)
-                            list.Add(mb);
+                        MonoBehaviour component = all[i];
+                        if (component != null && component != this)
+                            list.Add(component);
                     }
+
                     componentsToCull = list.ToArray();
                     break;
 
                 case CullingTargetType.Vfx:
-                    // VFX dùng particle pause, không cần disable component
                     componentsToCull = new MonoBehaviour[0];
                     break;
             }
         }
 
-        // ─── Gizmos ────────────────────────────────────────────────────────────
+        private void AddCoreEnemyComponentsToConfiguredList()
+        {
+            System.Collections.Generic.List<MonoBehaviour> list =
+                new System.Collections.Generic.List<MonoBehaviour>();
+
+            if (componentsToCull != null)
+            {
+                for (int i = 0; i < componentsToCull.Length; i++)
+                    AddComponentIfFound(list, componentsToCull[i]);
+            }
+
+            AddComponentIfFound(list, GetComponent<Mv.MvEnemyBase>());
+            AddComponentIfFound(list, GetComponent<Mv.MvAttack>());
+            AddComponentIfFound(list, GetComponentInChildren<Mv.MvAttack>(true));
+            AddComponentIfFound(list, GetComponentInChildren<MvAnimEventLite>(true));
+            AddComponentIfFound(list, GetComponentInChildren<Mv.EnemyVfxEvents>(true));
+
+            componentsToCull = list.ToArray();
+        }
+
+        private void AddComponentIfFound(System.Collections.Generic.List<MonoBehaviour> list, MonoBehaviour component)
+        {
+            if (component == null || component == this || list.Contains(component))
+                return;
+
+            list.Add(component);
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            float enableDist  = overrideEnableDistance  > 0f ? overrideEnableDistance  : 18f;
+            float enableDist = overrideEnableDistance > 0f ? overrideEnableDistance : 18f;
             float disableDist = overrideDisableDistance > 0f ? overrideDisableDistance : 22f;
 
-            // Màu xanh = ngưỡng UnCull
             UnityEditor.Handles.color = new Color(0.2f, 0.9f, 0.3f, 0.4f);
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, enableDist);
 
-            // Màu đỏ = ngưỡng Cull
             UnityEditor.Handles.color = new Color(0.9f, 0.2f, 0.2f, 0.4f);
             UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, disableDist);
         }

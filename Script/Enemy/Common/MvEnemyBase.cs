@@ -48,6 +48,10 @@ namespace Mv
 		[SerializeField] private float hitStunDuration = 0.2f;
 		[SerializeField] private float knockbackForceX = 2.5f;
 
+		[Header("AI Desync")]
+		[SerializeField, Range(0f, 0.25f)] private float moveSpeedJitterPercent = 0.08f;
+		[SerializeField] private bool randomizeInitialSearchTime = true;
+
 		[Header("Combat Mode")]
 		[Tooltip("World = patrol/detect/mất dấu. Arena = luôn theo dõi Player, không bao giờ mất target.")]
 		[SerializeField] private EnemyCombatMode defaultCombatMode = EnemyCombatMode.World;
@@ -158,6 +162,7 @@ namespace Mv
 		private bool deathFinalizeProcessed;
 		private float returnToOriginTimer;
 		private bool isCurrentlyReturning;
+		private float runtimeMoveSpeedMultiplier = 1f;
 
 		public bool IsAlive => !isDead && currentHealth > 0f;
 		public float CurrentHealth => currentHealth;
@@ -173,6 +178,7 @@ namespace Mv
 			if (animator == null) animator = GetComponentInChildren<Animator>();
 			if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 			selfCollider = GetComponent<Collider2D>();
+			InitializeRuntimeDesync();
 
 			if (attack == null) attack = GetComponent<MvAttack>();
             if (attack == null) attack = GetComponentInChildren<MvAttack>();
@@ -217,7 +223,7 @@ namespace Mv
 			RegisterAdditionalStates(enemyStateMachine, enemyContext);
 			enemyStateMachine.ChangeState(idleStateId);
 			patrolCenter = transform.position;
-			nextSearchTime = Time.time;
+			nextSearchTime = Time.time + (randomizeInitialSearchTime ? UnityEngine.Random.Range(0f, Mathf.Max(0f, searchInterval)) : 0f);
 			returnToOriginTimer = 0f;
 			isCurrentlyReturning = false;
 
@@ -230,6 +236,12 @@ namespace Mv
 
 		// Subclass override để thêm logic riêng (dash, v.v.)
 		protected virtual void FixedUpdate() { }
+
+		private void InitializeRuntimeDesync()
+		{
+			float jitter = Mathf.Clamp(moveSpeedJitterPercent, 0f, 0.25f);
+			runtimeMoveSpeedMultiplier = jitter > 0f ? UnityEngine.Random.Range(1f - jitter, 1f + jitter) : 1f;
+		}
 
 		protected virtual void Update()
 		{
@@ -301,6 +313,7 @@ namespace Mv
 		}
 
 		protected virtual bool DiesOnPlayerTrapZone => true;
+		protected virtual bool DisableCollidersOnDie => true;
 
 		protected virtual void OnTriggerEnter2D(Collider2D other)
 		{
@@ -352,11 +365,14 @@ namespace Mv
 			if (deathStreamEffect != null)
 				deathStreamEffect.SetActive(true);
 
-			Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
-			for (int i = 0; i < colliders.Length; i++)
+			if (DisableCollidersOnDie)
 			{
-				if (colliders[i] != null)
-					colliders[i].enabled = false;
+				Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+				for (int i = 0; i < colliders.Length; i++)
+				{
+					if (colliders[i] != null)
+						colliders[i].enabled = false;
+				}
 			}
 
 			OnDeath?.Invoke();
@@ -650,7 +666,7 @@ namespace Mv
 				return;
 			}
 
-			SetHorizontalVelocity(direction * moveSpeed);
+			SetHorizontalVelocity(direction * moveSpeed * runtimeMoveSpeedMultiplier);
 			Face(direction);
 			animationController?.SetRun(true, false);
 		}
@@ -659,7 +675,7 @@ namespace Mv
 		{
 			float targetDir = ResolveFacingDirection(deltaX);
 			float retreatDir = -targetDir;
-			float speed = moveSpeed * Mathf.Max(0f, retreatSpeedMultiplier);
+			float speed = moveSpeed * runtimeMoveSpeedMultiplier * Mathf.Max(0f, retreatSpeedMultiplier);
 			SetHorizontalVelocity(retreatDir * speed);
 			Face(targetDir);
 			animationController?.SetRun(speed > 0.01f, false);
@@ -703,7 +719,7 @@ namespace Mv
 			}
 
 			float direction = Mathf.Sign(deltaX);
-			float speed = moveSpeed * Mathf.Max(0f, returnToOriginSpeedMultiplier);
+			float speed = moveSpeed * runtimeMoveSpeedMultiplier * Mathf.Max(0f, returnToOriginSpeedMultiplier);
 			SetHorizontalVelocity(direction * speed);
 			Face(direction);
 			animationController?.SetRun(speed > 0.01f, false);
@@ -783,6 +799,14 @@ namespace Mv
 		private void TriggerHit()
 		{
 			animationController?.TriggerHit();
+		}
+
+		protected void ForceHitReaction()
+		{
+			isAttackSigning = false;
+			hitStunTimer = Mathf.Max(hitStunTimer, hitStunDuration);
+			TriggerHit();
+			ChangeEnemyState(hitStateId);
 		}
 
 		protected virtual EnemyState CreateIdleState(EnemyContext context) => new AsEm_Idle(context);
@@ -953,7 +977,7 @@ namespace Mv
 		{
 			float direction = ResolveFacingDirection(deltaX);
 
-			SetHorizontalVelocity(direction * moveSpeed * chaseSpeedMultiplier);
+			SetHorizontalVelocity(direction * moveSpeed * runtimeMoveSpeedMultiplier * chaseSpeedMultiplier);
 			Face(direction);
 			animationController?.SetRun(true, false);
 		}

@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_5
   m_EditorClassIdentifier: 
   bookId: SpellBook_5
-  displayName: SpellBook_5
+  displayName: Critical Grimoire
   icon: {fileID: 21300000, guid: 709f50dce054903408d559032fbc4ae2, type: 2}
-  description: "C\xF3 20% \u0111\xF2n \u0111\xE1nh g\xE2y s\xE1t thu\u01A1ng ch\xED
-    m\u1EA1ng , s\xE1t th\u01B0\u01A1ng ch\xED m\u1EA1ng b\u1EB1ng 200% s\xE1t th\u01B0\u01A1ng
-    ban \u0111\u1EA7u"
+  description: Grants a 20% Critical Hit chance. Critical Hits deal 200% damage.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -28,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

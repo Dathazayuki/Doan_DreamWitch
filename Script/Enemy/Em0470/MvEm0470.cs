@@ -18,8 +18,17 @@ namespace Mv
         protected override string AttackStateName => "Atk";
         protected override string HitStateName => "Hit";
         protected override string DeadStateName => "Death";
+        protected override bool CanFlip => false;
+        protected override bool FaceOnHitEnabled => false;
 
         private float nextShootTime;
+        private Vector2 fixedShootDirection = Vector2.right;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            fixedShootDirection = transform.localScale.x >= 0f ? Vector2.right : Vector2.left;
+        }
 
         protected override EnemyState CreateIdleState(EnemyContext context)
             => new Em0470IdleState(context, (byte)AsCommon.Idle, "Em0470Idle");
@@ -83,7 +92,7 @@ namespace Mv
 
         private Vector2 ResolveShootDirection()
         {
-            return transform.localScale.x >= 0f ? Vector2.right : Vector2.left;
+            return fixedShootDirection;
         }
     }
 }

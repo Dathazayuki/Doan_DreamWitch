@@ -181,7 +181,7 @@ namespace Project.UI
             // Show confirm panel asking to abandon exploration and return to Church
             if (confirmPanel != null)
             {
-                confirmPanel.Show("Bạn có chắc chắn muốn từ bỏ khám phá?", 
+                confirmPanel.Show(" Abandon exploration and return to Church?", 
                     onConfirm: () => OnAbandonConfirmed(),
                     onCancel: () => OnAbandonCancelled());
             }

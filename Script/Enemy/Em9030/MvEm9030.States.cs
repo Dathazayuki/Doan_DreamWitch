@@ -437,6 +437,7 @@ namespace Mv
             private bool loopPlayed;
             private bool endPlayed;
             private bool counterWindowOpen;
+            private bool counterStarted;
 
             public AsEm9030_Counter(EnemyContext context) : base(context) { }
 
@@ -447,8 +448,17 @@ namespace Mv
                 loopPlayed = false;
                 endPlayed = false;
                 counterWindowOpen = false;
+                counterStarted = false;
                 if (Boss.Atk_Counter != null)
                     Boss.SetActiveAttack(Boss.Atk_Counter);
+                StopCounterMotion();
+                Boss.PlayAnimation("FakeDeath_Loop", true);
+            }
+
+            private void StartCounterAttack()
+            {
+                counterStarted = true;
+                timer = 0f;
                 Boss.PlayAnimation("Counter_Start", false);
                 Boss.BeginAttackSignIfNeeded();
                 Boss.TryStartAttackAndTrigger();
@@ -458,6 +468,14 @@ namespace Mv
             public override void Tick()
             {
                 timer += Time.deltaTime;
+                if (!counterStarted)
+                {
+                    StopCounterMotion();
+                    if (timer >= Boss.GetAnimationDuration("FakeDeath_Loop", 0.6f))
+                        StartCounterAttack();
+                    return;
+                }
+
                 if (!endPlayed)
                     ApplyCounterMotion();
 
@@ -747,6 +765,20 @@ namespace Mv
             protected override bool FireImmediatelyOnLoop => true;
             protected override int MaxShotCount => 1;
             public AsEm9030_MagicShotSideLaser(EnemyContext context) : base(context) { }
+
+            public override void Exit()
+            {
+                Boss.DeactivateAttachedLaser();
+            }
+
+            protected override void FireLoopShot()
+            {
+                if (shotCount >= MaxShotCount)
+                    return;
+
+                shotCount++;
+                Boss.ActivateAttachedLaser(ResolveDirection(), Damage);
+            }
         }
 
         public class AsEm9030_MagicShotSideEruption : AsEm9030_MagicShotSideBase
@@ -892,6 +924,7 @@ namespace Mv
             private float timer;
             private bool loopPlayed;
             private bool endPlayed;
+            private bool recoverySpawned;
             private float deadHideTimer;
             protected MvEm9030 Boss => Em as MvEm9030;
 
@@ -904,6 +937,7 @@ namespace Mv
                 deadHideTimer = 0f;
                 loopPlayed = false;
                 endPlayed = false;
+                recoverySpawned = false;
                 Boss.StartFallingFromAirborne();
                 Boss.PlayAnimation("KnockOut_Start", false);
             }
@@ -926,7 +960,7 @@ namespace Mv
                     deadHideTimer += Time.deltaTime;
                     Boss.StopHorizontalMotion();
                     if (deadHideTimer >= 2f)
-                        Boss.gameObject.SetActive(false);
+                        Boss.StartDeathBlinkAndHide();
                     return;
                 }
 
@@ -939,10 +973,26 @@ namespace Mv
                 else if (endPlayed && (Boss.IsAnimationFinished("KnockOut_End") || timer >= Boss.GetAnimationDuration("KnockOut_End", 0.8f)))
                 {
                     if (Boss.IsAirborneActive && !Boss.HasReachedLandingHeight())
+                    {
                         Boss.ChangeEnemyState((byte)As.Fall);
+                    }
                     else
-                        Boss.ReqNextComboAction();
+                    {
+                        if (SpawnEnemyOnRecovery())
+                            Boss.ChangeEnemyState((byte)As.EmSpawnEx);
+                        else
+                            Boss.ReqNextComboAction();
+                    }
                 }
+            }
+
+            private bool SpawnEnemyOnRecovery()
+            {
+                if (recoverySpawned)
+                    return false;
+
+                recoverySpawned = true;
+                return Boss.EmSpawnPrefab != null;
             }
         }
     }

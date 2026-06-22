@@ -57,6 +57,8 @@ namespace DreamKnight.UI
 		[SerializeField] private bool autoLoadSceneOnStart;
 		[SerializeField] private string gameplaySceneName;
 		[SerializeField] private int gameplaySceneIndex = -1;
+		[SerializeField] private string newGameCutsceneSceneName = "Demo_OP";
+		[SerializeField] private int newGameCutsceneSceneIndex = -1;
 		[SerializeField] private float minLoadingScreenSeconds = 0.5f;
 		[SerializeField] private UnityEvent onStartPressed;
 		[SerializeField] private UnityEvent onSettingPressed;
@@ -313,7 +315,7 @@ namespace DreamKnight.UI
 			if (isLoadingScene)
 				return;
 
-			StartCoroutine(LoadGameplaySceneRoutine());
+			StartCoroutine(LoadSceneRoutine(gameplaySceneName, gameplaySceneIndex, false));
 		}
 
 		public void LoadGameplaySceneFromSaveMenu()
@@ -321,7 +323,18 @@ namespace DreamKnight.UI
 			TryLoadGameplayScene();
 		}
 
-		private IEnumerator LoadGameplaySceneRoutine()
+		public void LoadNewGameSceneFromSaveMenu()
+		{
+			if (isLoadingScene)
+				return;
+
+			if (!string.IsNullOrWhiteSpace(newGameCutsceneSceneName) || newGameCutsceneSceneIndex >= 0)
+				StartCoroutine(LoadSceneRoutine(newGameCutsceneSceneName, newGameCutsceneSceneIndex, true));
+			else
+				TryLoadGameplayScene();
+		}
+
+		private IEnumerator LoadSceneRoutine(string sceneName, int sceneIndex, bool hideOverlayBeforeSceneActivation)
 		{
 			isLoadingScene = true;
 			SetCanvasGroupVisible(nowLoadingGroup, true);
@@ -335,10 +348,10 @@ namespace DreamKnight.UI
 			yield return null;
 
 			AsyncOperation loadOperation = null;
-			if (!string.IsNullOrWhiteSpace(gameplaySceneName))
-				loadOperation = SceneManager.LoadSceneAsync(gameplaySceneName);
-			else if (gameplaySceneIndex >= 0)
-				loadOperation = SceneManager.LoadSceneAsync(gameplaySceneIndex);
+			if (!string.IsNullOrWhiteSpace(sceneName))
+				loadOperation = SceneManager.LoadSceneAsync(sceneName);
+			else if (sceneIndex >= 0)
+				loadOperation = SceneManager.LoadSceneAsync(sceneIndex);
 
 			if (loadOperation == null)
 			{
@@ -360,12 +373,15 @@ namespace DreamKnight.UI
 				yield return null;
 			}
 
+			if (hideOverlayBeforeSceneActivation)
+				GlobalLoadingOverlay.Instance?.HideImmediate();
+
 			loadOperation.allowSceneActivation = true;
 
 			while (!loadOperation.isDone)
 				yield return null;
 
-			GlobalLoadingOverlay.Instance?.Hide();
+			GlobalLoadingOverlay.Instance?.HideImmediate();
 			isLoadingScene = false;
 		}
 

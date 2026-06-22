@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DreamKnight.Player;
-using DreamKnight.Systems.Currency;
 using DreamKnight.Systems.Inventory;
 using DreamKnight.Systems.SaveLoad;
 using UnityEngine;
@@ -22,7 +21,7 @@ namespace DreamKnight.Systems.Facility
         [Header("Data")]
         [SerializeField] private FacilityUpgradeDatabaseSO upgradeDatabase;
         [SerializeField] private FacilityProgressSO progress;
-        [SerializeField] private CurrencyWalletSO currencyWallet;
+        [SerializeField] private InventoryStateSO inventoryState;
 
         [Header("Apply Targets")]
         [SerializeField] private PlayerStats playerStats;
@@ -37,7 +36,7 @@ namespace DreamKnight.Systems.Facility
 
         public FacilityUpgradeDatabaseSO UpgradeDatabase => upgradeDatabase;
         public FacilityProgressSO Progress => progress;
-        public CurrencyWalletSO CurrencyWallet => currencyWallet;
+        public InventoryStateSO InventoryState => inventoryState;
         public ToolEquipSO ToolEquip => toolEquip;
         public FacilityAppliedStats CurrentStats => currentStats;
 
@@ -76,9 +75,25 @@ namespace DreamKnight.Systems.Facility
             return upgrade.GetNextUpgradePrice(GetLevel(upgrade));
         }
 
+        public ItemDefinitionSO GetRequiredItem(FacilityUpgradeSO upgrade)
+        {
+            return upgrade != null ? upgrade.GetRequiredItem(GetLevel(upgrade)) : null;
+        }
+
+        public int GetRequiredItemQuantity(FacilityUpgradeSO upgrade)
+        {
+            return upgrade != null ? upgrade.GetRequiredItemQuantity(GetLevel(upgrade)) : 0;
+        }
+
+        public int GetCurrentRequiredItemQuantity(FacilityUpgradeSO upgrade)
+        {
+            ItemDefinitionSO item = GetRequiredItem(upgrade);
+            return item != null && inventoryState != null ? inventoryState.GetQuantity(item) : 0;
+        }
+
         public bool CanUpgrade(FacilityUpgradeSO upgrade)
         {
-            if (upgrade == null || progress == null || currencyWallet == null)
+            if (upgrade == null || progress == null || inventoryState == null)
                 return false;
 
             int level = GetLevel(upgrade);
@@ -86,8 +101,11 @@ namespace DreamKnight.Systems.Facility
             if (maxLevel <= 0 || level >= maxLevel)
                 return false;
 
-            int price = GetNextPrice(upgrade);
-            return currencyWallet.Balance >= price;
+            ItemDefinitionSO requiredItem = GetRequiredItem(upgrade);
+            int requiredQuantity = GetRequiredItemQuantity(upgrade);
+            return requiredItem != null
+                && requiredQuantity > 0
+                && inventoryState.GetQuantity(requiredItem) >= requiredQuantity;
         }
 
         public bool TryUpgrade(FacilityUpgradeSO upgrade)
@@ -95,8 +113,9 @@ namespace DreamKnight.Systems.Facility
             if (!CanUpgrade(upgrade))
                 return false;
 
-            int price = GetNextPrice(upgrade);
-            if (price > 0 && !currencyWallet.Spend(price))
+            ItemDefinitionSO requiredItem = GetRequiredItem(upgrade);
+            int requiredQuantity = GetRequiredItemQuantity(upgrade);
+            if (requiredItem == null || requiredQuantity <= 0 || !inventoryState.RemoveItem(requiredItem, requiredQuantity))
                 return false;
 
             int nextLevel = Mathf.Clamp(GetLevel(upgrade) + 1, 0, GetMaxLevel(upgrade));

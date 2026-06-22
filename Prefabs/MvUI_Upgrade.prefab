@@ -156,7 +156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9204312684938312066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -439,8 +439,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1792,7 +1792,8 @@ MonoBehaviour:
   nameText: {fileID: 4220406549324672354}
   levelFillImage: {fileID: 8555339438276634050}
   levelText: {fileID: 389149671613518289}
-  priceText: {fileID: 2456956537848277601}
+  materialText: {fileID: 2456956537848277601}
+  materialIconImage: {fileID: 4300712557409738106}
   selectButton: {fileID: 7151162486531997708}
   selectedImage: {fileID: 2766525327846070016}
   upgradeButton: {fileID: 4982262916709698810}

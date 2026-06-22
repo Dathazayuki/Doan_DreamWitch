@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_2
   m_EditorClassIdentifier: 
   bookId: SpellBook_2
-  displayName: SpellBook_2
+  displayName: Lifeblood Grimoire
   icon: {fileID: 21300000, guid: 77fd8c3b82c13584a891f99602252d88, type: 2}
-  description: "t\u0103ng 25% hp t\u1ED1i \u0111a"
+  description: Increases Maximum HP by 25%.
   healthBonus: 0
   healthPercentBonus: 0.25
   manaBonus: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

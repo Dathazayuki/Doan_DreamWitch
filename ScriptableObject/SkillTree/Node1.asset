@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Node1
   m_EditorClassIdentifier: 
   nodeId: Node1
-  displayName: "Bi\u1EBFn h\xECnh qu\xE1i v\u1EADt"
-  description: "M\u1EDF kh\xF3a kh\u1EA3 n\u0103ng transform bi\u1EBFn \u0111\u1ED5i
-    th\xE0nh d\u1EA1ng qu\xE1i v\u1EADt \u0111\u1EB7c bi\u1EC7t khi ti\u1EBFp x\xFAc
-    v\u1EDBi x\xE1c qu\xE1i v\u1EADt \u0111\u1EB7c bi\u1EC7t"
+  displayName: Monster transformation
+  description: Unlock the ability to transform into a special monster form upon contact
+    with the corpse of a special monster.
   icon: {fileID: 21300000, guid: 4e2022b333d5e854096def69bf607930, type: 2}
   requiredItem: {fileID: 11400000, guid: fa043d12a69b44c468dc10f26ff64a17, type: 2}
   requiredItemQuantity: 1

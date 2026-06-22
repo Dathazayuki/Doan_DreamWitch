@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using DreamKnight.Systems.Currency;
+using DreamKnight.Systems.Inventory;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace DreamKnight.Systems.Facility
@@ -10,19 +11,23 @@ namespace DreamKnight.Systems.Facility
     {
         [Header("Data")]
         [SerializeField] private FacilityManager facilityManager;
-        [SerializeField] private CurrencyWalletSO currencyWallet;
+        [SerializeField] private InventoryStateSO inventoryState;
 
         [Header("View")]
         [SerializeField] private Transform contentRoot;
         [SerializeField] private FacilityUpgradeView upgradeViewPrefab;
-        [SerializeField] private TextMeshProUGUI goldText;
+        [FormerlySerializedAs("goldText")]
+        [SerializeField] private TextMeshProUGUI materialText;
+        [SerializeField] private Image materialIconImage;
         [SerializeField] private GameObject emptyStateObject;
 
         [Header("Detail Panel")]
         [SerializeField] private Image selectedIconImage;
+        [SerializeField] private Image selectedCostIconImage;
         [SerializeField] private TextMeshProUGUI selectedNameText;
         [SerializeField] private TextMeshProUGUI selectedLevelText;
-        [SerializeField] private TextMeshProUGUI selectedPriceText;
+        [FormerlySerializedAs("selectedPriceText")]
+        [SerializeField] private TextMeshProUGUI selectedMaterialText;
         [SerializeField] private TextMeshProUGUI selectedCurrentBonusText;
         [SerializeField] private TextMeshProUGUI selectedNextBonusText;
         [SerializeField] private TextMeshProUGUI selectedDescriptionText;
@@ -49,9 +54,9 @@ namespace DreamKnight.Systems.Facility
             if (facilityManager != null)
                 facilityManager.OnUpgradeChanged += HandleUpgradeChanged;
 
-            CurrencyWalletSO wallet = GetWallet();
-            if (wallet != null)
-                wallet.OnBalanceChanged += HandleGoldChanged;
+            InventoryStateSO inventory = GetInventory();
+            if (inventory != null)
+                inventory.OnInventoryChanged += HandleInventoryChanged;
         }
 
         private void Unsubscribe()
@@ -59,9 +64,9 @@ namespace DreamKnight.Systems.Facility
             if (facilityManager != null)
                 facilityManager.OnUpgradeChanged -= HandleUpgradeChanged;
 
-            CurrencyWalletSO wallet = GetWallet();
-            if (wallet != null)
-                wallet.OnBalanceChanged -= HandleGoldChanged;
+            InventoryStateSO inventory = GetInventory();
+            if (inventory != null)
+                inventory.OnInventoryChanged -= HandleInventoryChanged;
         }
 
         private void HandleUpgradeChanged(FacilityUpgradeSO upgrade, int level)
@@ -69,7 +74,7 @@ namespace DreamKnight.Systems.Facility
             Refresh();
         }
 
-        private void HandleGoldChanged(int balance)
+        private void HandleInventoryChanged()
         {
             Refresh();
         }
@@ -77,7 +82,6 @@ namespace DreamKnight.Systems.Facility
         public void Refresh()
         {
             ClearViews();
-            RefreshGold();
 
             FacilityUpgradeDatabaseSO database = facilityManager != null ? facilityManager.UpgradeDatabase : null;
             IReadOnlyList<FacilityUpgradeSO> upgrades = database != null ? database.Upgrades : null;
@@ -89,6 +93,7 @@ namespace DreamKnight.Systems.Facility
                     emptyStateObject.SetActive(true);
 
                 RefreshDetailPanel();
+                RefreshMaterialSummary();
                 return;
             }
 
@@ -118,17 +123,30 @@ namespace DreamKnight.Systems.Facility
 
                 int level = facilityManager != null ? facilityManager.GetLevel(upgrade) : 0;
                 int maxLevel = facilityManager != null ? facilityManager.GetMaxLevel(upgrade) : upgrade.MaxLevel;
-                int price = facilityManager != null ? facilityManager.GetNextPrice(upgrade) : upgrade.GetNextUpgradePrice(level);
+                ItemDefinitionSO requiredItem = facilityManager != null ? facilityManager.GetRequiredItem(upgrade) : upgrade.GetRequiredItem(level);
+                int requiredQuantity = facilityManager != null ? facilityManager.GetRequiredItemQuantity(upgrade) : upgrade.GetRequiredItemQuantity(level);
+                int currentQuantity = facilityManager != null ? facilityManager.GetCurrentRequiredItemQuantity(upgrade) : GetItemQuantity(requiredItem);
                 bool canUpgrade = facilityManager != null && facilityManager.CanUpgrade(upgrade);
                 FacilityUpgradeSO upgradeForClick = upgrade;
 
-                view.Bind(upgrade, level, maxLevel, price, upgrade == selectedUpgrade, () => SelectUpgrade(upgradeForClick), canUpgrade, () => TryUpgrade(upgradeForClick));
+                view.Bind(
+                    upgrade,
+                    level,
+                    maxLevel,
+                    requiredItem != null ? requiredItem.Icon : null,
+                    requiredQuantity,
+                    currentQuantity,
+                    upgrade == selectedUpgrade,
+                    () => SelectUpgrade(upgradeForClick),
+                    canUpgrade,
+                    () => TryUpgrade(upgradeForClick));
             }
 
             if (emptyStateObject != null)
                 emptyStateObject.SetActive(!hasVisibleUpgrade);
 
             RefreshDetailPanel();
+            RefreshMaterialSummary();
         }
 
         private FacilityUpgradeSO FindFirstUpgrade(IReadOnlyList<FacilityUpgradeSO> upgrades)
@@ -159,21 +177,34 @@ namespace DreamKnight.Systems.Facility
             facilityManager.TryUpgrade(upgrade);
         }
 
-        private void RefreshGold()
+        private void RefreshMaterialSummary()
         {
-            if (goldText != null)
+            ItemDefinitionSO item = selectedUpgrade != null && facilityManager != null ? facilityManager.GetRequiredItem(selectedUpgrade) : null;
+            int requiredQuantity = selectedUpgrade != null && facilityManager != null ? facilityManager.GetRequiredItemQuantity(selectedUpgrade) : 0;
+            int currentQuantity = selectedUpgrade != null && facilityManager != null ? facilityManager.GetCurrentRequiredItemQuantity(selectedUpgrade) : 0;
+
+            if (materialText != null)
+                materialText.text = item != null && requiredQuantity > 0 ? $"{requiredQuantity}/{currentQuantity}" : string.Empty;
+
+            if (materialIconImage != null)
             {
-                CurrencyWalletSO wallet = GetWallet();
-                goldText.text = wallet != null ? wallet.Balance.ToString() : "0";
+                materialIconImage.sprite = item != null ? item.Icon : null;
+                materialIconImage.enabled = item != null && item.Icon != null;
             }
         }
 
-        private CurrencyWalletSO GetWallet()
+        private InventoryStateSO GetInventory()
         {
-            if (currencyWallet != null)
-                return currencyWallet;
+            if (inventoryState != null)
+                return inventoryState;
 
-            return facilityManager != null ? facilityManager.CurrencyWallet : null;
+            return facilityManager != null ? facilityManager.InventoryState : null;
+        }
+
+        private int GetItemQuantity(ItemDefinitionSO item)
+        {
+            InventoryStateSO inventory = GetInventory();
+            return item != null && inventory != null ? inventory.GetQuantity(item) : 0;
         }
 
         private void RefreshDetailPanel()
@@ -189,15 +220,23 @@ namespace DreamKnight.Systems.Facility
 
             int level = selectedUpgrade != null && facilityManager != null ? facilityManager.GetLevel(selectedUpgrade) : 0;
             int maxLevel = selectedUpgrade != null && facilityManager != null ? facilityManager.GetMaxLevel(selectedUpgrade) : 0;
-            int price = selectedUpgrade != null && facilityManager != null ? facilityManager.GetNextPrice(selectedUpgrade) : 0;
+            ItemDefinitionSO requiredItem = selectedUpgrade != null && facilityManager != null ? facilityManager.GetRequiredItem(selectedUpgrade) : null;
+            int requiredQuantity = selectedUpgrade != null && facilityManager != null ? facilityManager.GetRequiredItemQuantity(selectedUpgrade) : 0;
+            int currentQuantity = selectedUpgrade != null && facilityManager != null ? facilityManager.GetCurrentRequiredItemQuantity(selectedUpgrade) : 0;
             bool canUpgrade = selectedUpgrade != null && facilityManager != null && facilityManager.CanUpgrade(selectedUpgrade);
             bool isMaxLevel = selectedUpgrade != null && maxLevel > 0 && level >= maxLevel;
 
             if (selectedLevelText != null)
                 selectedLevelText.text = selectedUpgrade != null ? $"Lv {level}/{maxLevel}" : string.Empty;
 
-            if (selectedPriceText != null)
-                selectedPriceText.text = selectedUpgrade != null && !isMaxLevel ? price.ToString() : string.Empty;
+            if (selectedMaterialText != null)
+                selectedMaterialText.text = selectedUpgrade != null && !isMaxLevel && requiredQuantity > 0 ? $"{requiredQuantity}/{currentQuantity}" : string.Empty;
+
+            if (selectedCostIconImage != null)
+            {
+                selectedCostIconImage.sprite = requiredItem != null ? requiredItem.Icon : null;
+                selectedCostIconImage.enabled = selectedUpgrade != null && !isMaxLevel && requiredItem != null && requiredItem.Icon != null;
+            }
 
             if (selectedCurrentBonusText != null)
                 selectedCurrentBonusText.text = selectedUpgrade != null ? FormatBonus(selectedUpgrade.StatType, selectedUpgrade.GetBonusValue(level)) : string.Empty;

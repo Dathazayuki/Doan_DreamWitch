@@ -17,5 +17,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: c9986507fe23b504fadc5dd00f05b3cc, type: 2}
   price: 0
   stackable: 1
-  description: "V\u1EADt ph\u1EA9m \u0111\u1EC3 m\u1EDF kh\xF3a Skill Tree"
+  description: 'Used to unlock Skill Tree nodes.
+
+'
   category: 0

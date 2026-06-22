@@ -1,3 +1,4 @@
+using System.Collections;
 using Pathfinding;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace Mv
         [SerializeField] private float damageRetreatDistance = 1.2f;
         [SerializeField] private float damageRetreatDuration = 0.18f;
         [SerializeField] private float damageRetreatSpeed = 5.2f;
+        [SerializeField] private float aiPathResumeDelay = 1.2f;
 
         // --- Internal state ---
         private Rigidbody2D cachedRb;
@@ -34,6 +36,9 @@ namespace Mv
         private bool isDamageRetreatActive;
         private float damageRetreatTimer;
         private Vector2 damageRetreatDestination;
+        private bool isAStarPausedByHit;
+        private float aStarResumeTimer;
+        private Coroutine hitRecoveryRoutine;
 
         // ----------------------------------------------------------------
         // State factory
@@ -43,6 +48,9 @@ namespace Mv
 
         protected override EnemyState CreateRunState(EnemyContext context)
             => new Em0120RunState(context);
+
+        protected override EnemyState CreateHitState(EnemyContext context)
+            => new Em0120HitState(context);
 
         // ----------------------------------------------------------------
         // Lifecycle
@@ -66,7 +74,7 @@ namespace Mv
             }
 
             // Lấy IAstarAI trực tiếp — sẽ tìm AIPath, AILerp, RichAI
-            aStarAI = GetComponent<IAstarAI>();
+            RefreshAStarReferences();
 
             if (aStarAI == null)
                 Debug.LogError($"[MvEm0120] Không tìm thấy IAstarAI (AIPath) trên {gameObject.name}. " +
@@ -86,30 +94,41 @@ namespace Mv
 
         private void OnDisable()
         {
-            if (aStarAI != null)
-                aStarAI.canMove = false;
+            StopAStarMovement();
 
             isDamageRetreatActive = false;
             damageRetreatTimer = 0f;
+            isAStarPausedByHit = false;
+            aStarResumeTimer = 0f;
+            hitRecoveryRoutine = null;
         }
 
         public override void TakeDamage(float damage, GameObject damageSource = null)
         {
+            TakeDamage(damage, damageSource, null);
+        }
+
+        public override void TakeDamage(float damage, GameObject damageSource = null, Vector3? damageTextWorldPosition = null)
+        {
             if (!IsAlive)
                 return;
 
-            base.TakeDamage(damage, damageSource);
+            base.TakeDamage(damage, damageSource, damageTextWorldPosition);
 
             if (!IsAlive)
                 return;
 
             StartDamageRetreat(damageSource);
+            ForceHitReaction();
         }
+
+        internal bool IsDamageRetreatActive => isDamageRetreatActive;
+        internal bool IsAStarPausedByHit => isAStarPausedByHit;
 
         // ----------------------------------------------------------------
         // Public API gọi từ Em0120RunState
         // ----------------------------------------------------------------
-        public void TickFlyMotion()
+        public void TickFlyMotion(bool updateAnimation = true)
         {
             if (!IsAlive)
                 return;
@@ -117,7 +136,8 @@ namespace Mv
             if (aStarAI == null)
             {
                 // Thử lấy lại lần cuối (phòng trường hợp Awake bị gọi sai thứ tự)
-                aStarAI = GetComponent<IAstarAI>();
+                RefreshAStarReferences();
+
                 if (aStarAI == null)
                 {
                     SetRunAnimation(false, true);
@@ -125,15 +145,20 @@ namespace Mv
                 }
             }
 
-            // Đảm bảo agent được bật
-            if (aStarAI is MonoBehaviour mb && !mb.enabled)
-                mb.enabled = true;
-
             if (isDamageRetreatActive)
             {
-                TickDamageRetreat();
+                StopAStarMovement();
                 return;
             }
+
+            if (isAStarPausedByHit)
+            {
+                StopAStarMovement();
+                return;
+            }
+
+            // Đảm bảo agent được phép di chuyển/tìm path khi không còn hit pause.
+            EnsureAStarMovementEnabled();
 
             Vector2 targetDestination;
             float   speed;
@@ -170,7 +195,8 @@ namespace Mv
 
             MoveAStar(targetDestination, speed);
             UpdateFacingFromAStarVelocity();
-            SetRunAnimation(speed > 0.01f, false);
+            if (updateAnimation)
+                SetRunAnimation(speed > 0.01f, false);
         }
 
         // ----------------------------------------------------------------
@@ -265,46 +291,106 @@ namespace Mv
             damageRetreatDestination = from + awayDirection * retreatDistance;
             damageRetreatTimer = Mathf.Max(0.02f, damageRetreatDuration);
             isDamageRetreatActive = true;
+            isAStarPausedByHit = true;
+            aStarResumeTimer = Mathf.Max(0f, aiPathResumeDelay);
 
-            // Áp retreat ngay khi vừa trúng hit để không có 1 nhịp lao tiếp vào Player
-            ApplyDamageRetreatImmediate();
+            if (hitRecoveryRoutine != null)
+                StopCoroutine(hitRecoveryRoutine);
+
+            hitRecoveryRoutine = StartCoroutine(DamageHitRecoveryRoutine());
         }
 
-        private void ApplyDamageRetreatImmediate()
+        private IEnumerator DamageHitRecoveryRoutine()
         {
-            if (aStarAI == null)
-                return;
+            StopAStarMovement();
 
             if (cachedRb != null)
                 cachedRb.linearVelocity = Vector2.zero;
 
-            aStarAI.destination = damageRetreatDestination;
-            aStarAI.maxSpeed = Mathf.Max(0.05f, damageRetreatSpeed);
-            aStarAI.canMove = true;
-            aStarAI.SearchPath();
-        }
-
-        private void TickDamageRetreat()
-        {
-            if (aStarAI == null)
+            if (cachedRb == null)
             {
                 isDamageRetreatActive = false;
-                return;
+                isAStarPausedByHit = false;
+                hitRecoveryRoutine = null;
+                yield break;
             }
-
-            damageRetreatTimer -= Time.deltaTime;
 
             float retreatSpeed = Mathf.Max(0.05f, damageRetreatSpeed);
-            MoveAStar(damageRetreatDestination, retreatSpeed);
-            UpdateFacingFromAStarVelocity();
-            SetRunAnimation(true, false);
-
-            bool reached = Vector2.Distance(transform.position, damageRetreatDestination) <= Mathf.Max(0.05f, destinationStopDistance);
-            if (damageRetreatTimer <= 0f || reached)
+            float retreatTimer = Mathf.Max(0.02f, damageRetreatDuration);
+            float stopDistance = Mathf.Max(0.05f, destinationStopDistance);
+            while (retreatTimer > 0f && IsAlive)
             {
-                isDamageRetreatActive = false;
-                damageRetreatTimer = 0f;
+                StopAStarMovement();
+                retreatTimer -= Time.deltaTime;
+
+                Vector2 current = cachedRb.position;
+                Vector2 next = Vector2.MoveTowards(current, damageRetreatDestination, retreatSpeed * Time.deltaTime);
+                cachedRb.position = next;
+
+                Vector2 retreatVelocity = next - current;
+                if (Mathf.Abs(retreatVelocity.x) > 0.0001f)
+                    FaceByDeltaX(retreatVelocity.x);
+
+                if (Vector2.Distance(next, damageRetreatDestination) <= stopDistance)
+                    break;
+
+                yield return null;
             }
+
+            isDamageRetreatActive = false;
+            damageRetreatTimer = 0f;
+
+            aStarResumeTimer = Mathf.Max(0f, aiPathResumeDelay);
+            while (aStarResumeTimer > 0f && IsAlive)
+            {
+                StopAStarMovement();
+                aStarResumeTimer -= Time.deltaTime;
+                yield return null;
+            }
+
+            aStarResumeTimer = 0f;
+            isAStarPausedByHit = false;
+            ResumeAStarMovement();
+            hitRecoveryRoutine = null;
+        }
+
+        private void StopAStarMovement()
+        {
+            RefreshAStarReferences();
+
+            if (aStarAI != null)
+            {
+                aStarAI.canMove = false;
+                aStarAI.canSearch = false;
+            }
+        }
+
+        private void EnsureAStarMovementEnabled()
+        {
+            RefreshAStarReferences();
+
+            if (aStarAI != null)
+                aStarAI.canSearch = true;
+        }
+
+        private void ResumeAStarMovement()
+        {
+            RefreshAStarReferences();
+
+            if (aStarAI != null)
+            {
+                aStarAI.canSearch = true;
+                aStarAI.canMove = true;
+                aStarAI.SearchPath();
+            }
+        }
+
+        private void RefreshAStarReferences()
+        {
+            if (aStarAI == null)
+                aStarAI = GetComponent<IAstarAI>();
+            if (aStarAI == null)
+                aStarAI = GetComponentInChildren<IAstarAI>(true);
         }
 
         private void RespawnAtOrigin()

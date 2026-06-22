@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpellSoulShootData
   m_EditorClassIdentifier: 
   spellId: SpellId_2
-  spellName: Shoot Soul Spell
+  spellName: Shoot Soul Mana Spell
   icon: {fileID: 21300000, guid: 4b2c38db596325343aae87201b661197, type: 2}
   prefab: {fileID: 1709254077376921, guid: 83c1723aec7b2354aa9e5bb4ed53ba0c, type: 3}
   castType: 1
@@ -25,26 +25,36 @@ MonoBehaviour:
   bigSwordLifetime: 1
   bigSwordSpawnOffset: {x: 0.8, y: 0.2}
   bigSwordMaxPoolSize: 8
+  shieldVisualPrefab: {fileID: 0}
   unlockPrice: 2
-  description: "B\u1EAFn mana v\u1EC1 ph\xEDa tr\u01B0\u1EDBc , g\xE2y damage nh\u1ECF"
+  description: 'Fires mana forward, dealing minor damage.
+
+
+    You need to be in
+    the Storage Area to equip it.'
   levels:
   - upgradePrice: 5
     damage: 15
     cooldown: 1
     manaCost: 20
+    shieldBlockCount: 0
   - upgradePrice: 10
+    damage: 20
+    cooldown: 1
+    manaCost: 20
+    shieldBlockCount: 0
+  - upgradePrice: 15
     damage: 25
     cooldown: 1
     manaCost: 20
-  - upgradePrice: 12
+    shieldBlockCount: 0
+  - upgradePrice: 20
     damage: 30
     cooldown: 1
     manaCost: 20
-  - upgradePrice: 15
+    shieldBlockCount: 0
+  - upgradePrice: 25
     damage: 35
     cooldown: 1
     manaCost: 20
-  - upgradePrice: 17
-    damage: 40
-    cooldown: 1
-    manaCost: 20
+    shieldBlockCount: 0

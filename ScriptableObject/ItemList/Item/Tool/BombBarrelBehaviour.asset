@@ -18,7 +18,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
-  explosionDamage: 30
+  explosionDamage: 50
   explosionDuration: 1
   explosionOverlapBufferSize: 32
   maxPoolSize: 8

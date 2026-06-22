@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_4
   m_EditorClassIdentifier: 
   bookId: SpellBook_4
-  displayName: SpellBook_4
+  displayName: Striker Grimoire
   icon: {fileID: 21300000, guid: ade24c093588d8845939b9e34773f866, type: 2}
-  description: "t\u0103ng 25% s\xE1t th\u01B0\u01A1ng \u0111\xF2n \u0111\xE1nh "
+  description: Increases Normal Attack damage by 25%.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

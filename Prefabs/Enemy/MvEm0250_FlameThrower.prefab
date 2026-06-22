@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3223985333781374454}
   - component: {fileID: 8861244158481718443}
   - component: {fileID: 4403420595468906995}
+  - component: {fileID: 1848763919739357017}
+  - component: {fileID: 5933628026894152148}
   m_Layer: 9
   m_Name: MvEm0250_FlameThrower
   m_TagString: Untagged
@@ -158,6 +160,8 @@ MonoBehaviour:
   attackVerticalTolerance: 1.2
   hitStunDuration: 0.2
   knockbackForceX: 2.5
+  moveSpeedJitterPercent: 0.08
+  randomizeInitialSearchTime: 1
   defaultCombatMode: 0
   searchInterval: 0.2
   searchRadius: 10
@@ -207,6 +211,39 @@ MonoBehaviour:
   disableGasVfxOnAwake: 1
   fallbackGasRadiusX: 1.6
   fallbackGasRadiusY: 0.3
+--- !u!114 &1848763919739357017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548073338470387904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa6da54f2715f54e874338d805810ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 4403420595468906995}
+  moneyPrefab: {fileID: 1305593682254664748, guid: c3f56ece19f49504089beead37f56872, type: 3}
+  minMoney: 1
+  maxMoney: 5
+  spawnOffset: {x: 0, y: 0.5, z: 0}
+--- !u!114 &5933628026894152148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548073338470387904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ddf8ee621db3145ac82876c2a3a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 0
+  overrideEnableDistance: 0
+  overrideDisableDistance: 0
+  componentsToCull: []
 --- !u!1 &3309802625966382286
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,8 +352,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -92688567
-  m_SortingLayer: 0
+  m_SortingLayerID: 913118913
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cd7eb7da53b4e234db355207c4a3e529, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -578,6 +615,8 @@ MonoBehaviour:
   closeAttackWindowImmediatelyOnEnd: 1
   attackTrigger: {fileID: 5700093996350418491}
   forceIsTrigger: 1
+  initialAttackDelayJitter: {x: 0, y: 0.25}
+  attackCooldownJitter: {x: 0, y: 0.2}
 --- !u!1 &7366721382840118772
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,15 +1024,71 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 199025901758691103, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199025901758691103, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 913118913
+      objectReference: {fileID: 0}
+    - target: {fileID: 199161607090078389, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199161607090078389, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 913118913
+      objectReference: {fileID: 0}
+    - target: {fileID: 199313026266067498, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199313026266067498, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 913118913
+      objectReference: {fileID: 0}
+    - target: {fileID: 199634108722742392, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199634108722742392, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 913118913
+      objectReference: {fileID: 0}
+    - target: {fileID: 199642988549198181, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199642988549198181, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 913118913
+      objectReference: {fileID: 0}
     - target: {fileID: 199709867586078768, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199709867586078768, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 199709867586078768, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 913118913
+      objectReference: {fileID: 0}
+    - target: {fileID: 199918264173551851, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199918264173551851, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 913118913
+      objectReference: {fileID: 0}
+    - target: {fileID: 199977153420339851, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199977153420339851, guid: cc7c2c8ed34b9c5439e35832f4b888d9, type: 3}
       propertyPath: m_SortingLayerID
       value: 913118913
       objectReference: {fileID: 0}

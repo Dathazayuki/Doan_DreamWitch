@@ -24,6 +24,7 @@ namespace DreamKnight.Player.States
             if (input.JumpPressed || input.HasJumpBuffered())
             {
                 movement.Jump();
+                controller.AudioEvents?.PlayJump();
                 input.ConsumeJumpInput();
             }
 
@@ -125,6 +126,7 @@ namespace DreamKnight.Player.States
             if (input.JumpPressed || input.HasJumpBuffered())
             {
                 movement.Jump();
+                controller.AudioEvents?.PlayJump();
                 input.ConsumeJumpInput();
                 currentFallPhase = FallPhase.None;
                 fallPhaseTimer = 0f;

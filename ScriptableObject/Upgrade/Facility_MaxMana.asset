@@ -13,20 +13,32 @@ MonoBehaviour:
   m_Name: Facility_MaxMana
   m_EditorClassIdentifier: 
   upgradeId: Max_Mana
-  displayName: Max Mana
-  description: "t\u0103ng mana t\u1ED1i \u0111a"
+  displayName: Upgrade Max Mana
+  description: increase maximum mana
   icon: {fileID: 21300000, guid: 597d7967a95f79d4cb71fc68bfe95c58, type: 2}
   statType: 1
   levels:
-  - price: 2
+  - requiredItem: {fileID: 11400000, guid: 8f868ea047f154a4d870d1ebd984a769, type: 2}
+    requiredItemQuantity: 3
+    price: 2
     bonusValue: 20
-  - price: 5
+  - requiredItem: {fileID: 11400000, guid: 8f868ea047f154a4d870d1ebd984a769, type: 2}
+    requiredItemQuantity: 5
+    price: 5
     bonusValue: 40
-  - price: 10
+  - requiredItem: {fileID: 11400000, guid: 8f868ea047f154a4d870d1ebd984a769, type: 2}
+    requiredItemQuantity: 8
+    price: 10
     bonusValue: 60
-  - price: 15
+  - requiredItem: {fileID: 11400000, guid: 8f868ea047f154a4d870d1ebd984a769, type: 2}
+    requiredItemQuantity: 10
+    price: 15
     bonusValue: 80
-  - price: 25
+  - requiredItem: {fileID: 11400000, guid: 8f868ea047f154a4d870d1ebd984a769, type: 2}
+    requiredItemQuantity: 12
+    price: 25
     bonusValue: 100
-  - price: 35
+  - requiredItem: {fileID: 11400000, guid: 8f868ea047f154a4d870d1ebd984a769, type: 2}
+    requiredItemQuantity: 15
+    price: 35
     bonusValue: 120

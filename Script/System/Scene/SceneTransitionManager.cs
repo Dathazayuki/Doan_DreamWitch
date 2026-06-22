@@ -159,7 +159,7 @@ namespace DreamKnight.Systems.Scene
             PlayerController player = ResolvePlayer();
             RebindCameraFollow(player);
             CleanupDuplicateMainCameras();
-            CleanupDuplicateCinemachineCameras();
+            CleanupDuplicateCinemachineCameras(scene);
 
             // Safety hide only when not in active transition.
             if (!isTransitioning)
@@ -373,7 +373,7 @@ namespace DreamKnight.Systems.Scene
             }
         }
 
-        private void CleanupDuplicateCinemachineCameras()
+        private void CleanupDuplicateCinemachineCameras(UnityEngine.SceneManagement.Scene loadedScene)
         {
             if (!persistCinemachineCamera)
                 return;
@@ -392,6 +392,8 @@ namespace DreamKnight.Systems.Scene
                     DontDestroyOnLoad(keep.gameObject);
             }
 
+            CopySceneCameraSettingsToPersistentCamera(keep, cameras, loadedScene);
+
             for (int i = 0; i < cameras.Length; i++)
             {
                 CinemachineCamera cam = cameras[i];
@@ -399,6 +401,27 @@ namespace DreamKnight.Systems.Scene
                     continue;
 
                 Destroy(cam.gameObject);
+            }
+        }
+
+        private void CopySceneCameraSettingsToPersistentCamera(CinemachineCamera keep, CinemachineCamera[] cameras, UnityEngine.SceneManagement.Scene loadedScene)
+        {
+            if (keep == null || cameras == null)
+                return;
+
+            for (int i = 0; i < cameras.Length; i++)
+            {
+                CinemachineCamera sceneCamera = cameras[i];
+                if (sceneCamera == null || sceneCamera == keep)
+                    continue;
+
+                if (sceneCamera.gameObject.scene != loadedScene)
+                    continue;
+
+                keep.Lens = sceneCamera.Lens;
+                keep.Priority = sceneCamera.Priority;
+                keep.transform.SetPositionAndRotation(sceneCamera.transform.position, sceneCamera.transform.rotation);
+                return;
             }
         }
 

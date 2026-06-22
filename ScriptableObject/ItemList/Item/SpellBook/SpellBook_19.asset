@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_19
   m_EditorClassIdentifier: 
   bookId: SpellBook_19
-  displayName: SpellBook_19
+  displayName: Rejuvenate Grimoire
   icon: {fileID: 21300000, guid: 7e1a0d49909970b47b8835a9c7f06756, type: 2}
-  description: "gia t\u1ED1c qu\xE1 tr\xECnh t\xE1i t\u1EA1o n\u0103ng l\u01B0\u1EE3ng
-    gi\xFAp h\u1ED3i ph\u1EE5c th\xEAm 3.5 sinh l\u1EF1c (HP) m\u1ED7i gi\xE2y v\xE0
-    4 Mana (MP)"
+  description: Regenerates 3.5 HP and 4 MP per second for 5 seconds.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -28,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 3.5
+  healthRegenDuration: 5
   manaRegenBonus: 4
   moveSpeedPercentBonus: 0
   defenseBonus: 0

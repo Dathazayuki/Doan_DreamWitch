@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DreamKnight.Interfaces;
 using DreamKnight.Player.States;
 using DreamKnight.Systems.Combat;
+using DreamKnight.Systems.Interaction;
 using DreamKnight.Systems.SkillTree;
 using Mv;
 using UnityEngine;
@@ -150,7 +151,6 @@ namespace DreamKnight.Player
                 {
                     baseDamage *= (1.5f + critDamageBonus);
                     lastCalculatedDamageWasCritical = true;
-                    Debug.Log("[PlayerCombat] Critical Hit! Damage: " + baseDamage);
                 }
             }
 
@@ -253,6 +253,20 @@ namespace DreamKnight.Player
             }
         }
 
+        private bool CanAttackTarget(Collider2D hitCollider, MvEnemyBase enemyBase)
+        {
+            if (!attackEnemyOnly)
+                return true;
+
+            if (enemyBase != null)
+                return true;
+
+            if (hitCollider.GetComponentInParent<MvDamage>() != null)
+                return true;
+
+            return hitCollider.GetComponentInParent<DestructibleBlock>() != null;
+        }
+
         private bool ApplyDamageFromHits(Collider2D[] hitColliders, HashSet<IDamageable> uniqueTargets, float damage)
         {
             bool hitAny = false;
@@ -279,11 +293,10 @@ namespace DreamKnight.Player
 
                 // Nếu bật attackEnemyOnly: bỏ qua các object không phải Enemy
                 // (doors, shrines, traps, interact prompts...)
-                if (attackEnemyOnly && enemyBase == null)
+                if (!CanAttackTarget(hitCol, enemyBase))
                 {
                     // Cho phép các IDamageable không phải PlayerController nhưng có MvDamage
-                    MvDamage mvDamage = hitCol.GetComponentInParent<MvDamage>();
-                    if (mvDamage == null) continue;
+                    continue;
                 }
                 IDamageable uniqueKey = enemyBase != null ? enemyBase : damageable;
 

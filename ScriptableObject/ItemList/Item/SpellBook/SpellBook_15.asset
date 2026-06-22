@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: SpellBook_15
   m_EditorClassIdentifier: 
   bookId: SpellBook_15
-  displayName: SpellBook_15
+  displayName: Overload Grimoire
   icon: {fileID: 21300000, guid: 709f50dce054903408d559032fbc4ae2, type: 2}
-  description: "s\u1EE9c m\u1EA1nh h\u1EE7y di\u1EC7t l\xE0m gia t\u0103ng v\u01B0\u1EE3t
-    tr\u1ED9i 55% s\xE1t th\u01B0\u01A1ng c\u1EE7a to\xE0n b\u1ED9 k\u1EF9 n\u0103ng
-    ph\xE9p. Tuy nhi\xEAn, s\u1EBD ng\u0103n c\u1EA3n kh\u1EA3 n\u0103ng h\u1ED3i
-    ph\u1EE5c, l\xE0m gi\u1EA3m \u0111i 2 Mana h\u1ED3i t\u1EF1 \u0111\u1ED9ng m\u1ED7i
-    gi\xE2y"
+  description: Increases Spell damage by 55% but reduces automatic MP regeneration
+    by 2 per second.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -30,6 +27,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1.55
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: -2
   moveSpeedPercentBonus: 0
   defenseBonus: 0

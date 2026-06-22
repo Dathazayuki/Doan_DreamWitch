@@ -345,7 +345,7 @@ MonoBehaviour:
   useVerticalAttackCheck: 0
   attackVerticalTolerance: 1.2
   hitStunDuration: 0.2
-  knockbackForceX: 2.5
+  knockbackForceX: 5
   defaultCombatMode: 0
   searchInterval: 0.2
   searchRadius: 8
@@ -398,9 +398,10 @@ MonoBehaviour:
   flyPatrolRadius: 3.5
   patrolRetargetMinTime: 0.8
   patrolRetargetMaxTime: 1.6
-  damageRetreatDistance: 1.8
-  damageRetreatDuration: 0.5
+  damageRetreatDistance: 1.5
+  damageRetreatDuration: 0.6
   damageRetreatSpeed: 5.2
+  aiPathResumeDelay: 0.8
 --- !u!114 &6605441164767460736
 MonoBehaviour:
   m_ObjectHideFlags: 0

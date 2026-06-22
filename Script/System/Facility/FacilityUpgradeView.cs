@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace DreamKnight.Systems.Facility
@@ -11,7 +12,10 @@ namespace DreamKnight.Systems.Facility
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private Image levelFillImage;
         [SerializeField] private TextMeshProUGUI levelText;
-        [SerializeField] private TextMeshProUGUI priceText;
+        [FormerlySerializedAs("priceText")]
+        [SerializeField] private TextMeshProUGUI materialText;
+        [FormerlySerializedAs("priceIconImage")]
+        [SerializeField] private Image materialIconImage;
         [SerializeField] private Button selectButton;
         [SerializeField] private GameObject selectedImage;
         [SerializeField] private Button upgradeButton;
@@ -21,7 +25,9 @@ namespace DreamKnight.Systems.Facility
             FacilityUpgradeSO upgrade,
             int level,
             int maxLevel,
-            int price,
+            Sprite requiredItemIcon,
+            int requiredQuantity,
+            int currentQuantity,
             bool isSelected,
             Action onSelected,
             bool canUpgrade,
@@ -41,8 +47,14 @@ namespace DreamKnight.Systems.Facility
             if (levelText != null)
                 levelText.text = maxLevel > 0 ? $"Lv {level}/{maxLevel}" : $"Lv {level}";
 
-            if (priceText != null)
-                priceText.text = !isMaxLevel && price > 0 ? price.ToString() : string.Empty;
+            if (materialText != null)
+                materialText.text = !isMaxLevel && requiredQuantity > 0 ? $"{requiredQuantity}/{currentQuantity}" : string.Empty;
+
+            if (materialIconImage != null)
+            {
+                materialIconImage.sprite = requiredItemIcon;
+                materialIconImage.enabled = !isMaxLevel && requiredItemIcon != null;
+            }
 
             if (selectedImage != null)
                 selectedImage.SetActive(isSelected);

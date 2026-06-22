@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_20
   m_EditorClassIdentifier: 
   bookId: SpellBook_20
-  displayName: SpellBook_20
+  displayName: Zealot Grimoire
   icon: {fileID: 21300000, guid: ade24c093588d8845939b9e34773f866, type: 2}
-  description: "gia t\u0103ng 25% t\u1EF7 l\u1EC7 ch\xED m\u1EA1ng v\xE0 khu\u1EBFch
-    \u0111\u1EA1i th\xEAm 35% s\xE1t th\u01B0\u01A1ng ch\xED m\u1EA1ng "
+  description: Increases Critical Hit chance by 25% and Critical Hit damage by 35%.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -27,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

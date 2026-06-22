@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Node7
   m_EditorClassIdentifier: 
   nodeId: Node7
-  displayName: "S\xE1ch ma thu\u1EADt"
-  description: "Tri\u1EC7u h\u1ED3i 1 s\xE1ch ma thu\u1EADt, Khi c\xF3 s\xE1ch ma
-    thu\u1EADt , t\u0103ng 50% damage ph\xE9p thu\u1EADt"
+  displayName: Great Magic Book
+  description: Summon 1 magic book. When you have a magic book, increase your Spell
+    Skill damage by 50%.
   icon: {fileID: 21300000, guid: 53d75791b5a6cc74491e89fa957d5f07, type: 2}
   requiredItem: {fileID: 11400000, guid: fa043d12a69b44c468dc10f26ff64a17, type: 2}
   requiredItemQuantity: 1

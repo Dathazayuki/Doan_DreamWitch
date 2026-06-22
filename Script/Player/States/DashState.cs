@@ -18,6 +18,7 @@ namespace DreamKnight.Player.States
         public override void Enter()
         {
             movement.StartDash();
+            controller.AudioEvents?.PlayDash();
             input.ConsumeDashInput();
             
             // Xác định dash trên Ground hay Air

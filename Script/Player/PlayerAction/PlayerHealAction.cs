@@ -150,7 +150,27 @@ namespace DreamKnight.Player
             ItemUseContext context = new ItemUseContext(gameObject, inventoryState, currencyWallet, playerStats);
             bool used = item.Use(context);
             if (used)
+            {
+                PlayPotionAudio(item);
                 equipState.TryUnequipAt(slotIndex);
+            }
+        }
+
+        private void PlayPotionAudio(ItemDefinitionSO item)
+        {
+            if (playerController == null || playerController.AudioEvents == null)
+                return;
+
+            if (item is HealingPotionItemSO healingPotion)
+            {
+                if (healingPotion.EffectType == HealingPotionItemSO.PotionEffectType.InstantMana)
+                    playerController.AudioEvents.PlayPotion();
+                else
+                    playerController.AudioEvents.PlayHeal();
+                return;
+            }
+
+            playerController.AudioEvents.PlayPotion();
         }
 
         private IEnumerator WaitForAnimationFinished(string animationName, float timeout)

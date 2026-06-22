@@ -1,6 +1,10 @@
 using DreamKnight.Player;
+using DreamKnight.Systems.Inventory;
+using DreamKnight.Systems.SaveLoad;
 using DreamKnight.UI;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Yarn.Unity;
 
@@ -20,9 +24,59 @@ namespace DreamKnight.Systems.Dialogue
     [RequireComponent(typeof(Collider2D))]
     public class NpcInteractable : MonoBehaviour
     {
+        private enum DialogueBranchCondition
+        {
+            HasItem,
+            MissingItem,
+            BossDefeated,
+            BossNotDefeated
+        }
+
+        [Serializable]
+        private class DialogueBranch
+        {
+            [SerializeField] private string branchNodeTitle;
+            [SerializeField] private DialogueBranchCondition condition;
+            [SerializeField] private string itemId;
+            [SerializeField] private int requiredItemCount = 1;
+            [SerializeField] private string bossId;
+
+            public string BranchNodeTitle => branchNodeTitle;
+
+            public bool IsMatch(InventoryStateSO inventoryState, ItemDatabaseSO itemDatabase)
+            {
+                switch (condition)
+                {
+                    case DialogueBranchCondition.HasItem:
+                        return GetItemCount(inventoryState, itemDatabase) >= Mathf.Max(1, requiredItemCount);
+                    case DialogueBranchCondition.MissingItem:
+                        return GetItemCount(inventoryState, itemDatabase) < Mathf.Max(1, requiredItemCount);
+                    case DialogueBranchCondition.BossDefeated:
+                        return BossDefeatSaveService.IsDefeated(bossId);
+                    case DialogueBranchCondition.BossNotDefeated:
+                        return !BossDefeatSaveService.IsDefeated(bossId);
+                    default:
+                        return false;
+                }
+            }
+
+            private int GetItemCount(InventoryStateSO inventoryState, ItemDatabaseSO itemDatabase)
+            {
+                if (inventoryState == null || itemDatabase == null || string.IsNullOrWhiteSpace(itemId))
+                    return 0;
+
+                ItemDefinitionSO item = itemDatabase.FindById(itemId);
+                return item != null ? inventoryState.GetQuantity(item) : 0;
+            }
+        }
         [Header("Yarn Dialogue")]
         [Tooltip("Tên node bắt đầu trong file .yarn, VD: Merchant_Intro")]
         [SerializeField] private string yarnNodeTitle = "NPC_DefaultTalk";
+
+        [Header("Dialogue Branching")]
+        [SerializeField] private InventoryStateSO inventoryState;
+        [SerializeField] private ItemDatabaseSO itemDatabase;
+        [SerializeField] private List<DialogueBranch> dialogueBranches = new List<DialogueBranch>();
 
         [Header("Interaction Prompt")]
         [SerializeField] private Transform promptAnchor;
@@ -106,7 +160,7 @@ namespace DreamKnight.Systems.Dialogue
             yarnDialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
 
             // Start dialogue directly
-            yarnDialogueRunner.StartDialogue(yarnNodeTitle);
+            yarnDialogueRunner.StartDialogue(ResolveDialogueNodeTitle());
         }
 
         private void OnDialogueComplete()
@@ -134,6 +188,21 @@ namespace DreamKnight.Systems.Dialogue
 
             Transform anchor = promptAnchor != null ? promptAnchor : transform;
             UIManager.Instance.ShowInteractPrompt(this, anchor, PlayerInput.BindableAction.Interact, promptFormat);
+        }
+
+        private string ResolveDialogueNodeTitle()
+        {
+            for (int i = 0; i < dialogueBranches.Count; i++)
+            {
+                DialogueBranch branch = dialogueBranches[i];
+                if (branch == null || string.IsNullOrWhiteSpace(branch.BranchNodeTitle))
+                    continue;
+
+                if (branch.IsMatch(inventoryState, itemDatabase))
+                    return branch.BranchNodeTitle;
+            }
+
+            return yarnNodeTitle;
         }
 
         // Expose để dialogue có thể đọc tên NPC qua Yarn command nếu cần

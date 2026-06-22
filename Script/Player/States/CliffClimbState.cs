@@ -29,10 +29,9 @@ namespace DreamKnight.Player.States
         private const float PHASE1_FWD_OFFSET = 1.2f;   // tiến về phía trước
         private const float PHASE1_UP_OFFSET  = 0.35f;  // lên thêm khi bước qua
         private const float CROUCH_LOOP_DURATION = 0.15f; // giữ Crouch_Loop ngắn trước khi đứng dậy
+        private const float FAILED_CLIMB_BACK_OFFSET = 0.35f;
+        private const float FAILED_CLIMB_AWAY_SPEED = 2f;
         private float crouchLoopTimer;
-
-        private const float UNSTUCK_STEP = 0.02f;
-        private const float UNSTUCK_MAX_HEIGHT = 0.7f;
 
         // ── Input lock khi mới vào ────────────────────────────────
         private float inputLockTimer;
@@ -121,6 +120,9 @@ namespace DreamKnight.Player.States
                 if (norm >= 0.95f)
                 {
                     Debug.Log("[CliffClimbState] Crouch sequence done → Idle/Move");
+                    if (!movement.TryExitCrouch())
+                        return;
+
                     if (Mathf.Abs(input.MoveInput.x) > 0.1f)
                         controller.StateMachine.ChangeState(controller.GetFormMoveState(controller.CurrentFormId));
                     else
@@ -179,51 +181,38 @@ namespace DreamKnight.Player.States
         {
             controller.transform.position = targetPos1;
             movement.UnfreezeVertical();
-            ResolveOverlapAfterClimb();
+            bool resolved = movement.ResolveBodyOverlap();
+            if (!resolved)
+            {
+                movement.EnterCrouch();
+                resolved = movement.ResolveBodyOverlap(1.0f, 0.02f);
+            }
 
+            if (!resolved)
+            {
+                CancelClimbBecauseNoBodyRoom();
+                return;
+            }
+
+            movement.EnterCrouch();
             currentPhase = ClimbPhase.CrouchStart;
             string crouchStart = FormAnimationHelper.GetCrouchStartAnimation(controller.CurrentFormId);
             if (string.IsNullOrWhiteSpace(crouchStart)) crouchStart = PlayerAnimationController.CROUCH_START;
             controller.AnimationController?.PlayAnimation(crouchStart);
             Debug.Log("[CliffClimbState] Position done → Crouch_Start");
         }
-
-        private void ResolveOverlapAfterClimb()
+        private void CancelClimbBecauseNoBodyRoom()
         {
-            Collider2D selfCollider = controller.GetComponent<Collider2D>();
-            if (selfCollider == null)
-                return;
+            float dir = movement.FacingRight ? 1f : -1f;
+            Vector2 fallbackPosition = enterPos + new Vector2(-dir * FAILED_CLIMB_BACK_OFFSET, 0f);
 
-            Bounds bounds = selfCollider.bounds;
-            Vector2 baseCenter = bounds.center;
-            Vector2 size = bounds.size;
+            controller.transform.position = fallbackPosition;
+            movement.TryExitCrouch();
+            movement.ResolveBodyOverlap(1.0f, 0.02f);
+            movement.SetVelocity(new Vector2(-dir * FAILED_CLIMB_AWAY_SPEED, 0f));
 
-            for (float offset = 0f; offset <= UNSTUCK_MAX_HEIGHT; offset += UNSTUCK_STEP)
-            {
-                Vector2 checkCenter = baseCenter + Vector2.up * offset;
-                Collider2D[] hits = Physics2D.OverlapBoxAll(checkCenter, size, 0f);
-                bool blocked = false;
-
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    Collider2D hit = hits[i];
-                    if (hit == null || hit.isTrigger)
-                        continue;
-                    if (hit == selfCollider)
-                        continue;
-                    if (hit.transform.root == controller.transform.root)
-                        continue;
-
-                    blocked = true;
-                    break;
-                }
-
-                if (!blocked)
-                {
-                    controller.transform.position += new Vector3(0f, offset, 0f);
-                    return;
-                }
-            }
+            Debug.Log("[CliffClimbState] Cancel climb because target space is too narrow for body collider.");
+            controller.StateMachine.ChangeState(controller.GetFormJumpState(controller.CurrentFormId));
         }
     }
 }

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Node2
   m_EditorClassIdentifier: 
   nodeId: Node2
-  displayName: "H\u1ED3i mana chu\u1ED7i combo"
-  description: "th\u1EF1c hi\u1EC7n \u0111\xF2n th\u1EE9 3 trong chu\u1ED7i combo
-    \u0111\xE1nh th\u01B0\u1EDDng h\u1ED3i th\xEAm 10 mana"
+  displayName: Mana recovery combo
+  description: Performing the third hit in a basic attack combo restores an additional
+    10 mana.
   icon: {fileID: 21300000, guid: 75140865f4fb5e44d8099579755285e9, type: 2}
   requiredItem: {fileID: 11400000, guid: fa043d12a69b44c468dc10f26ff64a17, type: 2}
   requiredItemQuantity: 1

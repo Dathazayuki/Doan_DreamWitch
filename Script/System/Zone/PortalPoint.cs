@@ -3,6 +3,7 @@ using DreamKnight.Systems.Currency;
 using DreamKnight.Systems.Map;
 using DreamKnight.Systems.SaveLoad;
 using DreamKnight.UI;
+using Project.UI;
 using UnityEngine;
 
 namespace DreamKnight.Systems.Zone
@@ -27,6 +28,8 @@ namespace DreamKnight.Systems.Zone
         [SerializeField] private Transform promptAnchor;
         [SerializeField] private string unlockPromptFormat = "{icon} Unlock Portal (-{cost})";
         [SerializeField] private string unlockedPromptFormat = "{icon} Open Full Map Teleport";
+        [SerializeField] private string confirmUnlockMessage = "Spend {0} Gold to unlock this portal?";
+        [SerializeField] private string notEnoughGoldMessage = "Not enough Gold. Requires {0} Gold (Current: {1}).";
 
         [Header("Visual")]
         [SerializeField] private GameObject lockedVisual;
@@ -34,6 +37,7 @@ namespace DreamKnight.Systems.Zone
 
         private PlayerController currentPlayer;
         private float nextInteractTime;
+        private bool isConfirming;
 
         public string PortalId => portalId;
         public bool IsUnlocked => PortalCheckpointService.IsUnlocked(portalId);
@@ -96,6 +100,9 @@ namespace DreamKnight.Systems.Zone
 
             RefreshPrompt();
 
+            if (isConfirming)
+                return;
+
             if (Time.time < nextInteractTime)
                 return;
 
@@ -103,7 +110,7 @@ namespace DreamKnight.Systems.Zone
             {
                 if (player.Input.InteractPressed)
                 {
-                    TryUnlock();
+                    RequestUnlockConfirm();
                     nextInteractTime = Time.time + Mathf.Max(0.01f, interactCooldown);
                 }
                 return;
@@ -128,7 +135,53 @@ namespace DreamKnight.Systems.Zone
 
             UIManager.Instance?.HideInteractPrompt(this);
             PortalCheckpointService.ClearActiveTeleportPortal(this);
+
+            if (isConfirming)
+            {
+                ConfirmPanelController confirmPanel = ResolveConfirmPanel();
+                if (confirmPanel != null)
+                    confirmPanel.Hide();
+                isConfirming = false;
+            }
+
             currentPlayer = null;
+        }
+
+        private void RequestUnlockConfirm()
+        {
+            if (IsUnlocked)
+                return;
+
+            int cost = Mathf.Max(0, unlockCost);
+            int currentGold = currencyWallet != null ? currencyWallet.Balance : 0;
+            ConfirmPanelController confirmPanel = ResolveConfirmPanel();
+
+            if (confirmPanel == null)
+            {
+                TryUnlock();
+                return;
+            }
+
+            isConfirming = true;
+            if (currencyWallet == null || currentGold < cost)
+            {
+                confirmPanel.Show(
+                    string.Format(notEnoughGoldMessage, cost, currentGold),
+                    onConfirm: null,
+                    onCancel: () => isConfirming = false,
+                    showYesButton: false);
+                return;
+            }
+
+            confirmPanel.Show(
+                string.Format(confirmUnlockMessage, cost),
+                onConfirm: () =>
+                {
+                    isConfirming = false;
+                    TryUnlock();
+                },
+                onCancel: () => isConfirming = false,
+                showYesButton: true);
         }
 
         private void TryUnlock()
@@ -154,6 +207,19 @@ namespace DreamKnight.Systems.Zone
                 mapController.ForceRebuildRuntimeMarkers();
             UpdateVisualState();
             RefreshPrompt();
+        }
+
+        private ConfirmPanelController ResolveConfirmPanel()
+        {
+            ConfirmPanelController confirmPanel = Object.FindFirstObjectByType<ConfirmPanelController>();
+            if (confirmPanel != null)
+                return confirmPanel;
+
+            ConfirmPanelController[] panels = Object.FindObjectsOfType<ConfirmPanelController>(true);
+            if (panels != null && panels.Length > 0)
+                return panels[0];
+
+            return null;
         }
 
         private void RefreshPrompt()

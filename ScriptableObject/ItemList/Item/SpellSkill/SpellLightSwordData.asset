@@ -16,28 +16,45 @@ MonoBehaviour:
   spellName: Light Sword Spell
   icon: {fileID: 21300000, guid: eadb5fed58b0ab545a12d0e0d427eb08, type: 2}
   prefab: {fileID: 1709254077376921, guid: 85a3a5bea28e7814da6aa71815b0687a, type: 3}
+  castType: 0
+  projectileSpeed: 12
+  projectileLifetime: 2
+  projectileSpawnOffset: {x: 0.6, y: 0.2}
+  projectileMaxPoolSize: 24
+  bigSwordSpeed: 10
+  bigSwordLifetime: 1
+  bigSwordSpawnOffset: {x: 0.8, y: 0.2}
+  bigSwordMaxPoolSize: 8
+  shieldVisualPrefab: {fileID: 0}
   unlockPrice: 2
-  description: "Tri\u1EC7u h\u1ED3i ki\u1EBFm \xE1nh s\xE1ng, s\u1EBD t\u1EA5n c\xF4ng
-    k\u1EBB \u0111\u1ECBch 1 c\xE1ch t\u1EF1 \u0111\u1ED9ng\nN\xE2ng Lv \u0111\u1EC3
-    t\u0103ng Damage"
+  description: 'Summoning a light sword to follow the player will automatically attack
+    enemies.
+
+
+    You need to be in the Storage Area to equip it.'
   levels:
   - upgradePrice: 12
     damage: 25
     cooldown: 10
-    manaCost: 20
-  - upgradePrice: 15
-    damage: 35
+    manaCost: 25
+    shieldBlockCount: 0
+  - upgradePrice: 20
+    damage: 30
     cooldown: 9
-    manaCost: 20
-  - upgradePrice: 18
-    damage: 45
-    cooldown: 8
-    manaCost: 20
-  - upgradePrice: 24
-    damage: 55
-    cooldown: 7
-    manaCost: 20
+    manaCost: 25
+    shieldBlockCount: 0
   - upgradePrice: 30
-    damage: 50
+    damage: 35
+    cooldown: 8
+    manaCost: 25
+    shieldBlockCount: 0
+  - upgradePrice: 45
+    damage: 40
+    cooldown: 7
+    manaCost: 25
+    shieldBlockCount: 0
+  - upgradePrice: 60
+    damage: 45
     cooldown: 6
-    manaCost: 20
+    manaCost: 25
+    shieldBlockCount: 0

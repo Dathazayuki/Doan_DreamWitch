@@ -13,7 +13,16 @@ namespace Mv
         {
             startedAttack = false;
             Context.Owner?.FaceByDeltaX(Context.DeltaX);
+            if (Context.Owner is MvEm0250 owner)
+                owner.SetGasAttackFlipLocked(true);
+
             Context.Owner?.BeginAttackSignIfNeeded();
+        }
+
+        public override void Exit()
+        {
+            if (Context.Owner is MvEm0250 owner)
+                owner.SetGasAttackFlipLocked(false);
         }
 
         public override void Tick()

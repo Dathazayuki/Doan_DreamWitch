@@ -606,7 +606,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 913118913
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8310b2b106e0a3740b65947c96083d5c, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1027,6 +1027,7 @@ GameObject:
   - component: {fileID: 448474077552382005}
   - component: {fileID: 1852076900991493644}
   - component: {fileID: 578987977850183072}
+  - component: {fileID: -4778955725053239372}
   m_Layer: 9
   m_Name: MvEm0100_Minotaur_Living
   m_TagString: Untagged
@@ -1248,6 +1249,25 @@ MonoBehaviour:
   overrideEnableDistance: 0
   overrideDisableDistance: 0
   componentsToCull: []
+--- !u!114 &-4778955725053239372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454160855571135192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c601f59473c712e478d54ebf081dacf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1852076900991493644}
+  drops:
+  - itemPickupPrefab: {fileID: 2868083496679843395, guid: 781ecd9a396d1e14c836b395308b6bd5, type: 3}
+    dropChancePercent: 20
+    spawnOffset: {x: 0, y: 1.5, z: 0}
+  defaultSpawnOffset: {x: 0, y: 0.5, z: 0}
+  scatterRadius: 0.2
 --- !u!1 &8960137086653953643
 GameObject:
   m_ObjectHideFlags: 0

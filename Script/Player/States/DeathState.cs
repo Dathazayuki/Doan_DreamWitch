@@ -12,6 +12,7 @@ namespace DreamKnight.Player.States
             controller.DisablePlayerInputForDeath();
             controller.StopPlayerMovementForDeath();
             controller.ApplyDeadBodyLayer();
+            controller.AudioEvents?.PlayDeath();
             controller.DeathSequence?.Play();
         }
 

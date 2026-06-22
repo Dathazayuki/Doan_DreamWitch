@@ -301,6 +301,12 @@ namespace DreamKnight.Systems.Audio
         {
             if (clip == null) return;
 
+            if (ignoreDistLimit)
+            {
+                PlaySFX(clip, volumeScale, pitchRandomness);
+                return;
+            }
+
             AudioSource source = GetFreeSfxSource();
             if (source != null)
             {
@@ -311,7 +317,7 @@ namespace DreamKnight.Systems.Audio
                 source.loop = false;
                 source.volume = masterVolume * sfxVolume * volumeScale;
                 source.pitch = 1.0f + Random.Range(-pitchRandomness, pitchRandomness);
-                source.rolloffMode = ignoreDistLimit ? AudioRolloffMode.Linear : AudioRolloffMode.Logarithmic;
+                source.rolloffMode = AudioRolloffMode.Logarithmic;
                 source.minDistance = 2f;
                 source.maxDistance = 25f;
                 source.Play();

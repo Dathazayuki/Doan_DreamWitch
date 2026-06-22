@@ -107,6 +107,7 @@ namespace DreamKnight.Player
             if (!used)
                 return false;
 
+            playerController?.AudioEvents?.PlaySpell();
             StartCoroutine(PlayAnimationRoutine());
             if (debugSpellFlow)
                 Debug.Log("[PlayerSpellAction] TryUse success: animation started.");

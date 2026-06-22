@@ -721,7 +721,7 @@ namespace Mv
 
                     if (deadHideTimer >= 2f)
                     {
-                        Golem.gameObject.SetActive(false);
+                        Golem.StartDeathBlinkAndHide();
                     }
 
                     return;

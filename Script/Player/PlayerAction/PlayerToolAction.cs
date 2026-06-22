@@ -79,6 +79,7 @@ namespace DreamKnight.Player
             }
 
             toolEquip.TryUnequipAt(slotIndex);
+            playerController?.AudioEvents?.PlayTool();
 
             StartCoroutine(PlayAnimationRoutine());
             return true;

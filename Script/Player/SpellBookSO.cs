@@ -42,6 +42,9 @@ namespace DreamKnight.Player
         [Tooltip("Health (HP) regenerated per second")]
         public float healthRegenBonus = 0f;
 
+        [Tooltip("Seconds that Health Regen remains active after equipping this Spell Book")]
+        public float healthRegenDuration = 5f;
+
         [Tooltip("Mana (MP) regenerated per second")]
         public float manaRegenBonus = 0f;
 

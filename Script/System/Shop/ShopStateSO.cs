@@ -170,7 +170,31 @@ namespace DreamKnight.Systems.Shop
                 }
             }
 
+            MergeMissingCatalogItems();
             OnShopChanged?.Invoke();
+        }
+
+        private void MergeMissingCatalogItems()
+        {
+            if (catalog == null)
+                return;
+
+            IReadOnlyList<ShopCatalogSO.ShopEntry> entries = catalog.Entries;
+            for (int i = 0; i < entries.Count; i++)
+            {
+                ShopCatalogSO.ShopEntry entry = entries[i];
+                if (entry == null || entry.item == null || entry.quantity <= 0)
+                    continue;
+
+                if (GetStock(entry.item) != null)
+                    continue;
+
+                runtimeStock.Add(new ShopStock
+                {
+                    item = entry.item,
+                    quantity = entry.quantity
+                });
+            }
         }
 
         private ShopStock GetStock(ItemDefinitionSO item)

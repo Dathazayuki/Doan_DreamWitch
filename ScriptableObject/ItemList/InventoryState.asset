@@ -22,3 +22,7 @@ MonoBehaviour:
     quantity: 2
   - itemId: BombBarrel_Tool
     quantity: 2
+  - itemId: HealingPotion 1
+    quantity: 2
+  - itemId: HealingPotion 2
+    quantity: 2

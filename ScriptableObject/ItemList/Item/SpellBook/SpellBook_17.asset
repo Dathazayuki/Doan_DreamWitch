@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_17
   m_EditorClassIdentifier: 
   bookId: SpellBook_17
-  displayName: SpellBook_17
+  displayName: Behemoth Grimoire
   icon: {fileID: 21300000, guid: 7e1a0d49909970b47b8835a9c7f06756, type: 2}
-  description: "gi\xFAp b\u1EA1n gia t\u0103ng th\xEAm 30% l\u01B0\u1EE3ng m\xE1u
-    (HP) t\u1ED1i \u0111a hi\u1EC7n c\xF3, \u0111\u1ED3ng th\u1EDDi h\u1ED3i ph\u1EE5c
-    nhanh ch\xF3ng th\xEAm 6 sinh l\u1EF1c m\u1ED7i gi\xE2y."
+  description: Increases Maximum HP by 30% and regenerates 6 HP per second.
   healthBonus: 0
   healthPercentBonus: 0.3
   manaBonus: 0
@@ -28,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 6
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

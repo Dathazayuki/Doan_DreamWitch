@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: SpellBook_10
   m_EditorClassIdentifier: 
   bookId: SpellBook_10
-  displayName: SpellBook_10
+  displayName: Forbidden Grimoire
   icon: {fileID: 21300000, guid: ef77be26ad3dd1e45b9f28bff555212f, type: 2}
-  description: "Gi\u1EA3i ph\xF3ng nh\u1EEFng \u0111\xF2n \u0111\xE1nh n\u1EB7ng
-    n\u1EC1 l\xE0m gia t\u0103ng m\u1EA1nh m\u1EBD 45% s\xE1t th\u01B0\u01A1ng \u0111\xF2n
-    \u0111\xE1nh th\u01B0\u1EDDng. \u0110\u1ED5i l\u1EA1i, tr\u1ECDng l\u01B0\u1EE3ng
-    c\u1EE7a tri th\u1EE9c c\u1EA5m k\u1EF5 khi\u1EBFn b\u1EA1n b\u1ECB gi\u1EA3m
-    15% t\u1ED1c \u0111\u1ED9 di chuy\u1EC3n."
+  description: Increases Normal Attack damage by 45% but reduces Movement Speed by
+    -15%.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 0
@@ -30,6 +27,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: -0.15
   defenseBonus: 0

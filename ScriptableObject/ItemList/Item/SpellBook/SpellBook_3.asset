@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: SpellBook_3
   m_EditorClassIdentifier: 
   bookId: SpellBook_3
-  displayName: SpellBook_3
+  displayName: Soulflux Grimoire
   icon: {fileID: 21300000, guid: 3b6c62a20f18dcd48885ffea14a5522b, type: 2}
-  description: "t\u0103ng 15 mana t\u1ED1i \u0111a \u0111\u1ED3ng th\u1EDDi h\u1ED3i
-    th\xEAm2 mana m\u1ED7i l\u1EA7n \u0111\xE1nh tr\xFAng k\u1EBB \u0111\u1ECBch"
+  description: Increases Maximum MP by 15 and restores 2 MP upon hitting an enemy.
   healthBonus: 0
   healthPercentBonus: 0
   manaBonus: 15
@@ -27,6 +26,7 @@ MonoBehaviour:
   skillDamageMultiplier: 1
   skillCooldownReduction: 0
   healthRegenBonus: 0
+  healthRegenDuration: 5
   manaRegenBonus: 0
   moveSpeedPercentBonus: 0
   defenseBonus: 0

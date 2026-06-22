@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: KeyVolcano
   m_EditorClassIdentifier: 
   itemId: KeyVolcano
-  displayName: KeyVolcano
+  displayName: 'Key Volcano Map '
   icon: {fileID: 21300000, guid: 536f5e85878db3f4786382c196356712, type: 2}
   price: 0
   stackable: 1
-  description: "Ch\xECa kh\xF3a m\u1EDF khu v\u1EF1c Volcano"
+  description: An item dropped by Boss Golem. A key to unlock the Volcano area.
   category: 0
