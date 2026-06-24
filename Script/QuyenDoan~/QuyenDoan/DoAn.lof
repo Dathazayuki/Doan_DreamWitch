@@ -44,19 +44,12 @@
 \contentsline {figure}{\numberline {5.14}{\ignorespaces Biểu đồ lớp chi tiết của lớp MvEnemyBase}}{54}{figure.caption.54}%
 \contentsline {figure}{\numberline {5.15}{\ignorespaces Biểu đồ lớp chi tiết của lớp GameSaveManager}}{55}{figure.caption.55}%
 \contentsline {figure}{\numberline {5.16}{\ignorespaces Sơ đồ trình tự quá trình đồng bộ hóa chuyển đổi hình thái (Form Switch Sequence)}}{57}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Màn hình khởi động trò chơi (Title Screen)}}{63}{figure.caption.59}%
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Giao diện chọn Slot tiếp tục chơi (Save Slot Menu)}}{63}{figure.caption.60}%
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Thanh trạng thái HUD (Máu/Thể lực/Mana)}}{64}{figure.caption.61}%
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Platforming và thám hiểm tại khu vực Di tích (Ruin)}}{64}{figure.caption.62}%
-\contentsline {figure}{\numberline {5.21}{\ignorespaces Nhân vật cận chiến chém quái thú thường kèm chữ hiển thị sát thương bay}}{65}{figure.caption.63}%
-\contentsline {figure}{\numberline {5.22}{\ignorespaces Interact Prompt hiện lên khi đứng gần xác quái vật để biến hình}}{65}{figure.caption.64}%
-\contentsline {figure}{\numberline {5.23}{\ignorespaces Thi triển đạn phép thuật tầm xa được quản lý bởi Object Pooling}}{66}{figure.caption.65}%
-\contentsline {figure}{\numberline {5.24}{\ignorespaces Đối đầu với Boss khổng lồ Golem}}{66}{figure.caption.66}%
-\contentsline {figure}{\numberline {5.25}{\ignorespaces Boss thi triển chiêu đập đất tạo chấn động}}{67}{figure.caption.67}%
-\contentsline {figure}{\numberline {5.26}{\ignorespaces Bảng trạng thái (Status Panel) hiển thị chỉ số chi tiết các linh hồn}}{67}{figure.caption.68}%
-\contentsline {figure}{\numberline {5.27}{\ignorespaces Giao diện Cửa hàng (Shopkeeper UI) mua sắm các phép thuật và công cụ}}{68}{figure.caption.69}%
-\contentsline {figure}{\numberline {5.28}{\ignorespaces Nhánh kỹ năng (Skill Tree) mở khóa các đòn đánh nâng cao}}{68}{figure.caption.70}%
-\contentsline {figure}{\numberline {5.29}{\ignorespaces Bản đồ thế giới (Full Map UI) hỗ trợ người chơi định vị}}{68}{figure.caption.71}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Khởi động trò chơi, chọn ô lưu trữ và khu vực xuất phát Nhà thờ (Church)}}{63}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Thám hiểm các khu vực hầm ngục Di tích (Ruin) và Núi lửa (Volcano)}}{64}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Nhân vật cận chiến chém quái thú thường kèm chữ hiển thị sát thương bay}}{64}{figure.caption.61}%
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Cơ chế biến dạng thực thể linh hồn và thi triển phép thuật tầm xa}}{65}{figure.caption.62}%
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Các trận đấu Boss lớn Big Golem và Marionette trong game}}{65}{figure.caption.63}%
+\contentsline {figure}{\numberline {5.22}{\ignorespaces Các giao diện quản lý thuộc tính, cửa hàng, cây kỹ năng và bản đồ thế giới}}{66}{figure.caption.64}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsfinish 

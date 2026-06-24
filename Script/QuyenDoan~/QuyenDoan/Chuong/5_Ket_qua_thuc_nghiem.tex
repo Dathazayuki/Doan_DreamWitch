@@ -555,39 +555,67 @@ Dung lượng bản đóng gói sản phẩm (\texttt{.zip}) & $\sim$ 160 & Mega
 
 Kịch bản trải nghiệm gồm 5 giai đoạn chính như sau:
 
-\subsection{Giai đoạn 1: Khởi động và thiết lập ban đầu (Title Screen \& Save Slots)}
-Khi người chơi kích hoạt tệp \texttt{DreamWitch.exe}, hệ thống hiển thị màn hình bắt đầu với âm nhạc u sầu đặc trưng (Hình~\ref{fig:titlescreen}). Giao diện cung cấp các tùy chọn để bắt đầu chơi mới hoặc tiếp tục tiến trình cũ. Khi chọn "Continue", giao diện Save Slot hiển thị thông tin chi tiết về từng ô lưu trữ (thời gian chơi, lượng vàng tích lũy, các chỉ số cơ bản) giúp người chơi quản lý tiến trình (Hình~\ref{fig:mainmenu}).
+\subsection{Giai đoạn 1: Khởi động, thiết lập ban đầu, khu vực xuất phát và khu vực nâng cấp Village}
+Khi người chơi kích hoạt tệp \texttt{DreamWitch.exe}, hệ thống hiển thị màn hình khởi động (Hình~\ref{fig:titlescreen}). Giao diện cung cấp các tùy chọn để bắt đầu chơi mới hoặc tiếp tục tiến trình cũ thông qua giao diện chọn Save Slot (Hình~\ref{fig:mainmenu}). Sau khi vào game, nhân vật xuất hiện tại khu vực xuất phát an toàn là Nhà thờ (Church) (Hình~\ref{fig:church}) để chuẩn bị cho hành trình thám hiểm và nâng cấp tại làng Village (Hình~\ref{fig:hud_start}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/TitleScreen.jpg}
-    \caption{Màn hình khởi động trò chơi (Title Screen)}
-    \label{fig:titlescreen}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/MainMenu.jpg}
-    \caption{Giao diện chọn Slot tiếp tục chơi (Save Slot Menu)}
-    \label{fig:mainmenu}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/TitleScreen.jpg}
+        \caption{Màn hình khởi động trò chơi (Title Screen)}
+        \label{fig:titlescreen}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/MainMenu.jpg}
+        \caption{Giao diện chọn Slot (Save Slot Menu)}
+        \label{fig:mainmenu}
+    \end{subfigure}
+    
+    \vspace{10pt}
+    
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/PlayerHuman.jpg}
+        \caption{Nhân vật tại khu vực xuất phát Nhà thờ (Church)}
+        \label{fig:church}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/HUD.png}
+        \caption{Giao diện HUD tại điểm xuất phát}
+        \label{fig:hud_start}
+    \end{subfigure}
+    \caption{Khởi động trò chơi, chọn ô lưu trữ và khu vực xuất phát Nhà thờ (Church)}
+    \label{fig:stage1_setup}
 \end{figure}
 
-\subsection{Giai đoạn 2: Thám hiểm khu vực Di tích và điều khiển vật lý (Ruin Exploration)}
-Nhân vật phù thủy xuất hiện tại điểm xuất phát an toàn là Nhà thờ (Church), sau đó di chuyển qua cửa lớn sang phân khu Di tích (Ruin). Người chơi thực hiện kiểm soát chuyển động nhân vật: chạy di chuyển mượt mà trên nền tảng, thực hiện nhảy đơn, nhảy đôi để vượt qua các vực thẳm và bám vách leo tường (Wall Climb). Hệ thống vật lý nhận diện chính xác các va chạm với gạch đá cổ và tiêu hao thể lực (Stamina) tương ứng khi bám tường leo lên. Giao diện hiển thị rõ thanh HUD lượng máu/thể lực ở góc trên bên trái (Hình~\ref{fig:hud} và Hình~\ref{fig:level}).
+\subsection{Giai đoạn 2: Thám hiểm khu vực Dungeon}
+Nhân vật chính di chuyển qua các phân khu ngục tối (Dungeon) khác nhau. Người chơi thực hiện kiểm soát chuyển động nhân vật: chạy di chuyển mượt mà, thực hiện nhảy đơn, nhảy đôi để vượt qua các chướng ngại vật và bám vách leo tường tại khu vực Di tích (Ruin) (Hình~\ref{fig:ruin_level}), trước khi tiến sâu vào phân khu nguy hiểm hơn là khu vực Núi lửa (Volcano) (Hình~\ref{fig:volcano_level}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/HUD.png}
-    \caption{Thanh trạng thái HUD (Máu/Thể lực/Mana)}
-    \label{fig:hud}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[height=6cm]{Hinhve/Level.png}
-    \caption{Platforming và thám hiểm tại khu vực Di tích (Ruin)}
-    \label{fig:level}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/Level.png}
+        \caption{Thám hiểm khu vực Di tích (Ruin)}
+        \label{fig:ruin_level}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/VolcanoMap.png}
+        \caption{Thám hiểm khu vực Núi lửa (Volcano)}
+        \label{fig:volcano_level}
+    \end{subfigure}
+    \caption{Thám hiểm các khu vực hầm ngục Di tích (Ruin) và Núi lửa (Volcano)}
+    \label{fig:stage2_dungeon}
 \end{figure}
 
-\subsection{Giai đoạn 3: Cơ chế chiến đấu cận chiến và né tránh (Combat \& Dash/Dodge)}
+\subsection{Giai đoạn 3: Cơ chế chiến đấu cận chiến và né tránh}
 Trong quá trình thám hiểm Ruin, nhân vật đối đầu với quái vật thường đầu tiên tuần tra trên đường (BoneDog - quái thú xương). Người chơi thi triển chuỗi đòn đánh cận chiến liên hoàn 3-hit combo tạo ra các tia sáng cắt chém vật lý. Khi quái thú lao tới tấn công, người chơi kích hoạt phím lướt (Dash) để né tránh đòn đánh ngay trước thời điểm bị va chạm. Một cú né tránh chuẩn xác giúp nhân vật không nhận sát thương, đồng thời người chơi có thể lập tức quay lại phản công cận chiến để tiêu diệt quái vật (Hình~\ref{fig:quaivatthuong}).
 
 \begin{figure}[H]
@@ -597,64 +625,86 @@ Trong quá trình thám hiểm Ruin, nhân vật đối đầu với quái vật
     \label{fig:quaivatthuong}
 \end{figure}
 
-\subsection{Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa (Form Switch \& Spellcasting)}
+\subsection{Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa}
 Tại các điểm đánh dấu đặc biệt trong di tích, người chơi tương tác với các xác cổ của sinh vật hắc ám để hấp thụ sức mạnh và mở khóa cơ chế biến dạng (Form Switch). Khi nhấn phím chuyển dạng, nhân vật phù thủy chuyển đổi ngoại hình (Animator Controller thay đổi lập tức để đổi bộ hoạt ảnh và thay đổi Sprite vật lý tương ứng của form mới) sang hình thái quái vật lửa, cho phép thi triển các phép thuật tầm xa mạnh mẽ vượt qua các dòng sông axit hiểm trở dẫn sang phân khu Núi lửa (Volcano) (Hình~\ref{fig:bienhinh} và Hình~\ref{fig:spellgameplay}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{Hinhve/BienHinh.png}
-    \caption{Interact Prompt hiện lên khi đứng gần xác quái vật để biến hình}
-    \label{fig:bienhinh}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{Hinhve/SpellGameplay.png}
-    \caption{Thi triển đạn phép thuật tầm xa được quản lý bởi Object Pooling}
-    \label{fig:spellgameplay}
-\end{figure}
-
-\subsection{Giai đoạn 5: Đối đầu Boss Golem và lưu trữ tiến trình (Boss Fight \& Progress Saving)}
-Cuối khu vực Di tích, người chơi tiến vào phòng Boss Golem khổng lồ. Trận đấu diễn ra căng thẳng khi Boss có lượng máu lớn (hiển thị bằng thanh máu dài dưới đáy màn hình) và sử dụng AI tìm đường A* săn đuổi người chơi kết hợp đập tay tạo sóng chấn động. Sau khi tiêu diệt Boss thành công bằng sự kết hợp giữa biến dạng và né tránh, người chơi di chuyển tới Đền thờ hồi sinh (Shrine), thực hiện cầu nguyện để kích hoạt hệ thống tự động lưu trữ ghi lại toàn bộ tiến trình chơi thành tệp tin JSON lưu trữ trên thiết bị (Hình~\ref{fig:bosstranchien} và Hình~\ref{fig:bosstranchien2}).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/BossTranChien.png}
-    \caption{Đối đầu với Boss khổng lồ Golem}
-    \label{fig:bosstranchien}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{Hinhve/BossTranChien2.png}
-    \caption{Boss thi triển chiêu đập đất tạo chấn động}
-    \label{fig:bosstranchien2}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/BienHinh.png}
+        \caption{Interact Prompt hiện lên khi đứng gần xác quái vật để biến hình}
+        \label{fig:bienhinh}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/SpellGameplay.png}
+        \caption{Thi triển đạn phép thuật tầm xa được quản lý bởi Object Pooling}
+        \label{fig:spellgameplay}
+    \end{subfigure}
+    \caption{Cơ chế biến dạng thực thể linh hồn và thi triển phép thuật tầm xa}
+    \label{fig:stage4_transform}
 \end{figure}
 
-\subsection{Các bảng giao diện chức năng quan trọng khác:}
-Để người đọc có thể hình dung toàn diện về chiều sâu của hệ thống nhập vai và các tính năng tương tác phụ trợ trong "Dream Witch", các giao diện quản lý chỉ số nhân vật, cửa hàng mua sắm vật phẩm, cây kỹ năng và bản đồ định vị thế giới được trình bày chi tiết:
+\subsection{Giai đoạn 5: Đối đầu với các boss cuối các khu vực}
+Tại điểm cuối của các phân khu bản đồ lớn, người chơi bước vào các phòng Boss khổng lồ để thực hiện nhiệm vụ cốt lõi. Các trận chiến diễn ra căng thẳng và đòi hỏi kỹ năng cao khi các Boss sở hữu lượng máu lớn cùng các bộ não AI đặc thù liên tục truy quét người chơi: đối đầu với Boss khổng lồ Big Golem tại khu vực Di tích (Hình~\ref{fig:bosstranchien}) và Boss Marionette tại khu vực Núi lửa (Hình~\ref{fig:bosstranchien2}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/StatusUI.jpg}
-    \caption{Bảng trạng thái (Status Panel) hiển thị chỉ số chi tiết các linh hồn}
-    \label{fig:statusui}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/BossTranChien.png}
+        \caption{Đối đầu với Boss khổng lồ Big Golem}
+        \label{fig:bosstranchien}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/BossTranChien2.png}
+        \caption{Đối đầu với Boss Marionette}
+        \label{fig:bosstranchien2}
+    \end{subfigure}
+    \caption{Các trận đấu Boss lớn Big Golem và Marionette trong game}
+    \label{fig:stage5_bossfight}
 \end{figure}
+
+\subsection{Các bảng giao diện chức năng quan trọng khác}
+Để người đọc có thể hình dung toàn diện về chiều sâu của hệ thống nhập vai và các tính năng tương tác phụ trợ trong "Dream Witch", các giao diện quản lý chỉ số nhân vật, cửa hàng mua sắm vật phẩm, cây kỹ năng và bản đồ định vị thế giới được trình bày chi tiết với bố cục 2 hình trên mỗi dòng:
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/ShopUI.jpg}
-    \caption{Giao diện Cửa hàng (Shopkeeper UI) mua sắm các phép thuật và công cụ}
-    \label{fig:shopui}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/SkillTreeUI.jpg}
-    \caption{Nhánh kỹ năng (Skill Tree) mở khóa các đòn đánh nâng cao}
-    \label{fig:skilltreeui}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Hinhve/FullMapUI.jpg}
-    \caption{Bản đồ thế giới (Full Map UI) hỗ trợ người chơi định vị}
-    \label{fig:fullmapui}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/StatusUI.jpg}
+        \caption{Bảng trạng thái (Status Panel) hiển thị chỉ số chi tiết các linh hồn}
+        \label{fig:statusui}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/ShopUI.jpg}
+        \caption{Giao diện Cửa hàng (Shopkeeper UI) mua sắm các phép thuật và công cụ}
+        \label{fig:shopui}
+    \end{subfigure}
+    
+    \vspace{10pt}
+    
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/SkillTreeUI.jpg}
+        \caption{Nhánh kỹ năng (Skill Tree) mở khóa các đòn đánh nâng cao}
+        \label{fig:skilltreeui}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Hinhve/FullMapUI.jpg}
+        \caption{Bản đồ thế giới (Full Map UI) hỗ trợ người chơi định vị}
+        \label{fig:fullmapui}
+    \end{subfigure}
+    \caption{Các giao diện quản lý thuộc tính, cửa hàng, cây kỹ năng và bản đồ thế giới}
+    \label{fig:other_panels}
 \end{figure}
 
 

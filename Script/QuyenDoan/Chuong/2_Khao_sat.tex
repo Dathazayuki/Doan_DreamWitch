@@ -1,0 +1,93 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+Chương 2 tập trung vào việc khảo sát hiện trạng thị trường, phân tích so sánh các sản phẩm đi trước và đặc tả các yêu cầu đối với hệ thống trò chơi "Dream Witch" (tên thương mại của đề tài "Dream Knight"). Nội dung khảo sát làm cơ sở thực tiễn để định hình thiết kế lối chơi, kịch bản sử dụng và các thông số kỹ thuật cốt lõi trong Chương 3.
+
+\section{Khảo sát hiện trạng và Phân tích sản phẩm tương tự}
+\label{section:2.1}
+
+Phân khúc trò chơi đi cảnh hành động 2D (2D Action Platformer) kết hợp yếu tố khám phá (Metroidvania) luôn thu hút lượng lớn người chơi nhờ cơ chế phản hồi điều khiển trực quan và thiết kế màn chơi thử thách. Để định vị và xây dựng các yêu cầu chất lượng cho dự án "Dream Witch", đề tài tiến hành khảo sát và đối chiếu với hai sản phẩm thương mại tiêu biểu đã đạt thành công lớn trên thị trường thế giới: \textit{Hollow Knight} và \textit{Dead Cells}.
+
+\begin{table}[H]
+\centering
+\caption{Bảng phân tích so sánh thuộc tính kiến trúc và thiết kế}
+\label{tab:so_sanh_game}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X} 
+\begin{tabularx}{\textwidth}{|L|L|L|L|}
+\hline
+\textbf{Tiêu chí} & \textbf{Hollow Knight} (Team Cherry) & \textbf{Dead Cells} (Motion Twin) & \textbf{Dream Witch} (Đề tài) \\ \hline
+\textbf{Đặc trưng thể loại} & Phiêu lưu, khám phá thế giới mở liên thông, phi tuyến tính. & Hành động nhịp độ nhanh kết hợp yếu tố Roguelike ngẫu nhiên. & Hành động đi cảnh Metroidvania tập trung, cấu trúc Hub-Center. \\ \hline
+\textbf{Điều khiển \& Tương tác} & Tương tác vật lý mượt mà, phản hồi lập tức, tích hợp cơ chế nảy đòn. & Nhịp độ di chuyển cực nhanh, cơ chế né tránh và chuyển tiếp linh hoạt. & Tối ưu hóa vật lý Kinematic độc lập, phản hồi chuẩn xác thời gian thực. \\ \hline
+\textbf{Ưu thế kỹ thuật} & Quy mô bản đồ khổng lồ, phong cách mỹ thuật vẽ tay nghệ thuật. & Thuật toán sinh màn chơi ngẫu nhiên, kho vũ khí đa dạng. & Cơ chế đổi dạng linh hồn (Form Switch), AI đối kháng chiến thuật cao. \\ \hline
+\end{tabularx}
+\end{table}
+
+Qua phân tích so sánh, đề tài rút ra các bài học thiết kế quan trọng:
+\begin{itemize}
+    \item \textbf{Từ Hollow Knight:} Kế thừa phong cách nghệ thuật kỳ ảo tăm tối (Dark Fantasy) và cách thức tạo dựng bầu không khí u sầu huyền bí. Tuy nhiên, thay vì áp dụng bản đồ mở quá rộng dễ gây lạc hướng cho người chơi mới, "Dream Witch" sử dụng mô hình thế giới tập trung quanh trạm trung chuyển (Church Hub) để người chơi dễ định vị và theo dõi tiến trình.
+    \item \textbf{Từ Dead Cells:} Học hỏi thiết kế Game Feel tốc độ cao. Đề tài tập trung xây dựng máy trạng thái hữu hạn (FSM) và bộ đệm phím (Input Buffering) tương tự để tối ưu hóa động lực học của các thao tác lướt (Dash), bám tường và nhảy bật tường.
+\end{itemize}
+
+% NOTE: Sinh viên có thể bổ sung thêm biểu đồ mạng nhện (radar chart) so sánh các thuộc tính Game Feel, Độ khó, Quy mô giữa 3 sản phẩm tại đây.
+% Ví dụ:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.75\linewidth]{Hinhve/BieuDoSoSanh.png}
+%     \caption{Biểu đồ radar so sánh đặc tính kỹ thuật giữa các trò chơi}
+%     \label{fig:bieudo_sosanh}
+% \end{figure}
+
+\section{Đặc tả yêu cầu thiết kế từ mô hình hành vi người chơi}
+\label{section:2.2}
+
+Dựa trên kết quả phân tích đặc điểm đối tượng và hành vi người chơi đã trình bày ở Mục \ref{section:1.3}, đề tài xác định và đặc tả các yêu cầu thiết kế hệ thống tương ứng nhằm thỏa mãn tối đa các động lực trải nghiệm cốt lõi của người sử dụng:
+
+\begin{itemize}
+    \item \textbf{Yêu cầu đáp ứng Động lực Chinh phục (Mastery \& Challenge):}
+    Nhắm tới nhóm người chơi ưa thử thách kỹ năng và muốn làm chủ hệ thống điều khiển. Hệ thống yêu cầu tích hợp logic trí tuệ nhân tạo đối kháng (AI Brains) phức tạp ở các thực thể Boss và quái vật thường (Mục \ref{subsection:3.7.2}), kết hợp cơ chế chiến đấu đòi hỏi phản hồi nhanh như chuỗi combo cận chiến và tính năng đỡ đòn hoàn hảo (Perfect Parry).
+    
+    \item \textbf{Yêu cầu đáp ứng Động lực Khám phá (Exploration \& Discovery):}
+    Nhắm tới nhóm người chơi muốn tìm hiểu cốt truyện và thế giới game. Hệ thống cần thiết kế cấu trúc màn chơi đa tuyến phi tuyến tính, tích hợp các phòng bí mật, rương báu chứa sách phép và thiết lập cơ chế kể chuyện gián tiếp thông qua mô tả truyền thuyết (Lore) của từng trang bị và sách phép cổ (SpellBooks).
+    
+    \item \textbf{Yêu cầu đáp ứng Động lực Đạt được (Achievement \& Collection):}
+    Đáp ứng nhu cầu tích lũy và phát triển của game thủ. Hệ thống yêu cầu xây dựng vòng lặp nâng cấp thuộc tính nhân vật vĩnh viễn (HP, MP, Sức mạnh) tại phân khu an toàn và triển khai tính năng thu thập tàn tích linh hồn để mở khóa các dạng biến hình mới (Possession System).
+\end{itemize}
+
+\section{Mục đích thực tiễn của trò chơi}
+\label{section:2.3}
+
+Dự án "Dream Witch" hướng tới các mục đích thực tiễn rõ ràng về mặt tâm lý và nhận thức của người sử dụng:
+\begin{itemize}
+    \item \textbf{Giải tỏa áp lực tâm lý (Stress Relief):} Đưa người chơi vào "Trạng thái trôi chảy" (Flow State) để tạm thời quên đi các căng thẳng trong cuộc sống thực thông qua sự tập trung cao độ vào lối chơi phản xạ.
+    \item \textbf{Rèn luyện nhận thức (Cognitive Training):} Cải thiện khả năng tập trung chú ý, định vị không gian và phản xạ nhanh trước các kích thích thị giác/thính giác. Cơ chế đối chiến với AI buộc người chơi phải suy luận logic để tìm ra quy luật tấn công của Boss thay vì bấm nút vô thức.
+    \item \textbf{Thực nghiệm "thử và sai" an toàn:} Rèn luyện tính kiên trì và kỹ năng giải quyết vấn đề thông qua việc đối mặt với thất bại (tử trận) liên tục và tìm giải pháp kỹ thuật mới để vượt qua thử thách.
+\end{itemize}
+
+\section{Kịch bản vận hành và Kịch bản ứng dụng (Use Case Scenarios)}
+\label{section:2.4}
+
+Để đáp ứng phạm vi phát triển phần mềm độc lập đã định vị ở Mục \ref{section:1.3}, sản phẩm được đặc tả kịch bản vận hành thực tế đối với người dùng cuối như sau:
+\begin{itemize}
+    \item \textbf{Trải nghiệm ngoại tuyến cá nhân (Offline Standalone):} Người chơi trực tiếp cài đặt ứng dụng trên máy tính cá nhân (PC) và vận hành độc lập mà không cần kết nối mạng hay sự hỗ trợ của bên thứ ba, đảm bảo quyền tự chủ tối đa về thời gian và nhịp độ chơi.
+    \item \textbf{Vòng lặp phiên chơi linh hoạt (Micro-gaming sessions):} Quy trình tương tác của người chơi được tối ưu hóa cho các phiên chơi có thời lượng ngắn (15 đến 30 phút). Kịch bản sử dụng lặp lại bao gồm: Người chơi bắt đầu tại vùng an toàn $\rightarrow$ Di chuyển vào phân khu Ruin/Volcano để thám hiểm và thu thập tài nguyên $\rightarrow$ Dịch chuyển nhanh về khu dịch vụ Village để thực hiện nâng cấp thuộc tính $\rightarrow$ Hệ thống tự động ghi nhận dữ liệu tại đền thờ $\rightarrow$ Người chơi thoát ứng dụng an toàn.
+\end{itemize}
+
+% NOTE: Sinh viên có thể bổ sung sơ đồ Use Case (Use Case Diagram) mô tả các hành vi chính của người chơi tương tác với hệ thống game tại đây.
+% Ví dụ:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.85\linewidth]{Hinhve/UseCases.png}
+%     \caption{Sơ đồ Use Case tổng quan hành vi người chơi}
+%     \label{fig:sodo_usecase}
+% \end{figure}
+
+\section{Cơ sở lý thuyết của định hướng sử dụng}
+\label{section:2.5}
+
+Định hướng thiết kế lối chơi và kịch bản sử dụng độc lập của đề tài được xây dựng trên hai nền tảng lý thuyết khoa học:
+\begin{itemize}
+    \item \textbf{Lý thuyết Dòng chảy (Flow Theory - Mihaly Csikszentmihalyi):} Khẳng định rằng sự thỏa mãn tinh thần đạt mức cực đại khi độ khó của nhiệm vụ tương thích hoàn hảo với năng lực xử lý của con người. Trò chơi áp dụng tiến trình tăng dần độ khó (Ruin $\rightarrow$ Volcano) và đa dạng hóa kỹ năng nhân vật (Form Switch, Spells) để liên tục giữ người chơi trong vùng "Dòng chảy", tránh trạng thái nhàm chán (khi game quá dễ) hoặc ức chế (khi game quá khó).
+    \item \textbf{Nguyên lý Thiết kế Hướng khám phá (Discovery-Based Learning):} Người chơi tự khám phá ra quy luật của hệ thống thông qua tương tác chủ động thay vì tiếp nhận thụ động. Thiết kế màn chơi phi tuyến tính và không có hướng dẫn trực tiếp bắt buộc người chơi phải tương tác vật lý, phân tích các phản hồi (Visual/Audio Feedback) để tự rút ra quy trình vượt màn hiệu quả nhất.
+\end{itemize}
+
+\end{document}

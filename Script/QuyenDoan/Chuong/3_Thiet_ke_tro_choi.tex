@@ -1,0 +1,512 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+\section{Tổng quan trò chơi}
+\label{section:3.1}
+
+Để cung cấp một cái nhìn toàn diện và giúp người đọc định hình nhanh chóng cấu trúc hệ thống, mục này khái quát những thông tin cốt lõi nhất về định danh, triết lý thiết kế và ngôn ngữ mỹ thuật của sản phẩm phần mềm. Các thành phần nền tảng của trò chơi được đặc tả cụ thể như sau:
+
+\begin{itemize}
+    \item \textbf{Tên trò chơi:} Dream Witch
+    \item \textbf{Bản sắc của trò chơi (Game Identity/Mantra):} Trò chơi là câu chuyện về một phù thủy trẻ tuổi thực hiện quá trình rèn luyện trong không gian giấc mộng, vượt qua các vùng đất hiểm nguy nhằm thức tỉnh sức mạnh tâm linh của bản thân. 
+    \item \textbf{Trụ cột trò chơi (Game Pillars):} Hệ thống tập trung duy trì và truyền tải ba giá trị cảm xúc cốt lõi đến người sử dụng bao gồm:
+    \begin{itemize}
+        \item \textit{Chính xác (Precision):} Mọi chuỗi phản hồi chuyển động như nhảy, lướt và kích hoạt kỹ năng tấn công của nhân vật đều được tối ưu hóa để đạt độ chuẩn xác thời gian thực tuyệt đối.
+        \item \textit{Khám phá không gian (Atmospheric Exploration):} Thiết kế mang lại trải nghiệm sâu sắc về sự bí ẩn, u sầu độc đáo trong từng phân khu của thế giới giấc mơ đa tuyến.
+        \item \textit{Thử thách chiến thuật (Tactical Combat):} Hệ thống đối đầu với Enemy có brain AI thông minh đòi hỏi người sử dụng phải phân tích quy luật và áp dụng tư duy chiến thuật rõ ràng thay vì hành vi tấn công tuyến tính.
+    \end{itemize}
+    \item \textbf{Khẩu hiệu (Tagline):} ``Nơi giấc mơ thức tỉnh, nỗi sợ tan biến''. 
+    \item \textbf{Phong cách đồ họa (Graphic Style):} Trò chơi áp dụng nhất quán ngôn ngữ mỹ thuật phẳng độc đáo kết hợp yếu tố kỳ ảo tăm tối (Stylish 2D Dark Fantasy). Không gian đồ họa thể hiện sự tương phản rõ nét giữa các mảng màu u tối, lạnh lẽo của phân khu Ngục tối (Ruin) với sắc đỏ rực rỡ mang tính đe dọa của phân khu Núi lửa (Volcano). 
+    
+    Quy trình xử lý hình ảnh tập trung vào độ chi tiết của các tài nguyên đồ họa (Sprites) nhân vật. Thêm vào đó, hệ thống diễn họa chuyển động (Animation) của các thực thể được tối ưu hóa mượt mà dựa trên các tương tác vật lý trực quan, giúp thế giới mô phỏng trở nên sống động và đảm bảo tính chân thực cao trong phân khúc trò chơi độc lập.
+\end{itemize}
+
+\subsection{Luồng trò chơi và Vòng lặp cốt lõi}
+\label{subsection:3.1.1}
+
+Để mang lại trải nghiệm liền mạch và nhất quán cho người chơi, luồng giao diện và vòng lặp trải nghiệm cốt lõi của trò chơi được thiết kế theo một cấu trúc chặt chẽ. Người chơi bắt đầu hành trình từ giao diện chính, qua các phân hệ chuẩn bị và bước vào không gian trải nghiệm thực tế. Luồng màn hình và vòng lặp hoạt động được thể hiện cụ thể trong Hình~\ref{fig:game_flow}.
+
+% NOTE: Sinh viên tự thay thế tệp ảnh Hinhve/game_flow.png bằng sơ đồ luồng game thực tế
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Hinhve/game_flow.png}
+    \caption{Sơ đồ luồng màn hình và vòng lặp cốt lõi của trò chơi}
+    \label{fig:game_flow}
+\end{figure}
+
+Dựa vào sơ đồ trên, các giai đoạn và tương tác trong trò chơi diễn ra như sau:
+\begin{itemize}
+    \item \textbf{Menu chính (Main Menu):} Điểm khởi đầu của trò chơi, cung cấp các tùy chọn để bắt đầu lượt chơi mới, tiếp tục lượt chơi cũ hoặc điều chỉnh các thiết lập âm thanh và đồ họa.
+    \item \textbf{Chọn Slot lưu game (Save Slot Selection):} Hệ thống hỗ trợ nhiều ô lưu trữ khác nhau, cho phép người chơi quản lý tiến trình cá nhân và tải lại trạng thái thế giới đã được ghi nhận trước đó.
+    \item \textbf{Scene chơi chính (Active Gameplay Scene):} Không gian mô phỏng thế giới giấc mơ đa tuyến, nơi diễn ra các hoạt động cốt lõi của trò chơi:
+    \begin{itemize}
+        \item \textit{Khám phá và chiến đấu:} Di chuyển tự do (nhảy, lướt 8 hướng, bám và leo tường) kết hợp với các cơ chế chiến đấu như tấn công combo, đỡ đòn (parry) và chuyển đổi hình dạng nhân vật (Form Switch).
+        \item \textit{Tương tác môi trường:} Kích hoạt đền thờ hồi sinh (Respawn Shrine) để lưu tiến trình, mở rương kho báu để nhận các cuốn sách phép thuật (SpellBooks), sử dụng điểm dịch chuyển (Portal Point) để di chuyển nhanh giữa các vùng đất.
+        \item \textit{Hệ thống giao diện UI tích hợp:} Trong quá trình chơi, người chơi có thể truy cập các bảng chức năng như: Bảng trạng thái nhân vật (Status UI hiển thị chỉ số, Spells, SpellBooks đã mở khóa), Túi đồ (Inventory UI chứa dược phẩm, vũ khí một lần), và Cửa hàng (Shop UI để mua bán các trang bị, kỹ năng).
+    \end{itemize}
+    \item \textbf{Tử trận và Hồi sinh:} Khi lượng máu (HP) của nhân vật giảm về không, trạng thái trò chơi chuyển sang màn hình Game Over. Người chơi sẽ được hồi sinh tại Đền hồi sinh (Respawn Shrine) gần nhất đã tương tác, toàn bộ tài nguyên cốt lõi được bảo toàn nhưng trạng thái sách phép đang trang bị chủ động sẽ được thiết lập lại.
+\end{itemize}
+
+\subsection{Kiến trúc hệ thống và Phân rã thành phần}
+\label{subsection:3.1.2}
+
+Hệ thống mã nguồn của trò chơi được tổ chức theo kiến trúc hướng thành phần (Component-Based Architecture) của công cụ Unity. Các thành phần logic được phân tách rõ ràng thành các lớp đối tượng chuyên biệt, đảm bảo khả năng mở rộng và dễ dàng bảo trì. Sơ đồ kiến trúc tổng thể các lớp logic và dòng dữ liệu tương tác giữa các hệ thống được đặc tả trong Hình~\ref{fig:game_architecture}.
+
+% NOTE: Sinh viên tự thay thế tệp ảnh Hinhve/game_architecture.png bằng sơ đồ kiến trúc hệ thống thực tế
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Hinhve/game_architecture.png}
+    \caption{Kiến trúc tổng thể các phân hệ và lớp logic trong hệ thống}
+    \label{fig:game_architecture}
+\end{figure}
+
+Kiến trúc phần mềm của trò chơi được phân chia thành 4 phân hệ chính như sau:
+\begin{itemize}
+    \item \textbf{Phân hệ Người chơi (Player System):} Phân hệ này chịu trách nhiệm điều khiển toàn bộ hành vi và thông số của nhân vật chính. Các thành phần cốt lõi bao gồm:
+    \begin{itemize}
+        \item \texttt{PlayerController:} Đóng vai trò bộ điều phối trung tâm (Orchestrator) quản lý máy trạng thái (PlayerStateMachine) và kết nối các thành phần logic lại với nhau.
+        \item \texttt{PlayerInput:} Nhận các tín hiệu điều khiển từ bàn phím và chuột, tích hợp cơ chế đệm phím (input buffering) cho các hành động nhảy và lướt để tăng độ phản hồi mượt mà.
+        \item \texttt{PlayerMovement:} Xử lý các tương tác vật lý như di chuyển, nhảy, lướt 8 hướng và cơ chế leo bám tường phức tạp.
+        \item \texttt{PlayerStats:} Quản lý các chỉ số cơ bản của người chơi (Máu, Thể lực, Tốc độ, Sức tấn công) và các hiệu ứng bổ trợ thụ động từ SpellBooks.
+        \item \texttt{PlayerCombat:} Điều phối các hành động tấn công cận chiến, chuỗi liên hoàn đòn đánh (combo system) và cơ chế đỡ đòn chuẩn xác (parry).
+        \item \texttt{PlayerFormManager:} Quản lý việc thay đổi hình dạng/linh hồn của nhân vật trong đội hình chiến đấu, áp dụng các hoạt ảnh (Animations) tương ứng.
+    \end{itemize}
+    \item \textbf{Phân hệ Kẻ địch (Enemy System):} Được thiết kế theo cơ chế máy trạng thái kế thừa phân cấp từ lớp cơ sở \texttt{MvUnit} $\rightarrow$ \texttt{MvUnitAct} $\rightarrow$ \texttt{MvEm} (chứa các trạng thái chung như Idle, Run, Hit, Death). Đối với các Boss lớn, hệ thống tích hợp bộ não AI chuyên biệt (\texttt{MvEmBrain}) để tính toán trọng số hành vi (Desire Weights) và lựa chọn chuỗi chiêu thức (Combo Patterns) đối phó với người chơi.
+    \item \textbf{Phân hệ Giao diện (UI System):} Sử dụng bộ đôi \texttt{UIManager} và \texttt{UIStateManager} để kiểm soát vòng đời hiển thị của các bảng chức năng (StatusUI, InventoryUI, ShopUI, FacilityUI) cùng hệ thống màn hình hiển thị trong game (HUD) cập nhật chỉ số máu, thể lực và các vật phẩm hồi phục theo thời gian thực.
+    \item \textbf{Phân hệ Hệ thống lõi (Core Systems):} Các dịch vụ chạy ngầm quản lý tài nguyên và dữ liệu bền vững bao gồm:
+    \begin{itemize}
+        \item \texttt{SpellManager} và \texttt{SpellUseSystem:} Quản lý cơ chế thi triển phép thuật và tái sử dụng bộ nhớ đạn phép (Object Pooling).
+        \item \texttt{InventoryStateSO} và \texttt{ShopStateSO:} Lưu trữ dữ liệu dưới dạng ScriptableObject giúp đồng bộ hóa trạng thái túi đồ và vật phẩm bán trong cửa hàng qua các màn chơi.
+        \item \texttt{RespawnShrineService} và \texttt{PortalCheckpointService:} Điều phối điểm hồi sinh và dịch chuyển nhanh.
+        \item \texttt{SaveManager:} Đọc ghi trạng thái trò chơi sang định dạng JSON để phục vụ lưu trữ lâu dài.
+    \end{itemize}
+\end{itemize}
+
+\section{Lối chơi}
+\label{section:3.2}
+
+Lối chơi của trò chơi được xây dựng xung quanh trải nghiệm nhập vai hành động kết hợp với yếu tố phiêu lưu khám phá thế giới đa tuyến (Metroidvania). Người chơi sẽ điều khiển phù thủy trẻ vượt qua các vùng không gian giấc mơ đầy rẫy hiểm nguy, tích lũy sức mạnh và giải quyết các thử thách môi trường nhằm thức tỉnh bản thân.
+
+\subsection{Ấn tượng ban đầu (First Minutes)}
+\label{subsection:3.2.1}
+
+Ngay khi trò chơi hoàn tất tải dữ liệu và bắt đầu lượt chơi mới, người chơi sẽ xuất hiện tại khu vực trung tâm là \textbf{Nhà thờ (Church)}. Đây là một không gian có bầu không khí u sầu và yên ắng, đóng vai trò là vùng an toàn cũng như điểm khởi đầu hành trình. 
+
+Trong những phút đầu tiên này, người chơi sẽ làm quen với các cơ chế điều khiển nhân vật cơ bản thông qua các chỉ dẫn trực quan trên giao diện:
+\begin{itemize}
+    \item Sử dụng các phím \texttt{A/D} để di chuyển nhân vật sang trái hoặc phải.
+    \item Nhấn phím \texttt{Space} để thực hiện các cú nhảy đơn, nhảy đôi (Double Jump) trên các bục nền.
+    \item Trải nghiệm cơ chế bám tường và leo tường (Wall Grab / Wall Climb) bằng cách hướng nhân vật vào vách đá thẳng đứng và giữ phím di chuyển tương ứng để leo lên hoặc trượt xuống.
+\end{itemize}
+
+Sau khi thuần thục các thao tác cơ bản, người chơi sẽ di chuyển về phía bên phải và đi qua cánh \textbf{Cửa (Door)} lớn để chuyển cảnh sang phân khu \textbf{Di tích (Ruin)} đầu tiên. Tại đây, trò chơi sẽ giới thiệu kẻ địch cơ bản đầu tiên (chó xương - Bone Dog) tuần tra trên đường đi. Lúc này, người chơi sẽ làm quen với cơ chế tấn công chủ động bằng cách thực hiện các chuỗi liên hoàn đòn cận chiến (3-hit combo) để tiêu diệt mục tiêu và thu thập những tài nguyên năng lượng đầu tiên rơi ra từ kẻ địch.
+
+\subsection{Mục tiêu của trò chơi (Objectives)}
+\label{subsection:3.2.2}
+
+Hệ thống mục tiêu trong trò chơi được phân rã thành các cấp độ ngắn hạn và dài hạn nhằm định hướng hành vi của người chơi trong suốt thời gian trải nghiệm:
+\begin{itemize}
+    \item \textbf{Mục tiêu ngắn hạn:} 
+    \begin{itemize}
+        \item Sống sót qua các cạm bẫy môi trường nguy hiểm như vùng nước axit (Acid Water), bẫy gai (Trap Zone).
+        \item Tiêu diệt quái vật để tích lũy điểm năng lượng linh hồn.
+        \item Khám phá bản đồ đa tuyến để tìm kiếm các tệp vật phẩm đặc biệt và sách phép thuật (\textbf{SpellBooks}) ẩn trong các rương cổ.
+        \item Kích hoạt các điểm dịch chuyển nhanh (Portals) và tìm kiếm các chìa khóa hoặc cơ cấu kích hoạt để mở khóa những cánh cửa (Doors) bị phong ấn.
+    \end{itemize}
+    \item \textbf{Mục tiêu dài hạn:} 
+    \begin{itemize}
+        \item Khám phá toàn bộ phân khu \textbf{Di tích (Ruin)} và đánh bại thủ lĩnh khu vực là Boss lớn \textbf{Big Golem}. Việc tiêu diệt thành công Big Golem là điều kiện bắt buộc để mở khóa cánh cửa dịch chuyển dẫn sang phân khu tiếp theo.
+        \item Tiến hành thâm nhập và vượt qua thử thách khắc nghiệt của phân khu \textbf{Núi lửa (Volcano)}, tiến tới hang ổ của Boss chính cuối cùng là \textbf{Marionette}. Đánh bại thực thể Marionette sẽ giúp phù thủy trẻ thức tỉnh hoàn toàn linh lực và thoát khỏi thế giới giấc mộng kỳ ảo.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Diễn tiến và Vòng lặp nâng cấp (Progression and Upgrade Loop)}
+\label{subsection:3.2.3}
+
+Trò chơi áp dụng tiến trình Metroidvania khóa tuyến tính giữa các phân khu chính, trong đó người chơi bắt buộc phải hoàn thành khu vực \textbf{Ruin} (đánh bại Big Golem) trước khi có thể đi sâu vào khu vực \textbf{Volcano}. Trung tâm kết nối toàn bộ tiến trình này chính là khu vực \textbf{Nhà thờ (Church)}.
+
+Vòng lặp nâng cấp và củng cố sức mạnh của nhân vật được thiết kế thông qua tương tác giữa Church và ngôi làng \textbf{Village}:
+\begin{itemize}
+    \item Từ \textbf{Church}, người chơi có thể lựa chọn di chuyển đến ngôi làng \textbf{Village} để thực hiện chuẩn bị chiến thuật. Tại đây có sự xuất hiện của hai NPC cốt lõi:
+    \begin{itemize}
+        \item \textbf{NPC Chủ cửa hàng (Shopkeeper):} Cho phép người chơi sử dụng tiền vàng/linh hồn tích lũy để mua sắm các công cụ hỗ trợ (Tools), mở khóa kỹ năng phép thuật mới (Spell skills), và mua bình dược phẩm hồi máu (Heal potions) dự trữ trong túi đồ.
+        \item \textbf{NPC Chủ cơ sở nâng cấp (Facility Owner):} Cung cấp các dịch vụ nâng cấp vĩnh viễn chỉ số thuộc tính cơ bản của nhân vật như: gia tăng lượng Máu tối đa (Max HP), lượng Thể lực tối đa (Max Stamina), và các chỉ số sức mạnh khác.
+    \end{itemize}
+    \item Sau khi chuẩn bị đầy đủ trang bị và chỉ số tại \textbf{Village}, người chơi quay trở lại \textbf{Church} để lựa chọn đi tiếp đến khu vực thám hiểm (\textbf{Ruin} hoặc \textbf{Volcano} đã mở khóa).
+    \item Khi nhân vật tử trận trong lúc khám phá bản đồ, toàn bộ chỉ số HP và mana sẽ bị cạn kiệt, các hiệu ứng tăng cường từ SpellBooks đang trang bị chủ động sẽ biến mất. Nhân vật sẽ tự động hồi sinh trở lại điểm an toàn tại \textbf{Church} để bắt đầu lại vòng lặp thám hiểm mới, trong khi các thuộc tính nâng cấp vĩnh viễn và tiến trình cốt truyện đã đạt được vẫn được giữ lại nguyên vẹn.
+\end{itemize}
+
+
+\section{Cơ chế của trò chơi}
+\label{section:3.3}
+
+Mục này trình bày chi tiết về các quy tắc vận hành, mô hình vật lý và kinh tế, các nhóm hành động tương tác của nhân vật, cấu trúc phân chia cảnh chơi và hệ thống phản hồi của trò chơi. Đây là cơ sở kỹ thuật cốt lõi giúp định hình trải nghiệm tương tác trực quan của sản phẩm.
+
+\subsection{Luật chơi}
+\label{subsection:3.3.1}
+
+Hệ thống luật chơi được cấu thành từ hai nhóm quy tắc: rõ ràng (explicit rules) và ẩn (implicit rules), điều khiển trực tiếp tiến trình và các giới hạn trong thế giới mô phỏng.
+\begin{itemize}
+    \item \textbf{Quy tắc rõ ràng (Explicit Rules):}
+    \begin{itemize}
+        \item Người chơi phải kiểm soát lượng Sinh lực (HP) của nhân vật chính. Khi chỉ số này giảm về 0 do va chạm kẻ địch hoặc cạm bẫy, nhân vật sẽ tử trận.
+        \item Khi tử trận, nhân vật tự động hồi sinh tại \textbf{Nhà thờ (Church)}, các chỉ số máu và năng lượng được phục hồi đầy, nhưng các bổ trợ tạm thời từ sách phép (SpellBooks) đang trang bị sẽ bị đặt lại về mặc định.
+        \item Để nâng cấp vĩnh viễn các thuộc tính, người chơi bắt buộc phải thu thập các vật phẩm đặc biệt tương ứng trên bản đồ và đưa về cơ sở nâng cấp trong ngôi làng \textbf{Village}.
+    \end{itemize}
+    \item \textbf{Quy tắc ẩn (Implicit Rules):}
+    \begin{itemize}
+        \item Hệ thống vật lý giả lập trọng lực liên tục tác động lên nhân vật và quái vật.
+        \item Cơ chế leo bám tường yêu cầu người chơi phải giữ phím hướng (\texttt{A} hoặc \texttt{D}) áp sát vào vách đá; thả phím hướng sẽ khiến nhân vật rơi tự do ngay lập tức.
+        \item Các hành động lướt (Dash) tiêu tốn một lượng Thể lực (Stamina) cố định, trong khi thi triển kỹ năng phép thuật tiêu tốn chỉ số Năng lượng (MP).
+    \end{itemize}
+\end{itemize}
+
+\subsection{Mô hình thế giới}
+\label{subsection:3.3.2}
+
+\subsubsection{Mô hình vật lý (Physics)}
+Trò chơi sử dụng hệ thống vật lý phẳng 2D (Physics 2D) để xử lý va chạm và chuyển động:
+\begin{itemize}
+    \item Cơ chế rơi tự do tuân theo gia tốc trọng lực tùy biến, giúp chuyển động nhảy của nhân vật mang lại cảm giác chắc chắn và có độ nặng chân thực.
+    \item Khi bám tường (Wall grab), lực ma sát giả lập được áp dụng làm giảm đáng kể tốc độ trượt xuống của nhân vật.
+    \item Chuyển động lướt nhanh (Dash) áp dụng một xung lực không đổi theo hướng chỉ định trong thời gian ngắn (0.15 giây), tạm thời bỏ qua ảnh hưởng của trọng lực nhằm tạo ra quỹ đạo bay thẳng tắp.
+\end{itemize}
+
+\subsubsection{Mô hình kinh tế (Economy)}
+Nền kinh tế trong trò chơi được phân chia thành hai luồng tài nguyên độc lập nhằm đa dạng hóa hành vi thám hiểm của người chơi:
+\begin{itemize}
+    \item \textbf{Tiền vàng (Gold):} Thu thập được từ việc mở các rương báu hoặc tiêu diệt quái vật dọc đường. Tiền vàng được dùng để giao dịch trực tiếp với NPC Shopkeeper tại ngôi làng \textbf{Village} nhằm mua các công cụ chiến đấu, kỹ năng phép thuật và bình thuốc hồi máu.
+    \item \textbf{Vật phẩm nâng cấp đặc biệt (Special Items):} Được phân bố tại các khu vực bí mật trên bản đồ khám phá. Để thực hiện nâng cấp các chỉ số tại NPC Facility Owner, người chơi bắt buộc phải sử dụng các loại vật phẩm đặc biệt riêng biệt tương ứng:
+    \begin{itemize}
+        \item \textit{Nâng cấp Máu tối đa (Max HP):} Yêu cầu vật phẩm đặc biệt loại A.
+        \item \textit{Nâng cấp Năng lượng tối đa (Max Mana):} Yêu cầu vật phẩm đặc biệt loại B.
+        \item \textit{Nâng cấp Sát thương cận chiến (Melee Damage):} Yêu cầu vật phẩm đặc biệt loại C.
+        \item \textit{Nâng cấp Sức chứa túi đồ (Inventory Capacity):} Yêu cầu vật phẩm đặc biệt loại D.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Các hành động của nhân vật}
+\label{subsection:3.3.3}
+
+Nhân vật chính được tích hợp một tập hợp các hành động tương tác phong phú, được ánh xạ chính xác đến các lớp logic tương ứng trong mã nguồn:
+\begin{itemize}
+    \item \textbf{Hành động di chuyển (Movement):} Bao gồm đi bộ, chạy nhanh, nhảy đơn và nhảy đôi (Double Jump). Hệ thống tích hợp cơ chế đệm phím (Jump Buffering) và thời gian dung sai rơi (Coyote Time) để tối ưu hóa cảm giác điều khiển. Hành động bám tường (Wall grab), trượt tường (Wall slide) và nhảy bật tường (Wall jump) cho phép tiếp cận các địa hình phức tạp. Hành động lướt nhanh (Dash) hỗ trợ né đòn theo 8 hướng.
+    \item \textbf{Hành động chiến đấu cận chiến:} Thực hiện chuỗi liên hoàn 3 đòn tấn công cận chiến (3-hit combo) gây sát thương vật lý và đẩy lùi (knockback) kẻ địch tầm gần.
+    \item \textbf{Hành động thi triển phép thuật (Spells):} Tiêu tốn Năng lượng (MP) để bắn các luồng đạn phép tầm xa (như Flying Sword) hoặc kích hoạt giáp bảo vệ hấp thụ sát thương thông qua lớp điều phối \texttt{SpellUseSystem}.
+    \item \textbf{Sử dụng vật phẩm hồi phục và công cụ (Potions \& Tools):}
+    \begin{itemize}
+        \item \textit{Sử dụng bình máu (Heal Potions):} Tiêu thụ bình máu dự trữ trong túi đồ để hồi phục lượng HP lớn tức thời trong các tình huống khẩn cấp.
+        \item \textit{Sử dụng công cụ hỗ trợ (Tools):} Kích hoạt các công cụ đặc thù mua từ Shopkeeper để giải quyết các tình huống chiến thuật hoặc vượt chướng ngại vật đặc biệt.
+    \end{itemize}
+    \item \textbf{Chuyển đổi hình dạng (Form Switch):} Lớp \texttt{PlayerFormManager} hỗ trợ người chơi chuyển đổi linh hoạt dạng linh hồn của nhân vật trong đội hình, thay đổi tức thời bộ chỉ số cơ bản và bộ hoạt ảnh (Animations) tương ứng để đối phó với từng loại kẻ địch.
+\end{itemize}
+
+\subsection{Luồng màn hình và Phân loại Scene}
+\label{subsection:3.3.4}
+
+Để tối ưu hóa quản lý bộ nhớ và phân chia cấu trúc logic, trò chơi tổ chức hệ thống thành 5 phân loại màn hình/Scene chính. Mối quan hệ và luồng chuyển cảnh giữa các Scene được mô tả trong Hình~\ref{fig:scene_transition}.
+
+% NOTE: Sinh viên tự thay thế tệp ảnh Hinhve/scene_transition.png bằng sơ đồ chuyển scene thực tế
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Hinhve/scene_transition.png}
+    \caption{Sơ đồ luồng chuyển cảnh giữa các Scene trong trò chơi}
+    \label{fig:scene_transition}
+\end{figure}
+
+Chi tiết các phân loại Scene bao gồm:
+\begin{itemize}
+    \item \textbf{Scene Title:} Màn hình khởi động của trò chơi, chứa Menu chính và giao diện quản lý các ô lưu trữ (Save Slots).
+    \item \textbf{Scene Church (Trung tâm):} Điểm xuất phát của cuộc hành trình và là điểm hồi sinh mặc định của nhân vật khi tử trận. Đóng vai trò là Hub trung tâm kết nối trực tiếp đến các Scene khác.
+    \item \textbf{Scene Village:} Khu vực an toàn chứa các NPC tương tác (Shopkeeper, Facility Owner) phục vụ cho việc chuẩn bị và nâng cấp trước khi thám hiểm.
+    \item \textbf{Các Scene Bản đồ khám phá (Ruin, Volcano):} Các khu vực bản đồ rộng lớn được thiết kế theo mô hình đa tuyến Metroidvania chứa quái vật thường và cạm bẫy địa hình. Người chơi bắt buộc phải hoàn thành bản đồ Ruin mới có thể mở khóa và di chuyển tới bản đồ Volcano từ Church.
+    \item \textbf{Các Scene Boss (Scene Boss Golem, Scene Boss Marionette):} Các khu vực đấu trường chuyên biệt riêng cho các trận chiến sinh tử với Boss chính (Big Golem ở Ruin và Marionette ở Volcano). Chiến thắng tại đây sẽ mở khóa tiến trình cốt truyện tiếp theo.
+\end{itemize}
+
+Trong quá trình trải nghiệm Scene chơi chính, hệ thống giao diện HUD động sẽ luôn được hiển thị ở các góc màn hình để cung cấp thông tin thời gian thực về lượng HP, Stamina, Spell đang chọn, Tool đang chọn và số lượng bình máu còn lại.
+
+\subsection{Các tùy chọn trò chơi và Lưu trữ}
+\label{subsection:3.3.5}
+
+\begin{itemize}
+    \item \textbf{Cơ chế lưu trữ (Saving):} Tiến trình chơi, lượng tiền vàng thu thập, sách phép đã mở khóa, chỉ số thuộc tính nâng cấp vĩnh viễn và các cửa/portal đã mở được ghi nhận tự động tại các điểm đền thờ hoặc khi chuyển đổi Scene. Dữ liệu được mã hóa và lưu trữ dưới định dạng tệp JSON thông qua bộ điều phối \texttt{SaveManager}.
+    \item \textbf{Tùy chọn trò chơi (Settings):} Hỗ trợ người dùng tinh chỉnh các thiết lập âm lượng tổng (Master), nhạc nền (BGM), và âm thanh hiệu ứng (SFX) trực tiếp tại Menu chính hoặc bảng tùy chỉnh khi tạm dừng game.
+\end{itemize}
+
+\subsection{Hệ thống phản hồi cho người chơi}
+\label{subsection:3.3.6}
+
+Hệ thống phản hồi (Game Feedback) được thiết kế đồng bộ nhằm nâng cao cảm giác nhập vai và độ phản hồi lực chân thực:
+\begin{itemize}
+    \item \textbf{Phản hồi hình ảnh (Visual Feedback):} 
+    \begin{itemize}
+        \item Áp dụng hiệu ứng rung màn hình (Screen Shake) và làm chậm/đóng băng khung hình tạm thời trong vài mili giây (Freeze Frame) khi người chơi tung đòn chí mạng hoặc nhận sát thương nặng.
+        \item Hiển thị các chữ số sát thương bay linh hoạt trên đầu các thực thể bị trúng đòn thông qua lớp \texttt{DamageTextView} nhằm phản hồi trực quan lượng sát thương gây ra.
+        \item Hiệu ứng hạt bụi đất, vệt sáng khi lướt (VFX) và lóe sáng khi tấn công.
+    \end{itemize}
+    \item \textbf{Phản hồi âm thanh (Audio Feedback):} Các hiệu ứng âm thanh (SFX) như tiếng chém gió của combo cận chiến, tiếng va chạm kim loại, tiếng nổ phép thuật và tiếng bước chân thay đổi theo chất liệu bề mặt địa hình được phát đồng bộ. Nhạc nền (BGM) thay đổi nhịp điệu tương ứng theo từng phân khu và phân cảnh chiến đấu với Boss lớn để gia tăng bầu không khí kịch tính.
+\end{itemize}
+
+\section{Điều khiển}
+\label{section:3.4}
+
+Hệ thống điều khiển trong trò chơi được phân chia thành hai nhóm riêng biệt để đáp ứng tối ưu hành vi người dùng: hệ thống điều khiển hành động của nhân vật trong màn chơi (thông qua lớp điều phối \texttt{PlayerInput}) và hệ thống điều khiển giao diện UI tĩnh (sử dụng phím cứng kết hợp chuột).
+
+\subsection{Điều khiển hành động nhân vật (Gameplay Controls)}
+\label{subsection:3.4.1}
+
+Hành động của nhân vật chính trong quá trình chiến đấu và khám phá được tiếp nhận và xử lý thời gian thực bằng lớp \texttt{PlayerInput}, hỗ trợ cả thiết bị Bàn phím/Chuột truyền thống lẫn Tay cầm chơi game (Gamepad). Sơ đồ gán phím mặc định của hệ thống được đặc tả cụ thể trong Bảng~\ref{table:control_mappings} dưới đây:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|m{4.5cm}|m{4.5cm}|m{5cm}|}
+\hline
+\textbf{Hành động hành vi} & \textbf{Bàn phím \& Chuột} & \textbf{Tay cầm (Gamepad)} \\ \hline
+Di chuyển / Trèo tường & Phím \texttt{W / A / S / D} & Cần Analog Trái / D-pad \\ \hline
+Nhảy (Hỗ trợ nhảy đôi) & Phím \texttt{Space} & Nút Nam (Button South) \\ \hline
+Lướt 8 hướng (Dash) & Chuột phải / Shift & Vai phải (Right Shoulder) \\ \hline
+Tấn công cận chiến & Chuột trái & Nút Tây (Button West) \\ \hline
+Kích hoạt phép thuật & Phím \texttt{Q} & D-pad Trái \\ \hline
+Sử dụng công cụ (Tool) & Phím \texttt{E} & D-pad Phải \\ \hline
+Uống bình máu hồi phục & Phím \texttt{R} & D-pad Trên \\ \hline
+Chuyển đổi dạng linh hồn & Phím \texttt{Tab} & Nhấn cần Analog Trái \\ \hline
+Tương tác vật thể (Interact) & Phím \texttt{F} & Nút Bắc (Button North) \\ \hline
+\end{tabular}
+\caption{Bảng ánh xạ các nút bấm điều khiển hành động nhân vật}
+\label{table:control_mappings}
+\end{table}
+
+Để người chơi dễ hình dung, sơ đồ phân bố các phím tắt điều khiển trên bàn phím máy tính được minh họa trực quan trong Hình~\ref{fig:control_keyboard}.
+
+% NOTE: Sinh viên tự thay thế tệp ảnh Hinhve/control_keyboard.png bằng hình chụp bàn phím thiết lập thực tế trong game
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Hinhve/control_keyboard.png}
+    \caption{Sơ đồ gán phím điều khiển nhân vật trên bàn phím PC}
+    \label{fig:control_keyboard}
+\end{figure}
+
+\subsection{Điều khiển hệ thống giao diện UI và các chức năng phụ trợ}
+\label{subsection:3.4.2}
+
+Khác với hệ thống hành động động có thể cấu hình lại, các thao tác điều khiển giao diện UI và các chức năng hệ thống được gán cố định (hardcoded) để đảm bảo tính nhất quán và dễ sử dụng:
+\begin{itemize}
+    \item \textbf{Điều khiển Giao diện Bản đồ lớn (Full Map):}
+    \begin{itemize}
+        \item Nhấn phím \texttt{M} để mở hoặc đóng giao diện bản đồ toàn cảnh của thế giới giấc mơ.
+        \item Lăn nút cuộn chuột (Mouse Wheel) để thực hiện phóng to (zoom in) hoặc thu nhỏ (zoom out) tầm nhìn bản đồ.
+        \item Nhấp chuột trái để chọn một điểm dịch chuyển (Portal Point) đã mở khóa trên bản đồ, sau đó nhấn phím \texttt{F} để kích hoạt dịch chuyển nhanh tức thời.
+    \end{itemize}
+    \item \textbf{Điều khiển Phân cảnh Hội thoại (Dialogue):} Khi có hội thoại cốt truyện diễn ra, người chơi có thể nhấn phím \texttt{Enter} để bỏ qua nhanh (skip) các dòng văn bản hiển thị.
+    \item \textbf{Điều khiển Menu Hệ thống và Bảng chức năng:} 
+    \begin{itemize}
+        \item Nhấn phím \texttt{Esc} để mở hoặc đóng Menu chính (\texttt{MenuMain}) hỗ trợ thiết lập âm lượng và thoát game. Phím \texttt{Esc} cũng được dùng để thoát nhanh các bảng chức năng (ShopUI, FacilityUI, StatusUI).
+        \item Sử dụng chuột trái để nhấp chọn trực tiếp các thẻ Spells / SpellBooks trên giao diện trạng thái, click chọn mua công cụ tại cửa hàng của Shopkeeper, hoặc click chọn nâng cấp các thuộc tính tại đền thờ của Facility Owner.
+    \end{itemize}
+\end{itemize}
+
+\section{Cốt truyện}
+\label{section:3.5}
+
+\subsection{Bối cảnh (Backstory)}
+Cốt truyện của trò chơi xoay quanh nhân vật Nameless Witch — một phù thủy trẻ tuổi trong tiến trình tìm kiếm và khôi phục những mảnh ký ức đã mất. Trong một đêm trăng tròn, toàn bộ ký ức của nhân vật chính bị đánh cắp bởi thực thể phù thủy bóng tối cai trị phân khu Ngục tối. Trước khi mất đi năng lượng tâm linh, nhân vật chính kịp xác định được vị trí của đối phương đang ẩn náu tại khu vực Ngục tối nghìn năm, nằm sâu bên dưới lòng đất của khu vực Nhà thờ biên giới vương quốc. 
+Để hoàn thành mục tiêu, Nameless Witch bắt buộc phải vượt qua các chuỗi thử thách không gian đa tuyến, đối đầu với hệ thống thực thể kẻ địch có kích thước và tập lệnh hành vi phức tạp, đồng thời thu thập các cổ thư phép thuật phân tán trong màn chơi để giải phóng và nâng cấp các thuộc tính năng lượng tâm linh tiềm ẩn. Quá trình tích lũy này là cơ sở kỹ thuật cốt lõi giúp nhân vật chính khắc phục các thử thách, đánh bại thực thể chủ mưu và khôi phục thành công các dữ liệu ký ức ban đầu.
+
+\subsection{Tình tiết cốt truyện (Plot Elements)}
+Tiến trình câu chuyện được phân rã thành 3 giai đoạn chính gắn liền với tiến trình thám hiểm của người chơi:
+\begin{itemize}
+    \item \textbf{Giai đoạn 1 (Sự thức tỉnh):} Nameless Witch thức dậy tại \textbf{Nhà thờ (Church)} đổ nát, nhận ra bản thân bị tước đi phần lớn ký ức. Cô tìm thấy lối đi đến ngôi làng \textbf{Village} bị lãng quên . Tại đây, dân làng và các linh hồn dẫn lối (như Shopkeeper và Facility Owner) đã chỉ dẫn cho cô biết rằng ký ức của cô đã bị phong ấn tại các phân khu hiểm họa trong Hầm ngục, và cô cần phải đánh bại các tay sai của Phù thùy ngàn năm canh giữ các phân khu để lấy lại các mảnh ký ức của bản thân
+    \item \textbf{Giai đoạn 2 (Thử thách Di tích):} Nameless Witch bước vào vùng \textbf{Di tích (Ruin)}, đối mặt với quái vật và cạm bẫy địa hình. Ở tận cùng của tàn tích, cô phải chiến đấu với \textbf{Big Golem} - hiện thân của rào cản tinh thần đầu tiên. Đánh bại Big Golem giúp cô giải phóng phong ấn, mở khóa cổng dịch chuyển dẫn đến vùng dung nham nóng cháy.
+    \item \textbf{Giai đoạn 3 (Đối mặt nỗi sợ hữu hình):} Nameless Witch đặt chân đến vùng \textbf{Núi lửa (Volcano)}, nơi nhiệt độ nóng bức và tro bụi núi lửa tượng trưng cho cơn giận dữ và nỗi sợ tột cùng của cô. Tại đây, cô đối đầu với Boss cuối cùng \textbf{Marionette} và bí mật thực sự của phù thủy ngàn năm. Chiến thắng Marionette giúp cô phá vỡ hoàn toàn kết giới hầm ngục , Ký ức thức tỉnh trọn vẹn, để đem đến 1 bí mật thực sự ẩn giấu đằng sau ký ức của cô khiến phù thủy đánh cắp .... .
+\end{itemize}
+
+\subsection{Dẫn dắt câu chuyện (Story Progression)}
+Trò chơi sử dụng phương pháp dẫn truyện phi tuyến tính kết hợp tương tác trực quan:
+\begin{itemize}
+    \item \textbf{Hội thoại với NPC:} Thông tin về thế giới giấc mơ và các chỉ dẫn nhiệm vụ được truyền tải qua các cuộc đối thoại với Shopkeeper và Facility Owner trong làng. Người chơi có thể sử dụng phím \texttt{Enter} để bỏ qua nhanh hội thoại khi đã nắm bắt thông tin.
+    \item \textbf{Mô tả vật phẩm và Sách phép:} Mỗi cuốn sách phép cổ (\texttt{SpellBook}) thu thập được trong rương cổ đều chứa đựng các dòng mô tả (Lore) giải nghĩa nguồn gốc của thế giới mộng cảnh và lịch sử của dòng máu phù thủy mà Nameless Witch thừa kế.
+\end{itemize}
+
+\section{Thế giới game}
+\label{section:3.6}
+
+\subsection{Diện mạo và cảm quan mỹ thuật (Look and Feel)}
+Thế giới giấc mơ trong game áp dụng phong cách đồ họa phẳng 2D kết hợp yếu tố kỳ ảo tăm tối (Stylish 2D Dark Fantasy). Không gian đồ họa thể hiện sự tương phản rõ nét về màu sắc và ánh sáng để biểu đạt trạng thái tâm lý nhân vật: từ sự lạnh lẽo cô độc sang nhiệt độ nóng bỏng đe dọa, kết hợp các hiệu ứng hạt bụi sáng bay lơ lửng để nhấn mạnh tính chất ảo mộng của không gian.
+
+\subsection{Phân khu thế giới (Game Regions)}
+Thế giới game được chia thành 4 phân khu chính kết nối chặt chẽ với nhau:
+\begin{itemize}
+    \item \textbf{Nhà thờ (Church):} Khu vực an toàn và là trung tâm kết nối (Hub). Nơi đây mang tông màu xám lạnh của những bức tường đá đổ nát phong cách Gothic cổ kính, bao phủ bởi màn sương mù mờ ảo. Đây là điểm khởi đầu và cũng là điểm hồi sinh mặc định của nhân vật khi tử trận.
+    \item \textbf{Ngôi làng (Village):} Khu vực kết nối từ Church, mang tông màu vàng ấm áp phát ra từ những chiếc đèn dầu cổ. Village là nơi định cư của các NPC thân thiện giúp người chơi trao đổi vàng lấy dụng cụ hỗ trợ và sử dụng vật phẩm nâng cấp chỉ số.
+    \item \textbf{Di tích (Ruin):} Bản đồ thám hiểm đầu tiên, mang tông màu xanh lam u tối và lạnh lẽo. Khu vực này đầy rẫy các cột đá đổ nát, mạng nhện, bẫy gai và các hồ nước axit nguy hiểm. Boss ngự trị cuối vùng di tích là \textbf{Big Golem}.
+    \item \textbf{Núi lửa (Volcano):} Phân khu thám hiểm thứ hai (mở khóa sau khi đánh bại Big Golem), mang tông màu đỏ rực đầy đe dọa. Địa hình ngập tràn nham thạch nóng chảy, các đợt phun trào dung nham và tàn tro núi lửa bay rợp bầu trời. Đấu trường cuối cùng là nơi cư ngụ của Boss \textbf{Marionette}.
+\end{itemize}
+
+\section{Nhân vật và kẻ địch}
+Hệ thống nhân vật và các thực thể đối kháng trong trò chơi được thiết kế nhằm phục vụ tối đa cho cơ chế cốt lõi là chuyển đổi hình dạng (Form Switch) và thám hiểm đa tuyến.
+
+\subsection{Nhân vật chính và Cơ chế Biến hình (Player Forms)}
+\label{subsection:3.7.1}
+
+Nhân vật chính được điều khiển trực tiếp bởi người chơi là \textbf{Nameless Witch} (Phù thủy Vô danh). Trò chơi không cung cấp cơ chế tùy biến ngoại hình tự do (avatar customization) khi bắt đầu game nhằm đảm bảo tính nhất quán của cốt truyện và thiết kế hoạt ảnh. Tuy nhiên, thông qua cơ chế chuyển đổi linh hồn, người chơi có thể thay đổi linh hoạt hình dạng của Witch thành 5 dạng quái vật khác nhau khi thu thập được các tàn tích linh hồn tương ứng từ kẻ địch bị tiêu diệt.
+
+% NOTE: Sinh viên có thể chèn hình vẽ minh họa giao diện chuyển đổi hình thái hoặc hình vẽ 6 hình dạng linh hồn của nhân vật chính tại đây.
+% Ví dụ:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.9\linewidth]{Hinhve/CacHinhDangNhanVat.png}
+%     \caption{Các hình dạng biến hình linh hồn của phù thủy Nameless Witch trong game}
+%     \label{fig:cac_hinh_dang_nhan_vat}
+% \end{figure}
+
+Mỗi hình dạng (Form) sở hữu một bộ hoạt ảnh di chuyển/chiến đấu riêng, chỉ số sinh lực (HP), sát thương cơ bản và các kỹ năng đặc thù:
+\begin{enumerate}
+    \item \textbf{Dạng Người (Human Form):} Dạng cơ bản của Nameless Witch. Tấn công cận chiến bằng kiếm với chuỗi combo 3 đòn chém linh hoạt và có khả năng thi triển các phép thuật tầm xa (Spells) đã trang bị từ sách phép cổ.
+    \item \textbf{Dạng Chó Xương (Bone Dog Form - Em0010):} Được mở khóa sau khi đánh bại Bone Dog. Dạng này có tốc độ chạy cao nhất, khả năng lướt nhanh (Dash) và thực hiện các đòn tấn công vồ cắn mục tiêu liên tiếp (\texttt{Bite}, \texttt{Lick}, \texttt{Tackle}), phù hợp để thăm dò và né tránh chướng ngại nhanh.
+    \item \textbf{Dạng Mèo Bóng Ma (Ghost Cat Form - Em0020):} Dạng linh hồn mèo nhỏ. Tuy lượng máu thấp, nhưng dạng này sở hữu khả năng lướt né đòn cực kỳ nhanh nhạy và chui qua các khe hẹp địa hình khó tiếp cận nhờ kích thước nhỏ bé. Kỹ năng chủ đạo bao gồm né tránh tầm xa (\texttt{Dodge}) và hiệu ứng ám ảnh mục tiêu (\texttt{Haunt}).
+    \item \textbf{Dạng Hiệp sĩ Khiên (Shield Guard Form - Em0060):} Biến thân thành hiệp sĩ khiên nặng. Tốc độ di chuyển giảm đáng kể, đổi lại là khả năng phòng thủ tuyệt đối nhờ chiếc khiên lớn. Có khả năng chặn đứng hoàn toàn các nguồn sát thương từ phía trước (\texttt{Guard}), thực hiện đỡ đòn hoàn hảo (Perfect Guard) tạo recoil cho kẻ địch và tung ra các đòn chém quét cực mạnh (\texttt{FullSwing}, \texttt{HeavyStrike}).
+    \item \textbf{Dạng Phù thủy Bay (Flying Mage Form - Em0070):} Cho phép nhân vật lơ lửng trên không trung (\texttt{Fly}), bỏ qua một số cạm bẫy mặt đất. Kỹ năng chính là niệm chú tạo cầu lửa tầm xa (\texttt{Chant}, \texttt{Shot}) và kích hoạt các vụ nổ ma thuật diện rộng (\texttt{Bomb}).
+    \item \textbf{Dạng Đấu sĩ (Brawler Form - Em0100):} Hình thái chiến đấu cận chiến hạng nặng. Sử dụng nắm đấm thép thực hiện chuỗi combo 3 đòn đấm liên hoàn (\texttt{Punch1/2/3}), cú đấm móc hất tung đối thủ (\texttt{PunchUpper}) và đòn quét tầm trung cực mạnh (\texttt{PunchSide}).
+\end{enumerate}
+
+\subsection{Kẻ địch thông thường (Normal Enemies)}
+\label{subsection:3.7.2}
+
+Hệ thống kẻ địch thông thường trong game được phân bố theo từng khu vực bản đồ tương ứng, sở hữu các tập lệnh hành vi AI (AI Behavior Tree) riêng biệt để tạo ra thử thách đa dạng cho người chơi:
+
+% NOTE: Sinh viên có thể bổ sung hình chụp thực tế các loài quái vật trong game hoặc sơ đồ cây hành vi AI tại đây.
+% Ví dụ:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.9\linewidth]{Hinhve/QuaiVatThuong.png}
+%     \caption{Các loài quái vật và kẻ địch thông thường thám hiểm bản đồ}
+%     \label{fig:quai_vat_thuong}
+% \end{figure}
+
+\begin{itemize}
+    \item \textbf{Bone Dog (Em0010):} Loài chó xương hung hãn xuất hiện tại các khu vực tàn tích. AI cận chiến tầm gần: chủ động bám đuổi người chơi khi lọt vào tầm mắt, thực hiện đòn nhảy vồ tốc độ cao (\texttt{AttackLeap}) và cắn liên tiếp. Khi chết, nó giải phóng tàn tích linh hồn để mở khóa dạng biến hình tương ứng.
+    \item \textbf{Shield Knight (Em0060):} Hiệp sĩ bảo vệ cổ thành. AI phòng ngự: khi đòn tấn công cận chiến đang hồi chiêu (cooldown), nó tự động giơ khiên chuyển sang trạng thái thủ (\texttt{Guard}), miễn nhiễm sát thương trực diện từ người chơi. Người chơi phải vòng ra sau lưng hoặc dùng đòn đánh nặng để phá thế thủ.
+    \item \textbf{Flying Spellcaster (Em0070):} Pháp sư bay lơ lửng trên không. AI giữ khoảng cách: liên tục di chuyển lơ lửng để tránh các đòn đánh cận chiến của người chơi, tấn công tầm xa bằng cách bắn cầu lửa (\texttt{FireBall}) hoặc triệu hồi bầy côn trùng ma thuật (\texttt{FlyPile}) bám đuổi.
+    \item \textbf{Brawler (Em0100):} Đấu sĩ khổng lồ. AI chiến đấu cận chiến hạng nặng: tự động đánh giá cự ly với người chơi để lựa chọn thực hiện chuỗi đấm combo 3 hit (\texttt{PunchCombo}) hoặc đòn đấm quét diện rộng hai phía (\texttt{PunchSide}) để khắc chế chiến thuật lướt ra sau lưng của người chơi.
+    \item \textbf{Basic Patrol Walker (Em0110):} Quái vật tuần tra cơ bản dưới mặt đất. AI di chuyển: liên tục tuần tra thẳng hàng, tự động quay đầu khi va chạm chướng ngại vật hoặc rìa vực thẳm thông qua tia dò (\texttt{wallCheckDistance}). Gây sát thương va chạm cho người chơi.
+    \item \textbf{Flying Bat (Em0120):} Dơi ma quái bay tuần tra. AI bám đuổi động: bay tuần tra tự do theo bán kính tròn xung quanh điểm xuất phát, khi phát hiện người chơi sẽ bám đuổi với tốc độ cao. Khi nhận sát thương, AI tự động kích hoạt trạng thái lùi lại né tránh (\texttt{damageRetreat}) trước khi tiếp tục tấn công.
+    \item \textbf{Charger (Em0130 \& Em0180):} Quái vật húc cơ động. AI tấn công đột kích: khi phát hiện người chơi nằm trên đường thẳng tầm nhìn, nó sẽ tụ lực trong thời gian ngắn rồi thực hiện đòn húc lao tốc độ cao (\texttt{atk2Dash}) gây sát thương lớn và đẩy lùi.
+    \item \textbf{Skeleton Archer (Em0190):} Cung thủ xương. AI tầm xa: đứng cố định tuần tra ngang, tự động giương cung bắn tên khi người chơi lọt vào cự ly phát hiện theo chiều ngang mà không cần di chuyển.
+    \item \textbf{Gas Plant (Em0250) \& Floating Gas (Em0260):} Thực vật và bào tử độc. AI phát xạ: Gas Plant đứng yên trên mặt đất, trong khi Floating Gas lơ lửng tuần tra chậm. Khi người chơi tiếp cận gần, chúng kích hoạt hiệu ứng ma thuật phát tán các đám mây khí độc (\texttt{gasVfxObject}) gây sát thương liên tục theo thời gian diện rộng.
+    \item \textbf{Fireball Turret (Em0470):} Trụ phun lửa ma thuật cố định. AI bắn đạn tuần hoàn: tự động xoay hướng và bắn cầu lửa định kỳ theo thời gian hồi chiêu (\texttt{shootCooldown}) mà không phụ thuộc vào việc người chơi có chủ động tấn công hay không.
+    \item \textbf{Waypoint Patrol (Em0050):} Thiết bị tuần tra di động. AI tuần tra cố định: di chuyển tuần hoàn dọc theo một tập hợp các điểm mốc (Waypoints) được liên kết. Điểm đặc biệt của AI này là khả năng xoay hướng đối mặt Z thích ứng chính xác theo góc quay được thiết lập sẵn tại mỗi điểm mốc.
+\end{itemize}
+
+\subsection{Thực thể Boss (Boss Entities)}
+\label{subsection:3.7.3}
+
+Các trận đấu Boss đóng vai trò là cột mốc cốt truyện, yêu cầu người chơi phải vận dụng tối đa kỹ năng phản xạ và cơ chế Form Switch để vượt qua:
+\begin{enumerate}
+    \item \textbf{Big Golem (Em9020) - Boss của Di tích (Ruin):} 
+    Thực thể đá khổng lồ canh giữ lối thoát khỏi Ruin. AI của Big Golem điều phối hai cánh tay đá khổng lồ hoạt động độc lập:
+    \begin{itemize}
+        \item \textbf{Tấn công cánh tay:} Đấm giáng trực diện (\texttt{HandAtk}) tạo chấn động hoặc quét ngang mặt đất (\texttt{Slap}) ép người chơi phải nhảy tránh.
+        \item \textbf{Gọi đá rơi (SpawnRockFall):} Golem đập mạnh cả hai tay xuống đất làm rung chuyển đấu trường, kích hoạt đá nhọn rơi tự do từ trần hang xuống các vị trí ngẫu nhiên.
+        \item \textbf{Triệu hồi đệ tử (SpawnMiniGolems):} Khi lượng máu giảm xuống các mốc quy định, Golem triệu hồi các quái vật đá nhỏ để quấy nhiễu người chơi.
+    \end{itemize}
+    \item \textbf{Marionette (Em9030) - Boss của Núi lửa (Volcano):} 
+    Con rối khổng lồ ngự trị tại Volcano, được điều khiển bởi tàn niệm ma thuật. Đây là Boss có tập lệnh hành vi AI phức tạp nhất trò chơi:
+    \begin{itemize}
+        \item \textbf{Chiến đấu cận chiến phong phú:} Sử dụng lưỡi hái lớn (\texttt{Scythe}) thực hiện các đòn chém quét đứng (\texttt{SlashV}) và chém quét ngang (\texttt{SlashH}).
+        \item \textbf{Khả năng cơ động và tự vệ:} AI biết thực hiện lướt tránh né đòn tấn công của người chơi (\texttt{Dodge}) và thực hiện phản công tức thì (\texttt{Counter}) khi người chơi tấn công quá dồn dập.
+        \item \textbf{Hệ thống phép thuật dung nham đa dạng:} Niệm phép tạo cột lửa từ lòng đất (\texttt{Ignition}), sét từ trên trời (\texttt{ThunderBolt}), luồng laser quét ngang sân đấu (\texttt{SideLaser}), dòng phun trào dung nham (\texttt{SideEruption}) và bức tường sét chặn lối di chuyển (\texttt{SideWallLightning}).
+    \end{itemize}
+\end{enumerate}
+
+% NOTE: Sinh viên có thể bổ sung hình chụp thực chiến đối chiến Boss Big Golem và Boss Marionette tại đây.
+% Ví dụ:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.9\linewidth]{Hinhve/BossTranChien.png}
+%     \caption{Hình chụp các trận đấu Boss Golem và Boss Marionette trong game}
+%     \label{fig:boss_tranchien}
+% \end{figure}
+
+
+
+\section{Màn chơi}
+Hệ thống màn chơi trong game được thiết kế hoàn toàn thủ công (handcrafted) để kiểm soát chặt chẽ trải nghiệm của người chơi đối với các thử thách cơ động (platforming) và nhịp độ chiến đấu.
+
+\subsection{Khái quát thiết kế màn chơi (Level Design Philosophy)}
+\label{subsection:3.8.1}
+
+Trò chơi áp dụng mô hình thiết kế màn chơi cố định nhằm đảm bảo các chướng ngại địa hình như bẫy gai, vực sâu, vũng axit và các bức tường thẳng đứng được bố trí một cách hợp lý và thách thức nhất. Bằng cách loại bỏ hoàn toàn cơ chế sinh bản đồ ngẫu nhiên (procedural generation), nhà thiết kế có thể lồng ghép các câu đố môi trường yêu cầu người chơi sử dụng chính xác các kỹ năng di chuyển nâng cao (như nhảy đôi, lướt 8 hướng và bám tường leo) để vượt qua. Tiến trình màn chơi đi từ các khu vực hướng dẫn cơ bản đến các khu vực nguy hiểm có tần suất kẻ địch cao và cạm bẫy dày đặc.
+
+\subsection{Chi tiết các phân khu màn chơi (Game Regions)}
+\label{subsection:3.8.2}
+
+Thế giới game được chia thành 4 khu vực chính kết nối trực tiếp hoặc gián tiếp thông qua điểm trung tâm:
+\begin{enumerate}
+    \item \textbf{Nhà thờ (Church):} Khu vực an toàn tuyệt đối và là trung tâm xuất phát (Hub) của trò chơi. Nơi đây không xuất hiện kẻ địch hay cạm bẫy, đóng vai trò như một phân cảnh hướng dẫn (Tutorial) không lời để người chơi làm quen với các điều khiển di chuyển cơ bản và nhảy. Đây cũng là điểm hồi sinh mặc định của Nameless Witch mỗi khi tử trận trong quá trình thám hiểm. Từ Church, người chơi có các cổng đi dẫn đến Village hoặc đi thẳng vào khu vực Ruin đầu tiên.
+    \item \textbf{Ngôi làng (Village):} Khu vực dịch vụ và nâng cấp chỉ số. Tương tự như Church, ngôi làng hoàn toàn an toàn đối với người chơi. Tại đây có sự xuất hiện của hai NPC chính: Shopkeeper (giao dịch dụng cụ hỗ trợ và bình máu bằng vàng) và Facility Owner (sử dụng các nguyên liệu đặc biệt thu thập được trong màn chơi để nâng cấp vĩnh viễn các thuộc tính HP, MP, Sát thương và mở rộng Túi đồ).
+    \item \textbf{Di tích (Ruin):} Khu vực thám hiểm đầu tiên của trò chơi. Mang phong cách kiến trúc đá đổ nát u tối, Ruin thách thức người chơi bằng các hồ axit gây sát thương liên tục và các bẫy gai nhọn bố trí dọc hành lang. Kẻ địch ở đây bao gồm các loài Bone Dog cơ động, Shield Knight biết phòng thủ và Skeleton Archer bắn cung tầm xa. Người chơi phải kết hợp nhuần nhuyễn kỹ năng bám leo tường để di chuyển qua các vách đá đứng. Ở tận cùng của Ruin là đấu trường của Boss \textbf{Big Golem}. Tiêu diệt Big Golem là điều kiện bắt buộc để giải phóng phong ấn dẫn sang khu vực tiếp theo.
+    \item \textbf{Núi lửa (Volcano):} Khu vực thám hiểm thứ hai và cũng là màn chơi có độ khó cao nhất. Với bối cảnh ngập tràn dung nham nóng chảy, tro bụi núi lửa và các đợt phun trào nham thạch ngẫu nhiên từ lòng đất. Địa hình tại Volcano yêu cầu người chơi phải liên tục đổi dạng linh hồn, đặc biệt là dạng bay (Flying Mage Form) để vượt qua các hồ dung nham chết người mà không thể chạm đất. Quái vật tại đây xuất hiện dày đặc với sức tấn công mạnh mẽ hơn, tiêu biểu như Flying Spellcaster và Brawler cận chiến. Cuối bản đồ Volcano là sào huyệt của Boss tối thượng \textbf{Marionette}.
+\end{enumerate}
+
+\subsection{Tiến trình màn chơi và Checkpoint (Stage Flow \& Progression)}
+\label{subsection:3.8.3}
+
+Để dẫn dắt tiến trình chơi một cách mạch lạc, trò chơi áp dụng cơ chế mở khóa có điều kiện (Gatekeeping):
+\begin{itemize}
+    \item \textbf{Chốt chặn kỹ thuật (Progression Gates):} Người chơi không thể trực tiếp tiến vào Volcano từ đầu game. Bản đồ Volcano bị chặn bởi một phong ấn ma thuật kết nối trực tiếp với nguồn sống của Big Golem. Chỉ khi người chơi vượt qua Ruin, tiêu diệt thành công Big Golem thì kết giới mới bị phá bỏ, kích hoạt cổng Portal dẫn lối sang Volcano.
+    \item \textbf{Hệ thống Dịch chuyển nhanh (Portal / Checkpoint):} Tại mỗi phân khu thám hiểm (Ruin và Volcano) đều được bố trí các điểm dịch chuyển (Portal Points) cố định. Khi người chơi tương tác với Portal, điểm lưu tiến trình (checkpoint) sẽ được kích hoạt. Đồng thời, thông qua giao diện bản đồ lớn (Full Map), người chơi có thể nhấn phím \texttt{F} để thực hiện dịch chuyển nhanh tức thời giữa các Portal đã mở khóa về lại Church hoặc Village để hồi phục và nâng cấp thuộc tính, giảm thiểu việc phải di chuyển lặp lại các quãng đường dài.
+\end{itemize}
+
+Sơ đồ kết cấu phân bổ và luồng liên kết dịch chuyển giữa các phân khu màn chơi trong thế giới giấc mơ được minh họa chi tiết trong Hình~\ref{fig:level_design_flow}.
+
+% NOTE: Sinh viên tự thay thế tệp ảnh Hinhve/Level.png bằng sơ đồ dòng tiến trình màn chơi thực tế
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Hinhve/Level.png}
+    \caption{Sơ đồ cấu trúc liên kết và dòng tiến trình màn chơi (Level Flow)}
+    \label{fig:level_design_flow}
+\end{figure}
+
+
+\section{UI}
+Hệ thống giao diện người dùng (UI) trong trò chơi được thiết kế theo phong cách tối giản hóa kết hợp yếu tố kỳ ảo tăm tối (Dark Fantasy Minimalism), giúp cung cấp đầy đủ thông tin trạng thái và hỗ trợ tương tác mà không cản trở tầm nhìn chiến đấu của người chơi.
+
+\subsection{Giao diện hiển thị trong màn chơi (HUD - Head-Up Display)}
+\label{subsection:3.9.1}
+
+Giao diện HUD hiển thị tĩnh ở các góc màn hình trong suốt thời gian thám hiểm của người chơi, bao gồm các thành phần thông tin trực quan:
+\begin{itemize}
+    \item \textbf{Cụm chỉ số sinh tồn (Top-Left):} Bao gồm thanh sinh mệnh màu đỏ (HP), thanh năng lượng phép thuật màu xanh dương (Mana) và thanh thể lực màu cam (Stamina). Kế bên là ô tròn hiển thị ảnh chân dung của hình thái nhân vật hiện tại (Active Form Icon).
+    \item \textbf{Ô phím tắt phép thuật (Bottom-Left):} Hiển thị biểu tượng của kỹ năng phép thuật (\texttt{Spell}) đang được trang bị. Khi phép thuật được kích hoạt và rơi vào thời gian hồi chiêu, ô này sẽ hiển thị hiệu ứng tối dần kèm theo số giây đếm ngược trực quan.
+    \item \textbf{Bộ đếm tài nguyên (Top-Right):} Hiển thị số lượng tiền vàng (\texttt{Gold}) hiện có của người chơi nhặt được từ việc tiêu diệt quái vật hoặc mở rương báu.
+\end{itemize}
+
+% NOTE: Sinh viên tự thay thế tệp ảnh Hinhve/HUD.png bằng hình chụp giao diện HUD thực tế từ game
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Hinhve/HUD.png}
+    \caption{Sơ đồ bố trí các thành phần giao diện HUD động trong màn chơi (Hình ảnh thực tế trong game)}
+    \label{fig:hud_design_mockup}
+\end{figure}
+
+\subsection{Hệ thống Menu và Bảng chức năng (Game Menus \& Panels)}
+\label{subsection:3.9.2}
+
+Hệ thống giao diện tĩnh bao gồm các bảng hội thoại, cửa hàng, nâng cấp và bản đồ được điều hành bằng sự kết hợp giữa bàn phím và chuột. Trò chơi thiết kế cơ chế tự động tạm dừng mà không cần một màn hình tạm dừng (Pause Menu) độc lập:
+\begin{itemize}
+    \item \textbf{Giao diện Màn hình chính (Title Screen):} Hiển thị khi khởi động trò chơi, cho phép chọn "New Game" để bắt đầu hành trình mới, "Continue" để mở danh sách các tệp đã lưu (Save Slots), "Settings" để điều chỉnh âm lượng tổng, âm lượng nhạc nền (BGM), hiệu ứng âm thanh (SFX) và "Exit" để thoát trò chơi.
+    \item \textbf{Menu chính trong trò chơi (Main Menu):} Khi đang thám hiểm, người chơi nhấn phím \texttt{Esc} để mở Main Menu. Trò chơi không sử dụng Menu Tạm dừng riêng biệt; thay vào đó, việc kích hoạt Main Menu sẽ kích hoạt lớp \texttt{UIPauseRequester} gửi yêu cầu tới \texttt{GamePauseManager} để thiết lập \texttt{Time.timeScale = 0f}, tự động tạm dừng mọi chuyển động vật lý, AI quái vật và môi trường. Main Menu được thiết kế theo dạng thẻ (tab) chức năng, bao gồm các tab: Đồ đạc (Inventory), Trạng thái (Status), Bản đồ (Map), Giúp đỡ (Help) và Hệ thống (Settings).
+    \item \textbf{Bảng Trạng thái (Status UI):} Là một tab quan trọng trong Main Menu. Bảng này hiển thị thông tin nhân vật chi tiết bao gồm cấp độ, lượng HP, MP, tốc độ di chuyển, phòng thủ, sát thương cơ bản và tỷ lệ/sát thương chí mạng. Đồng thời, đây là nơi quản lý các sách phép (\texttt{SpellBooks}) và phép thuật (\texttt{Spells}) đã thu thập. Người chơi có thể xem chi tiết mô tả kỹ năng, sát thương và thời gian hồi chiêu của từng phép thuật. Nhằm cân bằng độ khó của trò chơi, nút "Trang bị" (Equip) phép thuật chỉ khả dụng (interactable) khi nhân vật đứng gần đền thờ Dream Shrine hoặc vùng tương tác rương chứa đồ (\texttt{Storage.IsPlayerNear}), giúp ngăn chặn người chơi tự ý thay đổi bộ phép thuật ngay giữa trận chiến cận kề nguy hiểm.
+    \item \textbf{Giao diện Cửa hàng (Shop UI):} Kích hoạt khi người chơi tương tác trực tiếp với NPC Shopkeeper tại khu vực Ngôi làng (Village). Cho phép sử dụng vàng tích lũy từ việc tiêu diệt quái vật để mua các dược phẩm phục hồi sinh mệnh (HP Potion) và năng lượng (MP Potion).
+    \item \textbf{Giao diện Nâng cấp (Facility UI):} Kích hoạt khi tương tác với NPC Facility Owner tại khu vực Ngôi làng. Người chơi tiêu hao các nguyên vật liệu quý hiếm tìm thấy trong các phân khu thử thách nguy hiểm để nâng cấp vĩnh viễn sức chứa túi đồ và các thuộc tính tối đa của nhân vật.
+    \item \textbf{Bản đồ toàn cảnh (Full Map UI):} Nhấn phím \texttt{M} để bật/tắt bản đồ. Khi giao diện này hiển thị, trò chơi cũng tự động kích hoạt trạng thái tạm dừng (Pause) để đảm bảo an toàn cho nhân vật trước các quái vật xung quanh. Trên bản đồ toàn cảnh, người chơi có thể sử dụng con lăn chuột để phóng to/thu nhỏ (Zoom In/Out) bản đồ trực quan, rê chuột click chọn các điểm dịch chuyển (Portal Point) đã được mở khóa và nhấn phím \texttt{F} để kích hoạt dịch chuyển nhanh.
+\end{itemize}
+
+\subsection{Mô hình Camera (Camera Model)}
+\label{subsection:3.9.3}
+
+Hệ thống camera trong game sử dụng mô hình camera 2D trực giao (2D Orthographic Camera) bám theo vị trí của nhân vật chính. Camera được tích hợp bộ lọc làm mượt chuyển động (Smooth Dampening) để tránh giật hình khi người chơi di chuyển hoặc thực hiện lướt nhanh (Dash). Đồng thời, camera liên kết với lớp \texttt{CameraConfiner2D} để giới hạn tầm nhìn không vượt ra ngoài ranh giới được thiết kế của bản đồ, và kích hoạt hiệu ứng rung màn hình (Screen Shake) mỗi khi người chơi nhận sát thương hoặc hạ gục Boss để tăng độ phản hồi lực trực quan.
+
+
+
+\end{document}

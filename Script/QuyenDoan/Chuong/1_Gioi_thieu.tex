@@ -1,0 +1,112 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+\section{Đặt vấn đề}
+\label{section:1.1}
+
+Trong những năm gần đây, ngành công nghiệp trò chơi điện tử độc lập (game indie) đã chứng kiến sự phát triển và khẳng định vị thế thương mại quan trọng trên thị trường toàn cầu. Trong số các thể loại trò chơi, Metroidvania — thể loại hành động đi cảnh (Action Platformer) kết hợp các đặc trưng thiết kế truyền thống từ hai dòng game kinh điển \textit{Metroid} và \textit{Castlevania} — luôn giữ một vị trí cốt lõi. Sự thành công vượt trội của các tác phẩm như \textit{Hollow Knight} hay \textit{Ori and the Blind Forest} là minh chứng rõ nét cho thấy thể loại này sở hữu sức hút lâu dài nhờ cấu trúc màn chơi thử thách và giá trị tái chơi (replay value) cao đối với cộng đồng người sử dụng.
+
+Tuy nhiên, qua khảo sát thực tế các sản phẩm Metroidvania hiện có trên thị trường, phần lớn các trò chơi vẫn vận hành dựa trên việc kiểm soát một nhân vật duy nhất xuyên suốt cốt truyện. Cơ chế này dù đảm bảo tính tập trung trong mạch điều khiển, nhưng vô hình trung tạo ra giới hạn về sự đa dạng trong phương thức tiếp cận chiến đấu và hạn chế khả năng tối ưu hóa tính năng khám phá bản đồ mở. Người chơi sau một thời gian trải nghiệm dài dễ gặp phải cảm giác lặp lại khi các chuỗi kỹ năng của nhân vật chính không có sự đột phá. Đây là một bài toán thiết kế lớn đặt ra cho các nhà phát triển game hiện nay: làm thế nào để vừa kế thừa được cấu trúc thế giới mở liên thông phức tạp đặc trưng, vừa mở rộng biên độ trải nghiệm hành vi của người chơi để duy trì tính hấp dẫn lâu dài của sản phẩm.
+
+Nếu bài toán đa dạng hóa cơ chế tương tác và điều khiển nhân vật trong thế giới Metroidvania được giải quyết, nó không chỉ mang lại trải nghiệm mới mẻ, kích thích tư duy chiến thuật cho người chơi, mà còn cung cấp một mô hình giải pháp kỹ thuật có khả năng tái sử dụng cho các nhà phát triển game độc lập trên engine Unity. Việc giải quyết vấn đề này đòi hỏi sự bứt phá trong kiến trúc lập trình hệ thống nhân vật và quản lý tài nguyên nhằm tạo ra một cơ chế chuyển đổi thực thể phức tạp, cho phép người chơi thu thập, kế thừa và trực tiếp vận hành hệ thống cây kỹ năng (skill tree) riêng biệt từ chính các thực thể kẻ địch bị đánh bại trong màn chơi. Từ những đòi hỏi thực tiễn đó, đề tài nghiên cứu kỹ thuật thiết kế và triển khai một hệ thống vận hành trò chơi hành động đi cảnh cải tiến đã được hình thành.
+
+
+\newpage
+
+\section{Mục tiêu đề tài}
+\label{section:1.2}
+
+Khảo sát các sản phẩm trò chơi hành động đi cảnh (Metroidvania) hiện nay cho thấy người dùng ngày càng đòi hỏi cao về chiều sâu cơ chế và tính liên tục trong trải nghiệm. Dù đa số sản phẩm hiện tại đã tối ưu tốt hệ thống thế giới liền mạch và phản hồi vật lý, chúng vẫn tồn tại hạn chế lớn khi trói buộc người chơi vào một nhân vật cố định duy nhất xuyên suốt quá trình vận hành, khiến luồng chiến đấu và khám phá bản đồ dễ rơi vào lối mòn tuyến tính. 
+
+Để khắc phục hạn chế này, mục tiêu cốt lõi của đề tài là xây dựng trò chơi hành động 2D "Dream Knight" trên nền tảng Unity, tập trung giải quyết bài toán đa dạng hóa gameplay thông qua hệ thống Nhập xác (Possession System). Trò chơi hướng tới việc cho phép người dùng trực tiếp thu thập, chuyển đổi thực thể và vận hành các cây kỹ năng riêng biệt của kẻ địch bị đánh bại, kết hợp với cơ chế chiến đấu phản hồi nhanh và hệ thống bản đồ liên thông không màn hình chờ để duy trì tính hấp dẫn lâu dài.
+
+Để hiện thực hóa mục tiêu trên một cách tối ưu, đề tài định hướng áp dụng mô hình Máy trạng thái hữu hạn (Finite State Machine) để quản lý mượt mà các trạng thái di chuyển và chiến đấu của nhân vật. Các mẫu thiết kế chuẩn như Singleton và Observer được lựa chọn để chuẩn hóa kiến trúc mã nguồn; công nghệ Cây hành vi (Behavior Tree) được tích hợp để mô phỏng trí tuệ nhân tạo của kẻ địch một cách sinh động; và giải pháp Object Pooling sẽ được triển khai nhằm tái sử dụng tài nguyên hệ thống, đảm bảo trò chơi luôn đạt hiệu năng ổn định tối đa.
+
+\newpage
+
+\section{Phạm vi và đối tượng người chơi}
+\label{section:1.3}
+
+Dự án "Dream Knight" xác định phạm vi phát triển là một sản phẩm trò chơi hành động đi cảnh 2D độc lập, tập trung tối ưu hóa các cơ chế cốt lõi trên nền tảng Unity thay vì mở rộng quy mô thế giới quá lớn. Về phân loại đối tượng người chơi (Target Audience), dựa trên các tiêu chí về độ tuổi, giới tính, sở thích thể loại và văn hóa, trò chơi được định vị cụ thể như sau:
+
+\begin{itemize}
+    \item \textbf{Phân loại theo độ tuổi và xếp hạng nội dung (ESRB):} Trò chơi định hướng nhận mức xếp hạng ESRB là E10+ (Mọi người từ 10 tuổi trở lên). Sản phẩm chứa yếu tố bạo lực giả tưởng khi chiến đấu với quái vật, nhưng hoàn toàn loại bỏ các đồ họa máu me, nội dung nhạy cảm hay ngôn ngữ cực đoan, đảm bảo sự an toàn và tính lành mạnh cho nhóm người dùng nhỏ tuổi.
+    \item \textbf{Nhóm game thủ cốt lõi (Core Audience):} Đối tượng mục tiêu chính là nam và nữ game thủ trong độ tuổi từ 15 đến 30, có thói quen trải nghiệm các sản phẩm hành động đi cảnh góc nhìn ngang. Nhóm người dùng này bị thu hút mạnh mẽ bởi cơ chế chiến đấu đòi hỏi phản xạ nhanh và kỹ năng di chuyển chính xác trên các địa hình phức tạp.
+    \item \textbf{Nhóm người hâm mộ thể loại bổ trợ và văn hóa:} Trò chơi mở rộng biên độ tiếp cận đến những người yêu thích dòng game nhập vai thông qua hệ thống nâng cấp nhân vật tại các vùng an toàn, kết hợp với nhóm người dùng đam mê thể loại giải đố, phiêu lưu kỳ ảo. Phong cách nghệ thuật đồ họa không biên giới giúp sản phẩm thu hút cả khán giả Châu Á đề cao tính thẩm mỹ chi tiết lẫn khán giả phương Tây coi trọng tính logic vật lý của gameplay.
+\end{itemize}
+
+% NOTE: Sinh viên có thể bổ sung hình vẽ biểu đồ phân bổ đối tượng người chơi hoặc số liệu khảo sát thị hiếu tại đây.
+% Ví dụ:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{Hinhve/KhaoSatDoiTuong.png}
+%     \caption{Biểu đồ khảo sát thị hiếu và phân bổ đối tượng người chơi}
+%     \label{fig:khao_sat_doi_tuong}
+% \end{figure}
+
+\subsection{Phân tích hành vi người chơi theo mô hình Bartle}
+\label{subsection:1.3.1}
+
+Để đảm bảo tiến trình trải nghiệm tối ưu cho dự án "Dream Knight", đề tài tiến hành phân tích hệ thống hành vi người chơi dựa trên mô hình Bartle Taxonomy. Trò chơi xác định nhóm người chơi \textbf{Explorers} là đối tượng đích trung tâm trong định hướng phát triển không gian, đồng thời tích hợp linh hoạt các cơ chế phản hồi để mở rộng khả năng đáp ứng nhu cầu của các nhóm đối tượng còn lại.
+
+\subsubsection{Nhóm Explorers (Người khám phá) — Đối tượng mục tiêu chính}
+Nhóm này có thiên hướng tương tác với thế giới trò chơi (Interacting with the World), tập trung tìm hiểu logic vật lý, cốt truyện nền và các khu vực ẩn thay vì chiến đấu thuần túy.
+\begin{itemize}
+    \item \textbf{Động lực trải nghiệm:} Định vị các phòng bí mật sau vách tường ảo; xâu chuỗi cốt truyện (Lore) qua nhật ký, thoại NPC; thử nghiệm bẫy môi trường và liên tục mở rộng bản đồ để tìm kiếm thực thể mới.
+    \item \textbf{Giải pháp thiết kế:} Xây dựng cấu trúc màn chơi đa tuyến (Non-linear), bố trí phần thưởng tại các nhánh đường cụt; tối ưu hóa hệ thống di chuyển nâng cao (leo trèo, nhảy nhiều nhịp) và áp dụng nghệ thuật kể chuyện qua môi trường (Environmental Storytelling).
+\end{itemize}
+
+\subsubsection{Nhóm Achievers (Người chinh phục)}
+Nhóm này hướng tới việc tác động và làm chủ các yếu tố trong thế giới (Acting on the World), duy trì vòng lặp gameplay thông qua tiến trình thăng cấp, tích lũy tài nguyên và hoàn thành trò chơi tuyệt đối (100\% Completion).
+\begin{itemize}
+    \item \textbf{Động lực trải nghiệm:} Thu thập chỉ số nâng cấp thuộc tính, mở khóa kỹ năng di chuyển nâng cao; chinh phục hệ thống Boss thử thách; tư duy xây dựng phương án phối hợp kỹ năng (Builds) và tối ưu hóa tài nguyên.
+    \item \textbf{Giải pháp thiết kế:} Thiết kế hệ thống phần thưởng rõ ràng khi vượt qua thử thách; triển khai cơ chế thu thập dữ liệu quái vật để kích hoạt tính năng biến hình (Possession System); tích hợp bản đồ tiến trình trực quan (Progression Map) và bố trí hòm báu vật ở các vị trí có độ khó cao.
+\end{itemize}
+
+\subsubsection{Nhóm Killers / Masters (Kẻ thách thức)}
+Trong phạm vi trò chơi chơi đơn (Single-player), thiên hướng hành vi tác động lên hệ thống (Acting on Systems) của nhóm này biến thể thành nhu cầu phô diễn kỹ năng điều khiển thượng thừa và chinh phục giới hạn thời gian (Speedrun).
+\begin{itemize}
+    \item \textbf{Động lực trải nghiệm:} Thực hiện các chuỗi thử thách nghiêm ngặt (No-Damage run); trải nghiệm chế độ độ khó cao (Hardcore/Permadeath) và tối ưu hóa tổ hợp hành động (Combo) tấn công - né tránh liên tục.
+    \item \textbf{Giải pháp thiết kế:} Triển khai cơ chế phản hồi rủi ro cao - phần thưởng lớn (kích hoạt Parry chuẩn xác gây choáng kẻ địch); tối ưu độ trễ điều khiển thời gian thực; tích hợp bộ hẹn giờ (In-game Timer) và thiết kế hệ thống Boss ẩn phức tạp.
+\end{itemize}
+
+\subsubsection{Nhóm Socializers (Người giao lưu)}
+Nhóm này chú trọng tương tác cộng đồng (Interacting with Players), đóng vai trò cốt lõi trong việc tạo sức sống lan truyền (Viral) cho sản phẩm chơi đơn trên các nền tảng mạng xã hội thông qua việc chia sẻ trải nghiệm cá nhân.
+\begin{itemize}
+    \item \textbf{Động lực trải nghiệm:} Trao đổi phương án chiến thuật, vị trí vật phẩm ẩn; bày tỏ sự kết nối cảm xúc đối với ngôn ngữ thiết kế mỹ thuật và thông điệp cốt truyện của trò chơi.
+    \item \textbf{Giải pháp thiết kế:} Tạo hình nhân vật chính mang tính biểu tượng cao (Iconic) nhằm thúc đẩy xu hướng sáng tạo nội dung phái sinh (Fanart); xây dựng kịch bản cốt truyện đa chiều mang sắc thái kỳ ảo tăm tối (Dark Fantasy) để kích thích tư duy thảo luận, xây dựng giả thuyết (Theorycrafting).
+\end{itemize}
+\section{Định hướng giải pháp}
+\label{section:1.4}
+
+Từ nhiệm vụ đặt ra, đồ án đề xuất giải pháp xây dựng trò chơi thuộc thể loại hành động đi cảnh hai chiều (2D Action Platformer) trên nền tảng Unity Engine. Phương pháp cốt lõi được áp dụng là kiến trúc Máy trạng thái hữu hạn (Finite State Machine) nhằm quản lý phân tách các trạng thái di chuyển và chiến đấu phức tạp của hệ thống nhân vật. Nhằm triệt tiêu hiện tượng xuyên thấu vật thể, kỹ thuật tính toán động học tùy chỉnh (Kinematic Physics) được ưu tiên triển khai thay cho hệ thống động lực học mặc định. Toàn bộ logic được lập trình bằng ngôn ngữ C\# nhờ khả năng tối ưu hóa hệ thống và hỗ trợ thư viện vật lý mạnh mẽ.
+
+Để hiện thực hóa bản đồ liên thông, cấu trúc thế giới được thiết kế theo mô hình Hub-and-Spoke, lấy phân khu Nhà thờ (Church) làm trung tâm kết nối đến các khu vực Ngục tối (Dungeon) và Núi lửa (Volcano). Trí tuệ nhân tạo (AI) của kẻ địch được phân tách dựa trên các tập lệnh hành vi chiến thuật cận chiến hoặc tầm xa trong vùng nhận diện không gian. Đồng thời, giải pháp tải tài nguyên bất đồng bộ (Asynchronous Scene Loading) được áp dụng tại các điểm chuyển giao bản đồ để giải phóng và nạp mới dữ liệu ngầm, đảm bảo trải nghiệm liền mạch không màn hình chờ.
+
+% NOTE: Sinh viên có thể chèn sơ đồ cấu trúc giải pháp kỹ thuật tổng thể (ví dụ: các tầng kiến trúc logic, luồng tương tác phần cứng/phần mềm) tại đây.
+% Ví dụ:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{Hinhve/SoDoGiaiPhapTongThe.png}
+%     \caption{Sơ đồ cấu trúc giải pháp kỹ thuật đề xuất cho hệ thống game}
+%     \label{fig:sodo_giaiphap_tongthe}
+% \end{figure}
+
+Đóng góp chính của đồ án là xây dựng thành công bộ khung mã nguồn (Framework) hoàn chỉnh chuyên biệt cho thể loại hành động đi cảnh, tối ưu từ phản hồi điều khiển đến kiến trúc quản lý thực thể. Kết quả đạt được là một sản phẩm trò chơi vận hành chuẩn xác, kiểm soát tốt xung đột vật lý và có cấu trúc mô-đun khả năng mở rộng cao. Qua đó, đồ án minh chứng cho việc làm chủ và chuẩn hóa quy trình kỹ nghệ phát triển phần mềm trò chơi độc lập từ giai đoạn thiết kế kiến trúc đến vận hành thực tế.
+\section{Bố cục đồ án}
+\label{section:1.5}
+
+Phần còn lại của báo cáo đồ án tốt nghiệp này được tổ chức và cấu trúc theo các chương nội dung như sau:
+
+Chương 2 trình bày về công tác khảo sát người dùng và phân tích số liệu thực nghiệm. Nội dung chương tập trung làm rõ nhu cầu, thị hiếu và thói quen hành vi của cộng đồng đối với thể loại game đi cảnh hành động, từ đó thiết lập cơ sở dữ liệu định hình các tính năng cốt lõi cho phần mềm.
+
+Chương 3 giới thiệu tổng quan về các công nghệ sử dụng trong dự án. Trong chương này, em phân tích lý do lựa chọn engine Unity, ngôn ngữ lập trình C\# cùng các thư viện bổ trợ, đồng thời đánh giá ưu nhược điểm của các giải pháp công nghệ nhằm đảm bảo tính khả thi khi triển khai hệ thống.
+
+Chương 4 đi sâu vào quy trình thiết kế trò chơi "Dream Knight". Chương này bao gồm việc xây dựng kịch bản tổng quan, thiết kế giao diện người dùng, cấu trúc hệ thống màn chơi đa tuyến liên thông và đặc biệt là đặc tả chi tiết hệ thống cơ chế gameplay tương tác của sản phẩm.
+
+Chương 5 trình bày giải pháp đóng góp chính của đồ án về mặt kỹ thuật. Nội dung chương tập trung mô tả chi tiết quy trình lập trình tối ưu máy trạng thái nhân vật, xây dựng kiến trúc cây hành vi (Behavior Tree) cho trí tuệ nhân tạo của kẻ địch và hiện thực hóa cơ chế biến hình chuyển đổi thực thể (Possession System).
+
+Chương 6 đưa ra kết luận tổng kết lại toàn bộ các kết quả đạt được của đồ án sau quá trình thực nghiệm. Đồng thời, chương này cũng thẳng thắn đánh giá những hạn chế kỹ thuật còn tồn tại của sản phẩm phần mềm và đề xuất các định hướng nghiên cứu, tối ưu hóa hệ thống trong tương lai.
+
+Chương 7 cung cấp các lưu ý và danh mục tài liệu tham khảo của đồ án. Phần này thực hiện chuẩn hóa và lưu trữ toàn bộ các nguồn trích dẫn dữ liệu, thuật toán, hình ảnh và công trình nghiên cứu liên quan theo đúng quy định kỹ thuật hiện hành của nhà trường.
+\end{document}
