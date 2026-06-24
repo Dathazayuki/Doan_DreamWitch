@@ -13,8 +13,8 @@
 \contentsline {section}{\numberline {1.3}Phạm vi và đối tượng người chơi}{3}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Định hướng giải pháp}{4}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Bố cục đồ án}{5}{section.1.5}%
-\contentsline {chapter}{\numberline {2}KHẢO SÁT VÀ PHÂN TÍCH YÊU CẦU}{6}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Khảo sát hiện trạng và Phân tích sản phẩm tương tự}{6}{section.2.1}%
+\contentsline {chapter}{\numberline {2}NGƯỜI CHƠI VÀ ĐỘNG LỰC NGƯỜI CHƠI}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Tìm hiểu và phân tích các sản phẩm tương tự}{6}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Phân tích hành vi người chơi theo mô hình Bartle \blx@tocontentsinit {0}\cite {bartle1996hearts}}{7}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Phân tích bốn nhóm hành vi người chơi}{8}{subsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {a}Nhóm Explorers (Người khám phá) — Đối tượng mục tiêu chính}{8}{subsubsection.2.2.1.1}%

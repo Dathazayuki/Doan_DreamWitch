@@ -44,7 +44,7 @@
 \contentsline {figure}{\numberline {5.14}{\ignorespaces Biểu đồ lớp chi tiết của lớp MvEnemyBase}}{54}{figure.caption.54}%
 \contentsline {figure}{\numberline {5.15}{\ignorespaces Biểu đồ lớp chi tiết của lớp GameSaveManager}}{55}{figure.caption.55}%
 \contentsline {figure}{\numberline {5.16}{\ignorespaces Sơ đồ trình tự quá trình đồng bộ hóa chuyển đổi hình thái (Form Switch Sequence)}}{57}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Màn hình khởi động trò chơi (Title Screen)}}{63}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Màn hình khởi động trò chơi (Title Screen)}}{62}{figure.caption.59}%
 \contentsline {figure}{\numberline {5.18}{\ignorespaces Giao diện chọn Slot (Save Slot Menu)}}{63}{figure.caption.60}%
 \contentsline {figure}{\numberline {5.19}{\ignorespaces Nhân vật tại khu vực xuất phát Nhà thờ (Church)}}{63}{figure.caption.61}%
 \contentsline {figure}{\numberline {5.20}{\ignorespaces Khu vực làng (Village) nâng cấp và mua vật dụng}}{64}{figure.caption.62}%
@@ -52,7 +52,7 @@
 \contentsline {figure}{\numberline {5.22}{\ignorespaces Thám hiểm khu vực Núi lửa (Volcano)}}{65}{figure.caption.64}%
 \contentsline {figure}{\numberline {5.23}{\ignorespaces Nhân vật cận chiến chém quái thú thường kèm chữ hiển thị sát thương bay}}{65}{figure.caption.65}%
 \contentsline {figure}{\numberline {5.24}{\ignorespaces Interact Prompt hiện lên khi đứng gần xác quái vật để biến hình}}{66}{figure.caption.66}%
-\contentsline {figure}{\numberline {5.25}{\ignorespaces Thi triển đạn phép thuật tầm xa được quản lý bởi Object Pooling}}{66}{figure.caption.67}%
+\contentsline {figure}{\numberline {5.25}{\ignorespaces Nhân vật sử dụng phép thuật trọng kiếm ánh sáng}}{66}{figure.caption.67}%
 \contentsline {figure}{\numberline {5.26}{\ignorespaces Đối đầu với Boss khổng lồ Big Golem}}{67}{figure.caption.68}%
 \contentsline {figure}{\numberline {5.27}{\ignorespaces Đối đầu với Boss Marionette}}{67}{figure.caption.69}%
 \contentsline {figure}{\numberline {5.28}{\ignorespaces Các giao diện quản lý thuộc tính, cửa hàng, cây kỹ năng và bản đồ thế giới}}{68}{figure.caption.70}%
