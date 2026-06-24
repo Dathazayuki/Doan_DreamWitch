@@ -19,101 +19,101 @@
 \contentsline {subsection}{\numberline {2.2.1}Phân tích bốn nhóm hành vi người chơi}{8}{subsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {a}Nhóm Explorers (Người khám phá) — Đối tượng mục tiêu chính}{8}{subsubsection.2.2.1.1}%
 \contentsline {subsubsection}{\numberline {b}Nhóm Achievers (Người chinh phục)}{8}{subsubsection.2.2.1.2}%
-\contentsline {subsubsection}{\numberline {c}Nhóm Killers / Masters (Kẻ thách thức)}{8}{subsubsection.2.2.1.3}%
+\contentsline {subsubsection}{\numberline {c}Nhóm Killers / Masters (Kẻ thách thức)}{9}{subsubsection.2.2.1.3}%
 \contentsline {subsubsection}{\numberline {d}Nhóm Socializers (Người giao lưu)}{9}{subsubsection.2.2.1.4}%
 \contentsline {section}{\numberline {2.3}Đặc tả yêu cầu thiết kế từ mô hình hành vi người chơi}{9}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Mục đích thực tiễn của trò chơi}{10}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Kịch bản vận hành và Kịch bản ứng dụng (Use Case Scenarios)}{10}{section.2.5}%
+\contentsline {section}{\numberline {2.5}Kịch bản vận hành và Kịch bản ứng dụng (Use Case Scenarios)}{11}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Cơ sở lý thuyết của định hướng sử dụng}{11}{section.2.6}%
-\contentsline {chapter}{\numberline {3}CÔNG NGHỆ SỬ DỤNG}{12}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Động cơ phát triển trò chơi (Unity Game Engine)}{12}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Hệ thống kịch bản và hội thoại đa nhánh (Yarn Spinner)}{13}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Công nghệ hoạt ảnh 2D dạng xương (Spine Animation)}{13}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Giải thuật tìm đường thông minh (A* Pathfinding)}{14}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Hệ thống quản lý phiên bản (Git Version Control)}{15}{section.3.5}%
-\contentsline {chapter}{\numberline {4}THIẾT KẾ TRÒ CHƠI}{16}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Tổng quan trò chơi}{16}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Luồng trò chơi và Vòng lặp cốt lõi}{16}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Lối chơi}{17}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Ấn tượng ban đầu (First Minutes)}{18}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Mục tiêu của trò chơi (Objectives)}{18}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Diễn tiến và Vòng lặp nâng cấp (Progression and Upgrade Loop)}{18}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Cơ chế của trò chơi}{19}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Luật chơi}{19}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Mô hình thế giới}{19}{subsection.4.3.2}%
-\contentsline {subsubsection}{\numberline {a}Mô hình vật lý (Physics)}{19}{subsubsection.4.3.2.1}%
-\contentsline {subsubsection}{\numberline {b}Mô hình kinh tế (Economy)}{19}{subsubsection.4.3.2.2}%
-\contentsline {subsection}{\numberline {4.3.3}Các hành động của nhân vật}{20}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Luồng màn hình và Phân loại Scene}{21}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Các tùy chọn trò chơi và Lưu trữ}{21}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}Hệ thống phản hồi cho người chơi}{22}{subsection.4.3.6}%
-\contentsline {section}{\numberline {4.4}Điều khiển}{22}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Điều khiển hành động nhân vật (Gameplay Controls)}{22}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Điều khiển hệ thống giao diện UI và các chức năng phụ trợ}{23}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}Cốt truyện}{24}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Bối cảnh (Backstory)}{24}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Tình tiết cốt truyện (Plot Elements)}{24}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Dẫn dắt câu chuyện (Story Progression)}{24}{subsection.4.5.3}%
-\contentsline {section}{\numberline {4.6}Nhân vật và kẻ địch}{25}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Nhân vật chính và Cơ chế Biến hình (Player Forms)}{25}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Kẻ địch thông thường (Normal Enemies)}{26}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Thực thể Boss (Boss Entities)}{28}{subsection.4.6.3}%
-\contentsline {section}{\numberline {4.7}Màn chơi}{28}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}Khái quát thiết kế màn chơi (Level Design Philosophy)}{29}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Chi tiết các phân khu màn chơi (Game Regions)}{29}{subsection.4.7.2}%
-\contentsline {subsection}{\numberline {4.7.3}Tiến trình màn chơi và Checkpoint (Stage Flow \& Progression)}{30}{subsection.4.7.3}%
-\contentsline {section}{\numberline {4.8}UI}{31}{section.4.8}%
-\contentsline {subsection}{\numberline {4.8.1}Giao diện hiển thị trong màn chơi (HUD - Head-Up Display)}{31}{subsection.4.8.1}%
-\contentsline {subsection}{\numberline {4.8.2}Hệ thống Menu và Bảng chức năng (Game Menus \& Panels)}{32}{subsection.4.8.2}%
-\contentsline {subsection}{\numberline {4.8.3}Mô hình Camera (Camera Model)}{35}{subsection.4.8.3}%
-\contentsline {subsection}{\numberline {4.8.4}Ngôn ngữ mỹ thuật và Trải nghiệm Tương tác của Giao diện}{35}{subsection.4.8.4}%
-\contentsline {chapter}{\numberline {5}KẾT QUẢ THỰC NGHIỆM}{36}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Tổng quan kỹ thuật}{36}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Thiết kế kiến trúc}{36}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Lựa chọn kiến trúc phần mềm}{36}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Thiết kế tổng quan}{38}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Thiết kế chi tiết gói}{41}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Cấu trúc chi tiết các phân hệ cốt lõi}{46}{subsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {a}a. Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{46}{subsubsection.5.2.4.1}%
-\contentsline {subsubsection}{\numberline {b}b. Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{47}{subsubsection.5.2.4.2}%
-\contentsline {subsubsection}{\numberline {c}c. Các hệ thống lõi phục vụ vận hành}{49}{subsubsection.5.2.4.3}%
-\contentsline {subsubsection}{\numberline {d}d. Giao diện người dùng và Canvas (UI Canvas Architecture)}{52}{subsubsection.5.2.4.4}%
-\contentsline {section}{\numberline {5.3}Thiết kế chi tiết}{52}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Thiết kế lớp}{52}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Thiết kế cơ sở dữ liệu}{58}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Xây dựng ứng dụng}{60}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Thư viện và công cụ sử dụng}{60}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Kết quả đạt được}{61}{subsection.5.4.2}%
-\contentsline {section}{\numberline {5.5}Sản phẩm}{62}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Giai đoạn 1: Khởi động, thiết lập ban đầu, khu vực xuất phát và khu vực nâng cấp Village}{62}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Giai đoạn 2: Thám hiểm khu vực Dungeon}{64}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Giai đoạn 3: Cơ chế chiến đấu cận chiến và né tránh}{65}{subsection.5.5.3}%
-\contentsline {subsection}{\numberline {5.5.4}Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa}{65}{subsection.5.5.4}%
-\contentsline {subsection}{\numberline {5.5.5}Giai đoạn 5: Đối đầu với các boss cuối các khu vực}{66}{subsection.5.5.5}%
-\contentsline {subsection}{\numberline {5.5.6}Các bảng giao diện chức năng quan trọng khác}{67}{subsection.5.5.6}%
-\contentsline {section}{\numberline {5.6}Kiểm thử}{68}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Tổng kết kết quả kiểm thử}{69}{subsection.5.6.1}%
-\contentsline {section}{\numberline {5.7}Triển khai}{70}{section.5.7}%
-\contentsline {chapter}{\numberline {6}CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT}{71}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Tối ưu hóa hiệu năng bằng kỹ thuật Distance Culling tùy biến}{71}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Đặt vấn đề và bài toán tối ưu}{71}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Giải pháp hiện thực hóa}{71}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Kết quả đạt được}{73}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2}Kiến trúc máy trạng thái phân tầng cho hệ thống nhân vật phức tạp}{73}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Đặt vấn đề và bài toán thiết kế}{73}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Giải pháp hiện thực hóa}{73}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Kết quả đạt được}{74}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Giải pháp tích hợp Yarn Spinner và quản lý máy trạng thái thế giới phi tuyến}{75}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Đặt vấn đề}{75}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Cơ chế tích hợp và đồng bộ hóa trạng thái}{75}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Kết quả đạt được}{76}{subsection.6.3.3}%
-\contentsline {chapter}{\numberline {7}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{77}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Kết luận}{77}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Kết quả đạt được và đóng góp của đề tài}{77}{subsection.7.1.1}%
-\contentsline {subsection}{\numberline {7.1.2}Những hạn chế còn tồn tại}{77}{subsection.7.1.2}%
-\contentsline {subsection}{\numberline {7.1.3}Bài học kinh nghiệm rút ra}{78}{subsection.7.1.3}%
-\contentsline {section}{\numberline {7.2}Hướng phát triển}{78}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Cải tiến và hoàn thiện các chức năng hiện có}{78}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Nghiên cứu và phát triển các tính năng mới}{78}{subsection.7.2.2}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{80}{section*.74}%
+\contentsline {chapter}{\numberline {3}CÔNG NGHỆ SỬ DỤNG}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Động cơ phát triển trò chơi (Unity Game Engine)}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Hệ thống kịch bản và hội thoại đa nhánh (Yarn Spinner)}{14}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Công nghệ hoạt ảnh 2D dạng xương (Spine Animation)}{14}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Giải thuật tìm đường thông minh (A* Pathfinding)}{15}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Hệ thống quản lý phiên bản (Git Version Control)}{16}{section.3.5}%
+\contentsline {chapter}{\numberline {4}THIẾT KẾ TRÒ CHƠI}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Tổng quan trò chơi}{17}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Luồng trò chơi và Vòng lặp cốt lõi}{17}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Lối chơi}{18}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Ấn tượng ban đầu (First Minutes)}{19}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Mục tiêu của trò chơi (Objectives)}{19}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Diễn tiến và Vòng lặp nâng cấp (Progression and Upgrade Loop)}{19}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Cơ chế của trò chơi}{20}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Luật chơi}{20}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Mô hình thế giới}{20}{subsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {a}Mô hình vật lý (Physics)}{20}{subsubsection.4.3.2.1}%
+\contentsline {subsubsection}{\numberline {b}Mô hình kinh tế (Economy)}{20}{subsubsection.4.3.2.2}%
+\contentsline {subsection}{\numberline {4.3.3}Các hành động của nhân vật}{21}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Luồng màn hình và Phân loại Scene}{22}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Các tùy chọn trò chơi và Lưu trữ}{22}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Hệ thống phản hồi cho người chơi}{23}{subsection.4.3.6}%
+\contentsline {section}{\numberline {4.4}Điều khiển}{23}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Điều khiển hành động nhân vật (Gameplay Controls)}{23}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Điều khiển hệ thống giao diện UI và các chức năng phụ trợ}{24}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}Cốt truyện}{25}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Bối cảnh (Backstory)}{25}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Tình tiết cốt truyện (Plot Elements)}{25}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Dẫn dắt câu chuyện (Story Progression)}{25}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Nhân vật và kẻ địch}{26}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Nhân vật chính và Cơ chế Biến hình (Player Forms)}{26}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Kẻ địch thông thường (Normal Enemies)}{27}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Thực thể Boss (Boss Entities)}{29}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Màn chơi}{29}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Khái quát thiết kế màn chơi (Level Design Philosophy)}{30}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Chi tiết các phân khu màn chơi (Game Regions)}{30}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}Tiến trình màn chơi và Checkpoint (Stage Flow \& Progression)}{31}{subsection.4.7.3}%
+\contentsline {section}{\numberline {4.8}UI}{32}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Giao diện hiển thị trong màn chơi (HUD - Head-Up Display)}{32}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Hệ thống Menu và Bảng chức năng (Game Menus \& Panels)}{33}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}Mô hình Camera (Camera Model)}{36}{subsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.8.4}Ngôn ngữ mỹ thuật và Trải nghiệm Tương tác của Giao diện}{36}{subsection.4.8.4}%
+\contentsline {chapter}{\numberline {5}KẾT QUẢ THỰC NGHIỆM}{37}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Tổng quan kỹ thuật}{37}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Thiết kế kiến trúc}{37}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Lựa chọn kiến trúc phần mềm}{37}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Thiết kế tổng quan}{39}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Thiết kế chi tiết gói}{42}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Cấu trúc chi tiết các phân hệ cốt lõi}{47}{subsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {a}a. Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{47}{subsubsection.5.2.4.1}%
+\contentsline {subsubsection}{\numberline {b}b. Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{48}{subsubsection.5.2.4.2}%
+\contentsline {subsubsection}{\numberline {c}c. Các hệ thống lõi phục vụ vận hành}{50}{subsubsection.5.2.4.3}%
+\contentsline {subsubsection}{\numberline {d}d. Giao diện người dùng và Canvas (UI Canvas Architecture)}{53}{subsubsection.5.2.4.4}%
+\contentsline {section}{\numberline {5.3}Thiết kế chi tiết}{53}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Thiết kế lớp}{53}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Thiết kế cơ sở dữ liệu}{59}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Xây dựng ứng dụng}{61}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Thư viện và công cụ sử dụng}{61}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Kết quả đạt được}{62}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}Sản phẩm}{63}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Giai đoạn 1: Khởi động, thiết lập ban đầu, khu vực xuất phát và khu vực nâng cấp Village}{63}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Giai đoạn 2: Thám hiểm khu vực Dungeon}{65}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Giai đoạn 3: Cơ chế chiến đấu cận chiến và né tránh}{66}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Giai đoạn 4: Biến dạng thực thể và phép thuật tầm xa}{66}{subsection.5.5.4}%
+\contentsline {subsection}{\numberline {5.5.5}Giai đoạn 5: Đối đầu với các boss cuối các khu vực}{67}{subsection.5.5.5}%
+\contentsline {subsection}{\numberline {5.5.6}Các bảng giao diện chức năng quan trọng khác}{68}{subsection.5.5.6}%
+\contentsline {section}{\numberline {5.6}Kiểm thử}{69}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Tổng kết kết quả kiểm thử}{70}{subsection.5.6.1}%
+\contentsline {section}{\numberline {5.7}Triển khai}{71}{section.5.7}%
+\contentsline {chapter}{\numberline {6}CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT}{72}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Tối ưu hóa hiệu năng bằng kỹ thuật Distance Culling tùy biến}{72}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Đặt vấn đề và bài toán tối ưu}{72}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Giải pháp hiện thực hóa}{72}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Kết quả đạt được}{74}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Kiến trúc máy trạng thái phân tầng cho hệ thống nhân vật phức tạp}{74}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Đặt vấn đề và bài toán thiết kế}{74}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Giải pháp hiện thực hóa}{74}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Kết quả đạt được}{75}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Giải pháp tích hợp Yarn Spinner và quản lý máy trạng thái thế giới phi tuyến}{76}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Đặt vấn đề}{76}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Cơ chế tích hợp và đồng bộ hóa trạng thái}{76}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Kết quả đạt được}{77}{subsection.6.3.3}%
+\contentsline {chapter}{\numberline {7}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{78}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Kết luận}{78}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Kết quả đạt được và đóng góp của đề tài}{78}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Những hạn chế còn tồn tại}{78}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}Bài học kinh nghiệm rút ra}{79}{subsection.7.1.3}%
+\contentsline {section}{\numberline {7.2}Hướng phát triển}{79}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Cải tiến và hoàn thiện các chức năng hiện có}{79}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Nghiên cứu và phát triển các tính năng mới}{79}{subsection.7.2.2}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{81}{section*.74}%
 \contentsfinish 
