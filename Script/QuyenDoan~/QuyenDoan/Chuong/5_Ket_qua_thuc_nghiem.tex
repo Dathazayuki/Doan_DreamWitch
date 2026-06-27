@@ -696,12 +696,12 @@ Phần này trình bày thiết kế các trường hợp kiểm thử (Test Cas
 \textbf{1. Hệ thống điều khiển và di chuyển (Player Movement)}
 \begin{table}[H]
 \centering
-\begin{tabular}{|p{1.2cm}|p{3.5cm}|p{3.5cm}|p{4.0cm}|}
+\begin{tabular}{|p{1.2cm}|p{3.8cm}|p{3.8cm}|p{4.3cm}|}
 \hline
 \textbf{Mã ca} & \textbf{Kịch bản kiểm thử} & \textbf{Các bước thực hiện} & \textbf{Kết quả kỳ vọng} \\ \hline
 \textbf{TC-01} & Di chuyển thông thường & Nhấn giữ phím \texttt{A/D} trên bàn phím. & Nhân vật di chuyển mượt mà sang trái/phải, đổi hướng ngay lập tức. \\ \hline
-\textbf{TC-02} & Di chuyển lướt (Dash) qua khu vực hẹp & Kích hoạt lướt (\texttt{L-Shift}) tại khe hẹp. & Nhân vật lướt qua khe hẹp an toàn, không bị kẹt vật lý. \\ \hline
-\textbf{TC-03} & Bám và leo vách tường & Nhảy sát vào vách tường thẳng đứng và ép phím hướng. & Nhân vật bám tường, trượt chậm dần xuống và nhảy bật tường được. \\ \hline
+\textbf{TC-02} & Di chuyển lướt (Dash) qua khu vực hẹp khi ngồi & Kích hoạt lướt (\texttt{L-Shift}) tại khe hẹp khi đang ở hoạt ảnh Crouch. & Nhân vật lướt qua khe hẹp an toàn, không bị kẹt vật lý. \\ \hline
+\textbf{TC-03} & Leo vách tường ở khu vực góc tường (Cliff Climb State)& Thực hiện Jump vào sát góc vuông của khu vực tường hoặc ground . & Nhân vật thực hiện phát hoạt ảnh và tự động đẩy nhân vật lên trên khu vực đứng được. \\ \hline
 \end{tabular}
 \caption{Bảng đặc tả các trường hợp kiểm thử Di chuyển}
 \label{table:test_movement}
@@ -711,11 +711,11 @@ Phần này trình bày thiết kế các trường hợp kiểm thử (Test Cas
 \textbf{2. Cơ chế chuyển đổi hình thái (Form Switch)}
 \begin{table}[H]
 \centering
-\begin{tabular}{|p{1.2cm}|p{3.5cm}|p{3.5cm}|p{4.0cm}|}
+\begin{tabular}{|p{1.2cm}|p{3.8cm}|p{3.8cm}|p{4.3cm}|}
 \hline
 \textbf{Mã ca} & \textbf{Kịch bản kiểm thử} & \textbf{Các bước thực hiện} & \textbf{Kết quả kỳ vọng} \\ \hline
-\textbf{TC-04} & Biến hình hợp lệ tại xác quái vật & Đứng sát xác kẻ địch, nhấn phím (\texttt{Tab}). & Đổi sang hình dáng quái vật, nhận đúng HP và kỹ năng. \\ \hline
-\textbf{TC-05} & Kích hoạt khi không ở xác quái vật & Đứng xa xác quái vật, nhấn phím (\texttt{Tab}). & Hệ thống từ chối biến hình, không có gì xảy ra. \\ \hline
+\textbf{TC-04} & Kích hoạt biến hình khi chưa mở Node 1 Skill Tree & Chưa mở Node 1 trên cây kỹ năng, điều khiển nhân vật đứng sát xác kẻ địch. & Không hiện Interact Prompt trên đầu quái, nhấn phím tương tác không có tác dụng. \\ \hline
+\textbf{TC-05} & Biến hình hợp lệ tại xác quái vật & Đã mở Node 1, đứng sát xác kẻ địch, quan sát và nhấn phím (\texttt{Tab}). & Hiện Interact Prompt trên đầu quái. Sau khi nhấn, đổi sang hình dáng quái vật, nhận đúng HP. \\ \hline
 \textbf{TC-06} & Hủy biến hình và vị trí nhả xác & Nhấn (\texttt{Tab}) để về dạng người. & Về dạng người. Xác quái cũ rơi ra hiển thị đúng tọa độ hiện tại. \\ \hline
 \end{tabular}
 \caption{Bảng đặc tả các trường hợp kiểm thử Biến hình}
@@ -726,12 +726,12 @@ Phần này trình bày thiết kế các trường hợp kiểm thử (Test Cas
 \textbf{3. Hệ thống Lưu/Tải trò chơi (Save/Load)}
 \begin{table}[H]
 \centering
-\begin{tabular}{|p{1.2cm}|p{3.5cm}|p{3.5cm}|p{4.0cm}|}
+\begin{tabular}{|p{1.2cm}|p{3.8cm}|p{3.8cm}|p{4.3cm}|}
 \hline
 \textbf{Mã ca} & \textbf{Kịch bản kiểm thử} & \textbf{Các bước thực hiện} & \textbf{Kết quả kỳ vọng} \\ \hline
 \textbf{TC-07} & Tự động lưu game khi qua màn & Nhân vật đi qua cổng Portal sang khu mới. & Game tự động tạo tệp JSON ở nền (Auto-save) mượt mà. \\ \hline
-\textbf{TC-08} & Lưu game thủ công tại Đền thờ & Tương tác với Đền thờ, chọn nút "Save". & Lượng HP, vị trí, vàng và vật phẩm được tuần tự hóa vào file. \\ \hline
-\textbf{TC-09} & Khôi phục (Load) tiến trình cũ & Tại Menu, chọn "Continue" và nạp tệp lưu. & Nhân vật sinh ra đúng tọa độ lưu cuối với đủ trang bị. \\ \hline
+\textbf{TC-08} & Lưu game thủ công tại Đền thờ & Tương tác với Đền thờ, chọn nút "Save". & Tiến trình, vàng và vật phẩm được tuần tự hóa vào file. \\ \hline
+\textbf{TC-09} & Khôi phục (Load) tiến trình cũ & Tại màn hình chính, chọn "Start" $\rightarrow$ chọn Save slot để nạp tệp lưu. & Nhân vật sinh ra đúng ở Church (không phải tọa độ lưu) với đầy đủ tiến trình và trang bị. \\ \hline
 \end{tabular}
 \caption{Bảng đặc tả các trường hợp kiểm thử Lưu và Tải}
 \label{table:test_saveload}
