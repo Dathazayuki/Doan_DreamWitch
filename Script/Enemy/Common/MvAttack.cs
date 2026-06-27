@@ -132,6 +132,20 @@ namespace Mv
 		public void SetCloseAttackWindowImmediatelyOnEnd(bool value) => closeAttackWindowImmediatelyOnEnd = value;
 		public void SetRequireAnimEventAtkS(bool value) => requireAnimEventAtkS = value;
 
+		public bool ForceOpenAttackWindow()
+		{
+			if (!enabled) return false;
+			if (owner != null && !owner.IsAlive) return false;
+
+			lastAttackTime = Time.time;
+			nextAttackReadyTime = Time.time + Mathf.Max(0f, attackCooldown) + GetRandomDelay(attackCooldownJitter);
+			attackQueued = true;
+			attackQueuedTime = Time.time;
+			hitBuffer.Clear();
+			OpenAttackWindow();
+			return true;
+		}
+
 		/// <summary>
 		/// Xóa bộ đệm đã đánh, cho phép đánh lại mục tiêu (dùng khi Player respawn).
 		/// </summary>
@@ -187,23 +201,7 @@ namespace Mv
 				if (!attackQueued && !TryStartAttack())
 					return;
 
-				Physics2D.SyncTransforms();
-				attackWindowActive = true;
-				attackWindowCloseRequested = false;
-				AttackWindowStarted?.Invoke(this);
-				float startDelay = Mathf.Max(0f, attackWindowStartDelay);
-				attackWindowEndTime = Time.time + startDelay + Mathf.Max(0f, attackWindowMinDuration);
-				nextDamageTime = Time.time + startDelay;
-
-				if (startDelay <= 0f)
-				{
-					pendingHitFrame = Time.frameCount + 1;
-					DoHit();
-				}
-				else
-				{
-					pendingHitFrame = -1;
-				}
+				OpenAttackWindow();
 			}
 			else if (eventName == "AtkE" || eventName == "Attack/AtkE" || eventName == "CancelE")
 			{
@@ -223,6 +221,27 @@ namespace Mv
 			}
 		}
 		#endregion
+
+		private void OpenAttackWindow()
+		{
+			Physics2D.SyncTransforms();
+			attackWindowActive = true;
+			attackWindowCloseRequested = false;
+			AttackWindowStarted?.Invoke(this);
+			float startDelay = Mathf.Max(0f, attackWindowStartDelay);
+			attackWindowEndTime = Time.time + startDelay + Mathf.Max(0f, attackWindowMinDuration);
+			nextDamageTime = Time.time + startDelay;
+
+			if (startDelay <= 0f)
+			{
+				pendingHitFrame = Time.frameCount + 1;
+				DoHit();
+			}
+			else
+			{
+				pendingHitFrame = -1;
+			}
+		}
 
 		#region Collision Detection
 		private PlayerController GetPlayerController()

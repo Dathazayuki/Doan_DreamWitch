@@ -26,7 +26,7 @@ MonoBehaviour:
   bigSwordSpawnOffset: {x: 0.8, y: 0.2}
   bigSwordMaxPoolSize: 8
   shieldVisualPrefab: {fileID: 1709254077376921, guid: 4b0a1f264ef85a649b509fdad525b028, type: 3}
-  unlockPrice: 0
+  unlockPrice: 120
   description: 'Summon a magical shield to surround the player, blocking a certain
     number of enemy attacks
 

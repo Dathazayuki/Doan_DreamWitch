@@ -5,45 +5,39 @@ using UnityEngine;
 
 namespace DreamKnight.Systems.Culling
 {
-    /// <summary>
-    /// Gắn lên Room GameObject (cần có Collider2D IsTrigger = true).
-    /// Phát hiện Player bước vào/ra để thông báo CullingManager.
-    /// Quản lý việc wake/sleep tất cả ICullable members trong Room.
-    /// </summary>
     [RequireComponent(typeof(Collider2D))]
     [DisallowMultipleComponent]
     public class RoomController : MonoBehaviour
     {
-        // ─── Inspector ─────────────────────────────────────────────────────────
         [Header("Room Identity")]
         [SerializeField] private string roomId;
 
-        [Header("Adjacent Rooms (luôn active khi room này active)")]
-        [Tooltip("Các Room kề – wake cùng khi Room này được active, tránh pop-in khi Player di chuyển giữa rooms.")]
+        [Header("Adjacent Rooms")]
         [SerializeField] private RoomController[] adjacentRooms;
 
         [Header("Renderer Options")]
-        [Tooltip("Tắt TilemapRenderer khi Room sleep (tiết kiệm GPU). Bật lại khi Room active.")]
         [SerializeField] private bool cullTilemapRenderer = true;
+        [SerializeField, Min(0f)] private float cameraVisibilityPadding = 1f;
+        [SerializeField] private bool ignoreMapOnlyTilemaps = true;
+        [SerializeField] private string mapOnlyLayerName = "TileMapOnly";
 
-        // ─── Runtime ───────────────────────────────────────────────────────────
         private readonly List<ICullable> members = new List<ICullable>();
         private UnityEngine.Tilemaps.TilemapRenderer[] tilemapRenderers;
-        private bool isActive = true; // Mặc định active để tránh flash ở frame đầu
+        private readonly Plane[] cameraFrustumPlanes = new Plane[6];
+        private Camera gameplayCamera;
+        private bool isActive = true;
 
         public bool IsActive => isActive;
         public RoomController[] AdjacentRooms => adjacentRooms;
         public string RoomId => string.IsNullOrEmpty(roomId) ? gameObject.name : roomId;
 
-        // ─── Unity Lifecycle ───────────────────────────────────────────────────
         private void Awake()
         {
-            // Đảm bảo collider là trigger
             Collider2D col = GetComponent<Collider2D>();
-            if (col != null) col.isTrigger = true;
+            if (col != null)
+                col.isTrigger = true;
 
-            // Cache tilemaps trong room này
-            tilemapRenderers = GetComponentsInChildren<UnityEngine.Tilemaps.TilemapRenderer>(true);
+            CacheCullableTilemapRenderers();
 
             if (string.IsNullOrEmpty(roomId))
                 roomId = gameObject.name;
@@ -53,7 +47,15 @@ namespace DreamKnight.Systems.Culling
 
         private void OnDestroy()
         {
-            CullingManager.Instance?.UnregisterRoom(this);
+            CullingManager.Current?.UnregisterRoom(this);
+        }
+
+        private void LateUpdate()
+        {
+            if (!cullTilemapRenderer)
+                return;
+
+            RefreshTilemapRendererCameraVisibility();
         }
 
 #if UNITY_EDITOR
@@ -74,16 +76,19 @@ namespace DreamKnight.Systems.Culling
         }
 #endif
 
-        // ─── Trigger Detection ─────────────────────────────────────────────────
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!IsPlayerBodyCollider(other)) return;
+            if (!IsPlayerBodyCollider(other))
+                return;
+
             CullingManager.Instance?.SetActiveRoom(this);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!IsPlayerBodyCollider(other)) return;
+            if (!IsPlayerBodyCollider(other))
+                return;
+
             CullingManager.Instance?.OnPlayerExitRoom(this);
         }
 
@@ -93,18 +98,101 @@ namespace DreamKnight.Systems.Culling
             return player != null && player.IsBodyCollider(col);
         }
 
-        // ─── Room Active / Sleep ───────────────────────────────────────────────
+        private void CacheCullableTilemapRenderers()
+        {
+            UnityEngine.Tilemaps.TilemapRenderer[] renderers =
+                GetComponentsInChildren<UnityEngine.Tilemaps.TilemapRenderer>(true);
 
-        /// <summary>
-        /// Bật (active=true) hoặc tắt (active=false) tất cả member và TilemapRenderer trong Room.
-        /// Không bao giờ SetActive(false) bản thân GameObject – cần trigger để detect Player.
-        /// </summary>
+            if (!ignoreMapOnlyTilemaps || string.IsNullOrWhiteSpace(mapOnlyLayerName))
+            {
+                tilemapRenderers = renderers;
+                return;
+            }
+
+            int mapOnlyLayer = LayerMask.NameToLayer(mapOnlyLayerName);
+            if (mapOnlyLayer < 0)
+            {
+                tilemapRenderers = renderers;
+                return;
+            }
+
+            List<UnityEngine.Tilemaps.TilemapRenderer> cullableRenderers =
+                new List<UnityEngine.Tilemaps.TilemapRenderer>(renderers.Length);
+
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                UnityEngine.Tilemaps.TilemapRenderer renderer = renderers[i];
+                if (renderer == null)
+                    continue;
+
+                if (renderer.gameObject.layer == mapOnlyLayer)
+                    continue;
+
+                cullableRenderers.Add(renderer);
+            }
+
+            tilemapRenderers = cullableRenderers.ToArray();
+        }
+
+        private void RefreshTilemapRendererCameraVisibility()
+        {
+            if (tilemapRenderers == null || tilemapRenderers.Length == 0)
+                return;
+
+            Camera targetCamera = ResolveGameplayCamera();
+            if (targetCamera == null)
+            {
+                SetAllTilemapRenderersEnabled(true);
+                return;
+            }
+
+            GeometryUtility.CalculateFrustumPlanes(targetCamera, cameraFrustumPlanes);
+
+            for (int i = 0; i < tilemapRenderers.Length; i++)
+            {
+                UnityEngine.Tilemaps.TilemapRenderer renderer = tilemapRenderers[i];
+                if (renderer == null)
+                    continue;
+
+                Bounds bounds = renderer.bounds;
+                if (cameraVisibilityPadding > 0f)
+                    bounds.Expand(cameraVisibilityPadding);
+
+                bool visibleByCamera = GeometryUtility.TestPlanesAABB(cameraFrustumPlanes, bounds);
+                if (renderer.enabled != visibleByCamera)
+                    renderer.enabled = visibleByCamera;
+            }
+        }
+
+        private Camera ResolveGameplayCamera()
+        {
+            if (gameplayCamera != null && gameplayCamera.isActiveAndEnabled)
+                return gameplayCamera;
+
+            gameplayCamera = Camera.main;
+            return gameplayCamera;
+        }
+
+        private void SetAllTilemapRenderersEnabled(bool enabled)
+        {
+            if (tilemapRenderers == null)
+                return;
+
+            for (int i = 0; i < tilemapRenderers.Length; i++)
+            {
+                UnityEngine.Tilemaps.TilemapRenderer renderer = tilemapRenderers[i];
+                if (renderer != null && renderer.enabled != enabled)
+                    renderer.enabled = enabled;
+            }
+        }
+
         public void SetRoomActive(bool active)
         {
-            if (isActive == active) return;
+            if (isActive == active)
+                return;
+
             isActive = active;
 
-            // Wake / Sleep tất cả members
             for (int i = members.Count - 1; i >= 0; i--)
             {
                 ICullable member = members[i];
@@ -119,19 +207,8 @@ namespace DreamKnight.Systems.Culling
                 else
                     member.Cull();
             }
-
-            // Bật/tắt TilemapRenderer
-            if (cullTilemapRenderer && tilemapRenderers != null)
-            {
-                for (int i = 0; i < tilemapRenderers.Length; i++)
-                {
-                    if (tilemapRenderers[i] != null)
-                        tilemapRenderers[i].enabled = active;
-                }
-            }
         }
 
-        // ─── Member Registration ───────────────────────────────────────────────
         public void RegisterMember(ICullable member)
         {
             if (member != null && !members.Contains(member))
@@ -143,11 +220,12 @@ namespace DreamKnight.Systems.Culling
             members.Remove(member);
         }
 
-        // ─── Gizmos ────────────────────────────────────────────────────────────
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            if (adjacentRooms == null) return;
+            if (adjacentRooms == null)
+                return;
+
             Gizmos.color = new Color(0.4f, 0.8f, 1f, 0.8f);
             foreach (RoomController adjacent in adjacentRooms)
             {

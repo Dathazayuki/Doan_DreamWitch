@@ -2715,6 +2715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5072644389768793959}
+  - component: {fileID: 658454637109115525}
   m_Layer: 17
   m_Name: MvGm040_Saw.001
   m_TagString: Untagged
@@ -2740,6 +2741,22 @@ Transform:
   - {fileID: 5779253189947444268}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: 90}
+--- !u!114 &658454637109115525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844168804456424796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ddf8ee621db3145ac82876c2a3a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 0
+  overrideEnableDistance: 0
+  overrideDisableDistance: 0
+  componentsToCull: []
 --- !u!1 &4727008997988351144
 GameObject:
   m_ObjectHideFlags: 0

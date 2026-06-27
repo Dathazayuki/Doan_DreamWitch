@@ -47,7 +47,7 @@ namespace DreamKnight.Systems.Culling
         }
 
         private void OnEnable() => CullingManager.Instance?.Register(this);
-        private void OnDisable() => CullingManager.Instance?.Unregister(this);
+        private void OnDisable() => CullingManager.Current?.Unregister(this);
 
         public void Cull()
         {

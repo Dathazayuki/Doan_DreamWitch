@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DreamKnight.Player
 {
@@ -24,7 +25,8 @@ namespace DreamKnight.Player
         [Tooltip("Basic attack damage multiplier (e.g. 1.25 for x125% basic damage)")]
         public float basicAttackDamageMultiplier = 1f;
 
-        [Tooltip("Mana (MP) restored per basic attack hit")]
+        [FormerlySerializedAs("manaRegenBonus")]
+        [Tooltip("Mana (MP) restored per successful basic attack hit against an enemy")]
         public float manaRegenPerHitBonus = 0f;
 
         [Tooltip("Critical Strike chance (0 to 1)")]
@@ -44,9 +46,6 @@ namespace DreamKnight.Player
 
         [Tooltip("Seconds that Health Regen remains active after equipping this Spell Book")]
         public float healthRegenDuration = 5f;
-
-        [Tooltip("Mana (MP) regenerated per second")]
-        public float manaRegenBonus = 0f;
 
         [Tooltip("Movement speed multiplier bonus (e.g. 0.15 for +15%)")]
         public float moveSpeedPercentBonus = 0f;

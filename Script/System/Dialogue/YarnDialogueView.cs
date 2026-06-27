@@ -18,7 +18,6 @@ namespace DreamKnight.Systems.Dialogue
 
         private System.Action currentLineFinished;
         private System.Action<int> currentOptionFinished;
-        private bool waitingForLine = false;
         private bool waitingForOptions = false;
         private bool isBound = false;
 
@@ -55,7 +54,6 @@ namespace DreamKnight.Systems.Dialogue
             string lineText = dialogueLine.TextWithoutCharacterName.Text ?? string.Empty;
 
             currentLineFinished = onDialogueLineFinished;
-            waitingForLine = true;
             waitingForOptions = false;
 
             if (hudTalk != null)
@@ -64,7 +62,6 @@ namespace DreamKnight.Systems.Dialogue
             }
             else
             {
-                waitingForLine = false;
                 onDialogueLineFinished?.Invoke();
             }
         }
@@ -74,7 +71,6 @@ namespace DreamKnight.Systems.Dialogue
             EnsureHudTalkBound();
             currentOptionFinished = onOptionSelected;
             waitingForOptions = true;
-            waitingForLine = false;
 
             if (hudTalk != null)
             {
@@ -105,7 +101,6 @@ namespace DreamKnight.Systems.Dialogue
 
         public override void DialogueComplete()
         {
-            waitingForLine = false;
             waitingForOptions = false;
             hudTalk?.ResetAndHideImmediate();
         }
@@ -118,10 +113,9 @@ namespace DreamKnight.Systems.Dialogue
 
         private void HandleUserAdvance()
         {
-                var lineFinishedCallback = currentLineFinished;
-                currentLineFinished = null;
-                waitingForLine = false;
-                lineFinishedCallback.Invoke();
+            var lineFinishedCallback = currentLineFinished;
+            currentLineFinished = null;
+            lineFinishedCallback?.Invoke();
         }
 
         private void HandleOptionSelected(int optionIndex)

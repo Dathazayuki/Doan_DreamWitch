@@ -15,34 +15,34 @@ Cụ thể, thuật toán kiểm tra khoảng cách được định nghĩa dự
 d = \sqrt{(x_p - x_t)^2 + (y_p - y_t)^2}
 \end{equation}
 
-Mỗi đối tượng thuộc diện culling (\texttt{DistanceCullingTarget}) sẽ được phân loại thành các nhóm đối tượng mục tiêu (\texttt{CullingTargetType}) với các bán kính kích hoạt (Culling Radius - ký hiệu là $R_c$) khác nhau:
-\begin{itemize}
-    \item \textbf{Quái vật thường (Enemy):} $R_c = 25$ đơn vị đo lường Unity.
-    \item \textbf{Boss lớn:} $R_c = 40$ đơn vị đo lường Unity (yêu cầu bán kính lớn hơn để tránh ngắt AI khi Boss bay cao hoặc di chuyển xa ngoài khung hình).
-    \item \textbf{Bẫy môi trường động:} $R_c = 20$ đơn vị đo lường Unity.
-    \item \textbf{Vật thể trang trí tĩnh có diễn họa (VFX/Deco):} $R_c = 15$ đơn vị đo lường Unity.
-\end{itemize}
+Mỗi đối tượng thuộc diện culling (\texttt{DistanceCullingTarget}) được phân loại thành 3 nhóm mục tiêu chính: \textbf{Quái vật (Enemy)}, \textbf{Đạn bay (Projectile)} và \textbf{Hiệu ứng hình ảnh (Vfx)}. Thay vì dùng một bán kính cứng nhắc, hệ thống áp dụng \textbf{cơ chế khoảng trễ Hysteresis} với hai ngưỡng: \textbf{Ngưỡng bật (mặc định 18f)} để kích hoạt lại đối tượng và \textbf{Ngưỡng tắt (mặc định 22f)} để vô hiệu hóa đối tượng, nhằm tránh hiện tượng bật/tắt liên tục khi người chơi đứng ở ranh giới. Các đối tượng đặc thù như Boss lớn có thể ghi đè hai ngưỡng này thành các giá trị độc lập.
 
 Quy trình xử lý culling diễn ra như sau:
 \begin{enumerate}
-    \item \texttt{CullingManager} duy trì một danh sách các đối tượng đăng ký hoạt động thông qua một cấu trúc \texttt{HashSet} tối ưu để đạt độ phức tạp tìm kiếm $O(1)$.
-    \item Định kỳ sau mỗi khoảng thời gian cấu hình trước (ví dụ $0.25$ giây - tương ứng với chu kỳ kiểm tra thay vì kiểm tra liên tục trong từng frame để tiết kiệm năng lượng tính toán CPU), \texttt{CullingManager} duyệt qua danh sách đối tượng và tính toán khoảng cách $d$ tới người chơi.
-    \item Nếu $d > R_c$: Đối tượng chuyển sang trạng thái \textit{Culled}. Hệ thống thực hiện ngắt hoàn toàn các thành phần tài nguyên của đối tượng:
+    \item \texttt{CullingManager} phân tách dữ liệu lưu trữ thành hai nhóm để tối ưu truy xuất: sử dụng \texttt{List<DistanceCullingTarget>} để lưu danh sách các đối tượng chịu culling khoảng cách nhằm tăng tốc độ lặp (iteration) theo frame, và sử dụng \texttt{HashSet<RoomController>} để lưu trữ tập hợp các phòng đang hoạt động nhằm đạt độ phức tạp $O(1)$ khi kiểm tra trạng thái phòng.
+    \item Định kỳ chạy coroutine \texttt{CullingLoop} sau mỗi $0.2$ giây (chu kỳ kiểm tra cố định để tiết kiệm năng lượng CPU thay vì cập nhật từng frame), \texttt{CullingManager} tiến hành duyệt danh sách và phối hợp culling phân tầng.
+    \item Quá trình kiểm tra diễn ra theo trình tự ưu tiên:
     \begin{itemize}
-        \item Vô hiệu hóa component di chuyển vật lý \texttt{Rigidbody2D} và \texttt{Collider2D} để giải phóng tài nguyên tính toán va chạm của Engine vật lý (Physics2D).
-        \item Vô hiệu hóa Animator component đối với quái thường hoặc Spine component (\texttt{SkeletonAnimation}) đối với các Boss lớn để dừng hoàn toàn các hoạt động xử lý hoạt ảnh.
+        \item \textbf{Ưu tiên Phòng (Room Sleeping):} Nếu đối tượng thuộc về một phòng ngủ đông (thông qua lớp cầu nối \texttt{RoomCullingMember} báo cờ \texttt{isRoomSleeping = true}), nó lập tức bị ép vào trạng thái tắt mà không cần xét khoảng cách, ngăn chặn tuyệt đối lỗi AI quái vật vô tình thức dậy.
+        \item \textbf{Ưu tiên Khoảng cách:} Nếu phòng đang hoạt động, hệ thống mới tiến hành xét khoảng cách Euclid $d$. Nếu $d >$ \texttt{Disable Distance}, đối tượng chuyển sang trạng thái \textit{Culled} (tắt). Ngược lại, nếu $d <$ \texttt{Enable Distance}, đối tượng chuyển sang \textit{Active} (bật).
+    \end{itemize}
+    \item Khi chuyển sang trạng thái \textit{Culled}, hệ thống ngắt chọn lọc các thành phần tài nguyên nặng:
+    \begin{itemize}
+        \item Vô hiệu hóa component tính toán vật lý (\texttt{Rigidbody2D}, \texttt{Collider2D}) để giải phóng tài nguyên Engine (Physics2D).
+        \item Vô hiệu hóa Animator đối với quái thường hoặc Spine component đối với Boss để dừng tính toán hoạt ảnh.
         \item Dừng các luồng xử lý AI tìm đường A* (\texttt{AIPath} và \texttt{Pathfinder} components).
     \end{itemize}
-    \item Nếu $d \le R_c$: Khôi phục tức thời các thành phần trên về trạng thái hoạt động ban đầu mà không có độ trễ hiển thị đối với người chơi.
+    \item Khôi phục tức thời các thành phần trên về trạng thái hoạt động ban đầu mà không có độ trễ hiển thị đối với người chơi khi chuyển về trạng thái \textit{Active}.
 \end{enumerate}
 
+\subsection{Camera Frustum Culling cho Tilemap}
+Bên cạnh việc culling các thực thể động, hệ thống còn mở rộng tối ưu hóa culling tĩnh cho các \texttt{TilemapRenderer} chiếm dung lượng lớn bằng mặt phẳng chóp cụt camera (Camera Frustum Culling).
+Trong mỗi \texttt{RoomController}, hệ thống bắt sự kiện camera di chuyển để tự động tính toán mặt phẳng chóp cụt góc nhìn hiện tại qua hàm \texttt{GeometryUtility.}\allowbreak\texttt{CalculateFrustumPlanes}. Tiếp theo, hệ thống dùng phương thức kiểm tra giao cắt AABB (\texttt{GeometryUtility.}\allowbreak\texttt{TestPlanesAABB}) giữa chóp cụt camera với \texttt{Bounds} của Tilemap, cộng thêm khoảng đệm \texttt{cameraVisibilityPadding}. Nếu Tilemap nằm ngoài camera, \texttt{Renderer.enabled} sẽ bị tắt, giúp giảm triệt để lệnh Draw Calls đồ họa tĩnh.
+
 \subsection{Kết quả đạt được}
-Giải pháp culling tùy biến đã mang lại kết quả tối ưu hóa hiệu năng vượt trội, đặc biệt rõ nét trên cấu hình phần cứng tối thiểu:
-\begin{itemize}
-    \item \textbf{Tăng trưởng FPS ổn định:} Khi thám hiểm phân khu di tích có mật độ quái vật và bẫy dày đặc, tốc độ khung hình trung bình của trò chơi đã tăng từ 42 FPS lên mức 60 FPS ổn định, loại bỏ hoàn toàn các điểm nghẽn giật lag cục bộ.
-    \item \textbf{Giảm tải CPU:} Tổng thời gian CPU dành cho việc xử lý cập nhật hoạt ảnh (Animator và Spine) giảm 75\% (từ 12ms mỗi frame xuống dưới 3ms). Lực cản vật lý và va chạm thừa của các đối tượng ngoài tầm mắt được triệt tiêu hoàn toàn, giảm tải overhead cho Physics Engine của Unity tới 80\%.
-    \item \textbf{Hiệu ứng hồi phục trơn tru:} Nhờ cơ chế khôi phục trạng thái thông minh thông qua thiết lập buffer khoảng cách nhỏ, người chơi hoàn toàn không cảm nhận được việc các đối tượng bị bật/tắt (pop-in), mang lại trải nghiệm khám phá liền mạch tuyệt đối.
-\end{itemize}
+Giải pháp culling tùy biến đã mang lại kết quả tối ưu hóa hiệu năng vượt trội. \textbf{Tốc độ khung hình (FPS) tăng trưởng ổn định:} Khi thám hiểm các phân khu có mật độ quái vật dày đặc, FPS trung bình tăng từ 42 lên mức 60 ổn định, loại bỏ hoàn toàn giật lag cục bộ. 
+
+\textbf{Giảm tải CPU đáng kể:} Tổng thời gian CPU xử lý cập nhật hoạt ảnh giảm 75\% (từ 12ms xuống dưới 3ms mỗi frame). Lực cản vật lý và va chạm thừa của đối tượng ngoài tầm nhìn được triệt tiêu, giảm tải overhead cho Physics Engine tới 80\%. Đồng thời, nhờ \textbf{hiệu ứng hồi phục trơn tru} với buffer khoảng cách thông minh, người chơi không cảm nhận được hiện tượng bật/tắt (pop-in), đảm bảo trải nghiệm khám phá liền mạch tuyệt đối.
 
 \section{Kiến trúc máy trạng thái phân tầng cho hệ thống nhân vật phức tạp}
 
@@ -55,8 +55,8 @@ Nếu cài đặt tất cả các logic này trong một lớp duy nhất sử d
 Đề tài đã thiết kế và cài đặt kiến trúc máy trạng thái phân tầng (\textit{Hierarchical State Machine - HSM}) kết hợp mô hình hướng đối tượng chặt chẽ. Hệ thống được xây dựng xung quanh ba lớp chính:
 \begin{itemize}
     \item \texttt{PlayerController}: Lớp điều phối trung tâm giữ vai trò trung gian chứa các tham chiếu tài nguyên vật lý, bộ quản lý hoạt ảnh của nhân vật, thông số thuộc tính và đối tượng máy trạng thái.
-    \item \texttt{PlayerStateMachine}: Quản lý trạng thái hiện tại và điều phối quá trình chuyển dịch trạng thái thông qua phương thức \texttt{Initialize()} và \texttt{ChangeState()}.
-    \item \texttt{PlayerState}: Lớp cơ sở trừu tượng cho tất cả các trạng thái cụ thể, cung cấp các vòng đời chuẩn hóa: \texttt{Enter()} (khởi chạy trạng thái), \texttt{LogicUpdate()} (cập nhật đầu vào từng khung hình), \texttt{PhysicsUpdate()} (cập nhật vật lý định kỳ) và \texttt{Exit()} (dọn dẹp trạng thái trước khi chuyển dịch).
+    \item \texttt{PlayerStateMachine}: Quản lý trạng thái hiện tại và điều phối quá trình chuyển dịch trạng thái thông qua phương thức \texttt{Initialize()} và \texttt{Change\-State()}.
+    \item \texttt{PlayerState}: Lớp cơ sở trừu tượng cho tất cả các trạng thái, cung cấp vòng đời chuẩn hóa: \texttt{Enter()} (khởi chạy trạng thái), \texttt{LogicUpdate()} (cập nhật logic), \texttt{PhysicsUpdate()} (cập nhật vật lý) và \texttt{Exit()} (dọn dẹp).
 \end{itemize}
 
 Các trạng thái cụ thể như \texttt{IdleState}, \texttt{MoveState}, \texttt{JumpState}, \texttt{DashState}, và \texttt{WallClimbState} được kế thừa từ \texttt{PlayerState}. Để giải quyết triệt để bài toán biến đổi hình dạng (Form Switch) mà không làm gián đoạn máy trạng thái, giải pháp tích hợp thêm phân hệ \texttt{PlayerFormManager} hoạt động song song.
@@ -69,19 +69,16 @@ Quy trình xử lý Form Switch diễn ra như sau:
 \end{enumerate}
 
 \subsection{Kết quả đạt được}
-Kiến trúc máy trạng thái phân tầng mang lại những cải tiến đáng kể cả về chất lượng mã nguồn và trải nghiệm người dùng:
-\begin{itemize}
-    \item \textbf{Triệt tiêu hoàn toàn lỗi xung đột logic:} Việc đóng gói logic vào từng lớp cụ thể giúp kiểm soát tuyệt đối luồng nhập liệu. Nhân vật không thể thực hiện các hành động bị cấm khi đang ở trong một trạng thái cụ thể (ví dụ: cấm tấn công khi đang leo tường do lớp \texttt{WallClimbState} không cài đặt các lệnh gọi combo tấn công trong hàm \texttt{LogicUpdate()}).
-    \item \textbf{Độ linh hoạt và khả năng mở rộng cao:} Việc thêm một trạng thái di chuyển mới hoặc một dạng biến hình mới chỉ yêu cầu tạo một lớp kế thừa từ \texttt{PlayerState} hoặc tạo một tệp \texttt{PlayerFormDataSO} mới mà không cần chỉnh sửa bất kỳ dòng mã nguồn nào của các trạng thái hiện có, tuân thủ nguyên tắc đóng/mở (Open/Closed Principle) của thiết kế hướng đối tượng.
-    \item \textbf{Hiệu ứng chuyển đổi mượt mà:} Hoạt ảnh chuyển dạng và gán Animator Controller mới diễn ra tức thì với độ trễ phản hồi bằng 0, mang lại cảm giác chiến đấu nhịp độ cao trực quan và sống động.
-\end{itemize}
+Kiến trúc máy trạng thái phân tầng mang lại những cải tiến đáng kể. \textbf{Triệt tiêu lỗi xung đột logic:} Đóng gói logic vào từng lớp giúp kiểm soát tuyệt đối luồng nhập liệu, ngăn chặn các hành vi bị cấm (ví dụ: cấm tấn công khi đang leo tường do lớp \texttt{WallClimbState} không chứa lệnh tấn công).
+
+\textbf{Độ linh hoạt và mở rộng cao:} Việc thêm trạng thái hay hình thái biến hình mới chỉ cần tạo lớp kế thừa \texttt{PlayerState} hoặc tệp \texttt{PlayerFormDataSO} mới mà không phải sửa mã nguồn cũ, tuân thủ chặt chẽ nguyên tắc đóng/mở (Open/Closed). Nhờ đó, \textbf{hiệu ứng chuyển đổi diễn ra mượt mà}, gán Animator Controller mới tức thì với độ trễ bằng 0, mang lại cảm giác chiến đấu nhịp độ cao sống động.
 
 \section{Giải pháp tích hợp Yarn Spinner và quản lý máy trạng thái thế giới phi tuyến}
 
 \subsection{Đặt vấn đề}
 Trò chơi phiêu lưu nhập vai 2D đòi hỏi một hệ thống hội thoại phong phú, đa tuyến và phụ thuộc chặt chẽ vào tiến trình thế giới của người chơi (Quest progression). Ví dụ, NPC chủ cửa hàng ở làng (Village) sẽ thay đổi nội dung hội thoại, mở khóa các mặt hàng mới hoặc giao nhiệm vụ mới dựa trên việc người chơi đã thu thập được các cuốn sách phép (\texttt{SpellBooks}) nào, đã kích hoạt cổng dịch chuyển (\texttt{Portals}) nào hoặc đã tiêu diệt các Boss cụ thể nào.
 
-Việc tự phát triển một hệ thống hội thoại có khả năng rẽ nhánh phức tạp từ đầu đòi hỏi khối lượng công việc lập trình giao diện, xử lý phân tích cú pháp hội thoại rất lớn và dễ phát sinh lỗi khi hiển thị tiếng Việt có dấu. Đồng thời, việc liên kết luồng hội thoại với trạng thái thế giới động để lưu trữ vĩnh viễn tiến trình của người chơi vào file JSON là một bài toán khó đòi hỏi thiết kế kiến trúc lưu trữ nhất quán.
+Việc tự phát triển một hệ thống hội thoại có khả năng rẽ nhánh phức tạp từ đầu đòi hỏi khối lượng công việc lập trình giao diện lớn và dễ phát sinh lỗi khi hiển thị đa ngôn ngữ (Localization) hoặc các ký tự đặc biệt. Đồng thời, việc liên kết luồng hội thoại với trạng thái thế giới động để lưu trữ vĩnh viễn tiến trình của người chơi vào tệp JSON là một bài toán khó đòi hỏi thiết kế kiến trúc lưu trữ nhất quán.
 
 \subsection{Cơ chế tích hợp và đồng bộ hóa trạng thái}
 Đề tài đã giải quyết bài toán này bằng cách tích hợp trực tiếp thư viện Yarn Spinner cho Unity kết hợp với giải pháp tuần tự hóa dữ liệu đồng bộ trạng thái lưu trữ (\texttt{GameSaveManager}).
@@ -89,8 +86,8 @@ Việc tự phát triển một hệ thống hội thoại có khả năng rẽ 
 Giải pháp kỹ thuật bao gồm các thành phần:
 \begin{itemize}
     \item \textbf{Kịch bản hội thoại Yarn Script:} Các cuộc hội thoại được viết trên các tệp \texttt{.yarn} độc lập bằng cú pháp trực quan. Các điều kiện rẽ nhánh được biểu diễn bằng cấu trúc biến số nội tại của Yarn (ví dụ: \texttt{\$has\_defeated\_golem} hoặc \texttt{\$has\_unlocked\_fire\_spell}).
-    \item \textbf{Lớp cầu nối YarnDialogueView:} Lớp này chịu trách nhiệm hiển thị giao diện UI hội thoại dạng văn bản tiếng Việt có dấu hoàn chỉnh và các lựa chọn rẽ nhánh cho người chơi.
-    \item \textbf{Cơ chế đồng bộ hóa biến số (Variable Storage Synchronizer):} Khi trò chơi bắt đầu hoặc tải lại tiến trình, lớp \texttt{GameSaveManager} sẽ đọc dữ liệu từ tệp lưu trữ JSON (\texttt{GameSaveData}) chứa thông tin tiến trình thực tế của người chơi (bao gồm các thuộc tính như các Boss đã hạ gục \texttt{bossDefeats}, các cửa đã mở \texttt{doors}, cổng dịch chuyển đã đi qua \texttt{portals}, và tiến trình cây kỹ năng \texttt{skillTreeProgress}). Hệ thống sau đó tự động chuyển đổi các trạng thái này và nạp vào bộ nhớ biến số của Yarn Spinner thông qua phương thức \texttt{VariableStorage.SetValue()}.
+    \item \textbf{Lớp cầu nối YarnDialogueView:} Lớp này chịu trách nhiệm hiển thị giao diện UI hội thoại dạng văn bản hỗ trợ nhiều ngôn ngữ và các lựa chọn rẽ nhánh cho người chơi.
+    \item \textbf{Cơ chế đồng bộ hóa biến số (Variable Storage Synchronizer):} Khi trò chơi bắt đầu hoặc tải lại tiến trình, lớp \texttt{GameSaveManager} sẽ đọc dữ liệu từ tệp lưu trữ JSON (\texttt{GameSaveData}) chứa thông tin tiến trình thực tế của người chơi (bao gồm các thuộc tính như các Boss đã hạ gục \texttt{bossDefeats}, các cửa đã mở \texttt{doors}, cổng dịch chuyển đã đi qua \texttt{portals}, và tiến trình cây kỹ năng \texttt{skillTreeProgress}). Hệ thống sau đó tự động chuyển đổi các trạng thái này và nạp vào bộ nhớ biến số của Yarn Spinner thông qua phương thức \texttt{VariableStorage.\allowbreak SetValue()}.
 \end{itemize}
 
 Ngược lại, khi người chơi thực hiện các lựa chọn hội thoại làm thay đổi biến tiến trình trong Yarn Spinner, các sự kiện callback từ Yarn Spinner sẽ lập tức gọi các hàm thay đổi trạng thái tương ứng trong \texttt{GameSaveManager} để cập nhật lại tệp tin lưu trữ JSON thời gian thực, đảm bảo tiến trình hội thoại và tiến trình thế giới luôn đồng bộ tuyệt đối.
@@ -98,7 +95,7 @@ Ngược lại, khi người chơi thực hiện các lựa chọn hội thoại
 \subsection{Kết quả đạt được}
 Giải pháp tích hợp và quản lý trạng thái hội thoại phi tuyến đã mang lại những kết quả tích cực:
 \begin{itemize}
-    \item \textbf{Quy trình viết kịch bản chuyên nghiệp:} Tách biệt hoàn toàn công việc viết kịch bản hội thoại ra khỏi mã nguồn C\# của game. Nhà thiết kế game có thể cập nhật, sửa đổi nội dung lời thoại tiếng Việt phong phú trực tiếp trên các tệp \texttt{.yarn} mà không cần biên dịch lại dự án Unity.
-    \item \textbf{Lưu giữ dữ liệu tuyệt đối:} Trạng thái hội thoại và tiến trình thế giới được lưu trữ đồng bộ thành công vào file JSON của từng Save Slot. Khi người chơi tắt game và tải lại tiến trình, NPC sẽ hiển thị đúng lời thoại tương ứng với trạng thái nhiệm vụ đã lưu trước đó, triệt tiêu hoàn toàn hiện tượng reset tiến trình hội thoại.
-    \item \textbf{Hỗ trợ giao diện tiếng Việt hoàn chỉnh:} Hệ thống hoạt động ổn định, hiển thị văn bản mượt mà kết hợp các lựa chọn rẽ nhánh trực quan tương thích tốt với các điều khiển đầu vào của người chơi.
+    \item \textbf{Quy trình viết kịch bản chuyên nghiệp:} Tách biệt hoàn toàn công việc viết kịch bản hội thoại ra khỏi mã nguồn C\#. Nhà thiết kế game có thể cập nhật nội dung lời thoại với nhiều ngôn ngữ trực tiếp trên các tệp \texttt{.yarn} mà không cần biên dịch lại dự án Unity.
+    \item \textbf{Lưu giữ tiến trình đồng bộ:} Trạng thái hội thoại và tiến trình thế giới được lưu trữ đồng bộ vào tệp JSON. Khi tải lại game, NPC hiển thị đúng lời thoại tương ứng với trạng thái nhiệm vụ đã lưu, loại bỏ lỗi reset tiến trình.
+    \item \textbf{Hỗ trợ hội thoại nhiều ngôn ngữ khác nhau:} Hệ thống hoạt động ổn định, có khả năng tích hợp và hiển thị văn bản đa ngôn ngữ (Localization) mượt mà, kết hợp rẽ nhánh trực quan tương thích tốt với điều khiển đầu vào.
 \end{itemize}

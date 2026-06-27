@@ -19,7 +19,6 @@ namespace DreamKnight.Systems.SaveLoad
 
         [Header("Save File")]
         [SerializeField] private string saveFileName = "game_save.json";
-        [SerializeField] private string slotFileNameFormat = "save_slot_{0}.json";
         [SerializeField] private bool dontDestroyOnLoad = true;
         [SerializeField] private bool loadOnStart;
         [SerializeField] private bool saveOnApplicationQuit;

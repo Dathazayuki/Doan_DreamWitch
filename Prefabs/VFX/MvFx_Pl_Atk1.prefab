@@ -6969,6 +6969,7 @@ GameObject:
   - component: {fileID: 198061268324235159}
   - component: {fileID: 199587765826080250}
   - component: {fileID: 2132036963865229465}
+  - component: {fileID: -7930302762504798360}
   m_Layer: 0
   m_Name: MvFx_Pl_Atk1
   m_TagString: Untagged
@@ -9277,6 +9278,22 @@ MonoBehaviour:
   _AudioPitchRand: 1
   _AudioIgnoreDistLimit: 1
   _AudioPosOfs: {x: 0, y: 0}
+--- !u!114 &-7930302762504798360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ddf8ee621db3145ac82876c2a3a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 2
+  overrideEnableDistance: 0
+  overrideDisableDistance: 0
+  componentsToCull: []
 --- !u!1 &1724804207875695
 GameObject:
   m_ObjectHideFlags: 0

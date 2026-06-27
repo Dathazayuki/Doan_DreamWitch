@@ -6,7 +6,6 @@ namespace DreamKnight.Player.States
     {
         private FormStateProxy formStates;
         private bool isEnding;
-        private float attackTimer;
         private string currentAnimation;
 
         public Em0020AttackState(PlayerController controller) : base(controller)
@@ -17,7 +16,6 @@ namespace DreamKnight.Player.States
         public override void Enter()
         {
             isEnding = false;
-            attackTimer = 0f;
             controller.Combat?.SetCurrentComboStep(1, false, false);
 
             // Play attack loop animation

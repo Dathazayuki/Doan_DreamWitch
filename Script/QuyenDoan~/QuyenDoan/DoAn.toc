@@ -74,10 +74,10 @@
 \contentsline {subsection}{\numberline {5.2.2}Thiết kế tổng quan}{38}{subsection.5.2.2}%
 \contentsline {subsection}{\numberline {5.2.3}Thiết kế chi tiết gói}{41}{subsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.2.4}Cấu trúc chi tiết các phân hệ cốt lõi}{46}{subsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {a}a. Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{46}{subsubsection.5.2.4.1}%
-\contentsline {subsubsection}{\numberline {b}b. Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{47}{subsubsection.5.2.4.2}%
-\contentsline {subsubsection}{\numberline {c}c. Các hệ thống lõi phục vụ vận hành}{49}{subsubsection.5.2.4.3}%
-\contentsline {subsubsection}{\numberline {d}d. Giao diện người dùng và Canvas (UI Canvas Architecture)}{52}{subsubsection.5.2.4.4}%
+\contentsline {subsubsection}{\numberline {a}Phân hệ Người chơi và Cơ chế Biến hình (Form Switch)}{46}{subsubsection.5.2.4.1}%
+\contentsline {subsubsection}{\numberline {b}Phân hệ Kẻ địch và Trí tuệ nhân tạo (AI Brain)}{47}{subsubsection.5.2.4.2}%
+\contentsline {subsubsection}{\numberline {c}Các hệ thống lõi phục vụ vận hành}{49}{subsubsection.5.2.4.3}%
+\contentsline {subsubsection}{\numberline {d}Giao diện người dùng và Canvas (UI Canvas Architecture)}{52}{subsubsection.5.2.4.4}%
 \contentsline {section}{\numberline {5.3}Thiết kế chi tiết}{52}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Thiết kế lớp}{52}{subsection.5.3.1}%
 \contentsline {subsection}{\numberline {5.3.2}Thiết kế cơ sở dữ liệu}{58}{subsection.5.3.2}%
@@ -98,11 +98,12 @@
 \contentsline {section}{\numberline {6.1}Tối ưu hóa hiệu năng bằng kỹ thuật Distance Culling tùy biến}{71}{section.6.1}%
 \contentsline {subsection}{\numberline {6.1.1}Đặt vấn đề và bài toán tối ưu}{71}{subsection.6.1.1}%
 \contentsline {subsection}{\numberline {6.1.2}Giải pháp hiện thực hóa}{71}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Kết quả đạt được}{73}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.3}Camera Frustum Culling cho Tilemap}{73}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Kết quả đạt được}{73}{subsection.6.1.4}%
 \contentsline {section}{\numberline {6.2}Kiến trúc máy trạng thái phân tầng cho hệ thống nhân vật phức tạp}{73}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}Đặt vấn đề và bài toán thiết kế}{73}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Giải pháp hiện thực hóa}{73}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Kết quả đạt được}{74}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.2}Giải pháp hiện thực hóa}{74}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Kết quả đạt được}{75}{subsection.6.2.3}%
 \contentsline {section}{\numberline {6.3}Giải pháp tích hợp Yarn Spinner và quản lý máy trạng thái thế giới phi tuyến}{75}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Đặt vấn đề}{75}{subsection.6.3.1}%
 \contentsline {subsection}{\numberline {6.3.2}Cơ chế tích hợp và đồng bộ hóa trạng thái}{75}{subsection.6.3.2}%

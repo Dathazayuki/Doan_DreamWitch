@@ -18,6 +18,7 @@ namespace DreamKnight.Systems.Shop
         }
 
         [SerializeField] private ShopCatalogSO catalog;
+        [SerializeField] private bool resetToolAndHealingPotionStockOnLoad = true;
 
         [NonSerialized] private readonly List<ShopStock> runtimeStock = new List<ShopStock>();
         [NonSerialized] private bool runtimeInitialized;
@@ -171,6 +172,7 @@ namespace DreamKnight.Systems.Shop
             }
 
             MergeMissingCatalogItems();
+            ResetToolAndHealingPotionStockFromCatalog();
             OnShopChanged?.Invoke();
         }
 
@@ -195,6 +197,31 @@ namespace DreamKnight.Systems.Shop
                     quantity = entry.quantity
                 });
             }
+        }
+
+        private void ResetToolAndHealingPotionStockFromCatalog()
+        {
+            if (!resetToolAndHealingPotionStockOnLoad || catalog == null)
+                return;
+
+            IReadOnlyList<ShopCatalogSO.ShopEntry> entries = catalog.Entries;
+            for (int i = 0; i < entries.Count; i++)
+            {
+                ShopCatalogSO.ShopEntry entry = entries[i];
+                if (entry == null || entry.item == null)
+                    continue;
+
+                if (!ShouldResetStockOnLoad(entry.item))
+                    continue;
+
+                ShopStock stock = GetOrCreateStock(entry.item);
+                stock.quantity = Mathf.Max(0, entry.quantity);
+            }
+        }
+
+        private static bool ShouldResetStockOnLoad(ItemDefinitionSO item)
+        {
+            return item is ToolItemSO || item is HealingPotionItemSO;
         }
 
         private ShopStock GetStock(ItemDefinitionSO item)

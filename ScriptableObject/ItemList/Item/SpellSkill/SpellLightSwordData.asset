@@ -26,7 +26,7 @@ MonoBehaviour:
   bigSwordSpawnOffset: {x: 0.8, y: 0.2}
   bigSwordMaxPoolSize: 8
   shieldVisualPrefab: {fileID: 0}
-  unlockPrice: 2
+  unlockPrice: 60
   description: 'Summoning a light sword to follow the player will automatically attack
     enemies.
 

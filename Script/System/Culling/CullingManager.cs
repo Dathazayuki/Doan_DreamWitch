@@ -5,24 +5,21 @@ using UnityEngine;
 
 namespace DreamKnight.Systems.Culling
 {
-    /// <summary>
-    /// Singleton điều phối toàn bộ Distance Culling và Room Culling.
-    /// Cập nhật định kỳ (updateInterval giây) thay vì mỗi frame.
-    /// Dùng hysteresis: đối tượng chỉ bị Cull khi vượt disableDistance,
-    /// chỉ được UnCull khi giảm xuống dưới enableDistance.
-    /// </summary>
     [DisallowMultipleComponent]
     public class CullingManager : MonoBehaviour
     {
-        // ─── Singleton ─────────────────────────────────────────────────────────
         private static CullingManager instance;
+
         public static CullingManager Instance
         {
             get
             {
-                if (instance != null) return instance;
+                if (instance != null)
+                    return instance;
+
                 instance = FindAnyObjectByType<CullingManager>();
-                if (instance != null) return instance;
+                if (instance != null)
+                    return instance;
 
                 GameObject go = new GameObject("[CullingManager]");
                 instance = go.AddComponent<CullingManager>();
@@ -30,23 +27,22 @@ namespace DreamKnight.Systems.Culling
             }
         }
 
-        // ─── Inspector ─────────────────────────────────────────────────────────
+        public static CullingManager Current => instance;
+
         [Header("Update Interval")]
-        [Tooltip("Số giây giữa mỗi lần tính toán culling. Tăng để tiết kiệm CPU.")]
+        [Tooltip("Seconds between culling checks. Increase this to save CPU.")]
         [SerializeField] private float updateInterval = 0.2f;
 
         [Header("Default Hysteresis Distances")]
-        [Tooltip("Ngưỡng UnCull (kích hoạt lại) — phải nhỏ hơn disableDistance.")]
-        [SerializeField] private float defaultEnableDistance  = 18f;
-        [Tooltip("Ngưỡng Cull (vô hiệu hóa) — phải lớn hơn enableDistance.")]
+        [Tooltip("Distance used to re-enable culled targets. Must be smaller than disable distance.")]
+        [SerializeField] private float defaultEnableDistance = 18f;
+        [Tooltip("Distance used to cull active targets. Must be larger than enable distance.")]
         [SerializeField] private float defaultDisableDistance = 22f;
 
-        // ─── Runtime ───────────────────────────────────────────────────────────
         private readonly List<DistanceCullingTarget> distanceTargets = new List<DistanceCullingTarget>();
-        private readonly List<RoomController>        rooms           = new List<RoomController>();
-        private RoomController                       activeRoom;
+        private readonly List<RoomController> rooms = new List<RoomController>();
+        private readonly HashSet<RoomController> activeRooms = new HashSet<RoomController>();
 
-        // ─── Unity Lifecycle ───────────────────────────────────────────────────
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -54,23 +50,30 @@ namespace DreamKnight.Systems.Culling
                 Destroy(gameObject);
                 return;
             }
+
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
-        private void OnEnable()  => StartCoroutine(CullingLoop());
+        private void OnEnable()
+        {
+            StartCoroutine(CullingLoop());
+        }
 
-        private void OnDisable() => StopAllCoroutines();
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
 
         private void OnDestroy()
         {
-            if (instance == this) instance = null;
+            if (instance == this)
+                instance = null;
         }
 
-        // ─── Loop ──────────────────────────────────────────────────────────────
         private IEnumerator CullingLoop()
         {
-            var wait = new WaitForSeconds(Mathf.Max(0.05f, updateInterval));
+            WaitForSeconds wait = new WaitForSeconds(Mathf.Max(0.05f, updateInterval));
             while (true)
             {
                 TickDistanceCulling();
@@ -81,7 +84,8 @@ namespace DreamKnight.Systems.Culling
         private void TickDistanceCulling()
         {
             Vector3 playerPos = GetPlayerPosition();
-            if (playerPos == Vector3.zero && !HasPlayer()) return;
+            if (playerPos == Vector3.zero && !HasPlayer())
+                return;
 
             for (int i = distanceTargets.Count - 1; i >= 0; i--)
             {
@@ -92,88 +96,42 @@ namespace DreamKnight.Systems.Culling
                     continue;
                 }
 
-                // Room sleep ưu tiên cao hơn Distance culling – không override
-                if (target.IsRoomSleeping) continue;
+                if (target.IsRoomSleeping)
+                    continue;
 
                 float dist = Vector3.Distance(target.transform.position, playerPos);
-                float enableDist  = target.OverrideEnableDistance  > 0f ? target.OverrideEnableDistance  : defaultEnableDistance;
-                float disableDist = target.OverrideDisableDistance > 0f ? target.OverrideDisableDistance : defaultDisableDistance;
+                float enableDist = target.OverrideEnableDistance > 0f
+                    ? target.OverrideEnableDistance
+                    : defaultEnableDistance;
+                float disableDist = target.OverrideDisableDistance > 0f
+                    ? target.OverrideDisableDistance
+                    : defaultDisableDistance;
 
-                // Hysteresis
                 if (!target.IsCulled && dist > disableDist)
-                {
                     target.Cull();
-                }
                 else if (target.IsCulled && dist < enableDist)
-                {
                     target.UnCull();
-                }
-                // Trong vùng [enable, disable] → giữ nguyên
             }
         }
 
-        // ─── Room Management ───────────────────────────────────────────────────
-
-        /// <summary>
-        /// Được gọi bởi RoomController khi Player bước vào Room.
-        /// </summary>
         public void SetActiveRoom(RoomController newRoom)
         {
-            if (newRoom == activeRoom) return;
+            if (newRoom == null)
+                return;
 
-            RoomController prevRoom = activeRoom;
-            activeRoom = newRoom;
-
-            // Sleep tất cả rooms trước
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                if (rooms[i] != null)
-                    rooms[i].SetRoomActive(false);
-            }
-
-            // Wake room mới và adjacent rooms của nó
-            if (activeRoom != null)
-            {
-                activeRoom.SetRoomActive(true);
-                RoomController[] adjacent = activeRoom.AdjacentRooms;
-                if (adjacent != null)
-                {
-                    for (int i = 0; i < adjacent.Length; i++)
-                    {
-                        if (adjacent[i] != null)
-                            adjacent[i].SetRoomActive(true);
-                    }
-                }
-            }
-
-            // Adjacent rooms của room cũ cũng wake thêm 1 chu kỳ (tránh pop-in)
-            if (prevRoom != null && prevRoom != activeRoom)
-            {
-                RoomController[] prevAdjacent = prevRoom.AdjacentRooms;
-                if (prevAdjacent != null)
-                {
-                    for (int i = 0; i < prevAdjacent.Length; i++)
-                    {
-                        if (prevAdjacent[i] != null && prevAdjacent[i] != activeRoom)
-                            prevAdjacent[i].SetRoomActive(true);
-                    }
-                }
-            }
+            if (activeRooms.Add(newRoom))
+                RefreshRoomStates();
         }
 
-        /// <summary>
-        /// Được gọi bởi RoomController khi Player rời Room (không còn ở room nào).
-        /// </summary>
         public void OnPlayerExitRoom(RoomController exitedRoom)
         {
-            if (activeRoom == exitedRoom)
-            {
-                // Giữ nguyên – không sleep ngay khi Player đứng giữa ranh giới 2 room
-                // Room mới sẽ gọi SetActiveRoom khi Player bước vào
-            }
+            if (exitedRoom == null)
+                return;
+
+            if (activeRooms.Remove(exitedRoom))
+                RefreshRoomStates();
         }
 
-        // ─── Registration ──────────────────────────────────────────────────────
         public void Register(DistanceCullingTarget target)
         {
             if (target != null && !distanceTargets.Contains(target))
@@ -187,30 +145,71 @@ namespace DreamKnight.Systems.Culling
 
         public void RegisterRoom(RoomController room)
         {
-            if (room != null && !rooms.Contains(room))
-                rooms.Add(room);
+            if (room == null || rooms.Contains(room))
+                return;
+
+            rooms.Add(room);
         }
 
         public void UnregisterRoom(RoomController room)
         {
             rooms.Remove(room);
+            activeRooms.Remove(room);
+            RefreshRoomStates();
         }
 
-        // ─── Helpers ───────────────────────────────────────────────────────────
+        private void RefreshRoomStates()
+        {
+            HashSet<RoomController> roomsToWake = new HashSet<RoomController>();
+
+            foreach (RoomController room in activeRooms)
+            {
+                if (room == null)
+                    continue;
+
+                roomsToWake.Add(room);
+
+                RoomController[] adjacent = room.AdjacentRooms;
+                if (adjacent == null)
+                    continue;
+
+                for (int i = 0; i < adjacent.Length; i++)
+                {
+                    if (adjacent[i] != null)
+                        roomsToWake.Add(adjacent[i]);
+                }
+            }
+
+            for (int i = rooms.Count - 1; i >= 0; i--)
+            {
+                RoomController room = rooms[i];
+                if (room == null)
+                {
+                    rooms.RemoveAt(i);
+                    continue;
+                }
+
+                room.SetRoomActive(roomsToWake.Contains(room));
+            }
+        }
+
         private Vector3 GetPlayerPosition()
         {
             if (PersistentPlayerRoot.Instance != null)
                 return PersistentPlayerRoot.Instance.transform.position;
 
             PlayerController player = FindAnyObjectByType<PlayerController>();
-            if (player != null) return player.transform.position;
+            if (player != null)
+                return player.transform.position;
 
             return Vector3.zero;
         }
 
         private bool HasPlayer()
         {
-            if (PersistentPlayerRoot.Instance != null) return true;
+            if (PersistentPlayerRoot.Instance != null)
+                return true;
+
             return FindAnyObjectByType<PlayerController>() != null;
         }
     }

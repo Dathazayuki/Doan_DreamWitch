@@ -1,7 +1,7 @@
 \documentclass[../DoAn.tex]{subfiles}
 \begin{document}
 
-Chương 2 tập trung vào việc khảo sát hiện trạng thị trường, phân tích so sánh các sản phẩm đi trước và đặc tả các yêu cầu đối với hệ thống trò chơi "Dream Witch". Nội dung khảo sát làm cơ sở thực tiễn để định hình thiết kế lối chơi, kịch bản sử dụng và các thông số kỹ thuật cốt lõi trong Chương 3.
+Chương 2 tập trung vào việc khảo sát các tựa game đã ra mắt, phân tích so sánh các sản phẩm đi trước và đặc tả các yêu cầu đối với hệ thống trò chơi "Dream Witch". Nội dung khảo sát làm cơ sở thực tiễn để định hình thiết kế lối chơi, kịch bản sử dụng và các thông số kỹ thuật cốt lõi trong Chương 3.
 
 \section{Tìm hiểu và phân tích các sản phẩm tương tự}
 \label{section:2.1}
@@ -25,7 +25,7 @@ Phân khúc trò chơi đi cảnh hành động 2D (2D Action Platformer) kết 
 Qua phân tích so sánh, đề tài rút ra các bài học thiết kế quan trọng:
 \begin{itemize}
     \item \textbf{Từ Hollow Knight:} Kế thừa phong cách nghệ thuật kỳ ảo tăm tối (Dark Fantasy) và cách thức tạo dựng bầu không khí u sầu huyền bí. Tuy nhiên, thay vì áp dụng bản đồ mở quá rộng dễ gây lạc hướng cho người chơi mới, "Dream Witch" sử dụng mô hình thế giới tập trung quanh trạm trung chuyển (Church Hub) để người chơi dễ định vị và theo dõi tiến trình.
-    \item \textbf{Từ Dead Cells:} Học hỏi thiết kế Game Feel tốc độ cao. Đề tài tập trung xây dựng máy trạng thái hữu hạn (FSM) và bộ đệm phím (Input Buffering) tương tự để tối ưu hóa động lực học của các thao tác lướt (Dash), bám tường và nhảy bật tường.   
+    \item \textbf{Từ Dead Cells:} Học hỏi thiết kế Game Feel tốc độ cao. Đề tài tập trung xây dựng máy trạng thái hữu hạn (FSM) và bộ đệm phím (Input Buffering) tương tự để tối ưu hóa động lực học của các thao tác lướt (Dash), bám tường,nhảy đôi.   
 \end{itemize}
 
 \begin{figure}[H]
@@ -91,7 +91,7 @@ Dựa trên kết quả phân tích đặc điểm đối tượng và hành vi 
     Nhắm tới nhóm người chơi muốn tìm hiểu cốt truyện và thế giới game. Hệ thống cần thiết kế cấu trúc màn chơi đa tuyến phi tuyến tính, tích hợp các phòng bí mật, rương báu chứa sách phép và thiết lập cơ chế kể chuyện gián tiếp thông qua mô tả truyền thuyết (Lore) của từng trang bị và sách phép cổ (SpellBooks).
     
     \item \textbf{Yêu cầu đáp ứng Động lực Đạt được (Achievement \& Collection):}
-    Đáp ứng nhu cầu tích lũy và phát triển của game thủ. Hệ thống yêu cầu xây dựng vòng lặp nâng cấp thuộc tính nhân vật vĩnh viễn (HP, MP, Sức mạnh) tại phân khu an toàn và triển khai tính năng thu thập tàn tích linh hồn để mở khóa các dạng biến hình mới (Possession System).
+    Đáp ứng nhu cầu tích lũy và phát triển của game thủ. Hệ thống yêu cầu xây dựng vòng lặp nâng cấp thuộc tính nhân vật vĩnh viễn (HP, MP, Sức mạnh) tại phân khu an toàn và triển khai tính năng thu thập tàn tích linh hồn để mở khóa các khu vực, kỹ năng mới.
 \end{itemize}
 
 Các yêu cầu hệ thống chi tiết dựa trên phân tích động lực hành vi của người chơi theo mô hình Bartle được tổng hợp chi tiết trong Bảng~\ref{table:player_motivation_requirements}.

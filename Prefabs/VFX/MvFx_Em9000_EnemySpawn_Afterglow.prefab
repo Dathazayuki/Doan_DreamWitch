@@ -4778,6 +4778,7 @@ GameObject:
   - component: {fileID: 4884547391421755}
   - component: {fileID: 198099118695303065}
   - component: {fileID: 199243736805655561}
+  - component: {fileID: -7720302905803234212}
   m_Layer: 0
   m_Name: MvFx_Em9000_EnemySpawn_Afterglow
   m_TagString: Untagged
@@ -7102,6 +7103,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-7720302905803234212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ddf8ee621db3145ac82876c2a3a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 2
+  overrideEnableDistance: 0
+  overrideDisableDistance: 0
+  componentsToCull: []
 --- !u!1 &1724804207875695
 GameObject:
   m_ObjectHideFlags: 0

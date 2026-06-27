@@ -351,8 +351,8 @@ namespace DreamKnight.Player
                 if (skillTreeExtraDamage > 0f && candidate.Damageable.IsAlive)
                     candidate.Damageable.TakeDamage(skillTreeExtraDamage, gameObject);
 
-                // Restore mana to player when a normal attack successfully damages an enemy
-                if (controller != null)
+                // Restore mana only when a basic attack successfully damages an enemy.
+                if (controller != null && candidate.EnemyBase != null)
                 {
                     var stats = controller.Stats;
                     float restoreAmt = manaRestoreOnHit;

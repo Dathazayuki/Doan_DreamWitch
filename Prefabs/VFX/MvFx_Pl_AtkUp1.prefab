@@ -2285,7 +2285,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -82010317
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4604,7 +4604,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -82010317
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4649,6 +4649,7 @@ GameObject:
   - component: {fileID: 4099118695303065}
   - component: {fileID: 198243736805655561}
   - component: {fileID: 199061268324235159}
+  - component: {fileID: -3896950001135322756}
   m_Layer: 0
   m_Name: MvFx_Pl_AtkUp1
   m_TagString: Untagged
@@ -6938,6 +6939,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-3896950001135322756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ddf8ee621db3145ac82876c2a3a556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 2
+  overrideEnableDistance: 0
+  overrideDisableDistance: 0
+  componentsToCull: []
 --- !u!1 &1724804207875695
 GameObject:
   m_ObjectHideFlags: 0
@@ -9225,7 +9242,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -82010317
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -11546,7 +11563,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -82010317
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -13865,7 +13882,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -82010317
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0

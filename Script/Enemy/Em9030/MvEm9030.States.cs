@@ -461,7 +461,6 @@ namespace Mv
                 timer = 0f;
                 Boss.PlayAnimation("Counter_Start", false);
                 Boss.BeginAttackSignIfNeeded();
-                Boss.TryStartAttackAndTrigger();
                 OpenCounterWindow();
             }
 
@@ -511,8 +510,7 @@ namespace Mv
                 if (counterWindowOpen || Boss.Atk_Counter == null)
                     return;
 
-                counterWindowOpen = true;
-                Boss.Atk_Counter.OnMvAnimEvent("AtkS", null);
+                counterWindowOpen = Boss.Atk_Counter.ForceOpenAttackWindow();
             }
 
             private void CloseCounterWindow()

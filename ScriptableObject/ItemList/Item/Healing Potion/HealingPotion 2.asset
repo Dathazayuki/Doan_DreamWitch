@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: HealingPotion 2
   displayName: Mana Potion
-  icon: {fileID: 21300000, guid: 55422f74f540a9745b1e723ddf2a287d, type: 2}
+  icon: {fileID: 21300000, guid: e98e411489e03ef449f5022e8145d54c, type: 2}
   price: 2
   stackable: 1
   description: 'Restore +50 Mana

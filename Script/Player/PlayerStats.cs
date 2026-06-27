@@ -22,10 +22,7 @@ namespace DreamKnight.Player
 
         [Header("Mana")]
         [SerializeField] private float maxMana = 100f;
-        [SerializeField] private float manaRegenRate = 5f;
-        [SerializeField] private float manaRegenDelay = 1f;
         private float currentMana;
-        private float manaRegenTimer;
         private float facilityMaxHealthBonus;
         private float facilityMaxManaBonus;
         private float temporaryHealthRegenRate;
@@ -168,7 +165,7 @@ namespace DreamKnight.Player
         private void Update()
         {
             RegenerateStamina();
-            RegenerateHpAndMana();
+            RegenerateTemporaryHealth();
         }
 
         #region Health
@@ -438,7 +435,7 @@ namespace DreamKnight.Player
             OnManaChanged?.Invoke(currentMana, MaxMana);
         }
 
-        private void RegenerateHpAndMana()
+        private void RegenerateTemporaryHealth()
         {
             if (!IsAlive) return;
 
@@ -455,18 +452,6 @@ namespace DreamKnight.Player
                 }
             }
 
-            if (playerController == null || playerController.CurrentFormId == PlayerFormId.Human)
-            {
-                if (activeSpellBook != null)
-                {
-                    // Mana Regen
-                    if (activeSpellBook.manaRegenBonus > 0f)
-                    {
-                        currentMana = Mathf.Min(MaxMana, currentMana + activeSpellBook.manaRegenBonus * Time.deltaTime);
-                        OnManaChanged?.Invoke(currentMana, MaxMana);
-                    }
-                }
-            }
         }
 
         #endregion

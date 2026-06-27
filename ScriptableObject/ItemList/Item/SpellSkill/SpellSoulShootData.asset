@@ -26,7 +26,7 @@ MonoBehaviour:
   bigSwordSpawnOffset: {x: 0.8, y: 0.2}
   bigSwordMaxPoolSize: 8
   shieldVisualPrefab: {fileID: 0}
-  unlockPrice: 2
+  unlockPrice: 15
   description: 'Fires mana forward, dealing minor damage.
 
 

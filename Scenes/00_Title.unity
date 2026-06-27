@@ -14245,7 +14245,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -17081,7 +17081,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -21082,7 +21082,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -24717,7 +24717,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -29078,7 +29078,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveFileName: game_save.json
-  slotFileNameFormat: save_slot_{0}.json
   dontDestroyOnLoad: 1
   loadOnStart: 1
   saveOnApplicationQuit: 1
@@ -39815,11 +39814,13 @@ MonoBehaviour:
   - key: bgm_4
     clip: {fileID: 8300000, guid: 5e2ed79cc71c1c9429b4c8530fa4e01d, type: 3}
   - key: bgm_5
-    clip: {fileID: 8300000, guid: 6c24924debb319d488142cf69b641e28, type: 3}
+    clip: {fileID: 8300000, guid: 8c0696b3e2fc1d74b90752c2c6241f84, type: 3}
   - key: bgm_6
     clip: {fileID: 8300000, guid: c3df135c9b26ec444a51fdaed577903c, type: 3}
   - key: bgm_7
-    clip: {fileID: 8300000, guid: 11eaf72cab8798d4fac3e8c3fb02021b, type: 3}
+    clip: {fileID: 8300000, guid: 9270a0c7f87e8c64fabe871231438afe, type: 3}
+  - key: bgm_8
+    clip: {fileID: 8300000, guid: 13b7963fba4c5354b9f49bb4ad84c6c5, type: 3}
   sfxList:
   - key: vfx_1
     id: 1
@@ -45709,7 +45710,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -54642,7 +54643,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
