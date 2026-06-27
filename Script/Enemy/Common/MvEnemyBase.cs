@@ -465,7 +465,11 @@ namespace Mv
 
 		private PlayerController FindBestTarget()
 		{
-			int hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, searchRadius, searchResults, playerSearchMask);
+			ContactFilter2D filter = new ContactFilter2D();
+			filter.useLayerMask = true;
+			filter.layerMask = playerSearchMask;
+			filter.useTriggers = true;
+			int hitCount = Physics2D.OverlapCircle(transform.position, searchRadius, filter, searchResults);
 			PlayerController best = null;
 			float bestScore = float.NegativeInfinity;
 

@@ -310,7 +310,7 @@ namespace DreamKnight.Player
                         IsBlocked = false
                     };
                 }
-                else if (candidate.Damageable == candidate.EnemyBase && damageable != enemyBase)
+                else if (ReferenceEquals(candidate.Damageable, candidate.EnemyBase) && !ReferenceEquals(damageable, enemyBase))
                 {
                     candidate.Damageable = damageable;
                 }

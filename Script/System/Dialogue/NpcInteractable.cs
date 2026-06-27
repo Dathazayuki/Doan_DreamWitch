@@ -94,7 +94,7 @@ namespace DreamKnight.Systems.Dialogue
         private void Awake()
         {
             // Find Yarn DialogueRunner in scene (could be on any GameObject)
-            yarnDialogueRunner = FindObjectOfType<DialogueRunner>();
+            yarnDialogueRunner = FindFirstObjectByType<DialogueRunner>();
             if (yarnDialogueRunner == null)
                 Debug.LogWarning($"[NpcInteractable] Không tìm thấy Yarn DialogueRunner trong scene!", this);
         }

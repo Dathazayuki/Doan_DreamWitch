@@ -133,7 +133,7 @@ namespace DreamKnight.UI
 
             if (confirmPanel == null)
             {
-                ConfirmPanelController[] panels = FindObjectsOfType<ConfirmPanelController>(true);
+                ConfirmPanelController[] panels = FindObjectsByType<ConfirmPanelController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                 if (panels != null && panels.Length > 0)
                     confirmPanel = panels[0];
             }

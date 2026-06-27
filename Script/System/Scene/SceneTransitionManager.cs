@@ -178,7 +178,7 @@ namespace DreamKnight.Systems.Scene
 
         private void CleanupDuplicateComponents<T>(T keep) where T : MonoBehaviour
         {
-            T[] found = FindObjectsOfType<T>(true);
+            T[] found = FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             T keepRef = keep;
 
             for (int i = 0; i < found.Length; i++)
@@ -232,7 +232,7 @@ namespace DreamKnight.Systems.Scene
             if (player == null || string.IsNullOrWhiteSpace(pendingTargetDoorId))
                 return;
 
-            SceneDoorSpawnPoint[] points = FindObjectsOfType<SceneDoorSpawnPoint>(true);
+            SceneDoorSpawnPoint[] points = FindObjectsByType<SceneDoorSpawnPoint>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int i = 0; i < points.Length; i++)
             {
                 SceneDoorSpawnPoint point = points[i];
@@ -359,7 +359,7 @@ namespace DreamKnight.Systems.Scene
             if (!persistMainCamera || mainCamera == null)
                 return;
 
-            Camera[] cameras = FindObjectsOfType<Camera>(true);
+            Camera[] cameras = FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int i = 0; i < cameras.Length; i++)
             {
                 Camera cam = cameras[i];
@@ -378,7 +378,7 @@ namespace DreamKnight.Systems.Scene
             if (!persistCinemachineCamera)
                 return;
 
-            CinemachineCamera[] cameras = FindObjectsOfType<CinemachineCamera>(true);
+            CinemachineCamera[] cameras = FindObjectsByType<CinemachineCamera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (cameras == null || cameras.Length <= 1)
                 return;
 
@@ -439,7 +439,7 @@ namespace DreamKnight.Systems.Scene
 
         private CanvasGroup FindTemplateFromScene()
         {
-            CanvasGroup[] groups = FindObjectsOfType<CanvasGroup>(true);
+            CanvasGroup[] groups = FindObjectsByType<CanvasGroup>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int i = 0; i < groups.Length; i++)
             {
                 CanvasGroup group = groups[i];

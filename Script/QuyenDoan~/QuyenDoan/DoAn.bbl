@@ -53,28 +53,6 @@
     \field{year}{2018}
   \endentry
 
-  \entry{nevergravegame}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=F}{%
-         family={{Frontside 180 Studio}},
-         familyi={F\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{F1}
-    \strng{fullhash}{F1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{title}{Never Grave: The Witch and the Curse (Game Assets Source)}
-    \verb{url}
-    \verb https://store.steampowered.com/app/2390530/Never_Grave_The_Witch_and_
-    \verb the_Curse/
-    \endverb
-    \field{year}{2026}
-    \field{urlday}{16}
-    \field{urlmonth}{06}
-    \field{urlyear}{2026}
-  \endentry
-
   \entry{bartle1996hearts}{article}{}{}
     \name{author}{1}{}{%
       {{hash=BR}{%

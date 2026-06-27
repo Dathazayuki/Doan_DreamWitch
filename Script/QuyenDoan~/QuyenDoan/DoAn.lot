@@ -1,19 +1,20 @@
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces Bảng phân tích đối tượng người chơi và định hướng thiết kế}}{3}{table.caption.9}%
+\contentsline {table}{\numberline {1.1}{\ignorespaces Bảng phân tích đối tượng người chơi và định hướng thiết kế}}{3}{table.caption.7}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Bảng phân tích so sánh thuộc tính kiến trúc và thiết kế}}{6}{table.caption.11}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Bảng đặc tả yêu cầu hệ thống theo phân khúc hành vi người chơi}}{10}{table.caption.14}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Bảng phân tích so sánh thuộc tính kiến trúc và thiết kế}}{6}{table.caption.9}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Bảng đặc tả yêu cầu hệ thống theo phân khúc hành vi người chơi}}{10}{table.caption.12}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Bảng ánh xạ các nút bấm điều khiển hành động nhân vật}}{23}{table.caption.22}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Bảng phân tích danh mục kẻ địch thông thường trong game}}{27}{table.caption.26}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Bảng đặc tả các thực thể Boss trong thế giới game}}{28}{table.caption.28}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Bảng ánh xạ các nút bấm điều khiển hành động nhân vật}}{23}{table.caption.20}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Bảng phân tích danh mục kẻ địch thông thường trong game}}{27}{table.caption.24}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Bảng đặc tả các thực thể Boss trong thế giới game}}{28}{table.caption.26}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Bảng yêu cầu cấu hình phần cứng tối thiểu và khuyến nghị}}{36}{table.caption.40}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Danh sách các thư viện và công cụ phát triển trò chơi}}{61}{table.caption.57}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Thống kê định lượng mã nguồn và tài nguyên dự án}}{62}{table.caption.58}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Bảng đặc tả các trường hợp kiểm thử cốt lõi}}{69}{table.caption.71}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Bảng tổng hợp kết quả kiểm thử hệ thống}}{70}{table.caption.72}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Bảng yêu cầu cấu hình phần cứng tối thiểu và khuyến nghị}}{36}{table.caption.38}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Danh sách các thư viện và công cụ phát triển trò chơi}}{61}{table.caption.55}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Thống kê định lượng mã nguồn và tài nguyên dự án}}{62}{table.caption.56}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Bảng đặc tả các trường hợp kiểm thử Di chuyển}}{68}{table.caption.69}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Bảng đặc tả các trường hợp kiểm thử Biến hình}}{69}{table.caption.70}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Bảng đặc tả các trường hợp kiểm thử Lưu và Tải}}{69}{table.caption.71}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsfinish 

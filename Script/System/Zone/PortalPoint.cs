@@ -215,7 +215,7 @@ namespace DreamKnight.Systems.Zone
             if (confirmPanel != null)
                 return confirmPanel;
 
-            ConfirmPanelController[] panels = Object.FindObjectsOfType<ConfirmPanelController>(true);
+            ConfirmPanelController[] panels = Object.FindObjectsByType<ConfirmPanelController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (panels != null && panels.Length > 0)
                 return panels[0];
 

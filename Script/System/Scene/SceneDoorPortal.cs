@@ -103,7 +103,7 @@ namespace DreamKnight.Systems.Scene
                 }
             }
 
-            SceneDoorPortal[] doors = Object.FindObjectsOfType<SceneDoorPortal>(true);
+            SceneDoorPortal[] doors = Object.FindObjectsByType<SceneDoorPortal>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int i = 0; i < doors.Length; i++)
                 doors[i]?.ApplySavedDoorState();
         }
@@ -198,7 +198,7 @@ namespace DreamKnight.Systems.Scene
             ConfirmPanelController confirmPanel = Object.FindFirstObjectByType<ConfirmPanelController>();
             if (confirmPanel == null)
             {
-                ConfirmPanelController[] panels = Object.FindObjectsOfType<ConfirmPanelController>(true);
+                ConfirmPanelController[] panels = Object.FindObjectsByType<ConfirmPanelController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                 if (panels != null && panels.Length > 0)
                 {
                     confirmPanel = panels[0];
@@ -268,7 +268,7 @@ namespace DreamKnight.Systems.Scene
                 ConfirmPanelController confirmPanel = Object.FindFirstObjectByType<ConfirmPanelController>();
                 if (confirmPanel == null)
                 {
-                    ConfirmPanelController[] panels = Object.FindObjectsOfType<ConfirmPanelController>(true);
+                    ConfirmPanelController[] panels = Object.FindObjectsByType<ConfirmPanelController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                     if (panels != null && panels.Length > 0)
                     {
                         confirmPanel = panels[0];

@@ -5,8 +5,7 @@
 \ttl@change@i {\@ne }{subsection}{1.0cm}{\vspace {0.3cm}}{\thecontentslabel \ }{}{\titlerule *[0.3pc]{.}\contentspage }\relax 
 \ttl@change@v {subsection}{}{}{}\relax 
 \thispagestyle {empty}
-\contentsline {chapter}{Danh sách thuật ngữ}{xi}{section*.5}%
-\contentsline {chapter}{DANH MỤC THUẬT NGỮ VÀ TỪ VIẾT TẮT}{xii}{section*.7}%
+\contentsline {chapter}{DANH MỤC THUẬT NGỮ VÀ TỪ VIẾT TẮT}{viii}{section*.5}%
 \contentsline {chapter}{\numberline {1}GIỚI THIỆU ĐỀ TÀI}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Đặt vấn đề}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Mục tiêu đề tài}{2}{section.1.2}%
@@ -92,7 +91,6 @@
 \contentsline {subsection}{\numberline {5.5.5}Giai đoạn 5: Đối đầu với các boss cuối các khu vực}{66}{subsection.5.5.5}%
 \contentsline {subsection}{\numberline {5.5.6}Các bảng giao diện chức năng quan trọng khác}{67}{subsection.5.5.6}%
 \contentsline {section}{\numberline {5.6}Kiểm thử}{68}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Tổng kết kết quả kiểm thử}{69}{subsection.5.6.1}%
 \contentsline {section}{\numberline {5.7}Triển khai}{70}{section.5.7}%
 \contentsline {chapter}{\numberline {6}CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT}{71}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Tối ưu hóa hiệu năng bằng kỹ thuật Distance Culling tùy biến}{71}{section.6.1}%
@@ -116,5 +114,5 @@
 \contentsline {section}{\numberline {7.2}Hướng phát triển}{78}{section.7.2}%
 \contentsline {subsection}{\numberline {7.2.1}Cải tiến và hoàn thiện các chức năng hiện có}{78}{subsection.7.2.1}%
 \contentsline {subsection}{\numberline {7.2.2}Nghiên cứu và phát triển các tính năng mới}{78}{subsection.7.2.2}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{80}{section*.74}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{80}{section*.73}%
 \contentsfinish 
