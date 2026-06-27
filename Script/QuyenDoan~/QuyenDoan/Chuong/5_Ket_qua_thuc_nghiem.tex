@@ -717,6 +717,9 @@ Phần này trình bày thiết kế các trường hợp kiểm thử (Test Cas
 \textbf{TC-04} & Kích hoạt biến hình khi chưa mở Node 1 Skill Tree & Chưa mở Node 1 trên cây kỹ năng, điều khiển nhân vật đứng sát xác kẻ địch. & Không hiện Interact Prompt trên đầu quái, nhấn phím tương tác không có tác dụng. \\ \hline
 \textbf{TC-05} & Biến hình hợp lệ tại xác quái vật & Đã mở Node 1, đứng sát xác kẻ địch, quan sát và nhấn phím (\texttt{Tab}). & Hiện Interact Prompt trên đầu quái. Sau khi nhấn, đổi sang hình dáng quái vật, nhận đúng HP. \\ \hline
 \textbf{TC-06} & Hủy biến hình và vị trí nhả xác & Nhấn (\texttt{Tab}) để về dạng người. & Về dạng người. Xác quái cũ rơi ra hiển thị đúng tọa độ hiện tại. \\ \hline
+\textbf{TC-07} & Sử dụng kỹ năng khi biến hình & Nhấn các phím tấn công và di chuyển khi đang ở trạng thái biến hình. & Nhân vật thực hiện đúng bộ hoạt ảnh và kỹ năng của dạng quái vật đó. \\ \hline
+\textbf{TC-08} & Tương tác vật phẩm khi biến hình & Di chuyển tới gần vật phẩm có thể tương tác khi đang ở trạng thái biến hình. & Không thể tương tác với các vật phẩm, hệ thống chặn tương tác để đảm bảo logic. \\ \hline
+\textbf{TC-09} & Chết khi ở trạng thái biến hình & Để lượng HP giảm về 0 khi đang ở trạng thái biến hình. & Hệ thống ghi nhận tử vong, hiển thị màn hình Game Over và cho phép hồi sinh. \\ \hline
 \end{tabular}
 \caption{Bảng đặc tả các trường hợp kiểm thử Biến hình}
 \label{table:test_formswitch}
@@ -729,9 +732,9 @@ Phần này trình bày thiết kế các trường hợp kiểm thử (Test Cas
 \begin{tabular}{|p{1.2cm}|p{3.8cm}|p{3.8cm}|p{4.3cm}|}
 \hline
 \textbf{Mã ca} & \textbf{Kịch bản kiểm thử} & \textbf{Các bước thực hiện} & \textbf{Kết quả kỳ vọng} \\ \hline
-\textbf{TC-07} & Tự động lưu game khi qua màn & Nhân vật đi qua cổng Portal sang khu mới. & Game tự động tạo tệp JSON ở nền (Auto-save) mượt mà. \\ \hline
-\textbf{TC-08} & Lưu game thủ công tại Đền thờ & Tương tác với Đền thờ, chọn nút "Save". & Tiến trình, vàng và vật phẩm được tuần tự hóa vào file. \\ \hline
-\textbf{TC-09} & Khôi phục (Load) tiến trình cũ & Tại màn hình chính, chọn "Start" $\rightarrow$ chọn Save slot để nạp tệp lưu. & Nhân vật sinh ra đúng ở Church (không phải tọa độ lưu) với đầy đủ tiến trình và trang bị. \\ \hline
+\textbf{TC-10} & Tự động lưu game khi qua màn & Nhân vật đi qua cổng Portal sang khu mới. & Game tự động tạo tệp JSON ở nền (Auto-save) mượt mà. \\ \hline
+\textbf{TC-11} & Lưu game thủ công tại Đền thờ & Tương tác với Đền thờ, chọn nút "Save". & Tiến trình, vàng và vật phẩm được tuần tự hóa vào file. \\ \hline
+\textbf{TC-12} & Khôi phục (Load) tiến trình cũ & Tại màn hình chính, chọn "Start" $\rightarrow$ chọn Save slot để nạp tệp lưu. & Nhân vật sinh ra đúng ở Church (không phải tọa độ lưu) với đầy đủ tiến trình và trang bị. \\ \hline
 \end{tabular}
 \caption{Bảng đặc tả các trường hợp kiểm thử Lưu và Tải}
 \label{table:test_saveload}
@@ -742,8 +745,8 @@ Phần này trình bày thiết kế các trường hợp kiểm thử (Test Cas
 
 Sau khi thực thi kiểm thử 3 chức năng then chốt của hệ thống trên nhiều thiết bị khác nhau, kết quả kiểm tra được tổng hợp như sau:
 \begin{itemize}
-    \item \textbf{Tổng số ca kiểm thử thiết kế:} 9 ca (tương ứng với 9 kịch bản).
-    \item \textbf{Số ca đạt (Pass):} 9 ca.
+    \item \textbf{Tổng số ca kiểm thử thiết kế:} 12 ca (tương ứng với 12 kịch bản).
+    \item \textbf{Số ca đạt (Pass):} 12 ca.
     \item \textbf{Số ca lỗi (Fail):} 0 ca.
     \item \textbf{Tỷ lệ thành công:} 100\%.
 \end{itemize}
