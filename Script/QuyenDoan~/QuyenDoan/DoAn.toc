@@ -25,11 +25,10 @@
 \contentsline {section}{\numberline {2.5}Kịch bản vận hành và Kịch bản ứng dụng (Use Case Scenarios)}{10}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Cơ sở lý thuyết của định hướng sử dụng}{11}{section.2.6}%
 \contentsline {chapter}{\numberline {3}CÔNG NGHỆ SỬ DỤNG}{12}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Động cơ phát triển trò chơi (Unity Game Engine)}{12}{section.3.1}%
+\contentsline {section}{\numberline {3.1}Hệ thống camera thông minh (Cinemachine)}{12}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Hệ thống kịch bản và hội thoại đa nhánh (Yarn Spinner)}{13}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Công nghệ hoạt ảnh 2D dạng xương (Spine Animation)}{13}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Giải thuật tìm đường thông minh (A* Pathfinding)}{14}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Hệ thống quản lý phiên bản (Git Version Control)}{15}{section.3.5}%
 \contentsline {chapter}{\numberline {4}THIẾT KẾ TRÒ CHƠI}{16}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Tổng quan trò chơi}{16}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Luồng trò chơi và Vòng lặp cốt lõi}{16}{subsection.4.1.1}%

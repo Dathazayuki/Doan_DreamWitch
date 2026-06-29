@@ -3,19 +3,19 @@
 
 Chương này trình bày chi tiết về các công nghệ, nền tảng phát triển và công cụ quản lý phiên bản được sử dụng trong dự án trò chơi "Dream Witch". Việc lựa chọn công nghệ được thực hiện dựa trên cơ sở phân tích kỹ lưỡng các yêu cầu kỹ thuật và lối chơi được đặc tả ở Chương 2, nhằm đưa ra giải pháp tối ưu cho hiệu năng và tiến độ phát triển của dự án.
 
-\section{Động cơ phát triển trò chơi (Unity Game Engine)}
+\section{Hệ thống camera thông minh (Cinemachine)}
 \label{section:tech:3.1}
 
-Động cơ trò chơi đóng vai trò quản lý vòng đời thực thể, hệ thống vật lý, kết xuất hình ảnh và tương tác người dùng. Để xây dựng một trò chơi đi cảnh hành động 2D kết hợp yếu tố Metroidvania như "Dream Witch", đề tài lựa chọn sử dụng động cơ Unity \cite{unitymanual}. Động cơ này cung cấp Physics2D Engine tối ưu hóa sẵn hỗ trợ các chuyển động Kinematic (lướt, bám tường) và va chạm Collider2D chính xác, kết hợp kiến trúc hướng thành phần (Component-Based Architecture) giúp phân tách độc lập các hành vi nhân vật (như PlayerMovement, PlayerStats) qua MonoBehaviour. Khả năng biên dịch tối ưu hóa cho nền tảng PC Standalone dạng ngoại tuyến cũng đáp ứng hoàn toàn kịch bản vận hành của trò chơi (Mục \ref{section:2.5}).
+Để mang lại trải nghiệm hình ảnh điện ảnh và bám sát các chuyển động tốc độ cao của nhân vật chính (như nhảy kép, lướt), dự án đã tích hợp hệ thống camera thông minh Cinemachine. Khác với hệ thống camera tĩnh hoặc lập trình thủ công truyền thống, Cinemachine cung cấp các công cụ cấu hình theo mô hình đạo diễn ảo (Virtual Camera), cho phép dễ dàng thiết lập vùng chết (Dead Zone), giới hạn biên (Bounding Box) để camera không vượt qua mép bản đồ, và các tính năng nội suy làm mượt chuyển động linh hoạt.
 
-Trong quá trình khảo sát, các giải pháp thay thế như Godot Engine và Unreal Engine đã được cân nhắc. Godot rất nhẹ nhưng hệ sinh thái C\# và khả năng tích hợp thư viện bên thứ ba (như Spine, A* Pathfinding) chưa thực sự ổn định bằng Unity. Trong khi đó, Unreal Engine quá nặng nề và cơ chế Paper2D không được hỗ trợ tốt cho dự án game 2D độc lập. Do đó, Unity là lựa chọn tối ưu nhờ hệ sinh thái 2D phong phú, tương thích tốt với các công cụ hoạt ảnh và tìm đường bên ngoài, cùng ngôn ngữ C\# hướng đối tượng chặt chẽ giúp quản lý cấu trúc mã nguồn phức tạp của hệ thống máy trạng thái nhân vật.
+So với việc tự lập trình bằng mã nguồn C\# cho phép nội suy vị trí camera (Slerp/Lerp) - vốn tiêu tốn thời gian và dễ gặp lỗi rung giật (jitter) khi framerate thay đổi, Cinemachine xử lý mượt mà bài toán theo dấu mục tiêu thông qua thành phần Framing Transposer. Hệ thống này cũng cho phép dễ dàng chuyển đổi qua lại giữa các góc máy khác nhau khi có sự kiện đặc biệt (ví dụ: phóng to khi bắt đầu đánh Boss) bằng tính năng Priority, đồng thời cung cấp sẵn khả năng tạo hiệu ứng rung lắc màn hình (Camera Shake) khi nhân vật nhận sát thương thông qua module Impulse.
 
-% NOTE: Sinh viên có thể chèn hình chụp thực tế giao diện Unity Editor quản lý các component của nhân vật tại đây
+% NOTE: Sinh viên có thể chèn hình chụp thực tế thiết lập Cinemachine tại đây
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,height=0.25\textheight,keepaspectratio]{Hinhve/UnityEditor.png}
-    \caption{Giao diện Unity Editor thiết lập thực tế cấu trúc component và GameObject}
-    \label{fig:unity_editor_screenshot}
+    \includegraphics[width=0.9\linewidth,height=0.25\textheight,keepaspectratio]{Hinhve/CinemachineCamera.png}
+    \caption{Thiết lập thông số kỹ thuật cho Virtual Camera trong giao diện Cinemachine}
+    \label{fig:cinemachine_editor}
 \end{figure}
 
 \section{Hệ thống kịch bản và hội thoại đa nhánh (Yarn Spinner)}
@@ -63,19 +63,5 @@ Các giải pháp thay thế như Unity NavMesh 2D (chủ yếu thiết kế cho
     \label{fig:astar_grid_graph}
 \end{figure}
 
-\section{Hệ thống quản lý phiên bản (Git Version Control)}
-\label{section:tech:3.5}
-
-Để đảm bảo an toàn dữ liệu và theo dõi lịch sử phát triển dự án "Dream Witch", đề tài lựa chọn hệ thống quản lý phiên bản phân tán Git kết hợp dịch vụ lưu trữ đám mây GitHub. Git giúp quản lý toàn vẹn lịch sử chỉnh sửa các tệp mã nguồn C\# và tài liệu LaTeX theo từng dòng, hỗ trợ phân nhánh (Branching) để phát triển độc lập các tính năng mới mà không làm ảnh hưởng nhánh chính, cũng như khả năng khôi phục (Rollback) mã nguồn nhanh chóng khi phát sinh lỗi hệ thống.
-
-So với SVN (hệ thống tập trung yêu cầu kết nối mạng liên tục, thao tác nhánh chậm) hay Perforce Helix Core (chi phí cao, cấu hình máy chủ phức tạp, không cần thiết cho dự án quy mô vừa và nhỏ), Git là giải pháp gọn nhẹ, phổ biến và hoạt động ngoại tuyến linh hoạt. Nhằm tối ưu hóa việc quản lý các tệp tài nguyên nhị phân lớn (hình ảnh, âm thanh, tệp hoạt ảnh Spine), dự án đã tích hợp công cụ Git LFS (Large File Storage) để giảm dung lượng kho lưu trữ và đẩy nhanh tốc độ đồng bộ mã nguồn.
-
-% NOTE: Sinh viên có thể chèn hình chụp biểu đồ nhánh Git (Git branch/commit graph) từ các công cụ quản lý như GitHub Desktop hoặc SourceTree tại đây
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.9\linewidth]{Hinhve/GitGraph.png}
-%     \caption{Lịch sử phân nhánh và sơ đồ cam kết (Commit Graph) của dự án trên Git}
-%     \label{fig:git_commit_graph}
-% \end{figure}
 
 \end{document}
