@@ -33,18 +33,18 @@ So với việc tự lập trình bộ phân giải JSON/XML (tốn công sức 
     \label{fig:yarn_editor_screenshot}
 \end{figure}
 
-\section{Công nghệ hoạt ảnh 2D dạng xương (Spine Animation)}
+\section{Thư viện tích hợp hoạt ảnh 2D (Spine-Unity Runtime)}
 \label{section:tech:3.3}
 
-Để hiện thực hóa trải nghiệm game hành động mượt mà với hoạt ảnh Boss linh hoạt phức tạp (Mục \ref{section:2.2}), đề tài lựa chọn công nghệ Spine Animation \cite{esotericspine}. Spine giải quyết bài toán tài nguyên và hiệu năng nhờ kỹ thuật biến dạng lưới khung xương (Skeletal Mesh Deformation) giúp tạo ra các chuyển động trượt, nén mượt mà mà không phụ thuộc vào số lượng hình ảnh vẽ tay lớn. Công nghệ này cũng tự động hòa trộn hoạt ảnh (Animation Blending) và cho phép gắn các sự kiện vào mốc thời gian hoạt ảnh (Keyframe Event) để đồng bộ hóa các hitbox tấn công cận chiến chính xác.
+Để hiện thực hóa trải nghiệm game hành động mượt mà và quản lý các hoạt ảnh phức tạp của Boss, dự án đã tích hợp thư viện \texttt{spine-unity} runtime \cite{esotericspine}. Thay vì sử dụng phương pháp Sprite Sheets truyền thống vẽ tay từng khung hình (tiêu tốn lượng VRAM khổng lồ), hệ thống sử dụng component \texttt{SkeletonAnimation} và \texttt{SkeletonAnimator} của thư viện để nội suy dữ liệu JSON tĩnh thành các lưới Mesh động trong thời gian thực (Skeletal Mesh Deformation). Khả năng tận dụng trực tiếp Mesh Renderer của Unity giúp tối ưu hóa số lượng lệnh gọi vẽ (Draw Calls), đồng thời cho phép tái sử dụng một bộ xương duy nhất cho nhiều cấu hình ngoại hình (Skins) khác nhau, tiết kiệm đáng kể tài nguyên bộ nhớ.
 
-So với phương pháp Sprite Sheets truyền thống vẽ tay từng khung hình (tiêu tốn lượng VRAM khổng lồ khi nhân vật có nhiều biến thể hành động) hay bộ công cụ Unity Sprite Skinning mặc định (thiếu các tính năng điều khiển xương động nâng cao như IK, Path Constraints), Spine cung cấp runtime tối ưu hóa vượt trội cho Unity. Nó giúp giảm tối đa dung lượng bộ nhớ kết cấu bằng việc tái sử dụng một bộ xương cho nhiều giao diện (Skins) và nâng cao trải nghiệm thị giác nhờ hiệu ứng giả lập 3D sống động cho các thực thể lớn.
+Về khía cạnh lập trình, thư viện \texttt{spine-unity} cung cấp cơ chế bắt sự kiện thời gian thực (Animation Events) cực kỳ chặt chẽ thông qua các C\# Delegate. Thay vì phải dùng Coroutine hay bộ đếm thời gian đếm ngược thủ công vốn dễ bị sai lệch do framerate, mã nguồn trò chơi đăng ký trực tiếp vào sự kiện \texttt{AnimationState.Event} của Spine. Kỹ thuật này cho phép hệ thống lập trình đồng bộ hóa 100\% độ chính xác giữa khoảnh khắc nhân vật vung kiếm trúng đích với việc kích hoạt Hitbox sát thương (bật/tắt Collider2D), cũng như khởi tạo các hiệu ứng hạt (Particle) và phát âm thanh ngay tại khung hình (keyframe) do họa sĩ định nghĩa.
 
-% NOTE: Sinh viên có thể chèn hình chụp thực tế giao diện thiết kế xương nhân vật trong phần mềm Spine tại đây
+% NOTE: Sinh viên có thể chèn hình chụp mã nguồn C# hoặc giao diện Inspector của SkeletonAnimation tại đây
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth,height=0.28\textheight,keepaspectratio]{Hinhve/SpineEditor.png}
-    \caption{Khung xương của nhân vật thiết kế trong phần mềm Spine}
+    \caption{Giao diện Inspector quản lý cấu hình thành phần SkeletonAnimation trong Unity}
     \label{fig:spine_editor_screenshot}
 \end{figure}
 
