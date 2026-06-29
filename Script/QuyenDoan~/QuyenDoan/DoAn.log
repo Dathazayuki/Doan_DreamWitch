@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.7)  29 JUN 2026 16:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.7)  29 JUN 2026 16:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1795,7 +1795,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.37 ... chơi (Objectives)}{19}{subsection.4.2.2}
+l.37 ... chơi (Objectives)}{18}{subsection.4.2.2}
                                                   % [1
 
 ]
@@ -1806,7 +1806,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.65 ...me Menus \& Panels)}{33}{subsection.4.8.2}
+l.65 ...me Menus \& Panels)}{32}{subsection.4.8.2}
                                                   % [2]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -2114,9 +2114,9 @@ Ch\uhorn \ohorn ng 3.
 <Hinhve/CinemachineCamera.jpg, id=882, 1920.17375pt x 1027.84pt>
 File: Hinhve/CinemachineCamera.jpg Graphic file (type jpg)
 <use Hinhve/CinemachineCamera.jpg>
-Package pdftex.def Info: Hinhve/CinemachineCamera.jpg  used on input line 14.
+Package pdftex.def Info: Hinhve/CinemachineCamera.jpg  used on input line 16.
 (pdftex.def)             Requested size: 341.51443pt x 182.80751pt.
-LaTeX Font Info:    Trying to load font information for T5+pcr on input line 22
+LaTeX Font Info:    Trying to load font information for T5+pcr on input line 24
 .
 
 (C:\Users\trinh\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5pcr.fd
@@ -2125,10 +2125,10 @@ File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
 [12
 
  <./Hinhve/CinemachineCamera.jpg>]
-<Hinhve/YarnEditor.png, id=891, 1252.68pt x 959.585pt>
+<Hinhve/YarnEditor.png, id=890, 1252.68pt x 959.585pt>
 File: Hinhve/YarnEditor.png Graphic file (type png)
 <use Hinhve/YarnEditor.png>
-Package pdftex.def Info: Hinhve/YarnEditor.png  used on input line 29.
+Package pdftex.def Info: Hinhve/YarnEditor.png  used on input line 31.
 (pdftex.def)             Requested size: 267.27571pt x 204.74005pt.
 
 
@@ -2142,16 +2142,8 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 <Hinhve/SpineEditor.jpg, id=899, 1926.19624pt x 1035.87pt>
 File: Hinhve/SpineEditor.jpg Graphic file (type jpg)
 <use Hinhve/SpineEditor.jpg>
-Package pdftex.def Info: Hinhve/SpineEditor.jpg  used on input line 44.
+Package pdftex.def Info: Hinhve/SpineEditor.jpg  used on input line 46.
 (pdftex.def)             Requested size: 380.70616pt x 204.73619pt.
-<Hinhve/AstarGridGraph.png, id=901, 1468.48625pt x 970.62625pt>
-File: Hinhve/AstarGridGraph.png Graphic file (type png)
-<use Hinhve/AstarGridGraph.png>
-Package pdftex.def Info: Hinhve/AstarGridGraph.png  used on input line 59.
-(pdftex.def)             Requested size: 309.75806pt x 204.74097pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -2160,7 +2152,13 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.977pt}.
 
-[14 <./Hinhve/SpineEditor.jpg>])
+[14 <./Hinhve/SpineEditor.jpg>]
+<Hinhve/AstarGridGraph.png, id=906, 1468.48625pt x 970.62625pt>
+File: Hinhve/AstarGridGraph.png Graphic file (type png)
+<use Hinhve/AstarGridGraph.png>
+Package pdftex.def Info: Hinhve/AstarGridGraph.png  used on input line 61.
+(pdftex.def)             Requested size: 309.75806pt x 204.74097pt.
+)
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
 (fancyhdr)                Make it at least 15.977pt, for example:
@@ -3705,7 +3703,7 @@ Package logreq Info: Writing requests to 'DoAn.run.xml'.
 Here is how much of TeX's memory you used:
  46865 strings out of 467871
  929825 string characters out of 5418377
- 1798107 words of memory out of 5000000
+ 1798133 words of memory out of 5000000
  74629 multiletter control sequences out of 15000+600000
  667838 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -3723,7 +3721,7 @@ ocal/Programs/MiKTeX/fonts/type1/vntex/urwvn/ucrr8v.pfb><C:/Users/trinh/AppData
 ta/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/trinh/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmr8v.pfb><C:/Users/trinh/App
 Data/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utmri8v.pfb>
-Output written on DoAn.pdf (93 pages, 9659577 bytes).
+Output written on DoAn.pdf (93 pages, 9660084 bytes).
 PDF statistics:
  1501 PDF objects out of 1728 (max. 8388607)
  321 named destinations out of 1000 (max. 500000)
